@@ -18,7 +18,7 @@ class OnBoardingDotNavigation extends StatelessWidget {
     return Positioned(
       //bottom: TDeviceUtils.getBottomNavigationBarHeight(),
       //left: TSizes.defaultSpace,
-      child: AnimatedSmoothIndicator(
+      child: Obx(() => AnimatedSmoothIndicator(
         activeIndex: controller.currentPageIndex.value,
         count: 3,
         effect: ScrollingDotsEffect(
@@ -29,7 +29,7 @@ class OnBoardingDotNavigation extends StatelessWidget {
           dotHeight: 8.v,
           dotWidth: 8.hw,
         ),
-      )
+      ))
     /*  child: SmoothPageIndicator(
         controller: controller.pageController,
         onDotClicked: controller.dotNavigationCLick,

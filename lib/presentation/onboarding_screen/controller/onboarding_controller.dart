@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:flutter/material.dart';
 
@@ -6,8 +7,11 @@ class OnBoardingController extends GetxController {
 
   ///Variables
   //final pageController = PageController(viewportFraction: 0.7);
-  final pageController = PageController();
+  final pageController = PageController(viewportFraction: 0.8);
+  //final pageController = PageController();
   Rx<int> currentPageIndex = 0.obs;
+
+  final CarouselController carouselController = CarouselController();
 
   /// Update Current Index When Page Scroll
   void updatePageIndicator(index) => currentPageIndex.value = index;
