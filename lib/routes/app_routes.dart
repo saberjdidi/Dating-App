@@ -1,5 +1,7 @@
 import 'package:dating_app_bilhalal/presentation/onboarding_screen/binding/onboarding_binding.dart';
 import 'package:dating_app_bilhalal/presentation/onboarding_screen/onboarding_screen.dart';
+import 'package:dating_app_bilhalal/presentation/sign_in_screen/binding/sign_in_binding.dart';
+import 'package:dating_app_bilhalal/presentation/sign_in_screen/sign_in_screen.dart';
 import 'package:dating_app_bilhalal/presentation/splash_screen/binding/splash_binding.dart';
 import 'package:dating_app_bilhalal/presentation/splash_screen/splash_screen.dart';
 
@@ -29,19 +31,19 @@ class AppRoutes {
         OnboardingBinding(),
       ],
     ),
+    GetPage(
+      name: Routes.signInScreen,
+      page: () => SignInScreen(),
+      bindings: [
+        SignInBinding(),
+      ],
+    ),
     /*
     GetPage(
       name: Routes.onboardingScreen1,
       page: () => OnboardingScreen1(),
       bindings: [
         OnboardingBinding(),
-      ],
-    ),
-    GetPage(
-      name: Routes.signInScreen,
-      page: () => SignInScreen(),
-      bindings: [
-        SignInBinding(),
       ],
     ),
     GetPage(

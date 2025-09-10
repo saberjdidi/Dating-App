@@ -16,6 +16,7 @@ export 'package:iconsax/iconsax.dart';
 export 'package:dating_app_bilhalal/widgets/custom_elevated_button.dart';
 export 'package:dating_app_bilhalal/theme/custom_button_style.dart';
 export 'package:dating_app_bilhalal/widgets/custom_button_container.dart';
+export 'package:dating_app_bilhalal/core/utils/message_snackbar.dart';
 
 
 

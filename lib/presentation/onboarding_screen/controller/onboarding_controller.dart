@@ -28,16 +28,12 @@ class OnBoardingController extends GetxController {
   }
 
   /// Update current index & jump to the next page
-  void nextPage() async {
-    if(currentPageIndex.value == 2){
+   nextPage() async {
       final storage = GetStorage();
       storage.write('IsFirstTime', false);
       ///await PrefUtils.setIsFirstTime(false);
-      //Get.offAll(const LoginScreen());
-    } else {
-      int page = currentPageIndex.value + 1;
-      pageController.jumpToPage(page);
-    }
+      //Get.offAll(Routes.signInScreen);
+      Get.offAllNamed(Routes.signInScreen);
   }
 
   /// Update current index & jump to the last page

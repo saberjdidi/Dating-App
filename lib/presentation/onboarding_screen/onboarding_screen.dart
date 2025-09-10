@@ -64,6 +64,7 @@ class OnBoardingScreen extends StatelessWidget {
               colorText: TColors.white,
               fontSize: 20.adaptSize,
               onPressed: () async {
+               await controller.nextPage();
                 //dialogVerifyAccount(context);
               },
             ),

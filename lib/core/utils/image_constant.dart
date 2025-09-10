@@ -7,6 +7,14 @@ class ImageConstant {
   static String logo_splash = '$imagePath/logo_splash.png';
   static String logoSplashBlack = '$imagePath/logo_black.png';
   static String logo = '$imagePath/logo.png';
+  static String logoHeaderSVG = '$imagePath/logo_header.svg';
+  static String logoHeaderPNG = '$imagePath/logo-header.png';
+
+  //Social Images
+  static String facebook = '$imagePath/facebook.png';
+  static String google = '$imagePath/google.png';
+  static String apple = '$imagePath/apple.png';
+
 
   //common images
   static String imgArrowLeftBlack = '$imagePath/arrow_back.svg';
