@@ -1,17 +1,17 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/validators/validation.dart';
-import 'package:dating_app_bilhalal/presentation/sign_in_screen/controller/sign_in_controller.dart';
-import 'package:dating_app_bilhalal/widgets/custom_divider.dart';
+import 'package:dating_app_bilhalal/presentation/otp_screen/otp_screen.dart';
+import 'package:dating_app_bilhalal/presentation/signup_screen/controller/signup_controller.dart';
+import 'package:dating_app_bilhalal/presentation/signup_screen/controller/signup_with_email_controller.dart';
 import 'package:dating_app_bilhalal/widgets/custom_term_privacy_widget.dart';
 import 'package:dating_app_bilhalal/widgets/custom_text_form_field.dart';
-import 'package:dating_app_bilhalal/widgets/form_divider_widget.dart';
 import 'package:dating_app_bilhalal/widgets/social_button_widget.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class SignInScreen extends GetView<SignInController> {
-  SignInScreen({super.key});
+class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
+  SignUpWithEmailScreen({super.key});
 
   var _appTheme = PrefUtils().getThemeData();
 
@@ -29,7 +29,7 @@ class SignInScreen extends GetView<SignInController> {
             body: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Form(
-                  key: controller.formLoginKey,
+                  key: controller.formSignUpKey,
                   child: Container(
                       width: double.maxFinite,
                       padding: EdgeInsets.symmetric(horizontal: 24.hw, vertical: 11.v),
@@ -57,9 +57,10 @@ class SignInScreen extends GetView<SignInController> {
                               ),
                             ),
                             SizedBox(height: TSizes.spaceBtwItems),
-                            Text("تسجيل الدخول",
+                           /* Text("اشتراک",
                                 style: Theme.of(context).textTheme.headlineSmall!.apply(color: TColors.black, fontWeightDelta: 2),
-                                textAlign: TextAlign.center),
+                                textAlign: TextAlign.center), */
+                            TitleWidget(title: "اشتراک"),
                             SizedBox(height: TSizes.spaceBtwSections),
                             _buildLoginForm(context),
                             SizedBox(height: 10.v),
@@ -67,7 +68,7 @@ class SignInScreen extends GetView<SignInController> {
                             CustomTermPrivacyWidget(),
                             //_buildOrDivider(),
                             //SizedBox(height: 30.v),
-                          /*  Column(
+                            /*  Column(
                               //mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
@@ -148,25 +149,30 @@ class SignInScreen extends GetView<SignInController> {
                 obscureText: controller.isShowPassword.value,
                 contentPadding: EdgeInsets.symmetric(vertical: 21.v)),
           )),
-          const SizedBox(height: TSizes.spaceBtwSections,),
-          GestureDetector(
-              onTap: () {
-                onTapTxtSignUp();
-              },
-              child: Padding(padding: EdgeInsets.only(left: 8.hw),
-                  child: Text("او قم بالتسجيل معنا؟",
-                    //style: CustomTextStyles.titleMediumBlueVPT
-                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: TColors.black,
-                      fontSize: 16.fSize,
-                      fontWeight: FontWeight.w600,
-                      decoration: TextDecoration.underline,
-                      decorationColor: TColors.black54,
-                    ),
-                  )
-              )
-          ),
-         /* GestureDetector(
+          const SizedBox(height: TSizes.spaceBtwInputFields,),
+          Obx(() => Directionality(
+            textDirection: TextDirection.rtl,
+            child: CustomTextFormField(
+                controller: controller.passwordController,
+                hintText: "تأكيد كلمة المرور".tr, textInputAction: TextInputAction.done,
+                textInputType: TextInputType.visiblePassword,
+                prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
+                    child: CustomImageView(imagePath: ImageConstant.imgLock, height: 20.adaptSize, width: 20.adaptSize)),
+                prefixConstraints: BoxConstraints(maxHeight: 60.v),
+                suffix: InkWell(onTap: () {controller.isShowPassword.value = !controller.isShowPassword.value;},
+                    child: Container(margin: EdgeInsets.fromLTRB(30.hw, 20.v, 20.hw, 20.v),
+                        child: CustomImageView(
+                            imagePath: ImageConstant.imgEye,
+                            height: 20.adaptSize,
+                            width: 20.adaptSize)
+                    )),
+                suffixConstraints: BoxConstraints(maxHeight: 60.v),
+                validator: (value) => Validator.validateEmptyText("lbl_password".tr, value),
+                obscureText: controller.isShowPassword.value,
+                contentPadding: EdgeInsets.symmetric(vertical: 21.v)),
+          )),
+          const SizedBox(height: TSizes.spaceBtwInputFields,),
+          /* GestureDetector(
               onTap: () {
                 onTapTxtForgotThePassword();
               },
@@ -185,17 +191,17 @@ class SignInScreen extends GetView<SignInController> {
           ), */
           SizedBox(height: 24.v),
           CustomButtonContainer(
-            text: "تسجيل الدخول",
+            text: "اشتراك",
             color1: TColors.yellowAppDark,
             color2: TColors.yellowAppLight,
             borderRadius: 10,
             colorText: TColors.white,
             fontSize: 20.adaptSize,
             onPressed: () async {
-              controller.checkLogin(context);
+              onTapOTPPage(context);
             },
           ),
-        /*  CustomElevatedButton(
+          /*  CustomElevatedButton(
               buttonStyle: CustomButtonStyles.elevatedBlueLight700Radius10,
               text: "Connexion".tr,
               onPressed: (){
@@ -206,15 +212,15 @@ class SignInScreen extends GetView<SignInController> {
           Align(
               alignment: Alignment.center,
               child: GestureDetector(onTap: () {
-                onTapTxtForgotThePassword();
+                //onTapTxtForgotThePassword();
               },
                   child: Text("أو قم بالتسجيل مع".tr,
                     style: _appTheme =='light'
                         ? Theme.of(context).textTheme.titleMedium!.copyWith(
-                        color: TColors.black54,
-                        fontSize: 18.fSize,
-                        fontWeight: FontWeight.w600,
-                        //decoration: TextDecoration.underline
+                      color: TColors.black54,
+                      fontSize: 18.fSize,
+                      fontWeight: FontWeight.w600,
+                      //decoration: TextDecoration.underline
                     )
                         : CustomTextStyles.titleMediumBlueVPT,
 
@@ -242,11 +248,15 @@ class SignInScreen extends GetView<SignInController> {
     SystemNavigator.pop(); // Exit the app
   }
   /// Navigates to the forgotPasswordScreen when the action is triggered.
-  onTapTxtForgotThePassword() {
-    Get.toNamed(Routes.forgotPasswordScreen, );
+  onTapOTPPage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const OTPScreen()),
+    );
   }
-  /// Navigates to the signUpBlankScreen when the action is triggered.
-  onTapTxtSignUp() {
-    Get.toNamed(Routes.signUpScreen, );
+
+  /// Navigates to the signInScreen when the action is triggered.
+  onTapTxtSignIn() {
+    Get.toNamed(Routes.signInScreen, );
   }
 }

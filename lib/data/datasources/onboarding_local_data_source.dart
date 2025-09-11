@@ -3,19 +3,44 @@ import 'package:dating_app_bilhalal/presentation/onboarding_screen/model/onboard
 
 List<OnboardingModel> onBoardingList = [
   OnboardingModel(
-      title: "Votre application vers les enchères immobilières",
-      body: "Accédez rapidement aux enchères en cours. Découvrez une interface intuitive pour explorer des offres propriétés au Canada.",
+      title: "غالي",
+      body: "سجل اليوم واستمتع بالشهر الأول من المزايا المميزة معنا.",
       image: ImageConstant.imgOnBoarding1
     //image: ImageConstant.imgOnBoarding1
   ),
   OnboardingModel(
-      title: "Trouvez la propriété parfaite en quelques étapes",
-      body: "Parcourez nos annonces immobilières et trouvez votre prochaine aventure immobilière avec notre recherche rapide",
+      title: "مباريات",
+      body: "نقوم بمطابقتك مع الأشخاص الذين لديهم مجموعة كبيرة من الاهتمامات المتشابهة.",
       image: ImageConstant.imgOnBoarding2
   ),
   OnboardingModel(
-      title: "Misez facilement sur vos propriétés préférées",
-      body: "Naviguez parmi les enchères en cours et misez sans effort sur les propriétés qui vous intéressent.",
+      title: "خوارزمية",
+      body: "يخضع المستخدمون لعملية فحص للتأكد من عدم مطابقتهم أبدًا مع الروبوتات.",
       image: ImageConstant.imgOnBoarding3
+  ),
+];
+
+List<OnboardingModel> ImagesDatingList = [
+  OnboardingModel(
+      title: "غالي",
+      body: "سجل اليوم واستمتع بالشهر الأول من المزايا المميزة معنا.",
+      image: ImageConstant.imgOnBoarding1
+    //image: ImageConstant.imgOnBoarding1
+  ),
+  OnboardingModel(
+      title: "مباريات",
+      body: "نقوم بمطابقتك مع الأشخاص الذين لديهم مجموعة كبيرة من الاهتمامات المتشابهة.",
+      image: ImageConstant.imgOnBoarding2
+  ),
+  OnboardingModel(
+      title: "خوارزمية",
+      body: "يخضع المستخدمون لعملية فحص للتأكد من عدم مطابقتهم أبدًا مع الروبوتات.",
+      image: ImageConstant.imgOnBoarding3
+  ),
+  OnboardingModel(
+      title: "غالي",
+      body: "سجل اليوم واستمتع بالشهر الأول من المزايا المميزة معنا.",
+      image: ImageConstant.imgOnBoarding4
+    //image: ImageConstant.imgOnBoarding1
   ),
 ];

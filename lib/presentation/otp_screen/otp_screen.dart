@@ -1,0 +1,240 @@
+import 'package:dating_app_bilhalal/core/app_export.dart';
+import 'package:dating_app_bilhalal/presentation/otp_screen/otp_success_screen.dart';
+import 'package:dating_app_bilhalal/widgets/app_bar/appbar_widget.dart';
+import 'package:dating_app_bilhalal/widgets/countdown_widget.dart';
+import 'package:dating_app_bilhalal/widgets/custom_outlined_button.dart';
+import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
+import 'package:dating_app_bilhalal/widgets/title_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:sms_autofill/sms_autofill.dart';
+
+class OTPScreen extends StatefulWidget {
+  const OTPScreen({super.key});
+
+  @override
+  State<OTPScreen> createState() => _OTPScreenState();
+}
+
+class _OTPScreenState extends State<OTPScreen> with SingleTickerProviderStateMixin {
+
+  AnimationController? _animationController;
+  int levelClock = 2 * 60;
+
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+        vsync: this, duration: Duration(seconds: levelClock));
+
+    _animationController!.forward();
+
+    _listenSmsCode();
+  }
+
+  @override
+  void dispose() {
+    SmsAutoFill().unregisterListener();
+    _animationController!.dispose();
+    super.dispose();
+  }
+
+  _listenSmsCode() async {
+    await SmsAutoFill().listenForCode();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    mediaQueryData = MediaQuery.of(context);
+    var screenWidth = mediaQueryData.size.width;
+    var isSmallPhone = screenWidth < 360;
+    var isTablet = screenWidth >= 600;
+
+    return Scaffold(
+      backgroundColor: TColors.white,
+      appBar: TAppBar(
+        showBackArrow: true,
+        rightToLeft: true,
+        title: Text('تغيير البريد الإلكتروني',
+            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+              color: TColors.blueDating,
+              fontSize: 20.fSize,
+              fontWeight: FontWeight.w600,
+              decoration: TextDecoration.underline,
+              decorationColor: TColors.blueDating,
+            ),
+        ),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(18.hw),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: CustomImageView(
+                  imagePath: ImageConstant.logoHeaderPNG,
+                  height: 180.adaptSize,
+                  width: 180.adaptSize,
+                  fit: BoxFit.fill,
+                ),
+              ),
+              SizedBox(height: TSizes.spaceBtwItems),
+              Center(child: TitleWidget(title: "التحقق من حسابك", textAlign: TextAlign.center,)),
+              SubTitleWidget(subtitle: "تم إرسال رمز مكون من ستة أرقام إلى بريدك الإلكتروني المسجل. أدخل الرمز هنا للتحقق من حسابك.",
+              textAlign: TextAlign.center,),
+              SizedBox(height: TSizes.spaceBtwItems),
+             /* SizedBox(
+                height: 120,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: const [
+                    Text("Verification"),
+                    Text(
+                      "We sent you a SMS Code",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Text(
+                      "On number: +998993727053",
+                      style: TextStyle(fontWeight: FontWeight.w500),
+                    )
+                  ],
+                ),
+              ), */
+              Center(
+                child: PinFieldAutoFill(
+                  codeLength: 6,
+                  autoFocus: true,
+                  decoration: UnderlineDecoration(
+                    lineHeight: 2,
+                    lineStrokeCap: StrokeCap.square,
+                    textStyle: const TextStyle(fontSize: 20, color: Colors.black),
+                    bgColorBuilder: PinListenColorBuilder(
+                        Colors.yellow.shade200, Colors.grey.shade200),
+                    colorBuilder: const FixedColorBuilder(Colors.transparent),
+                  ),
+                ),
+              ),
+             SizedBox(height: 20.v),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(Icons.access_time_sharp, color: TColors.gray700),
+                      CountDownWidget(
+                        animation: StepTween(
+                          begin: levelClock, // THIS IS A USER ENTERED NUMBER
+                          end: 0,
+                        ).animate(_animationController!),
+
+                      ),
+                    ],
+                  ),
+                  Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(padding: EdgeInsets.only(bottom: 1.v),
+                              child: Text("لم تستلم الرمز؟ ",
+                                  style:  isTablet
+                                      ? Theme.of(context).textTheme.titleMedium!.apply(color: TColors.gray700)
+                                      : CustomTextStyles.bodyMediumTextFormFieldGrey)
+                          ),
+                          GestureDetector(
+                              onTap: () async {
+                              },
+                              child: Padding(padding: EdgeInsets.only(left: 8.hw),
+                                  child: Text("أعد الإرسال",
+                                    //style: CustomTextStyles.titleMediumBlueVPT
+                                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                                      color: TColors.yellowAppDark,
+                                      fontSize: 16.fSize,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  )
+                              )
+                          )
+                        ]
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(height: 20.v),
+              CustomButtonContainer(
+                text: "يكمل",
+                color1: TColors.yellowAppDark,
+                color2: TColors.yellowAppLight,
+                borderRadius: 10,
+                colorText: TColors.white,
+                fontSize: 20.adaptSize,
+                onPressed: () async {
+                  onTapOTPSuccessPage(context);
+                },
+              ),
+              SizedBox(height: 15.v,),
+              Directionality(
+                textDirection: TextDirection.rtl,
+                child: CustomOutlinedButton(
+                  height: 70.v,
+                  buttonTextStyle: CustomTextStyles.bodyMediumTextFormField,
+                  buttonStyle: CustomButtonStyles.outlineBlack,
+                  text: "إعادة إرسال OTP",
+                  margin: EdgeInsets.only(top: 6.hw),
+                  onPressed: (){
+
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    /*  floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          SizedBox(
+            height: 56,
+            width: 150,
+            child: ElevatedButton(
+              onPressed: () async {
+                //?  use this code to get sms signature for your app
+                //final String signature = await SmsAutoFill().getAppSignature;
+                //print("Signature: $signature");
+
+                _animationController!.reset();
+                _animationController!.forward();
+              },
+              child: const Text("Resend"),
+            ),
+          ),
+          SizedBox(
+            height: 56,
+            width: 150,
+            child: ElevatedButton(
+              onPressed:  () {
+                //Confirm and Navigate to Home Page
+              } ,
+              child: const Text("Confirm"),
+            ),
+          ),
+        ],
+      ), */
+    );
+  }
+}
+
+onTapOTPSuccessPage(BuildContext context) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => const OTPSuccessScreen()),
+  );
+}

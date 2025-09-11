@@ -9,6 +9,7 @@ class ImageConstant {
   static String logo = '$imagePath/logo.png';
   static String logoHeaderSVG = '$imagePath/logo_header.svg';
   static String logoHeaderPNG = '$imagePath/logo-header.png';
+  static String successOTPImage = '$imagePath/success_otp.png';
 
   //Social Images
   static String facebook = '$imagePath/facebook.png';
@@ -30,6 +31,7 @@ class ImageConstant {
   static String imgOnBoarding1 = '$imagePath/onboarding1.jpg';
   static String imgOnBoarding2 = '$imagePath/onboarding2.jpg';
   static String imgOnBoarding3 = '$imagePath/onboarding3.jpg';
+  static String imgOnBoarding4 = '$imagePath/onboarding4.jpg';
 
   //Sign In
   static String imgCheckmark = '$imagePath/img_checkmark.svg';

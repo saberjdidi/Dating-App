@@ -11,6 +11,7 @@ class Routes {
   static const String otpVerificationScreen = '/otp_verification_screen';
 
   static const String signUpScreen = '/sign_up_screen';
+  static const String signUpWithEmailScreen = '/sign_up_with_email_screen';
   static const String signUpStepperScreen = '/signup_stepper_screen';
   static const String inscriptionScreen = '/inscription_screen';
   static const String signUpSuccessScreen = '/signup_success_screen';

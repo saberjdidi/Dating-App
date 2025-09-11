@@ -31,13 +31,20 @@ class OnBoardingController extends GetxController {
     pageController.jumpTo(index);
   }
 
-  /// Update current index & jump to the next page
-   nextPage() async {
+   onTapSignIn() async {
       final storage = GetStorage();
       storage.write('IsFirstTime', false);
       ///await PrefUtils.setIsFirstTime(false);
       //Get.offAll(Routes.signInScreen);
       Get.offAllNamed(Routes.signInScreen);
+  }
+
+  onTapSignup() async {
+    final storage = GetStorage();
+    storage.write('IsFirstTime', false);
+    ///await PrefUtils.setIsFirstTime(false);
+    //Get.offAll(Routes.signInScreen);
+    Get.offAllNamed(Routes.signUpScreen);
   }
 
   /// Update current index & jump to the last page

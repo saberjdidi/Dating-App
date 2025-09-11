@@ -64,7 +64,7 @@ class CustomButtonStyles {
     ),
   );
 
-  static ButtonStyle get outlineBlueVPT => ButtonStyle(
+  static ButtonStyle get outlineBlack => ButtonStyle(
     backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
     elevation: MaterialStateProperty.all<double>(0),
     //side: BorderSide(color: appTheme.blueAstree),
@@ -74,7 +74,7 @@ class CustomButtonStyles {
         return BorderSide(color: Colors.grey, width: 2); // Adjust color as needed
       }
       // Return blue border color for other states
-      return BorderSide(color: TColors.blueLight700, width: 2); // Adjust color as needed
+      return BorderSide(color: TColors.gray700, width: 2); // Adjust color as needed
     }),
   );
 

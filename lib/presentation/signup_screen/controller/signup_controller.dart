@@ -1,62 +1,37 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import '../../../core/app_export.dart';
 
 class SignUpController extends GetxController {
+  static SignUpController get instance => Get.find();
 
-  //final GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
-  final formSignUpKey = GlobalKey<FormState>();
+  ///Variables
+  //final pageController = PageController(viewportFraction: 0.7);
+  final pageController = PageController(viewportFraction: 0.8);
+  //final pageController = PageController();
+  Rx<int> currentPageIndex = 0.obs;
 
-  //final apiClient = Get.find<ApiClient>();
+  final CarouselController carouselController = CarouselController();
 
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
+  /// Update Current Index When Page Scroll
+  void updatePageIndicator(index) => currentPageIndex.value = index;
 
-  Rx<bool> isShowPassword = true.obs;
+  //final isBoarding = PrefUtils.getIsBoarding();
 
-  /*
-  checkEmail() async {
-    try {
-      //Get.offAllNamed(Routes.navigationScreen);
-
-      final isValid = formSignUpKey.currentState!.validate();
-      if (!isValid) {
-        return;
-      }
-      formSignUpKey.currentState!.save();
-
-      await apiClient.verifyEmail(
-          {
-            "email": emailController.text.trim()
-          })
-       .then((response) async {
-        debugPrint('response : $response');
-        Get.offAllNamed(Routes.inscriptionScreen, arguments: {
-          "VerificationEmail" : emailController.text.trim()
-        });
-
-        //MessageSnackBar.successSnackBar(title: 'Successfully', message: 'Email created successfully. Please confirm your email.');
-        MessageSnackBar.informationToast(
-            title: 'Successfully',
-            message: "Un e-mail de réinitialisation a été envoyé à votre adresse e-mail.",
-            position: SnackPosition.BOTTOM,
-            duration: 3);
-      })
-      .onError((error, stackTrace){
-        //MessageSnackBar.errorSnackBar(title: 'Warning', message: 'La valeur du champ adresse courriel est déjà utilisée.');
-        MessageSnackBar.errorToast(
-            title: 'Information',
-            message: "La valeur du champ adresse courriel est déjà utilisée.",
-            position: SnackPosition.BOTTOM,
-            duration: 3);
-        debugPrint('error verify email : ${error.toString()}');
-      });
-    }
-    catch (exception) {
-      debugPrint('Exception : ${exception.toString()}');
-    } finally {
-      //isDataProcessing.value = false;
-    }
+  @override
+  void onInit() {
+    super.onInit();
+    //PrefUtils.setIsFirstTime(true);
+    PrefUtils.setIsBoarding("true");
   }
-  */
+
+  /// Update current index & jump to the next page
+  nextPage() async {
+    final storage = GetStorage();
+    storage.write('IsFirstTime', false);
+    ///await PrefUtils.setIsFirstTime(false);
+    //Get.offAll(Routes.signInScreen);
+    Get.offAllNamed(Routes.signUpWithEmailScreen);
+  }
+
 }

@@ -5,8 +5,8 @@ class SocialButtonsWidget extends StatelessWidget {
    SocialButtonsWidget({
     super.key,
     this.onPressed,
-     this.width = 60,
-     this.height = 60,
+     this.width = 25,
+     this.height = 25,
   });
 
   VoidCallback? onPressed;
@@ -20,42 +20,36 @@ class SocialButtonsWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          width: width,
-          height: height,
           decoration: BoxDecoration(border: Border.all(color: TColors.grey), borderRadius: BorderRadius.circular(100)),
           child: IconButton(
             onPressed: () => onPressed,
             icon: Image(
-              width: TSizes.iconMd,
-              height: TSizes.iconMd,
+              width: width,
+              height: height,
               image: AssetImage(ImageConstant.google),
             ),
           ),
         ),
         const SizedBox(width: TSizes.spaceBtwItems),
         Container(
-          width: width,
-          height: height,
           decoration: BoxDecoration(border: Border.all(color: TColors.grey), borderRadius: BorderRadius.circular(100)),
           child: IconButton(
             onPressed: (){},
             icon: Image(
-              width: TSizes.iconMd,
-              height: TSizes.iconMd,
+              width: width,
+              height: height,
               image: AssetImage(ImageConstant.apple),
             ),
           ),
         ),
         const SizedBox(width: TSizes.spaceBtwItems),
         Container(
-          width: width,
-          height: height,
           decoration: BoxDecoration(border: Border.all(color: TColors.grey), borderRadius: BorderRadius.circular(100)),
           child: IconButton(
             onPressed: (){},
             icon: Image(
-              width: TSizes.iconMd,
-              height: TSizes.iconMd,
+              width: width,
+              height: height,
               image: AssetImage(ImageConstant.facebook),
             ),
           ),

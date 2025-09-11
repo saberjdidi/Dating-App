@@ -1,3 +1,4 @@
+import 'package:dating_app_bilhalal/presentation/signup_screen/controller/signup_with_email_controller.dart';
 import 'package:get/get.dart';
 import '../controller/signup_controller.dart';
 
@@ -9,5 +10,6 @@ class SignUpBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => SignUpController());
+    Get.lazyPut(() => SignUpWithEmailController());
   }
 }

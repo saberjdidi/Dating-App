@@ -18,7 +18,7 @@ class CustomTermPrivacyWidget extends StatelessWidget {
           onTap: (){
 
           },
-          child: Text("سياسة الخصوصية",
+          child: Text("شروط الاستخدام",
               style: Theme.of(context).textTheme.bodyLarge!.apply(color: TColors.black, fontWeightDelta: 2),
               textAlign: TextAlign.center),
         ),
@@ -26,11 +26,10 @@ class CustomTermPrivacyWidget extends StatelessWidget {
           onTap: (){
 
           },
-          child: Text("شروط الاستخدام",
+          child: Text("سياسة الخصوصية",
               style: Theme.of(context).textTheme.bodyLarge!.apply(color: TColors.black, fontWeightDelta: 2),
               textAlign: TextAlign.center),
         ),
-
       ],
     );
   }

@@ -48,7 +48,7 @@ class CustomTextStyles {
 
   static get titleMediumBlueVPT =>
       theme.textTheme.titleMedium!.copyWith(
-        color: TColors.blueVPT,
+        color: TColors.blueDating,
         fontSize: 16.fSize,
         fontWeight: FontWeight.w600,
       );
