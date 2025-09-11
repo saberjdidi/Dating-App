@@ -1,4 +1,6 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
+import 'package:dating_app_bilhalal/presentation/terms_privacy_screen/privacy_policy_screen.dart';
+import 'package:dating_app_bilhalal/presentation/terms_privacy_screen/termes_condition_screen.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +18,7 @@ class CustomTermPrivacyWidget extends StatelessWidget {
       children: [
         InkWell(
           onTap: (){
-
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TermesAndConditionsScreen()));
           },
           child: Text("شروط الاستخدام",
               style: Theme.of(context).textTheme.bodyLarge!.apply(color: TColors.black, fontWeightDelta: 2),
@@ -24,7 +26,7 @@ class CustomTermPrivacyWidget extends StatelessWidget {
         ),
         InkWell(
           onTap: (){
-
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const PrivacyPolicyScreen()));
           },
           child: Text("سياسة الخصوصية",
               style: Theme.of(context).textTheme.bodyLarge!.apply(color: TColors.black, fontWeightDelta: 2),

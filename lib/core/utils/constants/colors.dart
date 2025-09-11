@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
 class TColors {
-  //Colors VPT
+  //Colors Dating App
   static const Color yellowAppLight = Color(0xFFFFCC00);
   static const Color yellowAppDark = Color(0xFFF4AB03);
   static const Color blueDating = Color(0xFF0E66FE);
+  static const Color greenAccept = Color(0xFF32BD00);
+
+
   static const Color blueLight700 = Color(0xFF0086C9);
   static const Color blueLight = Color(0xFFC1E4F7);
   static const Color colorActiveIconBottomBar = Color(0xFF065D8F);

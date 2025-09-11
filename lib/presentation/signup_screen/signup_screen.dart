@@ -48,7 +48,7 @@ class SignUpScreen extends GetView<SignUpController> {
 
                 return TweenAnimationBuilder<double>(
                   tween: Tween(begin: 1, end: isActive ? 1.0 : 0.85),
-                  duration: const Duration(milliseconds: 300),
+                  duration: const Duration(milliseconds: 200),
                   builder: (context, scale, child) {
                     return Transform.scale(
                       scale: scale,
