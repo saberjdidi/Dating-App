@@ -16,16 +16,16 @@ class CreateAccountController extends GetxController {
 
   TextEditingController fullNameController = TextEditingController();
   TextEditingController bioController = TextEditingController();
+  TextEditingController maritalStatusController = TextEditingController();
+  TextEditingController lookingForController = TextEditingController();
+  TextEditingController jobController = TextEditingController();
+  TextEditingController paysController = TextEditingController();
   RxInt sexValue = 0.obs;
   RxInt currentSliderValue = 20.obs;
   RxInt currentWeightValue = 50.obs;
   RxInt currentHeightValue = 170.obs;
 
   TextEditingController phoneController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
-  TextEditingController villeController = TextEditingController();
-  TextEditingController codePostalController = TextEditingController();
-  TextEditingController regionController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
 

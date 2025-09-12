@@ -2,8 +2,12 @@ import 'dart:ffi';
 
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/validators/validation.dart';
+import 'package:dating_app_bilhalal/data/datasources/dropdown_local_data_source.dart';
 import 'package:dating_app_bilhalal/data/datasources/onboarding_local_data_source.dart';
 import 'package:dating_app_bilhalal/presentation/account_screen/controller/create_account_controller.dart';
+import 'package:dating_app_bilhalal/widgets/app_bar/appbar_widget.dart';
+import 'package:dating_app_bilhalal/widgets/choice-chip.dart';
+import 'package:dating_app_bilhalal/widgets/custom_drop_down.dart';
 import 'package:dating_app_bilhalal/widgets/custom_text_form_field.dart';
 import 'package:dating_app_bilhalal/widgets/form_divider_widget.dart';
 import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
@@ -23,18 +27,30 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
     mediaQueryData = MediaQuery.of(context);
 
     return SafeArea(
-      child: Obx(() =>
-          Form(
-            key: controller.formSignUpStepperKey,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            child: Scaffold(
-              backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
-              body: Padding(
-                padding: const EdgeInsets.all(TSizes.spaceBtwItems),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                    /*  IconStepper(
+      child: Form(
+        key: controller.formSignUpStepperKey,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        child: Scaffold(
+          backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
+          appBar: TAppBar(
+            showBackArrow: true,
+            rightToLeft: true,
+            title: Text('إنشاء حساب',
+              style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                color: TColors.black,
+                fontSize: 22.fSize,
+                fontWeight: FontWeight.bold,
+                //decoration: TextDecoration.underline,
+                decorationColor: TColors.black,
+              ),
+            ),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(TSizes.spaceBtwItems),
+            child: SingleChildScrollView(
+              child: Obx(() => Column(
+                children: [
+                  /*  IconStepper(
                         activeStep: controller.activeStep.value,
                         //stepCount: controller.dotCount.value,
                         steppingEnabled: true,
@@ -56,110 +72,110 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                           controller.activeStep.value = index;
                         },
                       ), */
-                      DotStepper(
-                        activeStep: controller.activeStep.value,
-                        dotCount: controller.dotCount.value,
-                        dotRadius: 10,
-                        shape: Shape.stadium,
-                        spacing: 10,
-                        indicator: Indicator.slide,
-                        /// TAPPING WILL NOT FUNCTION PROPERLY WITHOUT THIS PIECE OF CODE.
-                        onDotTapped: (tappedDotIndex) {
-                          controller.activeStep.value = tappedDotIndex;
-                        },
-                        // DOT-STEPPER DECORATIONS
-                        fixedDotDecoration: FixedDotDecoration(
-                          color: TColors.greyDating,
-                        ),
-                        indicatorDecoration: IndicatorDecoration(
-                          // style: PaintingStyle.stroke,
-                          // strokeWidth: 8,
-                          color: TColors.black,
-                        ),
-                        lineConnectorDecoration: LineConnectorDecoration(
-                          color: TColors.yellowAppDark,
-                          strokeWidth: 1,
-                        ),
-                      ),
+                  DotStepper(
+                    activeStep: controller.activeStep.value,
+                    dotCount: controller.dotCount.value,
+                    dotRadius: 10,
+                    shape: Shape.stadium,
+                    spacing: 10,
+                    indicator: Indicator.slide,
+                    /// TAPPING WILL NOT FUNCTION PROPERLY WITHOUT THIS PIECE OF CODE.
+                    onDotTapped: (tappedDotIndex) {
+                      controller.activeStep.value = tappedDotIndex;
+                    },
+                    // DOT-STEPPER DECORATIONS
+                    fixedDotDecoration: FixedDotDecoration(
+                      color: TColors.greyDating,
+                    ),
+                    indicatorDecoration: IndicatorDecoration(
+                      // style: PaintingStyle.stroke,
+                      // strokeWidth: 8,
+                      color: TColors.black,
+                    ),
+                    lineConnectorDecoration: LineConnectorDecoration(
+                      color: TColors.yellowAppDark,
+                      strokeWidth: 1,
+                    ),
+                  ),
 
-                      controller.activeStep.value == 0
-                          ? _buildBasicDetailsForm(context)
-                          : controller.activeStep.value == 1
-                          ? _buildCoordonnerForm()
-                          : _buildPasswordForm(),
+                  controller.activeStep.value == 0
+                      ? _buildBasicDetailsForm(context)
+                      : controller.activeStep.value == 1
+                      ? _buildAdditionalDetailsForm(context)
+                      : _buildPasswordForm(),
 
-                      /// Jump buttons.
-                      Visibility(
-                        visible: false,
-                        child: Padding(padding: const EdgeInsets.all(18.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: List.generate(controller.dotCount.value, (index) {
-                                return ElevatedButton(
-                                  child: Text('${index + 1}'),
-                                  onPressed: (){
-                                    controller.activeStep.value = index;
-                                  },
-                                );
-                              }),
-                            )
-                        ),
-                      ),
-                      // Next and Previous buttons.
-                      Visibility(
-                        visible: false,
+                  /// Jump buttons.
+                  Visibility(
+                    visible: false,
+                    child: Padding(padding: const EdgeInsets.all(18.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            ElevatedButton(
-                              child: Text('Prev', style: TextStyle(color: TColors.black),),
-                              onPressed: () {
-                                // activeStep MUST BE GREATER THAN 0 TO PREVENT OVERFLOW.
-                                if (controller.activeStep.value > 0) {
-                                  controller.activeStep.value--;
-                                }
+                          children: List.generate(controller.dotCount.value, (index) {
+                            return ElevatedButton(
+                              child: Text('${index + 1}'),
+                              onPressed: (){
+                                controller.activeStep.value = index;
                               },
-                            ),
-
-                            ElevatedButton(
-                              child: Text('Next', style: TextStyle(color: TColors.black),),
-                              onPressed: () {
-                                /// ACTIVE STEP MUST BE CHECKED FOR (dotCount - 1) AND NOT FOR dotCount To PREVENT Overflow ERROR.
-                                if (controller.activeStep.value < controller.dotCount.value - 1) {
-                                  controller.activeStep.value++;
-                                }
-                              },
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
+                            );
+                          }),
+                        )
+                    ),
                   ),
-                ),
-              ),
-              bottomNavigationBar: Padding(
-                  padding: EdgeInsets.only(bottom: TSizes.spaceBtwItems.v, left: TSizes.spaceBtwItems.hw, right: TSizes.spaceBtwItems.hw),
-                  //child: _buildButtonSection()
-                  child:
-                CustomButtonContainer(
-                  text: controller.activeStep.value < 2 ? "التالي".tr : "lbl_save".tr,
-                  color1: TColors.yellowAppDark,
-                  color2: TColors.yellowAppLight,
-                  borderRadius: 10,
-                  colorText: TColors.white,
-                  fontSize: 20.adaptSize,
-                  onPressed: () async {
-                    if (controller.activeStep.value < controller.dotCount.value - 1) {
-                      controller.activeStep.value++;
-                    } else {
-                      controller.saveBtn();
-                    }
-                    //dialogVerifyAccount(context);
-                  },
-                ),
-              ),
+                  // Next and Previous buttons.
+                  Visibility(
+                    visible: false,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ElevatedButton(
+                          child: Text('Prev', style: TextStyle(color: TColors.black),),
+                          onPressed: () {
+                            // activeStep MUST BE GREATER THAN 0 TO PREVENT OVERFLOW.
+                            if (controller.activeStep.value > 0) {
+                              controller.activeStep.value--;
+                            }
+                          },
+                        ),
+
+                        ElevatedButton(
+                          child: Text('Next', style: TextStyle(color: TColors.black),),
+                          onPressed: () {
+                            /// ACTIVE STEP MUST BE CHECKED FOR (dotCount - 1) AND NOT FOR dotCount To PREVENT Overflow ERROR.
+                            if (controller.activeStep.value < controller.dotCount.value - 1) {
+                              controller.activeStep.value++;
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              )),
             ),
-          )),
+          ),
+          bottomNavigationBar: Padding(
+            padding: EdgeInsets.only(bottom: TSizes.spaceBtwItems.v, left: TSizes.spaceBtwItems.hw, right: TSizes.spaceBtwItems.hw),
+            //child: _buildButtonSection()
+            child:
+            CustomButtonContainer(
+              text: controller.activeStep.value < 2 ? "التالي".tr : "تأكيد الحساب".tr,
+              color1: TColors.yellowAppDark,
+              color2: TColors.yellowAppLight,
+              borderRadius: 10,
+              colorText: TColors.white,
+              fontSize: 20.adaptSize,
+              onPressed: () async {
+                if (controller.activeStep.value < controller.dotCount.value - 1) {
+                  controller.activeStep.value++;
+                } else {
+                  controller.saveBtn();
+                }
+                //dialogVerifyAccount(context);
+              },
+            ),
+          ),
+        ),
+      )
     );
 
   }
@@ -454,102 +470,175 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
       )),
     );
   }
-  /// Section Coordonner
-  Widget _buildCoordonnerForm() {
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: TSizes.spaceBtwItems),
-          Align(
-              alignment: Alignment.topLeft,
-              child: TitleWidget(title: "lbl_entrer_vos_coordonnées".tr)
-          ),
-          Align(
-              alignment: Alignment.topLeft,
-              child: SubTitleWidget(subtitle: "lbl_inscrivez_vos_coordonnées".tr)
-          ),
-          SizedBox(height: TSizes.spaceBtwSections * 2),
-         /* IntlPhoneField(
-            decoration: InputDecoration(
-                labelText: '${'lbl_phone_number'.tr} *',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15.hw),
-                  //borderSide: BorderSide.none,
-                ),
-                hintStyle: CustomTextStyles.titleLargeGray400,
-                labelStyle: CustomTextStyles.titleMediumSemiBoldBlack,
-                errorStyle: CustomTextStyles.bodyMediumOnError,
-                counterStyle: CustomTextStyles.titleMedium16BlueLight700,
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15.hw),
-                  borderSide: BorderSide(color: Color(0xFD636262), width: 1),
-                  //borderSide: BorderSide.none,
-                ),
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.hw),
-                    borderSide: BorderSide(color: TColors.blueLight700, width: 2)
-                  //borderSide: BorderSide.none,
-                ),
-                fillColor: TColors.white
+
+  /// additional details
+  Widget _buildAdditionalDetailsForm(BuildContext context) {
+    double weightValue = controller.currentWeightValue.value.toDouble();
+
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Obx(() => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: TSizes.spaceBtwItems),
+            Align(
+                alignment: Alignment.topRight,
+                child: TitleWidget(title: "تفاصيل إضافية".tr)
             ),
-            initialCountryCode: 'CA',
-            onChanged: (phone) {
-              debugPrint('Phone number : ${phone.completeNumber}');
-              controller.phoneController.text = phone.completeNumber;
-            },
-          ), */
-          const SizedBox(height: TSizes.spaceBtwInputFields,),
-          CustomTextFormField(
-              controller: controller.villeController,
-              hintText: "${'lbl_city'.tr} *",
-              textInputType: TextInputType.text,
-              prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
-                  child: Icon(Iconsax.building)
-              ),
-              prefixConstraints: BoxConstraints(maxHeight: 60.v),
-              contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, bottom: 21.v),
-              validator: (value) => Validator.validateEmptyText('lbl_city'.tr, value)
-          ),
-          const SizedBox(height: TSizes.spaceBtwInputFields,),
-          CustomTextFormField(
-              controller: controller.codePostalController,
-              hintText: "${'lbl_code_postal'.tr} *",
-              textInputType: TextInputType.text,
-              prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
-                  child: Icon(Iconsax.code)
-              ),
-              prefixConstraints: BoxConstraints(maxHeight: 60.v),
-              contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, bottom: 21.v),
-              validator: (value) => Validator.validateEmptyText('lbl_code_postal'.tr, value)
-          ),
-          const SizedBox(height: TSizes.spaceBtwInputFields,),
-          Visibility(
-            visible: false,
-            child: CustomTextFormField(
-                controller: controller.regionController,
-                hintText: "Région *",
-                textInputType: TextInputType.text,
-                prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
-                    child: Icon(Iconsax.activity)
-                ),
-                prefixConstraints: BoxConstraints(maxHeight: 60.v),
-                contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, bottom: 21.v),
-                validator: (value) => Validator.validateEmptyText('Région', value)
+            Align(
+                alignment: Alignment.topRight,
+                child: SubTitleWidget(subtitle: "والمزيد من التفاصيل لأفضل المباريات.".tr)
             ),
-          ),
-          const SizedBox(height: TSizes.spaceBtwInputFields,),
-          CustomTextFormField(
-              controller: controller.addressController,
-              hintText: "${'lbl_address'.tr} *",
+            SizedBox(height: TSizes.spaceBtwSections * 2),
+            CustomDropDown(
+              fillColor: TColors.white, //appTheme.gray50
+              //textStyle: TextStyle(color: appTheme.black),
+              hintStyle: CustomTextStyles.bodyMediumTextFormField,
+              //prefix: Icon(Iconsax.activity, color: appTheme.black, size: 27.adaptSize),
+              hintText: "${'الحالة الاجتماعية'.tr} *",
+              items: ListMaritalStatus.value,
+              onChanged: (value) async {
+                controller.maritalStatusController.text = value.title;
+                //controller.typePieceIdentityController.text = value.title;
+                debugPrint('marital status : ${controller.maritalStatusController.text}');
+              },
+              validator: (value) {
+                if (value == null) {
+                  return "${'lbl_region'.tr} ${"lbl_is_required".tr}";
+                }
+                return null;
+              },
+              themeColor: appTheme.gray50,
+              borderRadius: 15.hw,
+            ),
+            SizedBox(height: TSizes.spaceBtwItems.v),
+
+            CustomDropDown(
+              fillColor: TColors.white, //appTheme.gray50
+              //textStyle: TextStyle(color: appTheme.black),
+              hintStyle: CustomTextStyles.bodyMediumTextFormField,
+              //prefix: Icon(Iconsax.activity, color: appTheme.black, size: 27.adaptSize),
+              hintText: "${'أبحث عن'.tr} *",
+              items: ListLookingFor.value,
+              onChanged: (value) async {
+                controller.lookingForController.text = value.title;
+                //controller.typePieceIdentityController.text = value.title;
+                debugPrint('looking for : ${controller.lookingForController.text}');
+              },
+              validator: (value) {
+                if (value == null) {
+                  return "${'lbl_region'.tr} ${"lbl_is_required".tr}";
+                }
+                return null;
+              },
+              themeColor: appTheme.gray50,
+              borderRadius: 15.hw,
+            ),
+            SizedBox(height: TSizes.spaceBtwItems.v),
+
+            CustomTextFormField(
+              controller: controller.jobController,
+              hintText: "${'إشغال'.tr} *",
+              maxLines: 3,
               textInputType: TextInputType.text,
-              prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
-                  child: Icon(Iconsax.building_31)
-              ),
+              /* prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
+                  child: Icon(Iconsax.user)
+              ), */
               prefixConstraints: BoxConstraints(maxHeight: 60.v),
               contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, bottom: 21.v),
-              validator: (value) => Validator.validateEmptyText('lbl_address'.tr, value)
-          ),
-        ]
+              validator: (value) => Validator.validateEmptyText('${'Job'.tr}', value),
+            ),
+            SizedBox(height: TSizes.spaceBtwItems.v),
+
+            CustomDropDown(
+              fillColor: TColors.white,
+              hintStyle: CustomTextStyles.bodyMediumTextFormField,
+              hintText: "${'دولة'.tr} *",
+              items: ListPays.value,
+              onChanged: (value) async {
+                controller.paysController.text = value.title;
+                debugPrint('pays : ${controller.paysController.text}');
+              },
+              validator: (value) {
+                if (value == null) {
+                  return "${'lbl_region'.tr} ${"lbl_is_required".tr}";
+                }
+                return null;
+              },
+              themeColor: appTheme.gray50,
+              borderRadius: 15.hw,
+            ),
+            SizedBox(height: TSizes.spaceBtwItems.v),
+
+            FormDividerWidget(dividerText: "جنسك", thikness: 2),
+            SizedBox(height: TSizes.spaceBtwItems.v),
+
+            Obx(() => Wrap(
+                spacing: 8,
+                children: attribute.values!.map((attributeValue) {
+                  final isSelected = controller.selectedAttributes[attribute.name] == attributeValue;
+                  final available = controller.getAttributesAvailabilityInVariation(product.productVariations!, attribute.name!).contains(attributeValue);
+                  return TChoiceChip(
+                      text: attributeValue,
+                      selected: isSelected,
+                      onSelected: available ? (selected) {
+                        if(selected && available){
+                          controller.onAttributeSelected(product, attribute.name ?? '', attributeValue);
+                        }
+                      }
+                          : null
+                  );
+                }).toList()
+            ))
+
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // ✅ Afficher l’âge sous le slider
+                Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: Text("${weightValue.round()} KG",
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                // Slider avec gradient, label toujours visible, hauteur augmentée
+                ShaderMask(
+                  shaderCallback: (Rect bounds) {
+                    return const LinearGradient(
+                      colors: [TColors.yellowAppLight, Colors.redAccent], // ✅ Dégradé
+                    ).createShader(bounds);
+                  },
+                  child: SliderTheme(
+                    data: SliderTheme.of(context).copyWith(
+                      trackHeight: 8, // ✅ Augmenter la hauteur du slider
+                      thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 10),
+                      overlayShape: const RoundSliderOverlayShape(overlayRadius: 20),
+                      valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
+                      valueIndicatorTextStyle: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                      ),
+                      showValueIndicator: ShowValueIndicator.always, // ✅ Toujours afficher label
+                    ),
+                    child: Slider(
+                      value: weightValue,
+                      min: 0,
+                      max: 140,
+                      divisions: 140,
+                      label: weightValue.round().toString(),
+                      onChanged: (value) {
+                        controller.currentWeightValue.value = value.toInt();
+                      },
+                      activeColor: Colors.white, // ✅ Couleur appliquée par gradient
+                      inactiveColor: Colors.white.withOpacity(0.3),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+          ]
+      )),
     );
   }
   /// Section Password
