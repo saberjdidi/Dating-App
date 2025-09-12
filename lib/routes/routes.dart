@@ -4,7 +4,6 @@ class Routes {
   static const String splashScreen = '/splash_screen';
 
   static const String onboardingScreen = '/onboarding_screen';
-  static const String onboardingScreen1 = '/onboarding_screen1';
 
   static const String signInScreen = '/sign_in_screen';
 
@@ -12,7 +11,7 @@ class Routes {
 
   static const String signUpScreen = '/sign_up_screen';
   static const String signUpWithEmailScreen = '/sign_up_with_email_screen';
-  static const String signUpStepperScreen = '/signup_stepper_screen';
+  static const String createAccountScreen = '/create_account_screen';
   static const String inscriptionScreen = '/inscription_screen';
   static const String signUpSuccessScreen = '/signup_success_screen';
 

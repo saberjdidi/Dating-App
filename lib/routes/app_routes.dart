@@ -1,3 +1,5 @@
+import 'package:dating_app_bilhalal/presentation/account_screen/binding/account_binding.dart';
+import 'package:dating_app_bilhalal/presentation/account_screen/create_account_screen.dart';
 import 'package:dating_app_bilhalal/presentation/onboarding_screen/binding/onboarding_binding.dart';
 import 'package:dating_app_bilhalal/presentation/onboarding_screen/onboarding_screen.dart';
 import 'package:dating_app_bilhalal/presentation/sign_in_screen/binding/sign_in_binding.dart';
@@ -53,6 +55,13 @@ class AppRoutes {
       page: () => SignUpWithEmailScreen(),
       bindings: [
         SignUpBinding(),
+      ],
+    ),
+    GetPage(
+      name: Routes.createAccountScreen,
+      page: () => CreateAccountScreen(),
+      bindings: [
+        AccountBinding(),
       ],
     ),
     /*

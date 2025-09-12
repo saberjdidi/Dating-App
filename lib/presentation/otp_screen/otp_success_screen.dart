@@ -45,6 +45,7 @@ class OTPSuccessScreen extends StatelessWidget {
                   colorText: TColors.white,
                   fontSize: 20.adaptSize,
                   onPressed: () async {
+                    Get.offAllNamed(Routes.createAccountScreen);
                   },
                 ),
                 SizedBox(height: 15.v,),
