@@ -48,6 +48,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                 //height: isTablet ? 20.hw : 52.hw,
                 //width: isTablet ? 20.hw : 52.hw,
                 //margin: EdgeInsets.only(top: 5),
+                  showBorder: true,
                   backgroundColor: TColors.white,
                   borderColor: TColors.gray700,
                   radius: 12,

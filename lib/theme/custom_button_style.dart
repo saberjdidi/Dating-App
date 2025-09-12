@@ -3,6 +3,16 @@ import '../core/app_export.dart';
 
 class CustomButtonStyles {
 
+  ///Dating App
+  static ButtonStyle get elevatedGreenAccept => ElevatedButton.styleFrom(
+    backgroundColor: TColors.greenAccept,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10.hw),
+    ),
+  );
+
+  ///Old
+
   static ButtonStyle get elevatedBlueLight700 => ElevatedButton.styleFrom(
       backgroundColor: TColors.blueLight700,
   );

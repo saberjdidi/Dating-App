@@ -1,5 +1,6 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/widgets/app_bar/appbar_widget.dart';
+import 'package:dating_app_bilhalal/widgets/custom_dialog.dart';
 import 'package:dating_app_bilhalal/widgets/custom_divider.dart';
 import 'package:dating_app_bilhalal/widgets/custom_outlined_button.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
@@ -48,6 +49,7 @@ class _TermesAndConditionsScreenState extends State<TermesAndConditionsScreen> {
                 //height: isTablet ? 20.hw : 52.hw,
                 //width: isTablet ? 20.hw : 52.hw,
                 //margin: EdgeInsets.only(top: 5),
+                showBorder: true,
                 backgroundColor: TColors.white,
                 borderColor: TColors.gray700,
                 radius: 12,
@@ -68,10 +70,11 @@ class _TermesAndConditionsScreenState extends State<TermesAndConditionsScreen> {
                     TitleWidget(title: "المصطلح 2", textAlign: TextAlign.right,),
                     SubTitleWidget(subtitle: "لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار  النشوة وتمجيد الألم نشأت بالفعل، وسأعرض لك التفاصيل لتكتشف حقيقة وأساس تلك السعادة البشرية، فلا أحد يرفض أو يكره أو يتجنب الشعور بالسعادة",
                       textAlign: TextAlign.right,),
-                    SizedBox(height: TSizes.spaceBtwItems),
+                    SizedBox(height: TSizes.xs.v),
                   ],
                 )
               ),
+              SizedBox(height: TSizes.xs.v),
              Directionality(
                textDirection: TextDirection.rtl,
                child: Row(
@@ -88,7 +91,7 @@ class _TermesAndConditionsScreenState extends State<TermesAndConditionsScreen> {
                      colorText: TColors.white,
                      fontSize: 20.adaptSize,
                      onPressed: () async {
-                       //onTapOTPSuccessPage(context);
+                       DialogAcceptTermsAndConditions(context);
                      },
                    ),
                    CustomOutlinedButton(
@@ -126,4 +129,23 @@ class _TermesAndConditionsScreenState extends State<TermesAndConditionsScreen> {
   }
   /// Navigates to the previous screen.
   onTapArrowLeft() { Get.back(); }
+
+  DialogAcceptTermsAndConditions(BuildContext context){
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (builder) =>
+            CustomDialog(
+              icon: Icons.close,
+              onCancel: onTapArrowLeft,
+              onTap: (){},
+              //cancelText: "lbl_no".tr,
+              successText: "يقبل".tr,
+              title: "تنصل".tr,
+              description: "لا يمكنك المتابعة دون قبول الشروط والأحكام".tr,
+              descriptionTextStyle: CustomTextStyles.titleSmallGray400,
+              image: ImageConstant.imgWarning,
+            )
+    );
+  }
 }

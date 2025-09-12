@@ -2,14 +2,19 @@ class ImageConstant {
   // Image folder path
   static String imagePath = 'assets/images';
 
-  //logo
-  static String backgroundSplash = '$imagePath/background_splash.png';
-  static String logo_splash = '$imagePath/logo_splash.png';
-  static String logoSplashBlack = '$imagePath/logo_black.png';
+  //Dating App
   static String logo = '$imagePath/logo.png';
   static String logoHeaderSVG = '$imagePath/logo_header.svg';
   static String logoHeaderPNG = '$imagePath/logo-header.png';
   static String successOTPImage = '$imagePath/success_otp.png';
+
+  static String imgWarning = '$imagePath/img_warning.png';
+
+  //logo
+  static String backgroundSplash = '$imagePath/background_splash.png';
+  static String logo_splash = '$imagePath/logo_splash.png';
+  static String logoSplashBlack = '$imagePath/logo_black.png';
+
 
   //Social Images
   static String facebook = '$imagePath/facebook.png';
@@ -57,7 +62,7 @@ class ImageConstant {
   static String imgVerificationAccount = '$imagePath/img_verification_account.svg';
 
   static String imgClose = '$imagePath/img_close.svg';
-  static String imgWarning = '$imagePath/img_warning.svg';
+  static String imgWarning2 = '$imagePath/img_warning.svg';
   static String imgFilter = '$imagePath/img_filter.png';
   static String iconFilter = '$imagePath/icon_filter.svg';
   static String imgMiseEquipe = '$imagePath/img_mise_equipe.svg';
