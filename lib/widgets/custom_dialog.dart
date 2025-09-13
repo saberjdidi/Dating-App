@@ -14,6 +14,7 @@ class CustomDialog extends StatelessWidget {
   String? description;
   TextStyle? descriptionTextStyle;
   String? image;
+  bool showSuccessButton;
 
    CustomDialog({
      this.icon,
@@ -24,7 +25,8 @@ class CustomDialog extends StatelessWidget {
      required this.title,
      this.description,
      this.descriptionTextStyle,
-     this.image
+     this.image,
+     this.showSuccessButton = true
   });
 
   @override
@@ -115,18 +117,22 @@ class CustomDialog extends StatelessWidget {
            ],
          ),
         SizedBox(height: 15.v),
-        Column(
-          children: [
-            TitleWidget(title: title),
-            //Text(title, style: CustomTextStyles.titleMediumRed400),
-            Text(description ?? "",
-                style: descriptionTextStyle ?? CustomTextStyles.titleMedium16White
-            ),
-          ],
+        Directionality(
+          textDirection: TextDirection.rtl,
+          child: Column(
+            children: [
+              TitleWidget(title: title, textAlign: TextAlign.center,),
+              //Text(title, style: CustomTextStyles.titleMediumRed400),
+              Text(description ?? "",
+                  style: descriptionTextStyle ?? CustomTextStyles.titleMedium16White
+              ),
+            ],
+          ),
         ),
 
         SizedBox(height: 30.v),
-        CustomButtonContainer(
+        showSuccessButton
+        ? CustomButtonContainer(
             height: 60.v,
             width: Get.width * 0.3,
             text: successText ?? "",
@@ -136,7 +142,8 @@ class CustomDialog extends StatelessWidget {
             colorText: TColors.white,
             fontSize: 20.adaptSize,
             onPressed: onTap
-        ),
+        )
+        : SizedBox.shrink(),
       ],
     ),
   );

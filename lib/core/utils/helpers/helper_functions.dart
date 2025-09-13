@@ -1,3 +1,4 @@
+import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -6,33 +7,48 @@ class THelperFunctions {
   static Color? getColor(String value) {
     /// Define your product specific colors here and it will match the attribute colors and show specific 🟠🟡🟢🔵🟣🟤
 
-    if (value == 'Green') {
+    if (value == 'skinColor1') {
+      return TColors.skinColor1;
+    } else if (value == 'skinColor2') {
+      return TColors.skinColor2;
+    } else if (value == 'skinColor3') {
+      return TColors.skinColor3;
+    } else if (value == 'skinColor4') {
+      return TColors.skinColor4;
+    } else if (value == 'skinColor5') {
+      return TColors.skinColor5;
+    } else if (value == 'skinColor6') {
+      return TColors.skinColor6;
+    } else if (value == 'skinColor7') {
+      return TColors.skinColor7;
+    } else if (value == 'skinColor8') {
+      return TColors.skinColor8;
+    }
+    else if (value == 'green') {
       return Colors.green;
-    } else if (value == 'Green') {
-      return Colors.green;
-    } else if (value == 'Red') {
+    } else if (value == 'red') {
       return Colors.red;
-    } else if (value == 'Blue') {
+    } else if (value == 'blue') {
       return Colors.blue;
-    } else if (value == 'Pink') {
+    } else if (value == 'pink') {
       return Colors.pink;
-    } else if (value == 'Grey') {
+    } else if (value == 'grey') {
       return Colors.grey;
-    } else if (value == 'Purple') {
+    } else if (value == 'purple') {
       return Colors.purple;
-    } else if (value == 'Black') {
+    } else if (value == 'black') {
       return Colors.black;
-    } else if (value == 'White') {
+    } else if (value == 'white') {
       return Colors.white;
-    } else if (value == 'Yellow') {
+    } else if (value == 'yellow') {
       return Colors.yellow;
-    } else if (value == 'Orange') {
+    } else if (value == 'orange') {
       return Colors.deepOrange;
-    } else if (value == 'Brown') {
+    } else if (value == 'brown') {
       return Colors.brown;
-    } else if (value == 'Teal') {
+    } else if (value == 'teal') {
       return Colors.teal;
-    } else if (value == 'Indigo') {
+    } else if (value == 'indigo') {
       return Colors.indigo;
     } else {
       return null;

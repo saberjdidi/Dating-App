@@ -1,4 +1,5 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
+import 'package:dating_app_bilhalal/widgets/custom_dialog.dart';
 import 'package:flutter/material.dart';
 
 class CreateAccountController extends GetxController {
@@ -10,7 +11,7 @@ class CreateAccountController extends GetxController {
   // REQUIRED: USED TO CONTROL THE STEPPER.
   RxInt activeStep = 0.obs; // Initial step set to 0.
   // OPTIONAL: can be set directly.
-  RxInt dotCount = 3.obs;
+  RxInt dotCount = 4.obs;
 
   //final apiClient = Get.find<ApiClient>();
 
@@ -24,6 +25,31 @@ class CreateAccountController extends GetxController {
   RxInt currentSliderValue = 20.obs;
   RxInt currentWeightValue = 50.obs;
   RxInt currentHeightValue = 170.obs;
+  var currentRangeValues = const RangeValues(177, 300).obs;
+  //color
+  RxString selectedColor = ''.obs;
+  selectColor(String color) {
+    selectedColor.value = color;
+    debugPrint('color : $color');
+  }
+
+  //Interest
+  var selectedInterests = <String>[].obs;
+
+   toggleInterest(String interest, BuildContext context) {
+    if (selectedInterests.contains(interest)) {
+      selectedInterests.remove(interest);
+    } else {
+      if (selectedInterests.length >= 5) {
+        // Afficher le dialog si dépasse 5
+        showMaxInterestDialog(context);
+        return;
+      }
+      selectedInterests.add(interest);
+    }
+
+    debugPrint('interest : $selectedInterests');
+  }
 
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -35,6 +61,25 @@ class CreateAccountController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+  }
+
+  /// Méthode pour afficher le dialog
+  void showMaxInterestDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (builder) => CustomDialog(
+        icon: Icons.close,
+        onCancel: () => Navigator.pop(context),
+        onTap: () {},
+        showSuccessButton: false,
+        //successText: "يقبل".tr,
+        title: "يمكنك إضافة 5 اهتمامات فقط".tr,
+        description: "أضف فقط 5 اهتمامات تتناسب بشكل أفضل مع شخصيتك.".tr,
+        descriptionTextStyle: CustomTextStyles.titleSmallGray400,
+        image: ImageConstant.imgWarning,
+      ),
+    );
   }
 
   bool _dataValidation() {
@@ -135,5 +180,6 @@ class CreateAccountController extends GetxController {
     }
     */
   }
+
 
 }

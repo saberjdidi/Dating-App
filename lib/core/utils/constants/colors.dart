@@ -8,7 +8,15 @@ class TColors {
   static const Color greenAccept = Color(0xFF32BD00);
   static const Color greyDating = Color(0xFFE6E6E6);
 
-
+  //Skin Colors
+  static const Color skinColor1 = Color(0xFFFDEFDB);
+  static const Color skinColor2 = Color(0xFFFFE6C3);
+  static const Color skinColor3 = Color(0xFFFEDAA6);
+  static const Color skinColor4 = Color(0xFFFFCB80);
+  static const Color skinColor5 = Color(0xFFFDB64F);
+  static const Color skinColor6 = Color(0xFFBE7100);
+  static const Color skinColor7 = Color(0xFF824D00);
+  static const Color skinColor8 = Color(0xFF4D2E00);
 
   static const Color blueLight700 = Color(0xFF0086C9);
   static const Color blueLight = Color(0xFFC1E4F7);

@@ -4,9 +4,11 @@ import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/validators/validation.dart';
 import 'package:dating_app_bilhalal/data/datasources/dropdown_local_data_source.dart';
 import 'package:dating_app_bilhalal/data/datasources/onboarding_local_data_source.dart';
+import 'package:dating_app_bilhalal/data/models/interest_model.dart';
 import 'package:dating_app_bilhalal/presentation/account_screen/controller/create_account_controller.dart';
+import 'package:dating_app_bilhalal/widgets/account/interest_widget.dart';
 import 'package:dating_app_bilhalal/widgets/app_bar/appbar_widget.dart';
-import 'package:dating_app_bilhalal/widgets/choice-chip.dart';
+import 'package:dating_app_bilhalal/widgets/account/choice-chip.dart';
 import 'package:dating_app_bilhalal/widgets/custom_drop_down.dart';
 import 'package:dating_app_bilhalal/widgets/custom_text_form_field.dart';
 import 'package:dating_app_bilhalal/widgets/form_divider_widget.dart';
@@ -102,6 +104,8 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                       ? _buildBasicDetailsForm(context)
                       : controller.activeStep.value == 1
                       ? _buildAdditionalDetailsForm(context)
+                      : controller.activeStep.value == 2
+                      ? _buildInterestForm(context)
                       : _buildPasswordForm(),
 
                   /// Jump buttons.
@@ -473,7 +477,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
 
   /// additional details
   Widget _buildAdditionalDetailsForm(BuildContext context) {
-    double weightValue = controller.currentWeightValue.value.toDouble();
+    final colors = ['skinColor8', 'skinColor7', 'skinColor6', 'skinColor5', 'skinColor4', 'skinColor3', 'skinColor2', 'skinColor1'];
 
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -568,79 +572,160 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               themeColor: appTheme.gray50,
               borderRadius: 15.hw,
             ),
+
+            SizedBox(height: TSizes.spaceBtwItems.v),
+            FormDividerWidget(dividerText: "لون البشرة", thikness: 2),
             SizedBox(height: TSizes.spaceBtwItems.v),
 
-            FormDividerWidget(dividerText: "جنسك", thikness: 2),
-            SizedBox(height: TSizes.spaceBtwItems.v),
-
-            Obx(() => Wrap(
-                spacing: 8,
-                children: attribute.values!.map((attributeValue) {
-                  final isSelected = controller.selectedAttributes[attribute.name] == attributeValue;
-                  final available = controller.getAttributesAvailabilityInVariation(product.productVariations!, attribute.name!).contains(attributeValue);
+            Wrap(
+                spacing: 5,
+                children: colors.map((color) {
+                  final isSelected = controller.selectedColor.value == color;
                   return TChoiceChip(
-                      text: attributeValue,
+                      text: color,
                       selected: isSelected,
-                      onSelected: available ? (selected) {
-                        if(selected && available){
-                          controller.onAttributeSelected(product, attribute.name ?? '', attributeValue);
-                        }
+                      onSelected: (selected) {
+                        if (selected) controller.selectColor(color);
                       }
-                          : null
                   );
                 }).toList()
-            ))
+            ),
+
+            SizedBox(height: TSizes.spaceBtwItems.v),
+            FormDividerWidget(dividerText: "نطاق الراتب", thikness: 2),
+            SizedBox(height: TSizes.spaceBtwItems.v),
 
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // ✅ Afficher l’âge sous le slider
-                Directionality(
-                  textDirection: TextDirection.ltr,
-                  child: Text("${weightValue.round()} KG",
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
+                // ✅ Afficher les valeurs sous le slider
+                Text(
+                  "${controller.currentRangeValues.value.start.round()}K - ${controller.currentRangeValues.value.end.round()}K",
+                  style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.bold),
                 ),
-                // Slider avec gradient, label toujours visible, hauteur augmentée
+
+                // ✅ Slider avec gradient et labels toujours visibles
                 ShaderMask(
                   shaderCallback: (Rect bounds) {
                     return const LinearGradient(
-                      colors: [TColors.yellowAppLight, Colors.redAccent], // ✅ Dégradé
+                      colors: [TColors.yellowAppLight, Colors.redAccent], // Dégradé
                     ).createShader(bounds);
                   },
                   child: SliderTheme(
                     data: SliderTheme.of(context).copyWith(
-                      trackHeight: 8, // ✅ Augmenter la hauteur du slider
+                      trackHeight: 8, // Hauteur du slider
                       thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 10),
                       overlayShape: const RoundSliderOverlayShape(overlayRadius: 20),
+                      rangeThumbShape: const RoundRangeSliderThumbShape(), // ✅ Pour 2 thumbs
                       valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
                       valueIndicatorTextStyle: const TextStyle(
                         color: Colors.white,
                         fontSize: 14,
                       ),
-                      showValueIndicator: ShowValueIndicator.always, // ✅ Toujours afficher label
+                      showValueIndicator: ShowValueIndicator.always,
                     ),
-                    child: Slider(
-                      value: weightValue,
-                      min: 0,
-                      max: 140,
+                    child: RangeSlider(
+                      values: controller.currentRangeValues.value,
+                      min: 1,
+                      max: 1000,
                       divisions: 140,
-                      label: weightValue.round().toString(),
-                      onChanged: (value) {
-                        controller.currentWeightValue.value = value.toInt();
+                      labels: RangeLabels(
+                        controller.currentRangeValues.value.start.round().toString(),
+                        controller.currentRangeValues.value.end.round().toString(),
+                      ),
+                      onChanged: (RangeValues values) {
+                        controller.currentRangeValues.value = values;
+                        debugPrint("range salaire : ${controller.currentRangeValues.value}");
                       },
-                      activeColor: Colors.white, // ✅ Couleur appliquée par gradient
+                      activeColor: Colors.white, // ✅ Gradient appliqué via ShaderMask
                       inactiveColor: Colors.white.withOpacity(0.3),
                     ),
                   ),
                 ),
               ],
-            ),
+            )
 
           ]
       )),
     );
   }
+
+  /// interest
+  Widget _buildInterestForm(BuildContext context) {
+    final interestsList = [
+      InterestModel(name: "التسوق", icon: Icons.shopping_bag_outlined),
+      InterestModel(name: "فوتوغرافيا", icon: Icons.camera_alt_outlined),
+      InterestModel(name: "اليوغا", icon: Icons.sports_gymnastics_outlined),
+      InterestModel(name: "كاريوكي", icon: Icons.keyboard_voice_outlined),
+      InterestModel(name: "التنس", icon: Icons.sports_tennis_outlined),
+      InterestModel(name: "طبخ", icon: Icons.cookie_outlined),
+      InterestModel(name: "سباحة", icon: Icons.sports_handball_outlined),
+      InterestModel(name: "ركض", icon: Icons.sports_handball_sharp),
+      InterestModel(name: "السفر", icon: Iconsax.trade),
+      InterestModel(name: "فن", icon: Iconsax.archive_tick),
+      InterestModel(name: "موسيقى", icon: Iconsax.music),
+      InterestModel(name: "أقصى", icon: Icons.diamond_outlined),
+      InterestModel(name: "ألعاب الفيديو", icon: Iconsax.game),
+      InterestModel(name: "قراءة", icon: Iconsax.book_1),
+    ];
+    
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Obx(() => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: TSizes.spaceBtwItems),
+            Align(
+                alignment: Alignment.topRight,
+                child: TitleWidget(title: "أضف الفائدة".tr)
+            ),
+            Align(
+                alignment: Alignment.topRight,
+                child: SubTitleWidget(subtitle: "أضف أي 5 اهتمامات للعثور على شريك يتوافق مع شغفك.".tr)
+            ),
+
+            SizedBox(height: TSizes.spaceBtwSections.v),
+
+            ///Method using GridView
+            GridView.count(
+              crossAxisCount: 2, // ✅ Deux colonnes fixes
+              mainAxisSpacing: 2,
+              crossAxisSpacing: 3,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(), // Empêche le scroll dans un Column
+                childAspectRatio: 2.5, // ✅ contrôle la largeur/hauteur
+              children: interestsList.map((interest) {
+                final isSelected = controller.selectedInterests.contains(interest.name);
+                return Align(
+                  alignment: Alignment.center, // ✅ Empêche de remplir toute la colonne
+                  child: InterestWidget(
+                    text: interest.name,
+                    iconPath: interest.icon,
+                    isSelected: isSelected,
+                    onTap: () => controller.toggleInterest(interest.name, context),
+                  ),
+                );
+              }).toList()
+            ),
+            ///Method using Wrap
+          /*  Wrap(
+              spacing: 5,
+              runSpacing: 5,
+              children: interestsList.map((interest) {
+                final isSelected = controller.selectedInterests.contains(interest.name);
+                return InterestWidget(
+                  text: interest.name,
+                  iconPath: interest.icon,
+                  isSelected: isSelected,
+                  onTap: () => controller.toggleInterest(interest.name, context),
+                );
+              }).toList(),
+            ) */
+          ]
+      )),
+    );
+  }
+
   /// Section Password
   Widget _buildPasswordForm() {
     return Column(
