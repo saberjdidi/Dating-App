@@ -9,9 +9,13 @@ import 'package:dating_app_bilhalal/presentation/account_screen/controller/creat
 import 'package:dating_app_bilhalal/widgets/account/interest_widget.dart';
 import 'package:dating_app_bilhalal/widgets/app_bar/appbar_widget.dart';
 import 'package:dating_app_bilhalal/widgets/account/choice-chip.dart';
+import 'package:dating_app_bilhalal/widgets/circular_container.dart';
 import 'package:dating_app_bilhalal/widgets/custom_drop_down.dart';
 import 'package:dating_app_bilhalal/widgets/custom_text_form_field.dart';
 import 'package:dating_app_bilhalal/widgets/form_divider_widget.dart';
+import 'package:dating_app_bilhalal/widgets/grid_layout.dart';
+import 'package:dating_app_bilhalal/widgets/line_stepper_widget.dart';
+import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
 import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
@@ -52,28 +56,20 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             child: SingleChildScrollView(
               child: Obx(() => Column(
                 children: [
-                  /*  IconStepper(
-                        activeStep: controller.activeStep.value,
-                        //stepCount: controller.dotCount.value,
-                        steppingEnabled: true,
-                        enableNextPreviousButtons: false,
-                        lineLength: 50, // longueur entre les étapes
-                        lineDotRadius: 4,
-                        lineColor: Colors.grey, // couleur par défaut
-                        //lineActiveColor: Colors.black, // couleur une fois rempli
-                        icons: List.generate(
-                          controller.dotCount.value,
-                              (index) => Icon(
-                            Icons.circle,
-                            color: index <= controller.activeStep.value
-                                ? Colors.black
-                                : Colors.grey,
-                          ),
-                        ),
-                        onStepReached: (index) {
-                          controller.activeStep.value = index;
-                        },
-                      ), */
+                  LineStepperWidget(
+                    stepCount: controller.dotCount.value,
+                    activeStep: controller.activeStep.value,
+                    dotRadius: 10,
+                    spacing: 10,
+                    connectorWidth: 40,
+                    activeColor: TColors.black,
+                    inactiveColor: TColors.greyDating,
+                    onStepTapped: (index) {
+                      // index est dans le sens logique (0 = première étape, affichée à droite)
+                      controller.activeStep.value = index;
+                    },
+                  ),
+                  /*
                   DotStepper(
                     activeStep: controller.activeStep.value,
                     dotCount: controller.dotCount.value,
@@ -98,7 +94,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                       color: TColors.yellowAppDark,
                       strokeWidth: 1,
                     ),
-                  ),
+                  ), */
 
                   controller.activeStep.value == 0
                       ? _buildBasicDetailsForm(context)
@@ -106,7 +102,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                       ? _buildAdditionalDetailsForm(context)
                       : controller.activeStep.value == 2
                       ? _buildInterestForm(context)
-                      : _buildPasswordForm(),
+                      : _buildMediaForm(context),
 
                   /// Jump buttons.
                   Visibility(
@@ -693,7 +689,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               crossAxisSpacing: 3,
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(), // Empêche le scroll dans un Column
-                childAspectRatio: 2.5, // ✅ contrôle la largeur/hauteur
+                childAspectRatio: 2, // ✅ contrôle la largeur/hauteur
               children: interestsList.map((interest) {
                 final isSelected = controller.selectedInterests.contains(interest.name);
                 return Align(
@@ -726,102 +722,142 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
     );
   }
 
-  /// Section Password
-  Widget _buildPasswordForm() {
-    return Column(
+  /// Section Media
+  Widget _buildMediaForm(BuildContext context) {
+    return Obx(() => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: TSizes.spaceBtwItems),
           Align(
-              alignment: Alignment.topLeft,
-              child: TitleWidget(title: "msg_create_password".tr)
+              alignment: Alignment.topRight,
+              child: TitleWidget(title: "أضف صورة الملف الشخصي/الفيديو".tr)
           ),
           Align(
-              alignment: Alignment.topLeft,
-              child: SubTitleWidget(subtitle: "msg_securise_account_password".tr)
-          ),
-          SizedBox(height: TSizes.spaceBtwSections * 2),
-          Obx(() => CustomTextFormField(
-              controller: controller.passwordController,
-              hintText: "${'lbl_password'.tr} *",
-              textInputAction: TextInputAction.next,
-              textInputType: TextInputType.visiblePassword,
-              prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
-                  child: CustomImageView(imagePath: ImageConstant.imgLock, height: 20.adaptSize, width: 20.adaptSize)),
-              prefixConstraints: BoxConstraints(maxHeight: 60.v),
-              suffix: InkWell(onTap: () {controller.isShowPassword.value = !controller.isShowPassword.value;},
-                  child: Container(margin: EdgeInsets.fromLTRB(30.hw, 20.v, 20.hw, 20.v),
-                      child: CustomImageView(
-                          imagePath: ImageConstant.imgEye,
-                          height: 20.adaptSize,
-                          width: 20.adaptSize)
-                  )),
-              suffixConstraints: BoxConstraints(maxHeight: 60.v),
-              validator: (value) => Validator.validatePassword(value),
-              obscureText: controller.isShowPassword.value,
-              contentPadding: EdgeInsets.symmetric(vertical: 21.v))),
-          const SizedBox(height: TSizes.spaceBtwSections,),
-          Obx(() =>
-              CustomTextFormField(
-                  controller: controller.confirmPasswordController,
-                  hintText: "${'lbl_confirm_password'.tr} *",
-                  textInputAction: TextInputAction.done,
-                  textInputType: TextInputType.visiblePassword,
-                  prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
-                      child: CustomImageView(imagePath: ImageConstant.imgLock, height: 20.adaptSize, width: 20.adaptSize)),
-                  prefixConstraints: BoxConstraints(maxHeight: 60.v),
-                  suffix: InkWell(onTap: () {controller.isShowPassword.value = !controller.isShowPassword.value;},
-                      child: Container(margin: EdgeInsets.fromLTRB(30.hw, 20.v, 20.hw, 20.v),
-                          child: CustomImageView(
-                              imagePath: ImageConstant.imgEye,
-                              height: 20.adaptSize,
-                              width: 20.adaptSize)
-                      )),
-                  suffixConstraints: BoxConstraints(maxHeight: 60.v),
-                  validator: (value) => Validator.validatePassword(value),
-                  obscureText: controller.isShowPassword.value,
-                  contentPadding: EdgeInsets.symmetric(vertical: 21.v)
-              )
+              alignment: Alignment.topRight,
+              child: SubTitleWidget(subtitle: "قم بتحميل صورتك الخاصة، وسيتم عرضها كصورة ملفك الشخصي.".tr)
           ),
 
-          SizedBox(height: TSizes.xl),
-          Text(
-            "\u2713 ${'lbl_caractere_special'.tr}(#?*+/!)",
-            style: theme.textTheme.displaySmall!.copyWith(
-                color: PrefUtils().getThemeData()=='dark' ? appTheme.whiteA700 : Colors.black,
-                fontSize: 18.adaptSize
-            ),
-            textAlign: TextAlign.justify,
+          SizedBox(height: TSizes.spaceBtwSections.v),
+
+          // Grid avec Upload Button + Images sélectionnées
+          GridLayout(
+            itemCount: controller.selectedMedia.length + 1, // +1 pour l'upload
+            mainAxisExtent: 180.adaptSize,
+            crossAxisCount: 3,
+            itemBuilder: (context, index) {
+              if (index == 0) {
+                // L'icône upload
+                return TRoundedContainer(
+                  showBorder: false,
+                  backgroundColor: TColors.white,
+                  borderColor: TColors.greyDating,
+                  radius: 12,
+                  padding: EdgeInsets.all(1),
+                  child: CustomImageView(
+                    imagePath: ImageConstant.uploadImage,
+                    height: 100.adaptSize,
+                    width: 100.adaptSize,
+                    fit: BoxFit.fill,
+                    onTap: () async {
+                      await controller.pickMedia();
+                    },
+                  ),
+                );
+              } else {
+                final file = controller.selectedMedia[index - 1]; // -1 car le 1er est upload
+                return TRoundedContainer(
+                  showBorder: true,
+                  backgroundColor: TColors.white,
+                  borderColor: TColors.greyDating,
+                  radius: 12,
+                  padding: EdgeInsets.all(1),
+                  child: Stack(
+                    children: [
+                      // Utiliser CustomImageView au lieu de Image.file
+                      CustomImageView(
+                        file: file,
+                        imagePath: null,
+                        //imagePath: file.path, // très important: .path car File
+                        height: Get.height,
+                        width: Get.width,
+                        fit: BoxFit.cover,
+                        radius: BorderRadius.circular(10),
+                      ),
+                      Positioned(
+                        right: 0,
+                        child: CircularContainer(
+                          width: 35.adaptSize,
+                          height: 35.adaptSize,
+                          radius: 35.adaptSize,
+                          backgroundColor: TColors.lightGrey,
+                          child: IconButton(
+                            icon: Icon(Icons.close, color: Colors.red, size: 15.adaptSize,),
+                            onPressed: () => controller.removeMedia(index - 1),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }
+            },
           ),
-          SizedBox(height: TSizes.sm),
-          Text(
-            "\u2713 ${'lbl_lettre_majuscule'.tr}",
-            style: theme.textTheme.displaySmall!.copyWith(
-                color: PrefUtils().getThemeData()=='dark' ? appTheme.whiteA700 : Colors.black,
-                fontSize: 18.adaptSize
-            ),
-            textAlign: TextAlign.justify,
+        /*
+          CustomImageView(
+            imagePath: ImageConstant.uploadImage,
+            height: 100.adaptSize,
+            width: 100.adaptSize,
+            fit: BoxFit.fill,
+            onTap: () async {
+             await controller.pickMedia();
+            },
           ),
-          SizedBox(height: TSizes.sm),
-          Text(
-            "\u2713 ${'lbl_chiffre'.tr}",
-            style: theme.textTheme.displaySmall!.copyWith(
-                color: PrefUtils().getThemeData()=='dark' ? appTheme.whiteA700 : Colors.black,
-                fontSize: 18.adaptSize
-            ),
-            textAlign: TextAlign.justify,
-          ),
-          SizedBox(height: TSizes.sm),
-          Text(
-            "\u2713 ${'lbl_8_caracteres_minimum'.tr}",
-            style: theme.textTheme.displaySmall!.copyWith(
-                color: PrefUtils().getThemeData()=='dark' ? appTheme.whiteA700 : Colors.black,
-                fontSize: 18.adaptSize
-            ),
-            textAlign: TextAlign.justify,
-          ),
+          GridLayout(
+            itemCount: controller.selectedMedia.length,
+            itemBuilder: (context, index) {
+              final file = controller.selectedMedia[index];
+              return TRoundedContainer(
+                //height: isTablet ? 20.hw : 52.hw,
+                //width: isTablet ? 20.hw : 52.hw,
+                //margin: EdgeInsets.only(top: 5),
+                showBorder: true,
+                backgroundColor: TColors.white,
+                borderColor: TColors.gray700,
+                radius: 12,
+                padding: EdgeInsets.all(10),
+                child: Stack(
+                  children: [
+                    CustomImageView(
+                      imagePath: file.path,
+                      height: 100.adaptSize,
+                      width: 100.adaptSize,
+                      fit: BoxFit.fill,
+                      onTap: () async {
+                        await controller.pickMedia();
+                      },
+                    ),
+                    Image.file(file, fit: BoxFit.cover),
+                    Positioned(
+                      right: 0,
+                      child:CircularContainer(
+                        width: 50.adaptSize,
+                        height: 50.adaptSize,
+                        radius: 50.adaptSize,
+                        backgroundColor: TColors.greyDating,
+                        child: IconButton(
+                          icon: const Icon(Icons.close, color: Colors.red),
+                          onPressed: () => controller.removeMedia(index),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          )
+          */
         ]
-    );
+    ));
   }
 
   onTapNext() {

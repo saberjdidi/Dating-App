@@ -9,6 +9,7 @@ class ImageConstant {
   static String successOTPImage = '$imagePath/success_otp.png';
 
   static String imgWarning = '$imagePath/img_warning.png';
+  static String uploadImage = '$imagePath/upload_image.png';
 
   //logo
   static String backgroundSplash = '$imagePath/background_splash.png';

@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:dating_app_bilhalal/core/app_export.dart';
+import 'package:dating_app_bilhalal/core/utils/permissions_helper.dart';
 import 'package:dating_app_bilhalal/widgets/custom_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CreateAccountController extends GetxController {
   RxInt currentIndexStepper = 0.obs;
@@ -80,6 +84,28 @@ class CreateAccountController extends GetxController {
         image: ImageConstant.imgWarning,
       ),
     );
+  }
+
+  //Images
+  final ImagePicker _picker = ImagePicker();
+  final RxList<File> selectedMedia = <File>[].obs;
+
+  Future<void> pickMedia() async {
+    final hasPermission = await PermissionsHelper.requestMediaPermissions();
+    if (!hasPermission) {
+      Get.snackbar("Permission Denied", "You need to grant permissions to continue.");
+      return;
+    }
+
+    final List<XFile>? files = await _picker.pickMultiImage();
+
+    if (files != null) {
+      selectedMedia.addAll(files.map((f) => File(f.path)));
+    }
+  }
+
+  void removeMedia(int index) {
+    selectedMedia.removeAt(index);
   }
 
   bool _dataValidation() {
