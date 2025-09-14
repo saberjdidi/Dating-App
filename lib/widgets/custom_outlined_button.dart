@@ -11,6 +11,7 @@ class CustomOutlinedButton extends BaseButton {
     this.leftIcon,
     this.rightIcon,
     this.label,
+    this.borderRadius = 30,
     VoidCallback? onPressed,
     ButtonStyle? buttonStyle,
     TextStyle? buttonTextStyle,
@@ -39,6 +40,7 @@ class CustomOutlinedButton extends BaseButton {
   final Widget? rightIcon;
 
   final Widget? label;
+  double borderRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +57,7 @@ class CustomOutlinedButton extends BaseButton {
         width: this.width ?? double.maxFinite,
         margin: margin,
         decoration: decoration ?? BoxDecoration(
-          borderRadius: BorderRadiusStyle.roundedBorder30
+          borderRadius: BorderRadius.circular(borderRadius) ?? BorderRadiusStyle.roundedBorder30
         ),
         child: OutlinedButton(
           style: buttonStyle,

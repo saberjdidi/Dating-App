@@ -115,14 +115,14 @@ class SignInScreen extends GetView<SignInController> {
               controller: controller.emailController,
               hintText: "بريد إلكتروني".tr,
               textInputType: TextInputType.emailAddress,
-              prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
+            /*  prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
                   child: CustomImageView(
                       imagePath: ImageConstant.imgCheckmark,
                       height: 20.adaptSize,
                       width: 20.adaptSize)
-              ),
+              ), */
               prefixConstraints: BoxConstraints(maxHeight: 60.v),
-              contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, bottom: 21.v),
+              contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
               validator: Validator.validateEmail,
             ),
           ),
@@ -133,8 +133,9 @@ class SignInScreen extends GetView<SignInController> {
                 controller: controller.passwordController,
                 hintText: "كلمة المرور".tr, textInputAction: TextInputAction.done,
                 textInputType: TextInputType.visiblePassword,
-                prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
+               /* prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
                     child: CustomImageView(imagePath: ImageConstant.imgLock, height: 20.adaptSize, width: 20.adaptSize)),
+                */
                 prefixConstraints: BoxConstraints(maxHeight: 60.v),
                 suffix: InkWell(onTap: () {controller.isShowPassword.value = !controller.isShowPassword.value;},
                     child: Container(margin: EdgeInsets.fromLTRB(30.hw, 20.v, 20.hw, 20.v),
@@ -146,7 +147,8 @@ class SignInScreen extends GetView<SignInController> {
                 suffixConstraints: BoxConstraints(maxHeight: 60.v),
                 validator: (value) => Validator.validateEmptyText("lbl_password".tr, value),
                 obscureText: controller.isShowPassword.value,
-                contentPadding: EdgeInsets.symmetric(vertical: 21.v)),
+                contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
+            ),
           )),
           const SizedBox(height: TSizes.spaceBtwSections,),
           GestureDetector(

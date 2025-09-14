@@ -168,16 +168,19 @@ class _OTPScreenState extends State<OTPScreen> with SingleTickerProviderStateMix
                 ],
               ),
               SizedBox(height: 20.v),
-              CustomButtonContainer(
-                text: "يكمل",
-                color1: TColors.yellowAppDark,
-                color2: TColors.yellowAppLight,
-                borderRadius: 10,
-                colorText: TColors.white,
-                fontSize: 20.adaptSize,
-                onPressed: () async {
-                  onTapOTPSuccessPage(context);
-                },
+              Center(
+                child: CustomButtonContainer(
+                  text: "يكمل",
+                  color1: TColors.yellowAppDark,
+                  color2: TColors.yellowAppLight,
+                  borderRadius: 10,
+                  colorText: TColors.white,
+                  fontSize: 20.adaptSize,
+                  width: Get.width,
+                  onPressed: () async {
+                    onTapOTPSuccessPage(context);
+                  },
+                ),
               ),
               SizedBox(height: 15.v,),
               Directionality(
@@ -188,6 +191,7 @@ class _OTPScreenState extends State<OTPScreen> with SingleTickerProviderStateMix
                   buttonStyle: CustomButtonStyles.outlineBlack,
                   text: "إعادة إرسال OTP",
                   margin: EdgeInsets.only(top: 6.hw),
+                  borderRadius: 100.hw,
                   onPressed: (){
 
                   },

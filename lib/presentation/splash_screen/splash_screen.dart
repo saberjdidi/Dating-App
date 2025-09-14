@@ -18,9 +18,11 @@ class SplashScreen extends GetWidget<SplashController> {
         color: TColors.white
       ),
       child: Center(
-        child: CircularContainer(
+        child: Image.asset(ImageConstant.logo),
+       /* child: CircularContainer(
           child: Image.asset(ImageConstant.logo),
         ),
+        */
       ),
     );
   }

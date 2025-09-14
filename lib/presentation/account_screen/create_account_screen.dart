@@ -24,17 +24,20 @@ import 'package:im_stepper/stepper.dart';
 class CreateAccountScreen extends GetWidget<CreateAccountController> {
   CreateAccountScreen({super.key});
 
-  final GlobalKey<ScaffoldState> _scaffoldKeySignUpStepper = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKeyCreateAccount = GlobalKey<ScaffoldState>();
   final PageController _pageSignupStepperController = PageController();
   var _appTheme = PrefUtils().getThemeData();
 
   @override
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
+    var screenWidth = mediaQueryData.size.width;
+    var isSmallPhone = screenWidth < 360;
+    var isTablet = screenWidth >= 600;
 
     return SafeArea(
       child: Form(
-        key: controller.formSignUpStepperKey,
+        key: controller.formCreateAccountKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Scaffold(
           backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
@@ -101,8 +104,8 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                       : controller.activeStep.value == 1
                       ? _buildAdditionalDetailsForm(context)
                       : controller.activeStep.value == 2
-                      ? _buildInterestForm(context)
-                      : _buildMediaForm(context),
+                      ? _buildInterestForm(context, isTablet)
+                      : _buildMediaForm(context, isTablet),
 
                   /// Jump buttons.
                   Visibility(
@@ -158,7 +161,8 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             //child: _buildButtonSection()
             child:
             CustomButtonContainer(
-              text: controller.activeStep.value < 2 ? "التالي".tr : "تأكيد الحساب".tr,
+              text: controller.activeStep.value == 4 ?  "ملخص".tr : "التالي".tr,
+              //text: controller.activeStep.value < 3 ? "التالي".tr : "تأكيد الحساب".tr,
               color1: TColors.yellowAppDark,
               color2: TColors.yellowAppLight,
               borderRadius: 10,
@@ -168,7 +172,8 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                 if (controller.activeStep.value < controller.dotCount.value - 1) {
                   controller.activeStep.value++;
                 } else {
-                  controller.saveBtn();
+                  //controller.saveBtn();
+                  Get.toNamed(Routes.overviewAccountScreen);
                 }
                 //dialogVerifyAccount(context);
               },
@@ -183,9 +188,9 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
   /// Section Identity
   Widget _buildBasicDetailsForm(BuildContext context) {
 
-    double sliderValue = controller.currentSliderValue.value.toDouble();
-    double weightValue = controller.currentWeightValue.value.toDouble();
-    double heightValue = controller.currentHeightValue.value.toDouble();
+    //double sliderValue = controller.currentAgeValue.value.toDouble();
+    //double weightValue = controller.currentWeightValue.value.toDouble();
+    //double heightValue = controller.currentHeightValue.value.toDouble();
 
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -222,7 +227,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                   child: Icon(Iconsax.user_octagon)
               ), */
               prefixConstraints: BoxConstraints(maxHeight: 60.v),
-              contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, bottom: 21.v),
+              contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
               validator: (value) => Validator.validateEmptyText('${'lbl_lastName'.tr}', value),
             ),
             SizedBox(height: TSizes.spaceBtwItems.v),
@@ -235,7 +240,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                   child: Icon(Iconsax.user)
               ), */
               prefixConstraints: BoxConstraints(maxHeight: 60.v),
-              contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, bottom: 21.v),
+              contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
               validator: (value) => Validator.validateEmptyText('${'lbl_firstName'.tr}', value),
             ),
 
@@ -272,37 +277,55 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Radio<int>(
-                  value: 0,
-                  groupValue: controller.sexValue.value,
-                  onChanged: (value) {
-                    controller.sexValue.value = value!;
-                    debugPrint("femme : ${controller.sexValue.value}");
-                  },
-                  fillColor: MaterialStateProperty.resolveWith<Color>((states) {
-                    if (states.contains(MaterialState.selected)) {
-                      return TColors.yellowAppDark; // ✅ Cercle actif jaune
-                    }
-                    return Colors.grey; // Cercle inactif gris
-                  }),
+                TRoundedContainer(
+                    showBorder: true,
+                    borderColor: TColors.greyDating,
+                    padding: EdgeInsets.symmetric(horizontal: 20.v, vertical: 10.v),
+                    child: Row(
+                      children: [
+                        Radio<int>(
+                          value: 0,
+                          groupValue: controller.sexValue.value,
+                          onChanged: (value) {
+                            controller.sexValue.value = value!;
+                            debugPrint("femme : ${controller.sexValue.value}");
+                          },
+                          fillColor: MaterialStateProperty.resolveWith<Color>((states) {
+                            if (states.contains(MaterialState.selected)) {
+                              return TColors.yellowAppDark; // ✅ Cercle actif jaune
+                            }
+                            return Colors.grey; // Cercle inactif gris
+                          }),
+                        ),
+                        TitleWidget(title: 'امراة',),
+                      ],
+                    )
                 ),
-                TitleWidget(title: 'امراة',),
 
-                Radio<int>(
-                  value: 1,
-                  groupValue: controller.sexValue.value,
-                  onChanged: (value) {
-                    controller.sexValue.value = value!;
-                    debugPrint("homme : ${controller.sexValue.value}");
-                  },
-                  fillColor: MaterialStateProperty.resolveWith<Color>((states) {
-                    if (states.contains(MaterialState.selected)) {
-                      return TColors.yellowAppDark;
-                    }
-                    return Colors.grey;
-                  }),
+                TRoundedContainer(
+                    showBorder: true,
+                    borderColor: TColors.greyDating,
+                    padding: EdgeInsets.symmetric(horizontal: 20.v, vertical: 10.v),
+                    child: Row(
+                      children: [
+                        Radio<int>(
+                          value: 1,
+                          groupValue: controller.sexValue.value,
+                          onChanged: (value) {
+                            controller.sexValue.value = value!;
+                            debugPrint("homme : ${controller.sexValue.value}");
+                          },
+                          fillColor: MaterialStateProperty.resolveWith<Color>((states) {
+                            if (states.contains(MaterialState.selected)) {
+                              return TColors.yellowAppDark;
+                            }
+                            return Colors.grey;
+                          }),
+                        ),
+                        TitleWidget(title: 'رجل',),
+                      ],
+                    )
                 ),
-                TitleWidget(title: 'رجل',),
               ],
             ),
 
@@ -312,12 +335,12 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             /*
             Obx(() => Slider(
               //year2023: year2023,
-              value: double.parse(controller.currentSliderValue.value.toString()),
+              value: double.parse(controller.currentAgeValue.value.toString()),
               max: 100,
               divisions: 100,
-              label: controller.currentSliderValue.round().toString(),
+              label: controller.currentAgeValue.round().toString(),
               onChanged: (double value) {
-                controller.currentSliderValue.value = value.toInt();
+                controller.currentAgeValue.value = value.toInt();
 
               },
               activeColor: TColors.yellowAppDark,
@@ -329,7 +352,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // ✅ Afficher l’âge sous le slider
-                Text("${sliderValue.round()}",
+                Text("${controller.currentAgeValue.value.round()}",
                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 // Slider avec gradient, label toujours visible, hauteur augmentée
@@ -352,13 +375,13 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                       showValueIndicator: ShowValueIndicator.always, // ✅ Toujours afficher label
                     ),
                     child: Slider(
-                      value: sliderValue,
+                      value: controller.currentAgeValue.value,
                       min: 0,
                       max: 100,
                       divisions: 100,
-                      label: sliderValue.round().toString(),
+                      label: controller.currentAgeValue.value.round().toString(),
                       onChanged: (value) {
-                        controller.currentSliderValue.value = value.toInt();
+                        controller.currentAgeValue.value = value;
                       },
                       activeColor: Colors.white, // ✅ Couleur appliquée par gradient
                       inactiveColor: Colors.white.withOpacity(0.3),
@@ -377,7 +400,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                 // ✅ Afficher l’âge sous le slider
                 Directionality(
                   textDirection: TextDirection.ltr,
-                  child: Text("${weightValue.round()} KG",
+                  child: Text("${controller.currentWeightValue.value.round()} KG",
                     style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -401,13 +424,13 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                       showValueIndicator: ShowValueIndicator.always, // ✅ Toujours afficher label
                     ),
                     child: Slider(
-                      value: weightValue,
+                      value: controller.currentWeightValue.value,
                       min: 0,
                       max: 140,
                       divisions: 140,
-                      label: weightValue.round().toString(),
+                      label: controller.currentWeightValue.value.round().toString(),
                       onChanged: (value) {
-                        controller.currentWeightValue.value = value.toInt();
+                        controller.currentWeightValue.value = value;
                       },
                       activeColor: Colors.white, // ✅ Couleur appliquée par gradient
                       inactiveColor: Colors.white.withOpacity(0.3),
@@ -426,7 +449,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                 // ✅ Afficher l’âge sous le slider
                 Directionality(
                   textDirection: TextDirection.ltr,
-                  child: Text("${heightValue.round()} CM",
+                  child: Text("${controller.currentHeightValue.value.round()} CM",
                     style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -450,13 +473,13 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                       showValueIndicator: ShowValueIndicator.always, // ✅ Toujours afficher label
                     ),
                     child: Slider(
-                      value: heightValue,
+                      value: controller.currentHeightValue.value,
                       min: 100,
                       max: 220,
                       divisions: 220,
-                      label: heightValue.round().toString(),
+                      label: controller.currentHeightValue.value.round().toString(),
                       onChanged: (value) {
-                        controller.currentHeightValue.value = value.toInt();
+                        controller.currentHeightValue.value = value;
                       },
                       activeColor: Colors.white, // ✅ Couleur appliquée par gradient
                       inactiveColor: Colors.white.withOpacity(0.3),
@@ -473,7 +496,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
 
   /// additional details
   Widget _buildAdditionalDetailsForm(BuildContext context) {
-    final colors = ['skinColor8', 'skinColor7', 'skinColor6', 'skinColor5', 'skinColor4', 'skinColor3', 'skinColor2', 'skinColor1'];
+
 
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -510,6 +533,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               },
               themeColor: appTheme.gray50,
               borderRadius: 15.hw,
+              contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
             ),
             SizedBox(height: TSizes.spaceBtwItems.v),
 
@@ -533,6 +557,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               },
               themeColor: appTheme.gray50,
               borderRadius: 15.hw,
+              contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
             ),
             SizedBox(height: TSizes.spaceBtwItems.v),
 
@@ -545,7 +570,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                   child: Icon(Iconsax.user)
               ), */
               prefixConstraints: BoxConstraints(maxHeight: 60.v),
-              contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, bottom: 21.v),
+              contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
               validator: (value) => Validator.validateEmptyText('${'Job'.tr}', value),
             ),
             SizedBox(height: TSizes.spaceBtwItems.v),
@@ -567,6 +592,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               },
               themeColor: appTheme.gray50,
               borderRadius: 15.hw,
+              contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
             ),
 
             SizedBox(height: TSizes.spaceBtwItems.v),
@@ -575,7 +601,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
 
             Wrap(
                 spacing: 5,
-                children: colors.map((color) {
+                children: ColorsSkinList.map((color) {
                   final isSelected = controller.selectedColor.value == color;
                   return TChoiceChip(
                       text: color,
@@ -647,30 +673,14 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
   }
 
   /// interest
-  Widget _buildInterestForm(BuildContext context) {
-    final interestsList = [
-      InterestModel(name: "التسوق", icon: Icons.shopping_bag_outlined),
-      InterestModel(name: "فوتوغرافيا", icon: Icons.camera_alt_outlined),
-      InterestModel(name: "اليوغا", icon: Icons.sports_gymnastics_outlined),
-      InterestModel(name: "كاريوكي", icon: Icons.keyboard_voice_outlined),
-      InterestModel(name: "التنس", icon: Icons.sports_tennis_outlined),
-      InterestModel(name: "طبخ", icon: Icons.cookie_outlined),
-      InterestModel(name: "سباحة", icon: Icons.sports_handball_outlined),
-      InterestModel(name: "ركض", icon: Icons.sports_handball_sharp),
-      InterestModel(name: "السفر", icon: Iconsax.trade),
-      InterestModel(name: "فن", icon: Iconsax.archive_tick),
-      InterestModel(name: "موسيقى", icon: Iconsax.music),
-      InterestModel(name: "أقصى", icon: Icons.diamond_outlined),
-      InterestModel(name: "ألعاب الفيديو", icon: Iconsax.game),
-      InterestModel(name: "قراءة", icon: Iconsax.book_1),
-    ];
-    
+  Widget _buildInterestForm(BuildContext context, bool isTablet) {
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Obx(() => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: TSizes.spaceBtwItems),
+            SizedBox(height: TSizes.spaceBtwItems.v),
             Align(
                 alignment: Alignment.topRight,
                 child: TitleWidget(title: "أضف الفائدة".tr)
@@ -684,13 +694,13 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
 
             ///Method using GridView
             GridView.count(
-              crossAxisCount: 2, // ✅ Deux colonnes fixes
+              crossAxisCount: isTablet ? 3 : 2, // ✅ Deux colonnes fixes
               mainAxisSpacing: 2,
               crossAxisSpacing: 3,
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(), // Empêche le scroll dans un Column
                 childAspectRatio: 2, // ✅ contrôle la largeur/hauteur
-              children: interestsList.map((interest) {
+              children: controller.interestsList.map((interest) {
                 final isSelected = controller.selectedInterests.contains(interest.name);
                 return Align(
                   alignment: Alignment.center, // ✅ Empêche de remplir toute la colonne
@@ -723,11 +733,11 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
   }
 
   /// Section Media
-  Widget _buildMediaForm(BuildContext context) {
+  Widget _buildMediaForm(BuildContext context, bool isTablet) {
     return Obx(() => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: TSizes.spaceBtwItems),
+          SizedBox(height: TSizes.spaceBtwItems.v),
           Align(
               alignment: Alignment.topRight,
               child: TitleWidget(title: "أضف صورة الملف الشخصي/الفيديو".tr)
@@ -740,67 +750,70 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
           SizedBox(height: TSizes.spaceBtwSections.v),
 
           // Grid avec Upload Button + Images sélectionnées
-          GridLayout(
-            itemCount: controller.selectedMedia.length + 1, // +1 pour l'upload
-            mainAxisExtent: 180.adaptSize,
-            crossAxisCount: 3,
-            itemBuilder: (context, index) {
-              if (index == 0) {
-                // L'icône upload
-                return TRoundedContainer(
-                  showBorder: false,
-                  backgroundColor: TColors.white,
-                  borderColor: TColors.greyDating,
-                  radius: 12,
-                  padding: EdgeInsets.all(1),
-                  child: CustomImageView(
-                    imagePath: ImageConstant.uploadImage,
-                    height: 100.adaptSize,
-                    width: 100.adaptSize,
-                    fit: BoxFit.fill,
-                    onTap: () async {
-                      await controller.pickMedia();
-                    },
-                  ),
-                );
-              } else {
-                final file = controller.selectedMedia[index - 1]; // -1 car le 1er est upload
-                return TRoundedContainer(
-                  showBorder: true,
-                  backgroundColor: TColors.white,
-                  borderColor: TColors.greyDating,
-                  radius: 12,
-                  padding: EdgeInsets.all(1),
-                  child: Stack(
-                    children: [
-                      // Utiliser CustomImageView au lieu de Image.file
-                      CustomImageView(
-                        file: file,
-                        imagePath: null,
-                        //imagePath: file.path, // très important: .path car File
-                        height: Get.height,
-                        width: Get.width,
-                        fit: BoxFit.cover,
-                        radius: BorderRadius.circular(10),
-                      ),
-                      Positioned(
-                        right: 0,
-                        child: CircularContainer(
-                          width: 35.adaptSize,
-                          height: 35.adaptSize,
-                          radius: 35.adaptSize,
-                          backgroundColor: TColors.lightGrey,
-                          child: IconButton(
-                            icon: Icon(Icons.close, color: Colors.red, size: 15.adaptSize,),
-                            onPressed: () => controller.removeMedia(index - 1),
+          Directionality(
+            textDirection: TextDirection.rtl,
+            child: GridLayout(
+              itemCount: controller.selectedMedia.length + 1, // +1 pour l'upload
+              mainAxisExtent: isTablet ? 220.adaptSize : 180.adaptSize,
+              crossAxisCount: 3,
+              itemBuilder: (context, index) {
+                if (index == 0) {
+                  // L'icône upload
+                  return TRoundedContainer(
+                    showBorder: false,
+                    backgroundColor: TColors.white,
+                    borderColor: TColors.greyDating,
+                    radius: 12,
+                    padding: EdgeInsets.all(1),
+                    child: CustomImageView(
+                      imagePath: ImageConstant.uploadImage,
+                      height: 100.adaptSize,
+                      width: 100.adaptSize,
+                      fit: BoxFit.fill,
+                      onTap: () async {
+                        await controller.pickMedia();
+                      },
+                    ),
+                  );
+                } else {
+                  final file = controller.selectedMedia[index - 1]; // -1 car le 1er est upload
+                  return TRoundedContainer(
+                    showBorder: true,
+                    backgroundColor: TColors.white,
+                    borderColor: TColors.greyDating,
+                    radius: 12,
+                    padding: EdgeInsets.all(1),
+                    child: Stack(
+                      children: [
+                        // Utiliser CustomImageView au lieu de Image.file
+                        CustomImageView(
+                          file: file,
+                          imagePath: null,
+                          //imagePath: file.path, // très important: .path car File
+                          height: Get.height,
+                          width: Get.width,
+                          fit: BoxFit.cover,
+                          radius: BorderRadius.circular(10),
+                        ),
+                        Positioned(
+                          right: 0,
+                          child: CircularContainer(
+                            width: 35.adaptSize,
+                            height: 35.adaptSize,
+                            radius: 35.adaptSize,
+                            backgroundColor: TColors.lightGrey,
+                            child: IconButton(
+                              icon: Icon(Icons.close, color: Colors.red, size: 15.adaptSize,),
+                              onPressed: () => controller.removeMedia(index - 1),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                );
-              }
-            },
+                      ],
+                    ),
+                  );
+                }
+              },
+            ),
           ),
         /*
           CustomImageView(

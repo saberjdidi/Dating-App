@@ -32,3 +32,5 @@ Rx<List<SelectionPopupModel>> ListPays = Rx(
       SelectionPopupModel(id:4,title:"المغرب"),
     ]
 );
+
+final ColorsSkinList = ['skinColor8', 'skinColor7', 'skinColor6', 'skinColor5', 'skinColor4', 'skinColor3', 'skinColor2', 'skinColor1'];

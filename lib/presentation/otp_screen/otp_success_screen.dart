@@ -37,16 +37,20 @@ class OTPSuccessScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: TSizes.spaceBtwSections.fSize * 2),
-                CustomButtonContainer(
-                  text: "أكمل ملفك الشخصي",
-                  color1: TColors.yellowAppDark,
-                  color2: TColors.yellowAppLight,
-                  borderRadius: 10,
-                  colorText: TColors.white,
-                  fontSize: 20.adaptSize,
-                  onPressed: () async {
-                    Get.offAllNamed(Routes.createAccountScreen);
-                  },
+                Center(
+                  child: CustomButtonContainer(
+                    text: "أكمل ملفك الشخصي",
+                    color1: TColors.yellowAppDark,
+                    color2: TColors.yellowAppLight,
+                    borderRadius: 10,
+                    colorText: TColors.white,
+                    fontSize: 20.adaptSize,
+                    width: Get.width,
+                    textAlign: TextAlign.center,
+                    onPressed: () async {
+                      Get.offAllNamed(Routes.createAccountScreen);
+                    },
+                  ),
                 ),
                 SizedBox(height: 15.v,),
               ],

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/permissions_helper.dart';
+import 'package:dating_app_bilhalal/data/models/interest_model.dart';
 import 'package:dating_app_bilhalal/widgets/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -9,7 +10,8 @@ import 'package:image_picker/image_picker.dart';
 class CreateAccountController extends GetxController {
   RxInt currentIndexStepper = 0.obs;
 
-  final GlobalKey<FormState> formSignUpStepperKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formCreateAccountKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formOverviewAccountKey = GlobalKey<FormState>();
 
   ///ImStepper
   // REQUIRED: USED TO CONTROL THE STEPPER.
@@ -26,9 +28,9 @@ class CreateAccountController extends GetxController {
   TextEditingController jobController = TextEditingController();
   TextEditingController paysController = TextEditingController();
   RxInt sexValue = 0.obs;
-  RxInt currentSliderValue = 20.obs;
-  RxInt currentWeightValue = 50.obs;
-  RxInt currentHeightValue = 170.obs;
+  RxDouble currentAgeValue = 20.toDouble().obs;
+  RxDouble currentWeightValue = 50.toDouble().obs;
+  RxDouble currentHeightValue = 170.toDouble().obs;
   var currentRangeValues = const RangeValues(177, 300).obs;
   //color
   RxString selectedColor = ''.obs;
@@ -107,6 +109,31 @@ class CreateAccountController extends GetxController {
   void removeMedia(int index) {
     selectedMedia.removeAt(index);
   }
+
+  ///Upload user profile start
+  /// Fichier sélectionné (image de profil)
+  final Rx<File?> selectedImage = Rx<File?>(null);
+
+  /// Mettre à jour l'image sélectionnée
+  void setImage(File? image) {
+    selectedImage.value = image;
+  }
+
+  /// Effacer l'image sélectionnée
+  void clearImage() {
+    selectedImage.value = null;
+  }
+
+ /* void _submitForm() {
+    final imageFile = selectedImage.value;
+    if (imageFile != null) {
+      print("Image prête à envoyer : ${imageFile.path}");
+      // Envoyer ce fichier à ton API ou backend
+    } else {
+      print("Aucune image sélectionnée");
+    }
+  } */
+  ///Upload user profile end
 
   bool _dataValidation() {
     if (passwordController.text.trim() != confirmPasswordController.text.trim()) {
@@ -206,6 +233,21 @@ class CreateAccountController extends GetxController {
     }
     */
   }
-
+  final interestsList = [
+    InterestModel(name: "التسوق", icon: Icons.shopping_bag_outlined),
+    InterestModel(name: "فوتوغرافيا", icon: Icons.camera_alt_outlined),
+    InterestModel(name: "اليوغا", icon: Icons.sports_gymnastics_outlined),
+    InterestModel(name: "كاريوكي", icon: Icons.keyboard_voice_outlined),
+    InterestModel(name: "التنس", icon: Icons.sports_tennis_outlined),
+    InterestModel(name: "طبخ", icon: Icons.cookie_outlined),
+    InterestModel(name: "سباحة", icon: Icons.sports_handball_outlined),
+    InterestModel(name: "ركض", icon: Icons.sports_handball_sharp),
+    InterestModel(name: "السفر", icon: Iconsax.trade),
+    InterestModel(name: "فن", icon: Iconsax.archive_tick),
+    InterestModel(name: "موسيقى", icon: Iconsax.music),
+    InterestModel(name: "أقصى", icon: Icons.diamond_outlined),
+    InterestModel(name: "ألعاب الفيديو", icon: Iconsax.game),
+    InterestModel(name: "قراءة", icon: Iconsax.book_1),
+  ];
 
 }

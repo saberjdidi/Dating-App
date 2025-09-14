@@ -1,6 +1,7 @@
 class ImageConstant {
   // Image folder path
   static String imagePath = 'assets/images';
+  static String animationPath = 'assets/animations';
 
   //Dating App
   static String logo = '$imagePath/logo.png';
@@ -10,6 +11,13 @@ class ImageConstant {
 
   static String imgWarning = '$imagePath/img_warning.png';
   static String uploadImage = '$imagePath/upload_image.png';
+  static String uploadImageRounded = '$imagePath/upload_image_rounded.png';
+  static String loadingImage = '$imagePath/loading_animation.gif';
+  static String userProfile = '$imagePath/user_profile.png';
+  static String uplodUserProfile = '$imagePath/upload_user_profile.svg';
+
+  //lottie
+  static String lottieTrophy = '$animationPath/trophy.json';
 
   //logo
   static String backgroundSplash = '$imagePath/background_splash.png';

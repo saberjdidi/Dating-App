@@ -116,14 +116,14 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
               controller: controller.emailController,
               hintText: "بريد إلكتروني".tr,
               textInputType: TextInputType.emailAddress,
-              prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
+             /* prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
                   child: CustomImageView(
                       imagePath: ImageConstant.imgCheckmark,
                       height: 20.adaptSize,
                       width: 20.adaptSize)
-              ),
+              ), */
               prefixConstraints: BoxConstraints(maxHeight: 60.v),
-              contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, bottom: 21.v),
+              contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
               validator: Validator.validateEmail,
             ),
           ),
@@ -134,8 +134,9 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
                 controller: controller.passwordController,
                 hintText: "كلمة المرور".tr, textInputAction: TextInputAction.done,
                 textInputType: TextInputType.visiblePassword,
-                prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
+               /* prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
                     child: CustomImageView(imagePath: ImageConstant.imgLock, height: 20.adaptSize, width: 20.adaptSize)),
+                */
                 prefixConstraints: BoxConstraints(maxHeight: 60.v),
                 suffix: InkWell(onTap: () {controller.isShowPassword.value = !controller.isShowPassword.value;},
                     child: Container(margin: EdgeInsets.fromLTRB(30.hw, 20.v, 20.hw, 20.v),
@@ -147,7 +148,8 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
                 suffixConstraints: BoxConstraints(maxHeight: 60.v),
                 validator: (value) => Validator.validateEmptyText("lbl_password".tr, value),
                 obscureText: controller.isShowPassword.value,
-                contentPadding: EdgeInsets.symmetric(vertical: 21.v)),
+              contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
+            ),
           )),
           const SizedBox(height: TSizes.spaceBtwInputFields,),
           Obx(() => Directionality(
@@ -156,8 +158,9 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
                 controller: controller.passwordController,
                 hintText: "تأكيد كلمة المرور".tr, textInputAction: TextInputAction.done,
                 textInputType: TextInputType.visiblePassword,
-                prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
+               /* prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
                     child: CustomImageView(imagePath: ImageConstant.imgLock, height: 20.adaptSize, width: 20.adaptSize)),
+                */
                 prefixConstraints: BoxConstraints(maxHeight: 60.v),
                 suffix: InkWell(onTap: () {controller.isShowPassword.value = !controller.isShowPassword.value;},
                     child: Container(margin: EdgeInsets.fromLTRB(30.hw, 20.v, 20.hw, 20.v),
@@ -169,7 +172,8 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
                 suffixConstraints: BoxConstraints(maxHeight: 60.v),
                 validator: (value) => Validator.validateEmptyText("lbl_password".tr, value),
                 obscureText: controller.isShowPassword.value,
-                contentPadding: EdgeInsets.symmetric(vertical: 21.v)),
+              contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
+            ),
           )),
           const SizedBox(height: TSizes.spaceBtwInputFields,),
           /* GestureDetector(
@@ -190,16 +194,19 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
               )
           ), */
           SizedBox(height: 24.v),
-          CustomButtonContainer(
-            text: "اشتراك",
-            color1: TColors.yellowAppDark,
-            color2: TColors.yellowAppLight,
-            borderRadius: 10,
-            colorText: TColors.white,
-            fontSize: 20.adaptSize,
-            onPressed: () async {
-              onTapOTPPage(context);
-            },
+          Center(
+            child: CustomButtonContainer(
+              text: "اشتراك",
+              color1: TColors.yellowAppDark,
+              color2: TColors.yellowAppLight,
+              borderRadius: 10,
+              colorText: TColors.white,
+              fontSize: 20.adaptSize,
+              width: Get.width,
+              onPressed: () async {
+                onTapOTPPage(context);
+              },
+            ),
           ),
           /*  CustomElevatedButton(
               buttonStyle: CustomButtonStyles.elevatedBlueLight700Radius10,
