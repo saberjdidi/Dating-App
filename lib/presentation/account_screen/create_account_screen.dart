@@ -700,7 +700,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(), // Empêche le scroll dans un Column
                 childAspectRatio: 2, // ✅ contrôle la largeur/hauteur
-              children: controller.interestsList.map((interest) {
+              children: interestsList.map((interest) {
                 final isSelected = controller.selectedInterests.contains(interest.name);
                 return Align(
                   alignment: Alignment.center, // ✅ Empêche de remplir toute la colonne

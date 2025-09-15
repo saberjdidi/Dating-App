@@ -40,6 +40,7 @@ class ImageConstant {
   //Card Swiper
   static String imgMessage = '$imagePath/img_message.png'; //'$imagePath/message_img.svg';
   static String imgFavoris = '$imagePath/img_favoris.png'; //'$imagePath/favoris_img.svg';
+  static String imgClose = '$imagePath/img_close.svg';
 
   //Bottom Bar
   static String mainImg = '$imagePath/main_img.svg';
@@ -47,6 +48,9 @@ class ImageConstant {
   static String discussionImg = '$imagePath/discussion_img.svg';
   static String likeImg = '$imagePath/like_img.svg';
   static String profileSettingsImg = '$imagePath/profile_settings_img.svg';
+
+  ///Pays
+  static String paysTunisia = '$imagePath/pays_tunisia.svg';
 
   ///Other
   //common images
@@ -80,7 +84,6 @@ class ImageConstant {
   static String imgCastle = '$imagePath/img_castle.svg';
   static String imgVerificationAccount = '$imagePath/img_verification_account.svg';
 
-  static String imgClose = '$imagePath/img_close.svg';
   static String imgWarning2 = '$imagePath/img_warning.svg';
   static String imgFilter = '$imagePath/img_filter.png';
   static String iconFilter = '$imagePath/icon_filter.svg';

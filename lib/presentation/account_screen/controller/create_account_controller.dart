@@ -39,7 +39,7 @@ class CreateAccountController extends GetxController {
     debugPrint('color : $color');
   }
 
-  //Interest
+  ///Interest Start
   var selectedInterests = <String>[].obs;
 
    toggleInterest(String interest, BuildContext context) {
@@ -56,6 +56,8 @@ class CreateAccountController extends GetxController {
 
     debugPrint('interest : $selectedInterests');
   }
+
+  ///Interest End
 
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -233,21 +235,5 @@ class CreateAccountController extends GetxController {
     }
     */
   }
-  final interestsList = [
-    InterestModel(name: "التسوق", icon: Icons.shopping_bag_outlined),
-    InterestModel(name: "فوتوغرافيا", icon: Icons.camera_alt_outlined),
-    InterestModel(name: "اليوغا", icon: Icons.sports_gymnastics_outlined),
-    InterestModel(name: "كاريوكي", icon: Icons.keyboard_voice_outlined),
-    InterestModel(name: "التنس", icon: Icons.sports_tennis_outlined),
-    InterestModel(name: "طبخ", icon: Icons.cookie_outlined),
-    InterestModel(name: "سباحة", icon: Icons.sports_handball_outlined),
-    InterestModel(name: "ركض", icon: Icons.sports_handball_sharp),
-    InterestModel(name: "السفر", icon: Iconsax.trade),
-    InterestModel(name: "فن", icon: Iconsax.archive_tick),
-    InterestModel(name: "موسيقى", icon: Iconsax.music),
-    InterestModel(name: "أقصى", icon: Icons.diamond_outlined),
-    InterestModel(name: "ألعاب الفيديو", icon: Iconsax.game),
-    InterestModel(name: "قراءة", icon: Iconsax.book_1),
-  ];
-
+  
 }

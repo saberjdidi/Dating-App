@@ -5,6 +5,7 @@ class MainController extends GetxController {
   static MainController get instance => Get.find();
 
   final RxList<UserModel> users = <UserModel>[].obs;
+  var selectedCountries = <String>[].obs;
 
   @override
   void onInit() {
@@ -33,5 +34,13 @@ class MainController extends GetxController {
         bio: 'شخص إعلامي',
       ),
     ];
+  }
+
+   toggleCountry(String countryName) {
+    if (selectedCountries.contains(countryName)) {
+      selectedCountries.remove(countryName);
+    } else {
+      selectedCountries.add(countryName);
+    }
   }
 }

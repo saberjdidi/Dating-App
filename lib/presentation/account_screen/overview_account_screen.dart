@@ -1,6 +1,7 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/validators/validation.dart';
 import 'package:dating_app_bilhalal/data/datasources/dropdown_local_data_source.dart';
+import 'package:dating_app_bilhalal/data/models/interest_model.dart';
 import 'package:dating_app_bilhalal/presentation/account_screen/controller/create_account_controller.dart';
 import 'package:dating_app_bilhalal/widgets/account/choice-chip.dart';
 import 'package:dating_app_bilhalal/widgets/account/interest_widget.dart';
@@ -468,7 +469,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                               shrinkWrap: true,
                               physics: NeverScrollableScrollPhysics(), // Empêche le scroll dans un Column
                               childAspectRatio: 2, // ✅ contrôle la largeur/hauteur
-                              children: controller.interestsList.map((interest) {
+                              children: interestsList.map((interest) {
                                 final isSelected = controller.selectedInterests.contains(interest.name);
                                 return Align(
                                   alignment: Alignment.center, // ✅ Empêche de remplir toute la colonne

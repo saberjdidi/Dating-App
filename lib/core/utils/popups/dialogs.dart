@@ -147,7 +147,7 @@ class Dialogs {
    );
  }
 
- static customModalBottomSheet(BuildContext context, double initialChildSize, Widget child){
+ static customModalBottomSheet(BuildContext context, double initialChildSize, Widget child, {visibleBtnClose = true}){
    showModalBottomSheet(
        context: context,
        isScrollControlled: true,
@@ -162,7 +162,27 @@ class Dialogs {
          minChildSize: 0.3,
          builder: (context, scrollController) => SingleChildScrollView(
                controller: scrollController,  // Attach the scroll controller
-               child: child
+               child: Stack(
+                 clipBehavior: Clip.none,
+                 children: [
+                   child,
+                   Visibility(
+                     visible: visibleBtnClose,
+                     child: Positioned(
+                       top: -20, // légèrement en dehors du Dialog
+                       left: 0,
+                       right: 0,
+                       child: CustomImageView(
+                         imagePath: ImageConstant.imgClose,
+                         onTap: (){
+                           Navigator.pop(context);
+                           //onTapBack();
+                         },
+                       ),
+                     ),
+                   ),
+                 ],
+               ),
              ),
        )
    );
