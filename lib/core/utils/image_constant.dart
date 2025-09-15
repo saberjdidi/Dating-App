@@ -31,6 +31,24 @@ class ImageConstant {
   static String apple = '$imagePath/apple.png';
 
 
+  //On Boarding
+  static String imgOnBoarding1 = '$imagePath/onboarding1.jpg';
+  static String imgOnBoarding2 = '$imagePath/onboarding2.jpg';
+  static String imgOnBoarding3 = '$imagePath/onboarding3.jpg';
+  static String imgOnBoarding4 = '$imagePath/onboarding4.jpg';
+
+  //Card Swiper
+  static String imgMessage = '$imagePath/img_message.png'; //'$imagePath/message_img.svg';
+  static String imgFavoris = '$imagePath/img_favoris.png'; //'$imagePath/favoris_img.svg';
+
+  //Bottom Bar
+  static String mainImg = '$imagePath/main_img.svg';
+  static String searchImg = '$imagePath/search_img.svg';
+  static String discussionImg = '$imagePath/discussion_img.svg';
+  static String likeImg = '$imagePath/like_img.svg';
+  static String profileSettingsImg = '$imagePath/profile_settings_img.svg';
+
+  ///Other
   //common images
   static String imgArrowLeftBlack = '$imagePath/arrow_back.svg';
   static String imgArrowLeftWhite = '$imagePath/arrow_back_white.svg';
@@ -39,13 +57,6 @@ class ImageConstant {
   static String loading_lottie = '$imagePath/animation_loading.json';
   static String imgSmile = '$imagePath/img_smile.png';
 
-  //On Boarding
-  static String onboardingImages = '$imagePath/onboarding_images.png';
-  //static String onboardingImages = '$imagePath/onboarding_images_old.jpg';
-  static String imgOnBoarding1 = '$imagePath/onboarding1.jpg';
-  static String imgOnBoarding2 = '$imagePath/onboarding2.jpg';
-  static String imgOnBoarding3 = '$imagePath/onboarding3.jpg';
-  static String imgOnBoarding4 = '$imagePath/onboarding4.jpg';
 
   //Sign In
   static String imgCheckmark = '$imagePath/img_checkmark.svg';
@@ -59,7 +70,6 @@ class ImageConstant {
   //Home
   static String imgHome = '$imagePath/img_home.svg';
   static String imgEnchers = '$imagePath/img_enchers.svg';
-  static String imgFavoris = '$imagePath/img_favoris.svg';
   static String imgProfil = '$imagePath/img_profil.svg';
   static String imgNotification = '$imagePath/img_notification.svg';
   static String imgHouse = '$imagePath/img_house.png';

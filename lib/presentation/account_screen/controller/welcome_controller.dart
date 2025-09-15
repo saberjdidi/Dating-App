@@ -7,7 +7,7 @@ class WelcomeController extends GetxController {
   void onReady() {
     super.onReady();
     Future.delayed(const Duration(milliseconds: 5000), (){
-      Get.offAllNamed(Routes.signInScreen);
+      Get.offAllNamed(Routes.navigationScreen);
     });
   }
 }

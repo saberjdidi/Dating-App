@@ -19,3 +19,5 @@ samples, guidance on mobile development, and a full API reference.
 https://pub.dev/packages/flutter_launcher_icons
 
 ## 1. image_picker : configuration in Android and iOS
+
+## 2 image splash screen => supprimer une

@@ -16,15 +16,14 @@ class Routes {
   static const String successAccountScreen = '/success_account_screen';
   static const String welcomeScreen = '/welcome_screen';
 
+  static const String navigationScreen = '/navigation_screen';
+  static const String mainScreen = '/main_screen';
+
   static const String inscriptionScreen = '/inscription_screen';
   static const String signUpSuccessScreen = '/signup_success_screen';
 
   static const String forgotPasswordScreen = '/forgot_password_screen';
   static const String changePasswordScreen = '/change_password_screen';
-
-  static const String navigationScreen = '/navigation_screen';
-
-  static const String homeScreen = '/home_screen';
 
   static const String verificationAccountScreen = '/verification_account_screen';
 
