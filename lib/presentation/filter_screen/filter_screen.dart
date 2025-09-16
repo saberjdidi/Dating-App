@@ -2,13 +2,16 @@ import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/validators/validation.dart';
 import 'package:dating_app_bilhalal/data/datasources/dropdown_local_data_source.dart';
 import 'package:dating_app_bilhalal/data/models/country_model.dart';
+import 'package:dating_app_bilhalal/data/models/interest_model.dart';
 import 'package:dating_app_bilhalal/presentation/filter_screen/controller/filter_controller.dart';
 import 'package:dating_app_bilhalal/widgets/account/choice-chip.dart';
+import 'package:dating_app_bilhalal/widgets/account/interest_widget.dart';
 import 'package:dating_app_bilhalal/widgets/custom_drop_down.dart';
 import 'package:dating_app_bilhalal/widgets/custom_text_form_field.dart';
 import 'package:dating_app_bilhalal/widgets/form_divider_widget.dart';
 import 'package:dating_app_bilhalal/widgets/home/pays_widget.dart';
 import 'package:dating_app_bilhalal/widgets/home/user_card_widget.dart';
+import 'package:dating_app_bilhalal/widgets/multi_select_dopdown.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
@@ -376,6 +379,35 @@ class FilterScreen extends StatelessWidget {
                   contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
                 ),
 
+                SizedBox(height: TSizes.spaceBtwItems.v),
+               /* MultiSelectDropdown(
+                  hint: "Sélectionner Interests",
+                  items: interestsList,
+                  selectedItems: controller.selectedInterests,
+                  onChanged: controller.toggleInterest,
+                ), */
+                MultiSelectDropdown(
+                  hint: "حدد الهوايات",
+                  items: interestsList,
+                  controller: controller,
+                  borderRadius: 15,
+                  fillColor: Colors.white,
+                  themeColor: appTheme.gray50,
+                  hintStyle: CustomTextStyles.bodyMediumTextFormField,
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                ),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: controller.selectedInterests.map((interest) {
+                    return InterestWidget(
+                      text: interest.name,
+                      iconPath: interest.icon,
+                      isSelected: true,
+                      onTap: () => controller.toggleInterest(interest, context),
+                    );
+                  }).toList(),
+                ),
 
                 SizedBox(height: TSizes.spaceBtwItems.v),
                 SizedBox(

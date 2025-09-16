@@ -1,5 +1,6 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/data/models/UserModel.dart';
+import 'package:dating_app_bilhalal/data/models/interest_model.dart';
 import 'package:flutter/material.dart';
 
 class FilterController extends GetxController {
@@ -24,6 +25,23 @@ class FilterController extends GetxController {
     selectedColor.value = color;
     debugPrint('color : $color');
   }
+
+  ///Interests Start
+  var selectedInterests = <InterestModel>[].obs;
+
+  void toggleInterest(InterestModel interest, BuildContext context) {
+    if (selectedInterests.contains(interest)) {
+      selectedInterests.remove(interest);
+    } else {
+     /* if (selectedInterests.length >= 5) {
+        showMaxInterestDialog(context);
+        return;
+      } */
+      selectedInterests.add(interest);
+    }
+    debugPrint('Interests: ${selectedInterests.map((e) => e.name).toList()}');
+  }
+  ///Interests end
 
   @override
   void onInit() {
