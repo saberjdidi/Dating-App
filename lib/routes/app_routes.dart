@@ -3,6 +3,8 @@ import 'package:dating_app_bilhalal/presentation/account_screen/create_account_s
 import 'package:dating_app_bilhalal/presentation/account_screen/overview_account_screen.dart';
 import 'package:dating_app_bilhalal/presentation/account_screen/success_account_screen.dart';
 import 'package:dating_app_bilhalal/presentation/account_screen/welcome_screen.dart';
+import 'package:dating_app_bilhalal/presentation/filter_screen/binding/filter_binding.dart';
+import 'package:dating_app_bilhalal/presentation/filter_screen/filter_screen.dart';
 import 'package:dating_app_bilhalal/presentation/main_screen/binding/main_binding.dart';
 import 'package:dating_app_bilhalal/presentation/main_screen/main_screen.dart';
 import 'package:dating_app_bilhalal/presentation/navigation_screen/binding/navigation_binding.dart';
@@ -104,6 +106,13 @@ class AppRoutes {
       page: () => MainScreen(),
       bindings: [
         MainBinding(),
+      ],
+    ),
+    GetPage(
+      name: Routes.filterScreen,
+      page: () => FilterScreen(),
+      bindings: [
+        FilterBinding(),
       ],
     ),
     /*

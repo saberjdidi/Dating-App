@@ -158,32 +158,32 @@ class Dialogs {
        builder: (context) => DraggableScrollableSheet(
          expand: false,
          initialChildSize: initialChildSize,
-         maxChildSize: 0.75,
-         minChildSize: 0.3,
-         builder: (context, scrollController) => SingleChildScrollView(
-               controller: scrollController,  // Attach the scroll controller
-               child: Stack(
-                 clipBehavior: Clip.none,
-                 children: [
-                   child,
-                   Visibility(
-                     visible: visibleBtnClose,
-                     child: Positioned(
-                       top: -20, // légèrement en dehors du Dialog
-                       left: 0,
-                       right: 0,
-                       child: CustomImageView(
-                         imagePath: ImageConstant.imgClose,
-                         onTap: (){
-                           Navigator.pop(context);
-                           //onTapBack();
-                         },
-                       ),
-                     ),
-                   ),
-                 ],
+         maxChildSize: 0.8,
+         minChildSize: 0.6,
+         builder: (context, scrollController) => Stack(
+           clipBehavior: Clip.none,
+           children: [
+             SingleChildScrollView(
+                 controller: scrollController,
+                 child: child
+             ),
+             Visibility(
+               visible: visibleBtnClose,
+               child: Positioned(
+                 top: -20, // légèrement en dehors du Dialog
+                 left: 0,
+                 right: 0,
+                 child: CustomImageView(
+                   imagePath: ImageConstant.imgClose,
+                   onTap: (){
+                     Navigator.pop(context);
+                     //onTapBack();
+                   },
+                 ),
                ),
              ),
+           ],
+         ),
        )
    );
  }

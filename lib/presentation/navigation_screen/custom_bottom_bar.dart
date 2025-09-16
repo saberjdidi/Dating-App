@@ -38,7 +38,7 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
     BottomMenuModel(
       icon: ImageConstant.profileSettingsImg,
       activeIcon: ImageConstant.profileSettingsImg,
-      title: "إعدادات الملف الشخصي".tr,
+      title: "الملف الشخصي".tr,
       type: BottomBarEnum.Profile,
     )
   ];

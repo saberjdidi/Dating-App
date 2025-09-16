@@ -3,6 +3,7 @@ import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/presentation/account_screen/create_account_screen.dart';
 import 'package:dating_app_bilhalal/presentation/account_screen/overview_account_screen.dart';
 import 'package:dating_app_bilhalal/presentation/account_screen/welcome_screen.dart';
+import 'package:dating_app_bilhalal/presentation/filter_screen/filter_screen.dart';
 import 'package:dating_app_bilhalal/presentation/main_screen/main_screen.dart';
 import 'package:dating_app_bilhalal/presentation/navigation_screen/controller/navigation_controller.dart';
 import 'package:dating_app_bilhalal/presentation/navigation_screen/custom_bottom_bar.dart';
@@ -44,7 +45,7 @@ class NavigationScreen extends GetWidget<NavigationController> {
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
       case BottomBarEnum.search:
-        return Routes.mainScreen;
+        return Routes.filterScreen;
       case BottomBarEnum.discussion:
         return Routes.mainScreen;
       case BottomBarEnum.main:
@@ -59,8 +60,8 @@ class NavigationScreen extends GetWidget<NavigationController> {
   ///Handling page based on route
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
-      case Routes.createAccountScreen:
-        return CreateAccountScreen();
+      case Routes.filterScreen:
+        return FilterScreen();
       case Routes.welcomeScreen:
         return WelcomeScreen();
       case Routes.mainScreen:

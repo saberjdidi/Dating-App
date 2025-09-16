@@ -52,7 +52,7 @@ class MainScreen extends GetView<MainController> {
         context,
         0.7,
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: TSizes.spaceBtwItems),
+          padding: EdgeInsets.symmetric(horizontal: 10.fSize, vertical: TSizes.spaceBtwItems.fSize),
           child: ListBody(
             children: <Widget>[
            /*   Center(
@@ -64,8 +64,11 @@ class MainScreen extends GetView<MainController> {
                 ),
               ), */
               SizedBox(height: TSizes.spaceBtwSections.adaptSize),
-              TitleWidget(title: "اختر الدولة".tr,
-                  textAlign: TextAlign.right),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.adaptSize),
+                child: TitleWidget(title: "اختر الدولة".tr,
+                    textAlign: TextAlign.right),
+              ),
               SizedBox(height: TSizes.spaceBtwSections.adaptSize),
               Obx(() => GridView.count(
                 crossAxisCount: 2,
@@ -84,20 +87,18 @@ class MainScreen extends GetView<MainController> {
                   );
                 }).toList(),
               )),
-              const SizedBox(height: TSizes.spaceBtwSections,),
+               SizedBox(height: TSizes.spaceBtwItems.v),
               SizedBox(
                 width: isTablet ? mediaQueryData.size.width * 0.2 : mediaQueryData.size.width * 0.4,
                 child: CustomButtonContainer(
-                  text: "lbl_appliquer".tr,
-                  color1: TColors.colorActiveIconBottomBar,
-                  color2: TColors.colorActiveIconBottomBar,
+                  text:"حفظ التغييرات".tr,
+                  color1: TColors.yellowAppDark,
+                  color2: TColors.yellowAppLight,
                   borderRadius: 10,
-                  paddingVertical: 15,
-                  textAlign: TextAlign.center,
-                  colorText: TColors.white,
-                  onPressed: (){
-                    //controller.applyFilters();
-                    Navigator.pop(context);
+                  colorText: TColors.redAppLight,
+                  fontSize: 20.adaptSize,
+                  onPressed: () async {
+                    //controller.saveBtn();
                   },
                 ),
               ),

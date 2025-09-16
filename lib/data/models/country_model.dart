@@ -11,11 +11,13 @@ class CountryModel {
 }
 
 final countriesList = [
-  CountryModel(name: "France", imagePath: ImageConstant.paysTunisia),
-  CountryModel(name: "USA", imagePath: ImageConstant.paysTunisia),
-  CountryModel(name: "Tunis", imagePath: ImageConstant.paysTunisia),
-  CountryModel(name: "Qatar", imagePath: ImageConstant.paysTunisia),
-  CountryModel(name: "Mali", imagePath: ImageConstant.paysTunisia),
-  CountryModel(name: "Allemagne", imagePath: ImageConstant.paysTunisia),
-  CountryModel(name: "Arabie Saoudite", imagePath: ImageConstant.paysTunisia),
+  CountryModel(name: "البحرین", imagePath: ImageConstant.paysBahrayn),
+  CountryModel(name: "الکل", imagePath: ImageConstant.logo),
+  CountryModel(name: "الامارات", imagePath: ImageConstant.paysImarat),
+  CountryModel(name: "قطر", imagePath: ImageConstant.paysQatar),
+  CountryModel(name: "تونس", imagePath: ImageConstant.paysTunisia),
+  CountryModel(name: "الکویت", imagePath: ImageConstant.paysKewait),
+  CountryModel(name: "السعودیة", imagePath: ImageConstant.paysArabeSaoudite),
+  CountryModel(name: "العراق", imagePath: ImageConstant.paysIraq),
+  CountryModel(name: "عمان", imagePath: ImageConstant.paysOman),
 ];

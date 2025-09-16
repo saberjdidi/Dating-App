@@ -1,0 +1,13 @@
+import 'package:dating_app_bilhalal/core/app_export.dart';
+import 'package:dating_app_bilhalal/presentation/filter_screen/controller/filter_controller.dart';
+
+/// A binding class for the OnboardingOneScreen.
+///
+/// This class ensures that the OnboardingOneController is created when the
+/// OnboardingOneScreen is first loaded.
+class FilterBinding extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut(() => FilterController());
+  }
+}

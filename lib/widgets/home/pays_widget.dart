@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class PaysWidget extends StatelessWidget {
   final String text;
-  final String imagePath;
+  final String? imagePath;
   final bool isSelected;
   final VoidCallback onTap;
 
@@ -42,7 +42,9 @@ class PaysWidget extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: 5), */
-                  CustomImageView(
+                  imagePath == ImageConstant.logo
+                  ? SizedBox.shrink()
+                  : CustomImageView(
                     imagePath: imagePath,
                     height: 20.adaptSize,
                     width: 20.adaptSize,
@@ -68,8 +70,8 @@ class PaysWidget extends StatelessWidget {
                   value: isSelected,
                   onChanged: (_) => onTap(),
                   activeColor: Colors.white, // The fill color of the checkbox itself
-                  checkColor: Colors.black,  // The color of the checkmark
-                  side: BorderSide(color: Colors.black, width: 1), // Optional border for unselected
+                  checkColor: TColors.yellowAppDark,  // The color of the checkmark
+                  side: BorderSide(color: Colors.blueGrey, width: 1), // Optional border for unselected
                 ),
               )
             ],

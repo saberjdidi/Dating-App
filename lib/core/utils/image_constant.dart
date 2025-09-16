@@ -51,6 +51,13 @@ class ImageConstant {
 
   ///Pays
   static String paysTunisia = '$imagePath/pays_tunisia.svg';
+  static String paysBahrayn = '$imagePath/pays_bahrayn.svg';
+  static String paysImarat = '$imagePath/pays_imarat.svg';
+  static String paysQatar = '$imagePath/pays_qatar.svg';
+  static String paysKewait = '$imagePath/pays_kewait.svg';
+  static String paysIraq = '$imagePath/pays_iraq.svg';
+  static String paysArabeSaoudite = '$imagePath/pays_saoudite.svg';
+  static String paysOman = '$imagePath/pays_oman.svg';
 
   ///Other
   //common images
