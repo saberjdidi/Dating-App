@@ -29,6 +29,7 @@ class Routes {
   static const String verificationAccountScreen = '/verification_account_screen';
 
   static const String profileScreen = '/profile_screen';
+  static const String profileDetailsScreen = '/profile_details_screen';
   static const String updateProfileScreen = '/update_profile_screen';
 
 }

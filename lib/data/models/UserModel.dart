@@ -12,4 +12,6 @@ class UserModel {
     required this.bio,
     required this.age,
   });
+
+  static UserModel empty() => UserModel(imageProfile: '', fullName: '', bio: '', age: 10);
 }

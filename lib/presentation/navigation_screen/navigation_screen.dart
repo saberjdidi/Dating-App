@@ -25,7 +25,7 @@ class NavigationScreen extends GetWidget<NavigationController> {
             backgroundColor: PrefUtils().getThemeData() =='light' ? TColors.lightContainer : appTheme.primaryColor,
             body: Navigator(
                 key: Get.nestedKey(1),
-                initialRoute: Routes.mainScreen,
+                initialRoute: Routes.filterScreen,
                 onGenerateRoute: (routeSetting) => GetPageRoute(
                     page: () => getCurrentPage(routeSetting.name!),
                     transition: Transition.noTransition)

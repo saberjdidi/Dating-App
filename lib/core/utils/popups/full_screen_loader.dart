@@ -1,5 +1,6 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/widgets/animation_loader.dart';
+import 'package:dating_app_bilhalal/widgets/animation_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -26,6 +27,26 @@ class FullScreenLoader {
                 AnimationLoaderWidget(text: text, animation: animation)
               ],
             ),
+          ),
+        )
+    );
+  }
+
+  static void openLoadingSearchDialog(String textTitle, String textDescription, String image1, String image2){
+    showDialog(
+        context: Get.overlayContext!, //use Get.overlayContext for overlay dialog
+        barrierDismissible: false, //The dialog can't be dismissed by tapping outside it
+        builder: (_) => WillPopScope(
+          //PopScope( => replace PopScope by WillPopScope
+          //canPop : false, //Disable popping with the back button
+          onWillPop: () async {
+            return false;
+          },
+          child:Container(
+            color: THelperFunctions.isDarkMode(Get.context!) ? TColors.dark : TColors.white,
+            width: double.infinity,
+            height: double.infinity,
+            child:  AnimationSearchWidget(textTitle: textTitle, textDescription: textDescription, image1: image1, image2: image2)
           ),
         )
     );

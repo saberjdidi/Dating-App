@@ -11,6 +11,8 @@ import 'package:dating_app_bilhalal/presentation/navigation_screen/binding/navig
 import 'package:dating_app_bilhalal/presentation/navigation_screen/navigation_screen.dart';
 import 'package:dating_app_bilhalal/presentation/onboarding_screen/binding/onboarding_binding.dart';
 import 'package:dating_app_bilhalal/presentation/onboarding_screen/onboarding_screen.dart';
+import 'package:dating_app_bilhalal/presentation/profile_screen/binding/profile_binding.dart';
+import 'package:dating_app_bilhalal/presentation/profile_screen/profile_details_screen.dart';
 import 'package:dating_app_bilhalal/presentation/sign_in_screen/binding/sign_in_binding.dart';
 import 'package:dating_app_bilhalal/presentation/sign_in_screen/sign_in_screen.dart';
 import 'package:dating_app_bilhalal/presentation/signup_screen/binding/signup_binding.dart';
@@ -113,6 +115,13 @@ class AppRoutes {
       page: () => FilterScreen(),
       bindings: [
         FilterBinding(),
+      ],
+    ),
+    GetPage(
+      name: Routes.profileDetailsScreen,
+      page: () => ProfileDetailsScreen(),
+      bindings: [
+        ProfileBinding(),
       ],
     ),
     /*

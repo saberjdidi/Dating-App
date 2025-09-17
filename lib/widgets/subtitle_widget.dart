@@ -5,17 +5,24 @@ class SubTitleWidget extends StatelessWidget {
   const SubTitleWidget({
     super.key,
     required this.subtitle,
-    this.textAlign = TextAlign.left
+    this.textAlign = TextAlign.left,
+    this.color = TColors.gray700,
+    this.fontSizeDelta = 1,
+    this.fontWeightDelta = 1
   });
 
   final String subtitle;
   final TextAlign textAlign;
+  final  Color? color;
+  final double fontSizeDelta;
+  final int fontWeightDelta;
 
   @override
   Widget build(BuildContext context) {
     return Text(
         subtitle,
-        style: Theme.of(context).textTheme.bodyMedium!.apply(color: TColors.gray700),
+        style: Theme.of(context).textTheme.bodyMedium!
+            .apply(color: color, fontSizeDelta: fontSizeDelta, fontWeightDelta: fontWeightDelta),
       textAlign: textAlign,
     );
   }

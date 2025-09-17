@@ -14,7 +14,7 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
     BottomMenuModel(
       icon: ImageConstant.searchImg,
       activeIcon: ImageConstant.searchImg,
-      title: "يكتشف".tr,
+      title: "بحث".tr,
       type: BottomBarEnum.search,
     ),
     BottomMenuModel(
@@ -57,7 +57,9 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
         ),
       ),
       child: Obx(
-            () => BottomNavigationBar(
+            () => Directionality(
+              textDirection: TextDirection.rtl,
+              child: BottomNavigationBar(
           backgroundColor: Colors.transparent,
           showSelectedLabels: false,
           showUnselectedLabels: false,
@@ -66,43 +68,44 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
           currentIndex: controller.selectedIndex.value,
           type: BottomNavigationBarType.fixed,
           items: List.generate(bottomMenuList.length, (index) {
-            return BottomNavigationBarItem(
-              icon: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomImageView(
-                    imagePath: bottomMenuList[index].icon,
-                    height: 30.adaptSize,
-                    width: 30.adaptSize,
-                    color: TColors.grey300,
-                  ),
-                  Text(bottomMenuList[index].title!, style: TextStyle(color: TColors.greyDating, fontSize: 22.adaptSize),)
-                ],
-              ),
-              activeIcon: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomImageView(
-                    imagePath: bottomMenuList[index].activeIcon,
-                    height: 35.adaptSize,
-                    width: 35.adaptSize,
-                    color: TColors.yellowAppDark,
-                    //color: theme.colorScheme.primary,
-                  ),
-                  Text(bottomMenuList[index].title!, style: TextStyle(color: TColors.yellowAppDark, fontSize: 22.adaptSize),)
-                ],
-              ),
-              label: '',
-            );
+              return BottomNavigationBarItem(
+                icon: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomImageView(
+                      imagePath: bottomMenuList[index].icon,
+                      height: 30.adaptSize,
+                      width: 30.adaptSize,
+                      color: TColors.grey300,
+                    ),
+                    Text(bottomMenuList[index].title!, style: TextStyle(color: TColors.greyDating, fontSize: 22.adaptSize),)
+                  ],
+                ),
+                activeIcon: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomImageView(
+                      imagePath: bottomMenuList[index].activeIcon,
+                      height: 35.adaptSize,
+                      width: 35.adaptSize,
+                      color: TColors.yellowAppDark,
+                      //color: theme.colorScheme.primary,
+                    ),
+                    Text(bottomMenuList[index].title!, style: TextStyle(color: TColors.yellowAppDark, fontSize: 22.adaptSize),)
+                  ],
+                ),
+                label: '',
+              );
           }),
           onTap: (index) {
-            //selectedIndex.value = index;
-            controller.changeTabIndex(index);
-            onChanged?.call(bottomMenuList[index].type);
+              //selectedIndex.value = index;
+              controller.changeTabIndex(index);
+              onChanged?.call(bottomMenuList[index].type);
           },
         ),
+            ),
       ),
     );
   }

@@ -6,6 +6,7 @@ class InterestWidget extends StatelessWidget {
   final String text;
   final IconData iconPath;
   final bool isSelected;
+  final bool activeColor;
   final VoidCallback onTap;
 
   const InterestWidget({
@@ -13,6 +14,7 @@ class InterestWidget extends StatelessWidget {
     required this.text,
     required this.iconPath,
     required this.isSelected,
+    this.activeColor = true,
     required this.onTap,
   });
 
@@ -25,8 +27,12 @@ class InterestWidget extends StatelessWidget {
         width: Get.width * 0.4,
         //margin: EdgeInsets.only(top: 5),
           showBorder: true,
-          backgroundColor: isSelected ? TColors.yellowAppDark : TColors.white,
-          borderColor: isSelected ? TColors.yellowAppLight : TColors.greyDating,
+          backgroundColor: isSelected
+              ? activeColor ? TColors.yellowAppDark : TColors.greyDating
+              : TColors.white,
+          borderColor: isSelected
+              ? activeColor ? TColors.yellowAppLight : TColors.greyDating
+              : TColors.greyDating,
           radius: 15,
           padding: EdgeInsets.symmetric(vertical: 20.v, horizontal: 8.hw),
           margin: EdgeInsets.symmetric(vertical: 10.adaptSize, horizontal: 8),
@@ -34,7 +40,9 @@ class InterestWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Icon(iconPath, size: 35.adaptSize, color: isSelected ? Colors.white : Colors.black),
+              Icon(iconPath, size: 35.adaptSize, color: isSelected
+                  ?  activeColor ? Colors.white : TColors.black
+                  : Colors.black),
             /*  CustomImageView(
                 imagePath: iconPath,
                 height: 35.adaptSize,
@@ -46,7 +54,9 @@ class InterestWidget extends StatelessWidget {
               Text(
                 text,
                 style: TextStyle(
-                    color: isSelected ? Colors.white : Colors.black,
+                    color: isSelected
+                        ? activeColor ? Colors.white : TColors.black
+                        : Colors.black,
                     fontWeight: FontWeight.bold,
                     fontSize: 22.adaptSize
                 ),

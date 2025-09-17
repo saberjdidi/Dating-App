@@ -37,6 +37,12 @@ class UserCardWidget extends StatelessWidget {
               //height: 200.adaptSize,
               //width: 200.adaptSize,
               fit: BoxFit.cover,
+              onTap: (){
+                //Navigator.of(context).push(MaterialPageRoute(builder: (context) => AnnonceDetailsScreen(model: model)));
+                Get.toNamed(Routes.profileDetailsScreen, arguments: {
+                  "UserModel" : user
+                });
+              },
             ),
           ),
         /*  Positioned.fill(

@@ -53,6 +53,7 @@ class GradientText extends StatelessWidget {
       final TextStyle effectiveStyle = (style ?? const TextStyle()).copyWith(
         fontSize: fontSize,
         fontWeight: fontWeight,
+        decoration: TextDecoration.none, // 👈 Supprime le soulignement
         // Paint the text with the shader
         foreground: Paint()..shader = textShader,
       );

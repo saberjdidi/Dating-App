@@ -1,4 +1,5 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
+import 'package:dating_app_bilhalal/core/utils/popups/full_screen_loader.dart';
 import 'package:dating_app_bilhalal/core/utils/validators/validation.dart';
 import 'package:dating_app_bilhalal/data/datasources/dropdown_local_data_source.dart';
 import 'package:dating_app_bilhalal/data/models/country_model.dart';
@@ -80,7 +81,7 @@ class FilterScreen extends StatelessWidget {
                 SizedBox(height: TSizes.spaceBtwSections.adaptSize),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.adaptSize),
-                  child: TitleWidget(title: "يكتشف".tr,
+                  child: TitleWidget(title: "فلتر".tr,
                       textAlign: TextAlign.right),
                 ),
                 SizedBox(height: TSizes.spaceBtwSections.adaptSize),
@@ -396,6 +397,23 @@ class FilterScreen extends StatelessWidget {
                   hintStyle: CustomTextStyles.bodyMediumTextFormField,
                   contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                 ),
+               /* GridView.count(
+                    crossAxisCount: isTablet ? 3 : 2, // ✅ Deux colonnes fixes
+                    mainAxisSpacing: 2,
+                    crossAxisSpacing: 3,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(), // Empêche le scroll dans un Column
+                    childAspectRatio: 2, // ✅ contrôle la largeur/hauteur
+                    children: controller.selectedInterests.map((interest) {
+                      return InterestWidget(
+                        text: interest.name,
+                        iconPath: interest.icon,
+                        isSelected: true,
+                        activeColor: false,
+                        onTap: () => controller.toggleInterest(interest, context),
+                      );
+                    }).toList()
+                ), */
                 Wrap(
                   spacing: 8,
                   runSpacing: 8,
@@ -404,6 +422,7 @@ class FilterScreen extends StatelessWidget {
                       text: interest.name,
                       iconPath: interest.icon,
                       isSelected: true,
+                      activeColor: false,
                       onTap: () => controller.toggleInterest(interest, context),
                     );
                   }).toList(),
@@ -420,7 +439,8 @@ class FilterScreen extends StatelessWidget {
                     colorText: TColors.redAppLight,
                     fontSize: 20.adaptSize,
                     onPressed: () async {
-                      //controller.saveBtn();
+                      controller.applyFilters();
+                      Navigator.pop(context);
                     },
                   ),
                 ),

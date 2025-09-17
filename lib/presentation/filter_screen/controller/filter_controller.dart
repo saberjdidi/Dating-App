@@ -1,4 +1,5 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
+import 'package:dating_app_bilhalal/core/utils/popups/full_screen_loader.dart';
 import 'package:dating_app_bilhalal/data/models/UserModel.dart';
 import 'package:dating_app_bilhalal/data/models/interest_model.dart';
 import 'package:flutter/material.dart';
@@ -78,5 +79,18 @@ class FilterController extends GetxController {
     } else {
       selectedCountries.add(countryName);
     }
+  }
+
+  ///Filter Function
+  applyFilters() {
+//Start Loading
+    FullScreenLoader.openLoadingSearchDialog("مباراة البحث", "مطابقة الأشخاص مع متطلباتك",ImageConstant.imgLove, ImageConstant.imgLoves);
+    //FullScreenLoader.openLoadingDialog('مطابقة الأشخاص مع متطلباتك..', ImageConstant.lottieTrophy);
+
+    Future.delayed(const Duration(milliseconds: 4000), (){
+      //Remove Loader
+      FullScreenLoader.stopLoading();
+    });
+
   }
 }
