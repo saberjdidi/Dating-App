@@ -86,6 +86,8 @@ class AnimationSearchWidget extends StatelessWidget {
                     ),
                     speed: const Duration(milliseconds: 80),
                     pause: const Duration(milliseconds: 1000),
+                    cursor: '|',
+                    cursorColor: TColors.blueDating,
                   )
 
                 ],

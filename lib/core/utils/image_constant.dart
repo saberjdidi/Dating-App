@@ -61,12 +61,21 @@ class ImageConstant {
   static String paysArabeSaoudite = '$imagePath/pays_saoudite.svg';
   static String paysOman = '$imagePath/pays_oman.svg';
 
+  ///Profile
+  static String profile1 = '$imagePath/profiles/profile1.png';
+  static String profile2 = '$imagePath/profiles/profile2.png';
+  static String profile3 = '$imagePath/profiles/profile3.png';
+  static String profile4 = '$imagePath/profiles/profile4.png';
+  static String profile5 = '$imagePath/profiles/profile5.png';
+  static String profileLove = '$imagePath/profiles/profile-love.png';
+  static String profileRemove = '$imagePath/profiles/profile-remove.png';
+  static String profileChat = '$imagePath/profiles/profile-chat.png';
+
   ///Other
   //common images
   static String imgArrowLeftBlack = '$imagePath/arrow_back.svg';
   static String imgArrowLeftWhite = '$imagePath/arrow_back_white.svg';
   //static String imgBackSvg = '$imagePath/img_back.svg';
-  static String imgBack = '$imagePath/img_back.png';
   static String loading_lottie = '$imagePath/animation_loading.json';
   static String imgSmile = '$imagePath/img_smile.png';
 

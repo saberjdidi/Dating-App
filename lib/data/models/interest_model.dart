@@ -6,6 +6,15 @@ class InterestModel {
   final IconData icon;
   //final String icon;
   InterestModel({required this.name, required this.icon});
+
+  // Fonction pour obtenir l'icône à partir du nom
+  static IconData getIconByName(String name) {
+    try {
+      return interestsList.firstWhere((e) => e.name == name).icon;
+    } catch (e) {
+      return Icons.help_outline; // Icône par défaut si non trouvé
+    }
+  }
 }
 
 final interestsList = [

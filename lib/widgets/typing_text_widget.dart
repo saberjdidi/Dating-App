@@ -6,6 +6,8 @@ class TypingTextWidget extends StatefulWidget {
   final TextStyle textStyle;
   final Duration speed;
   final Duration pause;
+  final String cursor;
+  final Color cursorColor;
 
   const TypingTextWidget({
     Key? key,
@@ -13,6 +15,8 @@ class TypingTextWidget extends StatefulWidget {
     required this.textStyle,
     this.speed = const Duration(milliseconds: 80),
     this.pause = const Duration(milliseconds: 1000),
+    this.cursor = '|',
+    this.cursorColor = Colors.black,
   }) : super(key: key);
 
   @override
@@ -23,16 +27,19 @@ class _TypingTextWidgetState extends State<TypingTextWidget> {
   int _textIndex = 0;
   String _currentText = "";
   int _charIndex = 0;
-  Timer? _timer;
+  Timer? _typingTimer;
+  Timer? _cursorTimer;
+  bool _showCursor = true;
 
   @override
   void initState() {
     super.initState();
     _startTyping();
+    _startCursorBlink();
   }
 
   void _startTyping() {
-    _timer = Timer.periodic(widget.speed, (timer) {
+    _typingTimer = Timer.periodic(widget.speed, (timer) {
       if (_charIndex < widget.texts[_textIndex].length) {
         setState(() {
           _currentText += widget.texts[_textIndex][_charIndex];
@@ -52,17 +59,37 @@ class _TypingTextWidgetState extends State<TypingTextWidget> {
     });
   }
 
+  void _startCursorBlink() {
+    _cursorTimer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
+      setState(() {
+        _showCursor = !_showCursor;
+      });
+    });
+  }
+
   @override
   void dispose() {
-    _timer?.cancel();
+    _typingTimer?.cancel();
+    _cursorTimer?.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      _currentText,
-      style: widget.textStyle,
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: _currentText,
+            style: widget.textStyle,
+          ),
+          if (_showCursor)
+            TextSpan(
+              text: widget.cursor,
+              style: widget.textStyle.copyWith(color: widget.cursorColor),
+            ),
+        ],
+      ),
     );
   }
 }
