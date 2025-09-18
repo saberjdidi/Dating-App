@@ -45,6 +45,9 @@ class FilterScreen extends StatelessWidget {
                 debugPrint("message ${user.fullName}");
               },
               onFavoriteTap: () async {
+
+              },
+              onTapFilter: () async {
                 await dialogSearch(context, controller);
               },
             );

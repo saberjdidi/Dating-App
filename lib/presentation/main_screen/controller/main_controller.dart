@@ -21,7 +21,7 @@ class MainController extends GetxController {
         age: 25,
         bio: '🌍📸 نموذج احترافي',
         interests: ["التسوق", "فوتوغرافيا", "اليوغا"],
-        images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5]
+        images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
       ),
       UserModel(
         imageProfile: ImageConstant.imgOnBoarding2,
@@ -29,7 +29,7 @@ class MainController extends GetxController {
         age: 32,
         bio: 'مبرمج',
         interests: ["كاريوكي", "التنس", "اليوغا", "طبخ", "سباحة"],
-          images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5]
+          images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
       ),
       UserModel(
         imageProfile: ImageConstant.imgOnBoarding3,
@@ -37,7 +37,7 @@ class MainController extends GetxController {
         age: 29,
         bio: 'شخص إعلامي',
         interests: ["ركض", "السفر", "قراءة", "طبخ", "سباحة"],
-        images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5]
+        images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
       ),
     ];
   }

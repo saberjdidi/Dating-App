@@ -1,5 +1,6 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/data/models/UserModel.dart';
+import 'package:dating_app_bilhalal/widgets/circular_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 
@@ -7,12 +8,14 @@ class UserCardWidget extends StatelessWidget {
   final UserModel user;
   final VoidCallback onMessageTap;
   final VoidCallback onFavoriteTap;
+  VoidCallback? onTapFilter;
 
-  const UserCardWidget({
+   UserCardWidget({
     Key? key,
     required this.user,
     required this.onMessageTap,
     required this.onFavoriteTap,
+    this.onTapFilter
   }) : super(key: key);
 
   @override
@@ -57,6 +60,22 @@ class UserCardWidget extends StatelessWidget {
                   Container(color: Colors.grey.shade300),
             ),
           ), */
+
+          // Image en haut à droite
+          Positioned(
+              top: 20,
+              right: 20,
+              child: CircularContainer(
+                width: 60.adaptSize,
+                height: 60.adaptSize,
+                radius: 60.adaptSize,
+                backgroundColor: TColors.greyDating.withOpacity(1),
+                child: IconButton(
+                  icon: Icon(Icons.filter_alt_outlined, color: TColors.black54, size: 35.adaptSize,),
+                  onPressed: onTapFilter,
+                ),
+              )
+          ),
 
           // bottom info container with gradient to improve readability
           Align(

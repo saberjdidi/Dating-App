@@ -19,6 +19,7 @@ class Routes {
   static const String navigationScreen = '/navigation_screen';
   static const String mainScreen = '/main_screen';
   static const String filterScreen = '/filter_screen';
+  static const String discussionScreen = '/discussion_screen';
 
   static const String inscriptionScreen = '/inscription_screen';
   static const String signUpSuccessScreen = '/signup_success_screen';

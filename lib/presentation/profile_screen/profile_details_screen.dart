@@ -3,7 +3,6 @@ import 'package:dating_app_bilhalal/data/models/interest_model.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/controller/profile_details_controller.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/fullscreen_image_viewer.dart';
 import 'package:dating_app_bilhalal/widgets/account/interest_widget.dart';
-import 'package:dating_app_bilhalal/widgets/app_bar/appbar_widget.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
 import 'package:dating_app_bilhalal/widgets/grid_layout.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
@@ -147,7 +146,6 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
 
                             SizedBox(height: 20.v),
                             SubTitleWidget(subtitle: "معرض", color: TColors.black, fontWeightDelta: 4, fontSizeDelta: 5,),
-
                             GridLayout(
                               itemCount: controller.userModel.images!.length, // +1 pour l'upload
                               mainAxisExtent: isTablet ? 220.adaptSize : 180.adaptSize,

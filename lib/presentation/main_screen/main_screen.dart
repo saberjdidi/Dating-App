@@ -34,6 +34,9 @@ class MainScreen extends GetView<MainController> {
                 await dialogSearchByCountry(context);
               },
               onFavoriteTap: () => debugPrint("Favorite ${user.fullName}"),
+              onTapFilter: () async {
+                await dialogSearchByCountry(context);
+              },
             );
           },
         );
