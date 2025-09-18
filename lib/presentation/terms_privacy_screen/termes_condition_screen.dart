@@ -21,8 +21,8 @@ class _TermesAndConditionsScreenState extends State<TermesAndConditionsScreen> {
     return Scaffold(
       backgroundColor: TColors.white,
       appBar: TAppBar(
-        showBackArrow: true,
-        rightToLeft: true,
+        //showBackArrow: true,
+        //rightToLeft: true,
         title: Text('شروط الاستخدام',
           style: Theme.of(context).textTheme.headlineSmall!.copyWith(
             color: TColors.black,

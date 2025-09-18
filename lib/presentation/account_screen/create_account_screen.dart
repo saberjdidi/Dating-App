@@ -42,8 +42,9 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
         child: Scaffold(
           backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
           appBar: TAppBar(
-            showBackArrow: true,
-            rightToLeft: true,
+            //showBackArrow: true,
+            //rightToLeft: true,
+            leadingWidth: screenWidth * 0.3,
             title: Text('إنشاء حساب',
               style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                 color: TColors.black,

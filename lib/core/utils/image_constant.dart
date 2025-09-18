@@ -69,6 +69,7 @@ class ImageConstant {
   static String profile5 = '$imagePath/profiles/profile5.png';
   static String profile6 = '$imagePath/profiles/profile6.jpg';
   static String profile7 = '$imagePath/profiles/profile7.jpg';
+  static String profile8 = '$imagePath/profiles/profile8.jpg';
   static String profileLove = '$imagePath/profiles/profile-love.png';
   static String profileRemove = '$imagePath/profiles/profile-remove.png';
   static String profileChat = '$imagePath/profiles/profile-chat.png';

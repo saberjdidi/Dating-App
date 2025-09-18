@@ -4,9 +4,45 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class TAppBar extends StatelessWidget implements PreferredSizeWidget {
+  TAppBar({super.key,
+    this.title,
+    this.actions,
+    this.leading,
+    this.leadingWidth
+  });
+
+  final Widget? title;
+  final List<Widget>? actions;
+  final Widget? leading;
+  double? leadingWidth;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: TSizes.md),
+      child: AppBar(
+        automaticallyImplyLeading: false,
+        leading: leading,
+        leadingWidth: leadingWidth,
+        centerTitle: true,
+        title: title,
+        actions: (actions == null || actions == [])
+            ? [IconButton(onPressed: () => Get.back(), icon: const Icon(Iconsax.arrow_right_1))]
+            : actions,
+      ),
+    );
+  }
+
+  @override
+  // TODO: implement preferredSize
+  Size get preferredSize => Size.fromHeight(TDeviceUtils.getAppBarHeight());
+}
+/*
+class TAppBar extends StatelessWidget implements PreferredSizeWidget {
   const TAppBar({super.key,
     this.title,
     this.actions,
+    this.leading,
     this.leadingIcon,
     this.leadingOnPressed,
     this.showBackArrow = false,
@@ -18,6 +54,7 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool rightToLeft;
   final IconData? leadingIcon;
   final List<Widget>? actions;
+  final Widget? leading;
   final VoidCallback? leadingOnPressed;
 
   @override
@@ -27,9 +64,12 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: rightToLeft
       ? AppBar(
         automaticallyImplyLeading: false,
+        leading: leading,
         centerTitle: true,
         title: title,
-        actions: [IconButton(onPressed: () => Get.back(), icon: const Icon(Iconsax.arrow_right_1))],
+        actions: (actions == null || actions == [])
+        ? [IconButton(onPressed: () => Get.back(), icon: const Icon(Iconsax.arrow_right_1))]
+        : actions,
       )
       : AppBar(
       automaticallyImplyLeading: false,
@@ -46,3 +86,4 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
   // TODO: implement preferredSize
   Size get preferredSize => Size.fromHeight(TDeviceUtils.getAppBarHeight());
 }
+*/

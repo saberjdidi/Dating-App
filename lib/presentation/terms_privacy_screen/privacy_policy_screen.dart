@@ -20,8 +20,8 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
     return Scaffold(
       backgroundColor: TColors.white,
       appBar: TAppBar(
-        showBackArrow: true,
-        rightToLeft: true,
+        //showBackArrow: true,
+        //rightToLeft: true,
         title: Text('سياسة الخصوصية',
           style: Theme.of(context).textTheme.headlineSmall!.copyWith(
             color: TColors.black,

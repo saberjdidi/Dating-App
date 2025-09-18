@@ -62,7 +62,13 @@ class ChatItem extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 28,
-                    backgroundImage: AssetImage(ImageConstant.profile2), // Remplacer par chat.file si image
+                   /* backgroundImage: CustomImageView(
+                      imagePath: ImageConstant.uploadImageRounded,
+                      //height: 50.adaptSize,
+                      //width: 50.adaptSize,
+                      fit: BoxFit.fill,
+                    ),*/
+                    backgroundImage: AssetImage(chat.file!), // Remplacer par chat.file si image
                   ),
                   if (chat.isConnect)
                     Positioned(

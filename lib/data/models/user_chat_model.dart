@@ -27,6 +27,8 @@ class UserChatModel {
     return " منذ${diff.inDays} أيام ";
   }
 
+  static UserChatModel empty() => UserChatModel(id: '', fullName: '', lastMessage: '', isConnect: false, isRead: false, lastSeen: DateTime.now());
+
 /*  String timeAgo() {
     final diff = DateTime.now().difference(lastSeen);
     if (diff.inMinutes < 60) return "${diff.inMinutes} min ago";

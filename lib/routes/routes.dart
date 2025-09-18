@@ -20,6 +20,14 @@ class Routes {
   static const String mainScreen = '/main_screen';
   static const String filterScreen = '/filter_screen';
   static const String discussionScreen = '/discussion_screen';
+  static const String discussionDetailsScreen = '/discussion_details_screen';
+
+  static const String profileScreen = '/profile_screen';
+  static const String profileDetailsScreen = '/profile_details_screen';
+  static const String updateProfileScreen = '/update_profile_screen';
+
+  ///Other
+///
 
   static const String inscriptionScreen = '/inscription_screen';
   static const String signUpSuccessScreen = '/signup_success_screen';
@@ -28,9 +36,5 @@ class Routes {
   static const String changePasswordScreen = '/change_password_screen';
 
   static const String verificationAccountScreen = '/verification_account_screen';
-
-  static const String profileScreen = '/profile_screen';
-  static const String profileDetailsScreen = '/profile_details_screen';
-  static const String updateProfileScreen = '/update_profile_screen';
 
 }

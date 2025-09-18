@@ -55,6 +55,9 @@ class DiscussionScreen extends StatelessWidget {
                   chats: controller.filteredChats,
                   onItemTap: (chat) {
                     // Navigation vers le chat détaillé
+                    Get.toNamed(Routes.discussionDetailsScreen, arguments: {
+                      "ChatDiscussion" : chat
+                    });
                   },
                 )),
               )

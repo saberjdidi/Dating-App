@@ -53,8 +53,8 @@ class _OTPScreenState extends State<OTPScreen> with SingleTickerProviderStateMix
     return Scaffold(
       backgroundColor: TColors.white,
       appBar: TAppBar(
-        showBackArrow: true,
-        rightToLeft: true,
+        //showBackArrow: true,
+        //rightToLeft: true,
         title: Text('تغيير البريد الإلكتروني',
             style: Theme.of(context).textTheme.headlineSmall!.copyWith(
               color: TColors.blueDating,

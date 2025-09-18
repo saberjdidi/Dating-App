@@ -39,8 +39,8 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
             backgroundColor: _appTheme == 'light' ? TColors.white : appTheme
                 .primaryColor,
             appBar: TAppBar(
-              showBackArrow: true,
-              rightToLeft: true,
+              //showBackArrow: true,
+              //rightToLeft: true,
               title: Text('ملخص',
                 style: Theme
                     .of(context)
