@@ -1,12 +1,12 @@
 
 import 'package:dating_app_bilhalal/core/app_export.dart';
-import 'package:dating_app_bilhalal/data/models/user_chat_model.dart';
+import 'package:dating_app_bilhalal/data/models/chat_model.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class ChatItem extends StatelessWidget {
-  final UserChatModel chat;
+  final ChatModel chat;
   final VoidCallback? onTap;
 
   const ChatItem({super.key, required this.chat, this.onTap});
@@ -68,7 +68,7 @@ class ChatItem extends StatelessWidget {
                       //width: 50.adaptSize,
                       fit: BoxFit.fill,
                     ),*/
-                    backgroundImage: AssetImage(chat.file!), // Remplacer par chat.file si image
+                    backgroundImage: AssetImage(chat.senderProfile!), // Remplacer par chat.file si image
                   ),
                   if (chat.isConnect)
                     Positioned(
@@ -86,10 +86,10 @@ class ChatItem extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(chat.fullName, style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text(chat.senderFullName!, style: TextStyle(fontWeight: FontWeight.bold)),
                     const SizedBox(height: 4),
                     Text(
-                      chat.lastMessage,
+                      chat.recentTextMessage,
                       style: TextStyle(color: Colors.grey[600], fontSize: 14),
                       overflow: TextOverflow.ellipsis,
                     ),

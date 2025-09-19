@@ -73,6 +73,10 @@ class ImageConstant {
   static String profileLove = '$imagePath/profiles/profile-love.png';
   static String profileRemove = '$imagePath/profiles/profile-remove.png';
   static String profileChat = '$imagePath/profiles/profile-chat.png';
+  static String imgMosque = '$imagePath/profiles/img_mosque.png';
+
+  ///Images Button
+  static String imgSend = '$imagePath/img_send.png';
 
   ///Other
   //common images

@@ -1,7 +1,7 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/data/datasources/chat_local_data_source.dart';
 import 'package:dating_app_bilhalal/data/models/UserModel.dart';
-import 'package:dating_app_bilhalal/data/models/user_chat_model.dart';
+import 'package:dating_app_bilhalal/data/models/chat_model.dart';
 import 'package:flutter/material.dart';
 
 class DiscussionController extends GetxController {
@@ -10,7 +10,7 @@ class DiscussionController extends GetxController {
   var searchText = "".obs;
   final TextEditingController searchController = TextEditingController();
   var selectedTab = 0.obs; // 0: All, 1: Unread, 2: Archive
-  var chats = <UserChatModel>[].obs;
+  var chats = <ChatModel>[].obs;
 
   @override
   void onInit() {
@@ -18,12 +18,12 @@ class DiscussionController extends GetxController {
     chats.value = ChatLocalDataSource.getChats();
   }
 
-  List<UserChatModel> get filteredChats {
+  List<ChatModel> get filteredChats {
     var list = chats.where((chat) {
       if (selectedTab.value == 1 && chat.isRead) return false;
       if (selectedTab.value == 2 && !chat.isArchived) return false;
       if (searchText.isNotEmpty &&
-          !chat.fullName.toLowerCase().contains(searchText.value.toLowerCase())) {
+          !chat.senderFullName!.toLowerCase().contains(searchText.value.toLowerCase())) {
         return false;
       }
       return true;

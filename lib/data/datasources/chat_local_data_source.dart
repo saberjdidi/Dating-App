@@ -1,34 +1,34 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
-import 'package:dating_app_bilhalal/data/models/user_chat_model.dart';
+import 'package:dating_app_bilhalal/data/models/chat_model.dart';
 
 class ChatLocalDataSource {
-  static List<UserChatModel> getChats() {
+  static List<ChatModel> getChats() {
     return [
-      UserChatModel(
-        id: "1",
-        fullName: "اویس",
+      ChatModel(
+        senderUid: "1",
+        senderFullName: "اویس",
         isConnect: true,
-        lastSeen: DateTime.now().subtract(Duration(minutes: 5)),
-        lastMessage: "مرحباً كيف حالك؟۔۔۔۔۔۔",
-        file: ImageConstant.userProfile
+          createdAt: DateTime.now().subtract(Duration(minutes: 5)),
+          recentTextMessage: "مرحباً كيف حالك؟۔۔۔۔۔۔",
+          senderProfile: ImageConstant.userProfile
       ),
-      UserChatModel(
-        id: "2",
-        fullName: "یعقوب",
+      ChatModel(
+      senderUid: "2",
+        senderFullName: "یعقوب",
         isConnect: false,
-        lastSeen: DateTime.now().subtract(Duration(hours: 3)),
-        lastMessage: "مرحباً كيف حالك؟",
+          createdAt: DateTime.now().subtract(Duration(hours: 3)),
+          recentTextMessage: "مرحباً كيف حالك؟",
         isRead: false,
-          file: ImageConstant.profile8
+          senderProfile: ImageConstant.profile8
       ),
-      UserChatModel(
-        id: "3",
-        fullName: "عبدالرحمن",
+      ChatModel(
+          senderUid: "3",
+          senderFullName: "عبدالرحمن",
         isConnect: true,
-        lastSeen: DateTime.now().subtract(Duration(days: 1)),
-        lastMessage: "مرحبا بك",
+          createdAt: DateTime.now().subtract(Duration(days: 1)),
+          recentTextMessage: "مرحبا بك",
         isArchived: true,
-        file: ImageConstant.profile2
+          senderProfile: ImageConstant.profile2
       ),
     ];
   }

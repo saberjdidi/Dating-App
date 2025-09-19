@@ -8,13 +8,15 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.title,
     this.actions,
     this.leading,
-    this.leadingWidth
+    this.leadingWidth,
+    this.toolbarHeight,
   });
 
   final Widget? title;
   final List<Widget>? actions;
   final Widget? leading;
   double? leadingWidth;
+  double? toolbarHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
         automaticallyImplyLeading: false,
         leading: leading,
         leadingWidth: leadingWidth,
+        toolbarHeight: toolbarHeight,
         centerTitle: true,
         title: title,
         actions: (actions == null || actions == [])
@@ -35,7 +38,7 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(TDeviceUtils.getAppBarHeight());
+  Size get preferredSize => Size.fromHeight(toolbarHeight ?? TDeviceUtils.getAppBarHeight());
 }
 /*
 class TAppBar extends StatelessWidget implements PreferredSizeWidget {

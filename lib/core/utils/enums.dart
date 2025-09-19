@@ -7,3 +7,14 @@ enum PaymentMethods {paypal, googlePay, applePay, visa, masterCard, creditCard, 
 
 
 enum BottomBarEnum { main, search,  discussion, favoris, Profile }
+
+enum MessageType {
+  text,
+  image,
+  video,
+  audio,
+  location,
+  document,
+  gif,
+  contact,
+}
