@@ -57,10 +57,12 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
           ],
         ),
         title: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Column(
               children: [
                 Text(controller.userChatModel.senderFullName!,
+                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                     color: TColors.black,
                     fontSize: 22.fSize,
@@ -83,11 +85,13 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
               ],
             ),
             SizedBox(width: 10.hw,),
-            CustomImageView(
-              imagePath: controller.userChatModel.senderProfile,
-              width: 50.adaptSize,
-              height: 50.adaptSize,
-              radius: BorderRadius.circular(50.adaptSize),
+            Expanded( //verify Expanded
+              child: CustomImageView(
+                imagePath: controller.userChatModel.senderProfile,
+                width: 50.adaptSize,
+                height: 50.adaptSize,
+                radius: BorderRadius.circular(50.adaptSize),
+              ),
             )
           ],
         ),
@@ -160,8 +164,9 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
               width: 50.adaptSize,
               height: 50.adaptSize,
               radius: BorderRadius.circular(50.adaptSize),
-              onTap: (){
-                if (controller.messageController.text.isNotEmpty) {
+              onTap: () async {
+               await controller.sendMessage();
+               /* if (controller.messageController.text.isNotEmpty) {
                   controller.sendMessage(MessageModel(
                     messageId: DateTime.now().toString(),
                     senderUid: "user1",
@@ -174,7 +179,7 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
                     createdAt: DateTime.now(),
                   ));
                   controller.messageController.clear();
-                }
+                }  */
               },
             ),
            /* CircularContainer(

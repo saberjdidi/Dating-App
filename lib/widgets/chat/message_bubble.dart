@@ -53,9 +53,52 @@ class MessageBubble extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (message.attachment != null)
+                  if (message.attachment != null) ...[
+                    //if (message.attachment!.type == MessageType.image && message.attachment!.file != null)
+                    //  Image.file(message.attachment!.file!, height: 150, fit: BoxFit.cover),
+                    if ((message.attachment!.type == MessageType.image || message.attachment!.type == MessageType.video) && message.attachment!.url != null)
+                      CustomImageView(
+                        imagePath: message.attachment!.url,
+                        height: 150,
+                      ),
+                    if ((message.attachment!.type == MessageType.image || message.attachment!.type == MessageType.video) && message.attachment!.file != null)
+                      CustomImageView(
+                        file: message.attachment!.file,
+                        height: 150,
+                      ),
+
+                  /*  if (message.attachment!.type == MessageType.video && message.attachment!.url != null)
+                      Container(
+                        height: 150,
+                        color: Colors.black12,
+                        child: Center(child: Icon(Icons.play_circle_fill, size: 50, color: Colors.black54)),
+                      ), */
+
+                    if (message.attachment!.type == MessageType.document && message.attachment!.name != null)
+                      Row(
+                        children: [
+                          Icon(Icons.insert_drive_file, color: Colors.blue),
+                          const SizedBox(width: 8),
+                          Text(message.attachment!.name!, style: TextStyle(fontSize: 16)),
+                        ],
+                      ),
+                  ],
+                  if (message.text != null && message.text!.isNotEmpty)
+                    Text(message.text!, style: TextStyle(fontSize: 16)),
+                  Text(
+                    "${message.createdAt.hour}:${message.createdAt.minute.toString().padLeft(2, '0')}",
+                    style: const TextStyle(fontSize: 10, color: Colors.black54),
+                  ),
+
+                  /*
+                  if (message.attachment!.path != null)
                     CustomImageView(
                       imagePath: message.attachment!.path,
+                      height: 150,
+                    ),
+                   if (message.attachment!.file != null)
+                    CustomImageView(
+                      file: message.attachment!.file,
                       height: 150,
                     ),
                   if (message.text != null)
@@ -67,6 +110,7 @@ class MessageBubble extends StatelessWidget {
                     "${message.createdAt.hour}:${message.createdAt.minute.toString().padLeft(2, '0')}",
                     style: TextStyle(fontSize: 10, color: Colors.black54),
                   ),
+                  */
                 ],
               ),
             ),

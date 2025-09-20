@@ -1,11 +1,15 @@
+import 'dart:io';
+
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/data/datasources/message_local_data_source.dart';
+import 'package:dating_app_bilhalal/data/models/attachment_model.dart';
 import 'package:dating_app_bilhalal/data/models/chat_model.dart';
 import 'package:dating_app_bilhalal/data/models/message_model.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
 import 'package:dating_app_bilhalal/widgets/grid_layout.dart';
 import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class DiscussionDetailsController extends GetxController {
   static DiscussionDetailsController get instance => Get.find();
@@ -24,9 +28,36 @@ class DiscussionDetailsController extends GetxController {
     messages.assignAll(MessageLocalDataSource.getMessages());
   }
 
-  void sendMessage(MessageModel message) {
-    messages.add(message);
+
+
+  sendMessage() async {
+    if (messageController.text.isEmpty && pickedAttachment.value == null) return;
+
+    messages.add(
+      MessageModel(
+        messageId: DateTime.now().toString(),
+        senderUid: "user1",
+        receiverUid: "user2",
+        senderName: "Alice",
+        receiverName: "Bob",
+        senderProfile: "assets/images/alice.jpg",
+        receiverProfile: "assets/images/bob.jpg",
+        text: messageController.text.isNotEmpty ? messageController.text : "",
+        attachment: pickedAttachment.value,
+       /* attachment: pickedAttachment.value != null
+            ? AttachmentModel(type: MessageType.image, file: pickedAttachment.value)
+            : null,*/
+        createdAt: DateTime.now(),
+      ),
+    );
+
+    // Reset
+    messageController.clear();
+    pickedAttachment.value = null;
   }
+  /* void sendMessage(MessageModel message) {
+    messages.add(message);
+  } */
 
   showAttachmentOptions(BuildContext context) {
     showModalBottomSheet(
@@ -51,8 +82,10 @@ class DiscussionDetailsController extends GetxController {
                   backgroundColor: TColors.greyDating.withOpacity(0.7),
                   child: IconButton(
                     icon: Icon(Iconsax.gallery, color: TColors.black.withOpacity(0.9), size: 35.adaptSize,),
-                    onPressed: (){
+                    onPressed: () async {
                       Navigator.pop(context);
+                     await pickMedia();
+                     //await pickFromGallery();
                     },
                   ),
                 ),
@@ -132,6 +165,38 @@ class DiscussionDetailsController extends GetxController {
         );
       },
     );
+  }
+
+  ///Upoad Media
+  var pickedAttachment = Rx<AttachmentModel?>(null);
+ /* var pickedAttachment = Rx<File?>(null);
+  Future<void> pickFromGallery() async {
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      pickedAttachment.value = File(pickedFile.path);
+    }
+  }
+  Future<void> pickVideo() async {
+    final pickedFile = await ImagePicker().pickVideo(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      pickedAttachment.value = File(pickedFile.path);
+    }
+  } */
+
+  Future<void> pickMedia() async {
+    final pickedFile = await ImagePicker().pickMedia(); // peut être image ou vidéo
+
+    if (pickedFile != null) {
+      final file = File(pickedFile.path);
+      final isVideo = pickedFile.path.toLowerCase().endsWith('.mp4') ||
+          pickedFile.path.toLowerCase().endsWith('.mov') ||
+          pickedFile.path.toLowerCase().endsWith('.avi');
+
+      pickedAttachment.value = AttachmentModel(
+        type: isVideo ? MessageType.video : MessageType.image,
+        file: file,
+      );
+    }
   }
 
 }

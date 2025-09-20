@@ -37,7 +37,7 @@ class MessageLocalDataSource {
         receiverProfile: ImageConstant.profile1,
         attachment: AttachmentModel(
           type: MessageType.image,
-          path: ImageConstant.imgOnBoarding1,
+          url: ImageConstant.imgOnBoarding1,
         ),
         createdAt: DateTime.now().subtract(Duration(minutes: 1)),
       ),
@@ -52,7 +52,7 @@ class MessageLocalDataSource {
         text: "زرت هذا المسجد الجميل يوم الجمعة الماضي. الهندسة المعمارية مذهلة!",
         attachment: AttachmentModel(
           type: MessageType.image,
-          path: ImageConstant.imgMosque,
+          url: ImageConstant.imgMosque,
         ),
         createdAt: DateTime.now().subtract(Duration(minutes: 3)),
       ),
