@@ -21,6 +21,7 @@ class Routes {
   static const String filterScreen = '/filter_screen';
   static const String discussionScreen = '/discussion_screen';
   static const String discussionDetailsScreen = '/discussion_details_screen';
+  static const String userChatPofileScreen = '/user_chat_profile_screen';
 
   static const String profileScreen = '/profile_screen';
   static const String profileDetailsScreen = '/profile_details_screen';

@@ -6,6 +6,7 @@ import 'package:dating_app_bilhalal/presentation/profile_screen/fullscreen_image
 import 'package:dating_app_bilhalal/widgets/account/interest_widget.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
 import 'package:dating_app_bilhalal/widgets/grid_layout.dart';
+import 'package:dating_app_bilhalal/widgets/home/tabbed_page_widget.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
 import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
@@ -122,7 +123,17 @@ class UserChatProfileScreen extends GetView<UserChatProfileController> {
                                 ),
 
                                 SizedBox(height: 20.v),
-                                SubTitleWidget(subtitle: "معرض", color: TColors.black, fontWeightDelta: 4, fontSizeDelta: 5,),
+                                SubTitleWidget(subtitle: "الوسائط المشتركة", color: TColors.black, fontWeightDelta: 4, fontSizeDelta: 5,),
+                                TabbedPageWidget(
+                                  tabs: [
+                                    TabItem("الکل"),
+                                    TabItem("صور"),
+                                    TabItem("أشرطة الفيديو"),
+                                  ],
+                                  onTabChanged: controller.onTabChanged,
+                                  activeColor: TColors.yellowAppDark,
+                                  inactiveColor: TColors.black,
+                                ),
                                 GridLayout(
                                   itemCount: controller.ListImages.value.length,
                                   mainAxisExtent: isTablet ? 220.adaptSize : 180.adaptSize,

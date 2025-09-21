@@ -41,8 +41,8 @@ class ImageConstant {
   static String imgMessage = '$imagePath/img_message.png'; //'$imagePath/message_img.svg';
   static String imgFavoris = '$imagePath/img_favoris.png'; //'$imagePath/favoris_img.svg';
   static String imgClose = '$imagePath/img_close.svg';
-  static String imgLove = '$imagePath/img_love.png';
-  static String imgLoves = '$imagePath/img_loves.png';
+  static String imgLove = '$imagePath/img_love.gif';
+  static String imgLoves = '$imagePath/img_loves.gif';
 
   //Bottom Bar
   static String mainImg = '$imagePath/main_img.svg';

@@ -97,6 +97,11 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
               width: 50.adaptSize,
               height: 50.adaptSize,
               radius: BorderRadius.circular(50.adaptSize),
+              onTap: () async {
+                Get.toNamed(Routes.userChatPofileScreen,
+                    //arguments: {"UserModel" : user}
+                );
+              },
             ),
           ),
         ),

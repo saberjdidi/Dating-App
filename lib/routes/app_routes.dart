@@ -6,6 +6,7 @@ import 'package:dating_app_bilhalal/presentation/account_screen/welcome_screen.d
 import 'package:dating_app_bilhalal/presentation/discussion_screen/binding/discussion_binding.dart';
 import 'package:dating_app_bilhalal/presentation/discussion_screen/discusion_details_screen.dart';
 import 'package:dating_app_bilhalal/presentation/discussion_screen/discussion_screen.dart';
+import 'package:dating_app_bilhalal/presentation/discussion_screen/user_chat_profile_screen.dart';
 import 'package:dating_app_bilhalal/presentation/filter_screen/binding/filter_binding.dart';
 import 'package:dating_app_bilhalal/presentation/filter_screen/filter_screen.dart';
 import 'package:dating_app_bilhalal/presentation/main_screen/binding/main_binding.dart';
@@ -130,6 +131,13 @@ class AppRoutes {
     GetPage(
       name: Routes.discussionDetailsScreen,
       page: () => DiscussionDetailsScreen(),
+      bindings: [
+        DiscussionBinding(),
+      ],
+    ),
+    GetPage(
+      name: Routes.userChatPofileScreen,
+      page: () => UserChatProfileScreen(),
       bindings: [
         DiscussionBinding(),
       ],
