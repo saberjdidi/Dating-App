@@ -1,6 +1,7 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/data/models/message_model.dart';
 import 'package:dating_app_bilhalal/widgets/custom_image_view.dart';
+import 'package:dating_app_bilhalal/widgets/video_preview_widget.dart';
 import 'package:flutter/material.dart';
 
 class MessageBubble extends StatelessWidget {
@@ -62,6 +63,20 @@ class MessageBubble extends StatelessWidget {
                         height: 150,
                       ),
                     if ((message.attachment!.type == MessageType.image || message.attachment!.type == MessageType.video) && message.attachment!.file != null)
+                      CustomImageView(
+                        file: message.attachment!.file,
+                        height: 150,
+                      ),
+
+                    ///Video
+                    if (message.attachment!.type == MessageType.video && message.attachment!.file != null)
+                      SizedBox(
+                        height: 200,
+                        width: 200,
+                        child: VideoPreviewWidget(file: message.attachment!.file),
+                      ),
+
+                    if (message.attachment!.type == MessageType.camera && message.attachment!.file != null)
                       CustomImageView(
                         file: message.attachment!.file,
                         height: 150,

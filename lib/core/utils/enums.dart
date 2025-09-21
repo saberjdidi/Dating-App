@@ -12,6 +12,7 @@ enum MessageType {
   text,
   image,
   video,
+  camera,
   audio,
   location,
   document,

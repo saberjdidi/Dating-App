@@ -84,7 +84,7 @@ class DiscussionDetailsController extends GetxController {
                     icon: Icon(Iconsax.gallery, color: TColors.black.withOpacity(0.9), size: 35.adaptSize,),
                     onPressed: () async {
                       Navigator.pop(context);
-                     await pickMedia();
+                     await pickMediaFromGalley();
                      //await pickFromGallery();
                     },
                   ),
@@ -103,6 +103,7 @@ class DiscussionDetailsController extends GetxController {
                     icon: Icon(Iconsax.camera, color: TColors.black.withOpacity(0.9), size: 35.adaptSize,),
                     onPressed: (){
                       Navigator.pop(context);
+                      pickMediaFromCamera();
                     },
                   ),
                 ),
@@ -183,7 +184,7 @@ class DiscussionDetailsController extends GetxController {
     }
   } */
 
-  Future<void> pickMedia() async {
+  Future<void> pickMediaFromGalley() async {
     final pickedFile = await ImagePicker().pickMedia(); // peut être image ou vidéo
 
     if (pickedFile != null) {
@@ -194,6 +195,22 @@ class DiscussionDetailsController extends GetxController {
 
       pickedAttachment.value = AttachmentModel(
         type: isVideo ? MessageType.video : MessageType.image,
+        file: file,
+      );
+    }
+  }
+
+  Future<void> pickMediaFromCamera() async {
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.camera); // peut être image ou vidéo
+
+    if (pickedFile != null) {
+      final file = File(pickedFile.path);
+      final isVideo = pickedFile.path.toLowerCase().endsWith('.mp4') ||
+          pickedFile.path.toLowerCase().endsWith('.mov') ||
+          pickedFile.path.toLowerCase().endsWith('.avi');
+
+      pickedAttachment.value = AttachmentModel(
+        type: MessageType.camera,
         file: file,
       );
     }
