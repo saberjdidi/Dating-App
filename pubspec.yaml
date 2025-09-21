@@ -60,6 +60,7 @@ dependencies:
   video_player: ^2.8.2
   # Pour avoir un lecteur vidéo avec contrôles personnalisés
   chewie: ^1.7.5
+  file_picker: ^8.0.0
 
 dev_dependencies:
   flutter_test:

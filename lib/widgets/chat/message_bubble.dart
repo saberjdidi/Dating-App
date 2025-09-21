@@ -57,12 +57,12 @@ class MessageBubble extends StatelessWidget {
                   if (message.attachment != null) ...[
                     //if (message.attachment!.type == MessageType.image && message.attachment!.file != null)
                     //  Image.file(message.attachment!.file!, height: 150, fit: BoxFit.cover),
-                    if ((message.attachment!.type == MessageType.image || message.attachment!.type == MessageType.video) && message.attachment!.url != null)
+                    if (message.attachment!.type == MessageType.image && message.attachment!.url != null)
                       CustomImageView(
                         imagePath: message.attachment!.url,
                         height: 150,
                       ),
-                    if ((message.attachment!.type == MessageType.image || message.attachment!.type == MessageType.video) && message.attachment!.file != null)
+                    if (message.attachment!.type == MessageType.image && message.attachment!.file != null)
                       CustomImageView(
                         file: message.attachment!.file,
                         height: 150,

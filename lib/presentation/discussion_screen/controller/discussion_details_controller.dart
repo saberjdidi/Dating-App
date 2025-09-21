@@ -8,6 +8,7 @@ import 'package:dating_app_bilhalal/data/models/message_model.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
 import 'package:dating_app_bilhalal/widgets/grid_layout.dart';
 import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -138,6 +139,7 @@ class DiscussionDetailsController extends GetxController {
                     icon: Icon(Iconsax.document, color: TColors.black.withOpacity(0.9), size: 35.adaptSize,),
                     onPressed: (){
                       Navigator.pop(context);
+                      pickDocument();
                     },
                   ),
                 ),
@@ -213,6 +215,24 @@ class DiscussionDetailsController extends GetxController {
         type: MessageType.camera,
         file: file,
       );
+    }
+  }
+
+  Future<void> pickDocument() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf', 'doc', 'docx', 'txt'],
+    );
+
+    if (result != null && result.files.single.path != null) {
+      final file = File(result.files.single.path!);
+      final fileName = result.files.single.name;
+
+      pickedAttachment.value = AttachmentModel(
+        type: MessageType.document,
+        file: file,
+        name: fileName
+      ); // Ton Rx<File?>
     }
   }
 

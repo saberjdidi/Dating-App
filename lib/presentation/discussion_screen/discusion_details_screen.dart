@@ -25,38 +25,83 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
     return Scaffold(
       backgroundColor: TColors.white,
       appBar: TAppBar(
-        leadingWidth: 180.adaptSize,
+        leadingWidth: 160.adaptSize,
         toolbarHeight: 80.adaptSize,
         leading: Row(
           children: [
             CircularContainer(
-              width: 60.adaptSize,
-              height: 60.adaptSize,
-              radius: 60.adaptSize,
+              width: 50.adaptSize,
+              height: 50.adaptSize,
+              radius: 50.adaptSize,
               backgroundColor: TColors.greyDating.withOpacity(0.6),
               child: IconButton(
-                icon: Icon(Icons.call, color: TColors.black.withOpacity(0.7), size: 35.adaptSize,),
+                icon: Icon(Icons.more_vert, color: TColors.black.withOpacity(0.7), size: 30.adaptSize,),
                 onPressed: (){
                   Navigator.pop(context);
                 },
               ),
             ),
-            SizedBox(width: 10.adaptSize,),
+            SizedBox(width: 5.adaptSize,),
             CircularContainer(
-              width: 60.adaptSize,
-              height: 60.adaptSize,
-              radius: 60.adaptSize,
+              width: 50.adaptSize,
+              height: 50.adaptSize,
+              radius: 50.adaptSize,
               backgroundColor: TColors.greyDating.withOpacity(0.6),
               child: IconButton(
-                icon: Icon(Icons.video_call_outlined, color: TColors.black.withOpacity(0.7), size: 35.adaptSize,),
+                icon: Icon(Icons.call, color: TColors.black.withOpacity(0.7), size: 30.adaptSize,),
                 onPressed: (){
                   Navigator.pop(context);
                 },
               ),
-            )
+            ),
+            SizedBox(width: 5.adaptSize,),
+            CircularContainer(
+              width: 50.adaptSize,
+              height: 50.adaptSize,
+              radius: 50.adaptSize,
+              backgroundColor: TColors.greyDating.withOpacity(0.6),
+              child: IconButton(
+                icon: Icon(Icons.video_call_outlined, color: TColors.black.withOpacity(0.7), size: 30.adaptSize,),
+                onPressed: (){
+                  Navigator.pop(context);
+                },
+              ),
+            ),
           ],
         ),
-        title: Row(
+        title: Center(
+          // SingleChildScrollView (child: scrollDirection: Axis.horizontal,
+          child: ListTile(
+            contentPadding: EdgeInsets.zero,
+            leading: null,
+            title: Text(
+              controller.userChatModel.senderFullName!,
+              style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                color: TColors.black,
+                fontSize: 22.fSize,
+                fontWeight: FontWeight.bold,
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
+            subtitle: Row(
+              children: [
+                SubTitleWidget(subtitle: "متصل"),
+                if (controller.userChatModel.isConnect) ...[
+                  SizedBox(width: 3.adaptSize),
+                  CircleAvatar(radius: 6, backgroundColor: Colors.green)
+                ]
+              ],
+            ),
+            trailing: CustomImageView(
+              imagePath: controller.userChatModel.senderProfile,
+              width: 50.adaptSize,
+              height: 50.adaptSize,
+              radius: BorderRadius.circular(50.adaptSize),
+            ),
+          ),
+        ),
+        //Other method
+       /* title: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Column(
@@ -94,15 +139,16 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
               ),
             )
           ],
-        ),
+        ), */
+
         actions: [
           CircularContainer(
-            width: 60.adaptSize,
-            height: 60.adaptSize,
-            radius: 60.adaptSize,
+            width: 50.adaptSize,
+            height: 50.adaptSize,
+            radius: 50.adaptSize,
             backgroundColor: TColors.greyDating.withOpacity(0.6),
             child: IconButton(
-              icon: Icon(Icons.arrow_forward_outlined, color: TColors.black.withOpacity(0.7), size: 35.adaptSize,),
+              icon: Icon(Icons.arrow_forward_outlined, color: TColors.black.withOpacity(0.7), size: 30.adaptSize,),
               onPressed: (){
                 Navigator.pop(context);
               },
