@@ -23,18 +23,16 @@ class PrefUtils {
   static const _KeyTheme = 'theme';
   static const _KeyFirstname = 'firstName';
   static const _KeyLastname = 'lastName';
-  static const _KeyNumberIdentity = 'numberIdentity';
-  static const _KeyUserId = 'userId';
   static const _KeyPhoneNumber = 'phoneNumber';
   static const _KeyAddress = 'address';
   static const _KeyBirthDate = 'birthDate';
   static const _KeyEmailLogin = 'emailLogin';
   static const _KeyPasswordLogin = 'passwordLogin';
   static const _KeyOnBoarding = 'onBoarding';
-  static const _KeyOnBoardingCheckCondition = 'onBoardingCheckCondition';
   static const _KeyLogoUser = 'logoUser';
-  static const _KeyEmpreinteDigitale = 'empreinteDigitale';
-  static const _KeyAuthentication2Facteurs = 'authentication2Facteurs';
+
+  static const _keyCallVoice = 'call_voice';
+  static const _keyCallVideo = 'call_video';
 
   Future<void> init() async {
     _sharedPreferences ??= await SharedPreferences.getInstance();
@@ -153,27 +151,6 @@ class PrefUtils {
     await _sharedPreferences!.remove(_KeyLastname);
   }
 
-  ///Number Identity
-  static Future setNumberIdentity(String numIdentity) async =>
-      await _sharedPreferences!.setString(_KeyNumberIdentity, numIdentity);
-
-  static String? getNumberIdentity() => _sharedPreferences!.getString(_KeyNumberIdentity);
-
-  static Future<void> clearNumberIdentity() async {
-    await _sharedPreferences!.remove(_KeyNumberIdentity);
-  }
-
-  ///Id User
-  static Future setUserId(String id) async =>
-      await _sharedPreferences!.setString(_KeyUserId, id);
-
-  static String? getUserId() => _sharedPreferences!.getString(_KeyUserId);
-
-  static Future<void> clearUserId() async {
-    await _sharedPreferences!.remove(_KeyUserId);
-  }
-
-
   ///Address
   static Future setAddress(String address) async =>
       await _sharedPreferences!.setString(_KeyAddress, address);
@@ -233,15 +210,6 @@ class PrefUtils {
     await _sharedPreferences!.remove(_KeyOnBoarding);
   }
 
-  static Future setOnBoardingCheckCondition(String value) async =>
-      await _sharedPreferences!.setString(_KeyOnBoardingCheckCondition, value);
-
-  static String? getOnBoardingCheckCondition() => _sharedPreferences!.getString(_KeyOnBoardingCheckCondition);
-
-  static Future<void> clearOnBoardingCheckCondition() async {
-    await _sharedPreferences!.remove(_KeyOnBoardingCheckCondition);
-  }
-
   //Logo
   static Future setLogoUser(String value) async =>
       await _sharedPreferences!.setString(_KeyLogoUser, value);
@@ -252,24 +220,25 @@ class PrefUtils {
     await _sharedPreferences!.remove(_KeyLogoUser);
   }
 
-  //EmpreinteDigitale
-  static Future setEmpreinteDigitale(String value) async =>
-      await _sharedPreferences!.setString(_KeyEmpreinteDigitale, value);
-
-  static String? getEmpreinteDigitale() => _sharedPreferences!.getString(_KeyEmpreinteDigitale);
-
-  static Future<void> clearEmpreinteDigitale() async {
-    await _sharedPreferences!.remove(_KeyEmpreinteDigitale);
+  ///Call Voice & Video
+  static Future<void> setCallVoice(bool value) async {
+    //final prefs = await SharedPreferences.getInstance();
+    await _sharedPreferences!.setBool(_keyCallVoice, value);
   }
 
-  //Authentication2Facteurs
-  static Future setAuthentication2Facteurs(String value) async =>
-      await _sharedPreferences!.setString(_KeyAuthentication2Facteurs, value);
+  static Future<void> setCallVideo(bool value) async {
+    await _sharedPreferences!.setBool(_keyCallVideo, value);
 
-  static String? getAuthentication2Facteurs() => _sharedPreferences!.getString(_KeyAuthentication2Facteurs);
+    //final prefs = await SharedPreferences.getInstance();
+    //await prefs.setBool(_keyCallVideo, value);
+  }
 
-  static Future<void> clearAuthentication2Facteurs() async {
-    await _sharedPreferences!.remove(_KeyAuthentication2Facteurs);
+  static Future<bool> getCallVoice() async {
+    return _sharedPreferences!.getBool(_keyCallVoice) ?? false;
+  }
+
+  static Future<bool> getCallVideo() async {
+    return _sharedPreferences!.getBool(_keyCallVideo) ?? false;
   }
 }
     

@@ -10,4 +10,14 @@ class PermissionsHelper {
 
     return statuses.values.every((status) => status.isGranted);
   }
+
+  static Future<bool> requestCallPermissions({bool isVideo = false}) async {
+    final permissions = <Permission>[
+      Permission.microphone,
+      if (isVideo) Permission.camera,
+    ];
+
+    final statuses = await permissions.request();
+    return statuses.values.every((status) => status.isGranted);
+  }
 }

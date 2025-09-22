@@ -22,6 +22,8 @@ class FavoriteScreen extends StatelessWidget {
     var screenheight = mediaQueryData.size.height;
     var isSmallPhone = screenWidth < 360;
     var isTablet = screenWidth >= 600;
+    // Déterminer le nombre de colonnes dynamiquement
+    int crossAxisCount = screenWidth < 600 ? 2 : 3;
 
     return SafeArea(
       child: Scaffold(
@@ -76,7 +78,9 @@ class FavoriteScreen extends StatelessWidget {
                 Expanded(
                   child: MasonryGridView.builder(
                     itemCount: controller.ListImages.value.length,
-                      gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                      gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(crossAxisCount: crossAxisCount),
+                      mainAxisSpacing: 8,
+                      crossAxisSpacing: 8,
                       itemBuilder: (context, index) => TRoundedContainer(
                         showBorder: true,
                         backgroundColor: TColors.white,

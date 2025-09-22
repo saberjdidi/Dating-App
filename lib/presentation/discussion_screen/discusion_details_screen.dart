@@ -2,6 +2,7 @@ import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/validators/validation.dart';
 import 'package:dating_app_bilhalal/data/models/message_model.dart';
 import 'package:dating_app_bilhalal/presentation/discussion_screen/controller/discussion_details_controller.dart';
+import 'package:dating_app_bilhalal/presentation/settings_screen/controller/settings_controller.dart';
 import 'package:dating_app_bilhalal/widgets/app_bar/appbar_widget.dart';
 import 'package:dating_app_bilhalal/widgets/chat/message_bubble.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
@@ -11,8 +12,9 @@ import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
 class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
-  const DiscussionDetailsScreen({super.key});
+  DiscussionDetailsScreen({super.key});
 
+  final settingsController = Get.put(SettingsController());
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +57,12 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
                 child: IconButton(
                   icon: Icon(Icons.call, color: TColors.black.withOpacity(0.7), size: 30.adaptSize,),
                   onPressed: (){
-                    Navigator.pop(context);
+                    if (!settingsController.isCallVoice.value) {
+                      Get.snackbar("Appel interdit", "L'utilisateur n'autorise pas les appels vocaux");
+                      return;
+                    } else {
+                      Navigator.pop(context);
+                    }
                   },
                 ),
               ),
@@ -68,6 +75,10 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
                 child: IconButton(
                   icon: Icon(Icons.video_call_outlined, color: TColors.black.withOpacity(0.7), size: 30.adaptSize,),
                   onPressed: (){
+                    if (!settingsController.isCallVideo.value) {
+                      Get.snackbar("Appel interdit", "L'utilisateur n'autorise pas les appels vidéo");
+                      return;
+                    }
                     Navigator.pop(context);
                   },
                 ),

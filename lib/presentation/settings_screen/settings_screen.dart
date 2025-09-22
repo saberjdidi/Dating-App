@@ -43,10 +43,11 @@ class SettingsScreen extends GetWidget<SettingsController> {
                     SubTitleWidget(subtitle: 'مكالمات الفيديو', fontWeightDelta: 2, fontSizeDelta: 1),
                     Switch(
                       value: controller.isCallVideo.value,
-                      onChanged: (value){
+                      onChanged: controller.toggleCallVideo,
+                     /* onChanged: (value){
                         controller.isCallVideo.value = value;
                         debugPrint("call video : ${controller.isCallVideo.value}");
-                      },
+                      }, */
                       activeColor: TColors.yellowAppDark,
                     )
                   ],
@@ -58,10 +59,11 @@ class SettingsScreen extends GetWidget<SettingsController> {
                     SubTitleWidget(subtitle: 'المكالمات الصوتية', fontWeightDelta: 2, fontSizeDelta: 1),
                     Switch(
                       value: controller.isCallVoice.value,
-                      onChanged: (value){
+                      onChanged: controller.toggleCallVoice,
+                     /* onChanged: (value){
                         controller.isCallVoice.value = value;
                         debugPrint("call voice : ${controller.isCallVoice.value}");
-                      },
+                      }, */
                       activeColor: TColors.yellowAppDark,
                     )
                   ],
