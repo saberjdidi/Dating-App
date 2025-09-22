@@ -7,6 +7,8 @@ import 'package:dating_app_bilhalal/presentation/discussion_screen/binding/discu
 import 'package:dating_app_bilhalal/presentation/discussion_screen/discusion_details_screen.dart';
 import 'package:dating_app_bilhalal/presentation/discussion_screen/discussion_screen.dart';
 import 'package:dating_app_bilhalal/presentation/discussion_screen/user_chat_profile_screen.dart';
+import 'package:dating_app_bilhalal/presentation/favorite_screen/binding/favorite_binding.dart';
+import 'package:dating_app_bilhalal/presentation/favorite_screen/favorite_screen.dart';
 import 'package:dating_app_bilhalal/presentation/filter_screen/binding/filter_binding.dart';
 import 'package:dating_app_bilhalal/presentation/filter_screen/filter_screen.dart';
 import 'package:dating_app_bilhalal/presentation/main_screen/binding/main_binding.dart';
@@ -17,6 +19,8 @@ import 'package:dating_app_bilhalal/presentation/onboarding_screen/binding/onboa
 import 'package:dating_app_bilhalal/presentation/onboarding_screen/onboarding_screen.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/binding/profile_binding.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/profile_details_screen.dart';
+import 'package:dating_app_bilhalal/presentation/settings_screen/binding/settings_binding.dart';
+import 'package:dating_app_bilhalal/presentation/settings_screen/settings_screen.dart';
 import 'package:dating_app_bilhalal/presentation/sign_in_screen/binding/sign_in_binding.dart';
 import 'package:dating_app_bilhalal/presentation/sign_in_screen/sign_in_screen.dart';
 import 'package:dating_app_bilhalal/presentation/signup_screen/binding/signup_binding.dart';
@@ -147,6 +151,20 @@ class AppRoutes {
       page: () => ProfileDetailsScreen(),
       bindings: [
         ProfileBinding(),
+      ],
+    ),
+    GetPage(
+      name: Routes.settingsScreen,
+      page: () => SettingsScreen(),
+      bindings: [
+        SettingsBinding(),
+      ],
+    ),
+    GetPage(
+      name: Routes.favoriteScreen,
+      page: () => FavoriteScreen(),
+      bindings: [
+        FavoriteBinding(),
       ],
     ),
     /*

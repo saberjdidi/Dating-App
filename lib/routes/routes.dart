@@ -18,6 +18,7 @@ class Routes {
 
   static const String navigationScreen = '/navigation_screen';
   static const String mainScreen = '/main_screen';
+  static const String favoriteScreen = '/favorite_screen';
   static const String filterScreen = '/filter_screen';
   static const String discussionScreen = '/discussion_screen';
   static const String discussionDetailsScreen = '/discussion_details_screen';
@@ -26,6 +27,8 @@ class Routes {
   static const String profileScreen = '/profile_screen';
   static const String profileDetailsScreen = '/profile_details_screen';
   static const String updateProfileScreen = '/update_profile_screen';
+
+  static const String settingsScreen = '/settings_screen';
 
   ///Other
 ///

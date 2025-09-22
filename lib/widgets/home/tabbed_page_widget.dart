@@ -41,7 +41,7 @@ class TabbedPageWidget extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
             decoration: BoxDecoration(
-              color: isActive ? TColors.yellowAppLight.withOpacity(0.1) : TColors.black.withOpacity(0.1),
+              color: isActive ? TColors.yellowAppLight.withOpacity(0.1) : TColors.greyDating.withOpacity(0.6),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(

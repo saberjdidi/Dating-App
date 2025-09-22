@@ -6,6 +6,7 @@ class UserModel {
   final int age;
   List<String>? interests;
   List<String>? images;
+  bool? isFavoris;
 
   UserModel({
     this.id,
@@ -14,8 +15,9 @@ class UserModel {
     required this.bio,
     required this.age,
     this.interests,
-    this.images
+    this.images,
+    this.isFavoris,
   });
 
-  static UserModel empty() => UserModel(imageProfile: '', fullName: '', bio: '', age: 10, interests: [], images: []);
+  static UserModel empty() => UserModel(imageProfile: '', fullName: '', bio: '', age: 10, isFavoris: false, interests: [], images: []);
 }

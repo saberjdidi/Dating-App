@@ -27,47 +27,53 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
       appBar: TAppBar(
         leadingWidth: 160.adaptSize,
         toolbarHeight: 80.adaptSize,
-        leading: Row(
-          children: [
-            CircularContainer(
-              width: 50.adaptSize,
-              height: 50.adaptSize,
-              radius: 50.adaptSize,
-              backgroundColor: TColors.greyDating.withOpacity(0.6),
-              child: IconButton(
-                icon: Icon(Icons.more_vert, color: TColors.black.withOpacity(0.7), size: 30.adaptSize,),
-                onPressed: (){
-                  Navigator.pop(context);
-                },
+        leading: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              CircularContainer(
+                width: 50.adaptSize,
+                height: 50.adaptSize,
+                radius: 50.adaptSize,
+                backgroundColor: TColors.greyDating.withOpacity(0.6),
+                child: IconButton(
+                  icon: Icon(Icons.more_vert, color: TColors.black.withOpacity(0.7), size: 30.adaptSize,),
+                  onPressed: (){
+                      Get.toNamed(Routes.settingsScreen,
+                      //arguments: {"UserModel" : user}
+                    );
+                    //Navigator.pop(context);
+                  },
+                ),
               ),
-            ),
-            SizedBox(width: 5.adaptSize,),
-            CircularContainer(
-              width: 50.adaptSize,
-              height: 50.adaptSize,
-              radius: 50.adaptSize,
-              backgroundColor: TColors.greyDating.withOpacity(0.6),
-              child: IconButton(
-                icon: Icon(Icons.call, color: TColors.black.withOpacity(0.7), size: 30.adaptSize,),
-                onPressed: (){
-                  Navigator.pop(context);
-                },
+              SizedBox(width: 5.adaptSize,),
+              CircularContainer(
+                width: 50.adaptSize,
+                height: 50.adaptSize,
+                radius: 50.adaptSize,
+                backgroundColor: TColors.greyDating.withOpacity(0.6),
+                child: IconButton(
+                  icon: Icon(Icons.call, color: TColors.black.withOpacity(0.7), size: 30.adaptSize,),
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+                ),
               ),
-            ),
-            SizedBox(width: 5.adaptSize,),
-            CircularContainer(
-              width: 50.adaptSize,
-              height: 50.adaptSize,
-              radius: 50.adaptSize,
-              backgroundColor: TColors.greyDating.withOpacity(0.6),
-              child: IconButton(
-                icon: Icon(Icons.video_call_outlined, color: TColors.black.withOpacity(0.7), size: 30.adaptSize,),
-                onPressed: (){
-                  Navigator.pop(context);
-                },
+              SizedBox(width: 5.adaptSize,),
+              CircularContainer(
+                width: 50.adaptSize,
+                height: 50.adaptSize,
+                radius: 50.adaptSize,
+                backgroundColor: TColors.greyDating.withOpacity(0.6),
+                child: IconButton(
+                  icon: Icon(Icons.video_call_outlined, color: TColors.black.withOpacity(0.7), size: 30.adaptSize,),
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         title: Center(
           // SingleChildScrollView (child: scrollDirection: Axis.horizontal,
