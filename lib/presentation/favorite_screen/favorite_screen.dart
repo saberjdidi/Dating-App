@@ -7,6 +7,7 @@ import 'package:dating_app_bilhalal/widgets/home/favorite_list_view.dart';
 import 'package:dating_app_bilhalal/widgets/home/tabbed_page_widget.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class FavoriteScreen extends StatelessWidget {
   final controller = Get.put(FavoriteController());
@@ -57,7 +58,7 @@ class FavoriteScreen extends StatelessWidget {
               ),
 
               // Favorite Users
-              if(controller.selectedTab.value == 1)
+              if(controller.selectedTab.value == 0)
                 Expanded(
                   child: FavoriteListView(
                     items: controller.filteredFavorisUsers,
@@ -71,8 +72,36 @@ class FavoriteScreen extends StatelessWidget {
                 ),
 
               //Favorite Images & Videos
-              if(controller.selectedTab.value == 2)
-                GridLayout(
+              if(controller.selectedTab.value == 1)
+                Expanded(
+                  child: MasonryGridView.builder(
+                    itemCount: controller.ListImages.value.length,
+                      gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                      itemBuilder: (context, index) => TRoundedContainer(
+                        showBorder: true,
+                        backgroundColor: TColors.white,
+                        borderColor: TColors.greyDating,
+                        radius: 15,
+                        padding: EdgeInsets.all(2),
+                        child: CustomImageView(
+                          //file: file,
+                          imagePath: controller.ListImages.value[index],
+                          //imagePath: file.path, // très important: .path car File
+                          //height: 200.v,
+                          width: Get.width,
+                          fit: BoxFit.cover,
+                          radius: BorderRadius.circular(10),
+                          onTap: (){
+                            Get.to(() => FullScreenImageViewer(
+                              images: controller.ListImages.value,
+                              initialIndex: index,
+                            ));
+                          },
+                        ),
+                      )
+                  ),
+                ),
+              /* GridLayout(
                   itemCount: controller.ListImages.value.length, // +1 pour l'upload
                   mainAxisExtent: isTablet ? 220.adaptSize : 180.adaptSize,
                   crossAxisCount: 3,
@@ -101,7 +130,7 @@ class FavoriteScreen extends StatelessWidget {
                       ),
                     );
                   },
-                ),
+                ), */
             ],
           )),
         ),

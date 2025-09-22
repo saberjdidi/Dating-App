@@ -48,7 +48,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                   radius: 60.adaptSize,
                   backgroundColor: TColors.greyDating.withOpacity(0.5),
                   child: IconButton(
-                    icon: Icon(Icons.more_vert, color: TColors.white, size: 40.adaptSize,),
+                    icon: Icon(Icons.share_outlined, color: TColors.white, size: 40.adaptSize,),
                     onPressed: (){
                       Navigator.pop(context);
                     },

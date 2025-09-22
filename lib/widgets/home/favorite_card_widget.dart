@@ -23,8 +23,8 @@ class FavoriteCardWidget extends StatelessWidget {
     var screenheight = mediaQueryData.size.height;
     // small helpers for consistent sizing
     const double iconSize = 28;
-    const double bottomPadding = 12;
-    const double horizontalPadding = 12;
+    const double bottomPadding = 8;
+    const double horizontalPadding = 8;
 
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.adaptSize)),
@@ -53,10 +53,10 @@ class FavoriteCardWidget extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Container(
                 width: double.infinity,
-                height: 90.v,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: horizontalPadding,
-                  vertical: bottomPadding,
+                height: 80.v,
+                padding: EdgeInsets.symmetric(
+                  horizontal: horizontalPadding.hw,
+                  vertical: bottomPadding.v,
                 ),
                 // Use a subtle gradient that goes from transparent -> dark
                 decoration: BoxDecoration(
@@ -94,7 +94,7 @@ class FavoriteCardWidget extends StatelessWidget {
                         Text(
                           user.bio,
                           textAlign: TextAlign.right,
-                          maxLines: 2,
+                          maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: Colors.white70,
@@ -104,9 +104,9 @@ class FavoriteCardWidget extends StatelessWidget {
                       ],
                     ),
 
-                    SizedBox(width: screenWidth * 0.1),
+                    SizedBox(width: screenWidth * 0.06),
                     SizedBox(
-                      width: screenWidth * 0.3,
+                      width: screenWidth * 0.2,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
