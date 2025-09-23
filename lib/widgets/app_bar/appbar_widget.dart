@@ -10,6 +10,7 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.leading,
     this.leadingWidth,
     this.toolbarHeight,
+    this.showAction = true
   });
 
   final Widget? title;
@@ -17,6 +18,7 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? leading;
   double? leadingWidth;
   double? toolbarHeight;
+  bool showAction;
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +31,15 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
         toolbarHeight: toolbarHeight,
         centerTitle: true,
         title: title,
-        actions: (actions == null || actions == [])
-            ? [IconButton(onPressed: () => Get.back(), icon: const Icon(Iconsax.arrow_right_1))]
-            : actions,
+        actions: showAction
+       ? (actions == null || actions == [])
+            ? [IconButton(
+                onPressed: (){
+                  Navigator.of(context).pop();
+                },
+                icon: const Icon(Iconsax.arrow_right_1))]
+            : actions
+       : null,
       ),
     );
   }

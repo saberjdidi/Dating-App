@@ -18,7 +18,10 @@ import 'package:dating_app_bilhalal/presentation/navigation_screen/navigation_sc
 import 'package:dating_app_bilhalal/presentation/onboarding_screen/binding/onboarding_binding.dart';
 import 'package:dating_app_bilhalal/presentation/onboarding_screen/onboarding_screen.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/binding/profile_binding.dart';
+import 'package:dating_app_bilhalal/presentation/profile_screen/media_owner_profile_screen.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/profile_details_screen.dart';
+import 'package:dating_app_bilhalal/presentation/profile_screen/profile_screen.dart';
+import 'package:dating_app_bilhalal/presentation/profile_screen/user_owner_profile_screen.dart';
 import 'package:dating_app_bilhalal/presentation/settings_screen/binding/settings_binding.dart';
 import 'package:dating_app_bilhalal/presentation/settings_screen/settings_screen.dart';
 import 'package:dating_app_bilhalal/presentation/sign_in_screen/binding/sign_in_binding.dart';
@@ -147,8 +150,29 @@ class AppRoutes {
       ],
     ),
     GetPage(
+      name: Routes.profileScreen,
+      page: () => ProfileScreen(),
+      bindings: [
+        ProfileBinding(),
+      ],
+    ),
+    GetPage(
       name: Routes.profileDetailsScreen,
       page: () => ProfileDetailsScreen(),
+      bindings: [
+        ProfileBinding(),
+      ],
+    ),
+    GetPage(
+      name: Routes.userOwnerProfileScreen,
+      page: () => UserOwnerProfileScreen(),
+      bindings: [
+        ProfileBinding(),
+      ],
+    ),
+    GetPage(
+      name: Routes.mediaOwnerProfileScreen,
+      page: () => MediaOwnerProfileScreen(),
       bindings: [
         ProfileBinding(),
       ],

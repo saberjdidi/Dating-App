@@ -40,6 +40,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
         key: controller.formCreateAccountKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Scaffold(
+          key: _scaffoldKeyCreateAccount,
           backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
           appBar: TAppBar(
             //showBackArrow: true,

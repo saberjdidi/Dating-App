@@ -75,8 +75,16 @@ class ImageConstant {
   static String profileChat = '$imagePath/profiles/profile-chat.png';
   static String imgMosque = '$imagePath/profiles/img_mosque.png';
 
+  static String imgSettingsCalling = '$imagePath/profiles/img_settings_calling.svg';
+  static String imgPassword = '$imagePath/profiles/img_password.svg';
+  static String imgSubscription = '$imagePath/profiles/img_subscription.svg';
+  static String imgTerms = '$imagePath/profiles/img_terms.svg';
+  static String imgPrivacyPolicy = '$imagePath/profiles/img_privacy_policy.svg';
+  static String imgLogout = '$imagePath/profiles/img_logout.svg';
+
   ///Images Button
   static String imgSend = '$imagePath/img_send.png';
+  static String removeImage = '$imagePath/remove_image.svg';
 
   ///Other
   //common images

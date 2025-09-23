@@ -14,6 +14,8 @@ class TColors {
   static const Color buttonPrimary = Color(0xFF4b68ff);
   static const Color buttonSecondary = Color(0xFF6C757D);
   static const Color buttonDisabled = Color(0xFFC4C4C4);
+  static const Color blackGrey = Color(0xFF344054);
+  static const Color grey400 = Color(0xFF98A2B3);
 
   //Skin Colors
   static const Color skinColor1 = Color(0xFFFDEFDB);
@@ -30,7 +32,6 @@ class TColors {
   static const Color colorActiveIconBottomBar = Color(0xFF065D8F);
   static const Color darkBlueVPT = Color(0xFF10415E);
   static const Color grey300 = Color(0xFFD0D5DD);
-  static const Color grey400 = Color(0xFF98A2B3);
   static const Color grey500 = Color(0xFFDCDCE1);
   static const Color colorContainerHome = Color(0xFF7CCEF4);
 
@@ -84,7 +85,6 @@ class TColors {
   static const Color black = Colors.black;
   static const Color black54 = Colors.black54;
   static const Color darkerGrey = Color(0xFF4F4F4F);
-  static const Color blackGrey = Color(0xFF344054);
   static const Color darkGrey = Color(0xFF939393);
   static const Color grey = Color(0xFFE0E0E0);
   static const Color softGrey = Color(0xFFF4F4F4);

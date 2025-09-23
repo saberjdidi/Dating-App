@@ -1,19 +1,21 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/presentation/favorite_screen/controller/favorite_controller.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/fullscreen_image_viewer.dart';
+import 'package:dating_app_bilhalal/widgets/app_bar/appbar_widget.dart';
 import 'package:dating_app_bilhalal/widgets/custom_search_view.dart';
 import 'package:dating_app_bilhalal/widgets/grid_layout.dart';
 import 'package:dating_app_bilhalal/widgets/home/favorite_list_view.dart';
 import 'package:dating_app_bilhalal/widgets/home/tabbed_page_widget.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
+import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class FavoriteScreen extends StatelessWidget {
+  FavoriteScreen({super.key});
   final controller = Get.put(FavoriteController());
   final FocusNode _focusNode = FocusNode();
 
-  FavoriteScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +29,16 @@ class FavoriteScreen extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
+        appBar: TAppBar(
+          title: TitleWidget(title: "المفضلة", fontWeightDelta: 3, color: TColors.buttonSecondary),
+          showAction: false,
+        ),
         body: Directionality(
           textDirection: TextDirection.rtl,
           child: Obx(() => Column(
             children: [
               // Search
-              SizedBox(height: TSizes.spaceBtwSections.v),
+              SizedBox(height: TSizes.spaceBtwItems.v),
               CustomSearchView(
                 width: mediaQueryData.size.width * 0.9,
                 fillColor: TColors.white,

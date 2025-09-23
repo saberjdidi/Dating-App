@@ -41,9 +41,7 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
                 child: IconButton(
                   icon: Icon(Icons.more_vert, color: TColors.black.withOpacity(0.7), size: 30.adaptSize,),
                   onPressed: (){
-                      Get.toNamed(Routes.settingsScreen,
-                      //arguments: {"UserModel" : user}
-                    );
+                      Get.toNamed(Routes.settingsScreen);
                     //Navigator.pop(context);
                   },
                 ),

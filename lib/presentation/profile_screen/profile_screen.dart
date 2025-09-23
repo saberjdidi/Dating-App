@@ -1,11 +1,275 @@
-
+import 'package:dating_app_bilhalal/core/app_export.dart';
+import 'package:dating_app_bilhalal/presentation/profile_screen/controller/profile_controller.dart';
+import 'package:dating_app_bilhalal/presentation/terms_privacy_screen/privacy_policy_screen.dart';
+import 'package:dating_app_bilhalal/presentation/terms_privacy_screen/termes_condition_screen.dart';
+import 'package:dating_app_bilhalal/widgets/app_bar/appbar_widget.dart';
+import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
+import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
+import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+   ProfileScreen({super.key});
+
+  final controller = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    mediaQueryData = MediaQuery.of(context);
+    var screenWidth = mediaQueryData.size.width;
+    var screenheight = mediaQueryData.size.height;
+    var isSmallPhone = screenWidth < 360;
+    var isTablet = screenWidth >= 600;
+    // Déterminer le nombre de colonnes dynamiquement
+    int crossAxisCount = screenWidth < 600 ? 2 : 3;
+
+    return SafeArea(
+      child: Scaffold(
+        appBar: TAppBar(
+          title: TitleWidget(title: "إعدادات ملفی", fontWeightDelta: 3, color: TColors.buttonSecondary,),
+          showAction: false,
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: TSizes.spaceBtwItems.v),
+              TRoundedContainer(
+                showBorder: true,
+                borderColor: TColors.grey400,
+                radius: 20.adaptSize,
+                margin: EdgeInsets.all(10.adaptSize),
+                padding: EdgeInsets.all(20.adaptSize),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      onPressed: (){
+                        Get.toNamed(Routes.userOwnerProfileScreen,
+                          //arguments: {"UserModel" : user}
+                        );
+                      },
+                      icon: Icon(Icons.arrow_back_ios),
+                      iconSize: 25.adaptSize,
+                      color: TColors.buttonSecondary,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        TitleWidget(title: "ملفي الشخصي", fontWeightDelta: 1),
+                        SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
+                        CustomImageView(
+                          imagePath: ImageConstant.profile8,
+                          width: 60.adaptSize,
+                          height: 60.adaptSize,
+                          radius: BorderRadius.circular(60.adaptSize),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+
+              TRoundedContainer(
+                showBorder: true,
+                borderColor: TColors.grey400,
+                radius: 20.adaptSize,
+                margin: EdgeInsets.all(10.adaptSize),
+                padding: EdgeInsets.all(20.adaptSize),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      onPressed: (){
+                        Get.toNamed(Routes.settingsScreen);
+                      },
+                        icon: Icon(Icons.arrow_back_ios),
+                      iconSize: 25.adaptSize,
+                      color: TColors.buttonSecondary,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        TitleWidget(title: "إعدادات الاتصال", fontWeightDelta: 1),
+                        SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
+                        CustomImageView(
+                          imagePath: ImageConstant.imgSettingsCalling,
+                          width: 40.adaptSize,
+                          height: 40.adaptSize,
+                          radius: BorderRadius.circular(40.adaptSize),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+
+              TRoundedContainer(
+                showBorder: true,
+                borderColor: TColors.grey400,
+                radius: 20.adaptSize,
+                margin: EdgeInsets.all(10.adaptSize),
+                padding: EdgeInsets.all(20.adaptSize),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      onPressed: (){},
+                        icon: Icon(Icons.arrow_back_ios),
+                      iconSize: 25.adaptSize,
+                      color: TColors.buttonSecondary,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        TitleWidget(title: "تغيير كلمة المرور", fontWeightDelta: 1),
+                        SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
+                        CustomImageView(
+                          imagePath: ImageConstant.imgPassword,
+                          width: 40.adaptSize,
+                          height: 40.adaptSize,
+                          radius: BorderRadius.circular(40.adaptSize),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+
+              TRoundedContainer(
+                showBorder: true,
+                borderColor: TColors.grey400,
+                radius: 20.adaptSize,
+                margin: EdgeInsets.all(10.adaptSize),
+                padding: EdgeInsets.all(20.adaptSize),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      onPressed: (){},
+                        icon: Icon(Icons.arrow_back_ios),
+                      iconSize: 25.adaptSize,
+                      color: TColors.buttonSecondary,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        TitleWidget(title: "الاشتراك", fontWeightDelta: 1),
+                        SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
+                        CustomImageView(
+                          imagePath: ImageConstant.imgSubscription,
+                          width: 40.adaptSize,
+                          height: 40.adaptSize,
+                          radius: BorderRadius.circular(40.adaptSize),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+
+              TRoundedContainer(
+                showBorder: true,
+                borderColor: TColors.grey400,
+                radius: 20.adaptSize,
+                margin: EdgeInsets.all(10.adaptSize),
+                padding: EdgeInsets.all(20.adaptSize),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      onPressed: (){
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TermesAndConditionsScreen()));
+                      },
+                        icon: Icon(Icons.arrow_back_ios),
+                      iconSize: 25.adaptSize,
+                      color: TColors.buttonSecondary,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        TitleWidget(title: "شروط الاستخدام", fontWeightDelta: 1),
+                        SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
+                        CustomImageView(
+                          imagePath: ImageConstant.imgTerms,
+                          width: 40.adaptSize,
+                          height: 40.adaptSize,
+                          radius: BorderRadius.circular(40.adaptSize),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+
+              TRoundedContainer(
+                showBorder: true,
+                borderColor: TColors.grey400,
+                radius: 20.adaptSize,
+                margin: EdgeInsets.all(10.adaptSize),
+                padding: EdgeInsets.all(20.adaptSize),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      onPressed: (){
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const PrivacyPolicyScreen()));
+                      },
+                        icon: Icon(Icons.arrow_back_ios),
+                      iconSize: 25.adaptSize,
+                      color: TColors.buttonSecondary,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        TitleWidget(title: "سياسة الخصوصية", fontWeightDelta: 1),
+                        SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
+                        CustomImageView(
+                          imagePath: ImageConstant.imgPrivacyPolicy,
+                          width: 40.adaptSize,
+                          height: 40.adaptSize,
+                          radius: BorderRadius.circular(40.adaptSize),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+
+              TRoundedContainer(
+                showBorder: true,
+                borderColor: TColors.grey400,
+                radius: 20.adaptSize,
+                margin: EdgeInsets.all(10.adaptSize),
+                padding: EdgeInsets.all(20.adaptSize),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      onPressed: (){},
+                        icon: Icon(Icons.arrow_back_ios),
+                      iconSize: 25.adaptSize,
+                      color: TColors.buttonSecondary,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        TitleWidget(title: "تسجيل الخروج", fontWeightDelta: 1),
+                        SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
+                        CustomImageView(
+                          imagePath: ImageConstant.imgLogout,
+                          width: 40.adaptSize,
+                          height: 40.adaptSize,
+                          radius: BorderRadius.circular(40.adaptSize),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
