@@ -33,11 +33,18 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
         title: title,
         actions: showAction
        ? (actions == null || actions == [])
-            ? [IconButton(
-                onPressed: (){
+            ? [
+              CustomImageView(
+                imagePath: ImageConstant.imgBack,
+                onTap: (){
                   Navigator.of(context).pop();
                 },
-                icon: const Icon(Iconsax.arrow_right_1))]
+                //width: 30.adaptSize,
+                //height: 30.adaptSize,
+                //radius: BorderRadius.circular(30.adaptSize),
+              ),
+              //IconButton(onPressed: (){Navigator.of(context).pop();}, icon: const Icon(Iconsax.arrow_right_1))
+        ]
             : actions
        : null,
       ),

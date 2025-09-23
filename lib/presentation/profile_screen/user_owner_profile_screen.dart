@@ -138,7 +138,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    TitleWidget(title: "الصور / الفيديوات", color: TColors.black, fontWeightDelta: 2, fontSizeDelta: 1),
+                                    TitleWidget(title: "الصور / الفيديوات", color: TColors.black, fontWeightDelta: 1, fontSizeDelta: 1),
                                     CustomButtonContainer(
                                       text:"حذف",
                                       color1: TColors.yellowAppDark,

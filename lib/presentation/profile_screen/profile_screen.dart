@@ -20,8 +20,6 @@ class ProfileScreen extends StatelessWidget {
     var screenheight = mediaQueryData.size.height;
     var isSmallPhone = screenWidth < 360;
     var isTablet = screenWidth >= 600;
-    // Déterminer le nombre de colonnes dynamiquement
-    int crossAxisCount = screenWidth < 600 ? 2 : 3;
 
     return SafeArea(
       child: Scaffold(
@@ -155,6 +153,7 @@ class ProfileScreen extends StatelessWidget {
 
               InkWell(
                 onTap: (){
+                  Get.toNamed(Routes.subscribeScreen);
                 },
                 child: TRoundedContainer(
                   showBorder: true,
@@ -166,7 +165,9 @@ class ProfileScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconButton(
-                        onPressed: (){},
+                        onPressed: (){
+                          Get.toNamed(Routes.subscribeScreen);
+                        },
                           icon: Icon(Icons.arrow_back_ios),
                         iconSize: 25.adaptSize,
                         color: TColors.buttonSecondary,

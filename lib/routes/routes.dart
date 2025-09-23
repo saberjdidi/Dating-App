@@ -31,6 +31,7 @@ class Routes {
   static const String mediaOwnerProfileScreen = '/media_owner_profile_screen';
 
   static const String settingsScreen = '/settings_screen';
+  static const String subscribeScreen = '/subscribe_screen';
 
   ///Other
 ///

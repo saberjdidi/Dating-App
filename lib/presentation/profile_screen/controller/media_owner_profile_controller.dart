@@ -64,11 +64,11 @@ class MediaOwnerProfileController extends GetxController {
   }
 
   Future<void> pickMedia(BuildContext context, ImageSource source) async {
-   /* final hasPermission = await PermissionsHelper.requestMediaPermissions();
+    final hasPermission = await PermissionsHelper.requestMediaPermissions();
     if (!hasPermission) {
       Get.snackbar("Permission Denied", "You need to grant permissions to continue.");
       return;
-    } */
+    }
 
     ///Personalize Files in model
     //Limiter à 5 fichiers ajoutés en plus des existants

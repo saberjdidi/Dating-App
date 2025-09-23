@@ -32,6 +32,14 @@ class CustomTextStyles {
       color: TColors.black
   );
 
+  static get headlineSmallBlack => theme.textTheme.headlineSmall!.copyWith(
+    color: TColors.black,
+    fontSize: 22.fSize,
+    fontWeight: FontWeight.bold,
+    //decoration: TextDecoration.underline,
+    decorationColor: TColors.black,
+  );
+
   static get titleMediumBlack54 =>
       theme.textTheme.titleMedium!.copyWith(
         color: TColors.black54,
@@ -75,9 +83,14 @@ class CustomTextStyles {
     color: TColors.gray700,
   );
 
+  static get titleLargeBlackGrey => theme.textTheme.titleLarge!.copyWith(
+    color: TColors.blackGrey.withOpacity(0.8),
+    fontWeight: FontWeight.bold,
+  );
+
   static get titleLargeGray400 => theme.textTheme.titleLarge!.copyWith(
     color: appTheme.gray400,
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.bold,
   );
 
   static get titleMediumSourceSansPro =>

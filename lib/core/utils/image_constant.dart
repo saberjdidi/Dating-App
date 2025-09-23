@@ -43,6 +43,7 @@ class ImageConstant {
   static String imgClose = '$imagePath/img_close.svg';
   static String imgLove = '$imagePath/img_love.gif';
   static String imgLoves = '$imagePath/img_loves.gif';
+  static String imgBack = '$imagePath/img_back.svg';
 
   //Bottom Bar
   static String mainImg = '$imagePath/main_img.svg';

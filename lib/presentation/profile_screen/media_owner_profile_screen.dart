@@ -31,7 +31,7 @@ class MediaOwnerProfileScreen extends GetWidget<MediaOwnerProfileController> {
           key: _scaffoldKeyMediaProfile,
         backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
         appBar: TAppBar(
-          title: TitleWidget(title: "تعديل الصور / الفيديوات", fontWeightDelta: 3, color: TColors.buttonSecondary,),
+          title: TitleWidget(title: "تعديل الصور / الفيديوات", fontWeightDelta: 1, color: TColors.buttonSecondary,),
           showAction: true,
         ),
         body:  Padding(
@@ -92,7 +92,15 @@ class MediaOwnerProfileScreen extends GetWidget<MediaOwnerProfileController> {
                           ),
 
                         if(media.type == MessageType.video)
-                          VideoPreviewWidget(file: media.file),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: SizedBox(
+                              height: 150, // Taille fixe
+                              width: double.infinity,
+                              child: VideoPreviewWidget(file: media.file),
+                            ),
+                          ),
+                          //VideoPreviewWidget(file: media.file),
 
                         Positioned(
                           right: 1,

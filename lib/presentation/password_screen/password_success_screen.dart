@@ -1,4 +1,3 @@
-
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';

@@ -22,6 +22,12 @@ class _VideoPreviewWidgetState extends State<VideoPreviewWidget> {
     if (widget.file != null) {
       _controller = VideoPlayerController.file(widget.file!)
         ..initialize().then((_) {
+          _chewieController = ChewieController(
+            videoPlayerController: _controller!,
+            autoPlay: false,
+            looping: false,
+            aspectRatio: _controller!.value.aspectRatio, // 🔹 Important pour le resize
+          );
           setState(() {});
         });
       _chewieController = ChewieController(videoPlayerController: _controller!);
@@ -33,7 +39,15 @@ class _VideoPreviewWidgetState extends State<VideoPreviewWidget> {
     if (_controller == null || !_controller!.value.isInitialized) {
       return Center(child: CircularProgressIndicator());
     }
-    return Chewie(controller: _chewieController!);
+    return FittedBox(
+      fit: BoxFit.cover, // 🔹 Permet de remplir sans dépasser
+      child: SizedBox(
+        width: _controller!.value.size.width,
+        height: _controller!.value.size.height,
+        child: Chewie(controller: _chewieController!),
+      ),
+    );
+    //return Chewie(controller: _chewieController!);
   }
 
   @override

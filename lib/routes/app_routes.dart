@@ -33,6 +33,8 @@ import 'package:dating_app_bilhalal/presentation/signup_screen/signup_screen.dar
 import 'package:dating_app_bilhalal/presentation/signup_screen/signup_with_email_screen.dart';
 import 'package:dating_app_bilhalal/presentation/splash_screen/binding/splash_binding.dart';
 import 'package:dating_app_bilhalal/presentation/splash_screen/splash_screen.dart';
+import 'package:dating_app_bilhalal/presentation/subscribe_screen/binding/subscribe_binding.dart';
+import 'package:dating_app_bilhalal/presentation/subscribe_screen/subscribe_screen.dart';
 
 import '../core/app_export.dart';
 
@@ -200,50 +202,12 @@ class AppRoutes {
         PasswordBinding(),
       ],
     ),
-    /*
     GetPage(
-      name: Routes.onboardingScreen1,
-      page: () => OnboardingScreen1(),
+      name: Routes.subscribeScreen,
+      page: () => SubscribeScreen(),
       bindings: [
-        OnboardingBinding(),
+        SubscribeBinding(),
       ],
     ),
-    GetPage(
-      name: Routes.signUpStepperScreen,
-      page: () => SignUpStepperScreen(),
-      bindings: [
-        SignupStepperBinding(),
-      ],
-    ),
-    GetPage(
-      name: Routes.forgotPasswordScreen,
-      page: () => ForgotPasswordScreen(),
-      bindings: [
-        ForgotPasswordBinding(),
-      ],
-    ),
-    GetPage(
-      name: Routes.changePasswordScreen,
-      page: () => ChangePasswordScreen(),
-      bindings: [
-        ForgotPasswordBinding(),
-      ],
-    ),
-    GetPage(
-      name: Routes.navigationScreen,
-      page: () => NavigationScreen(),
-      bindings: [
-        NavigationBinding(),
-      ],
-    ),
-    GetPage(
-      name: Routes.homeScreen,
-      page: () => HomeScreen(),
-      bindings: [
-        NavigationBinding(),
-        //HomeBinding(),
-      ],
-    ),
-   */
   ];
 }
