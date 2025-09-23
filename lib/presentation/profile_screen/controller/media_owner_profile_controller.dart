@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/permissions_helper.dart';
+import 'package:dating_app_bilhalal/data/models/attachment_model.dart';
 import 'package:dating_app_bilhalal/widgets/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,15 +19,70 @@ class MediaOwnerProfileController extends GetxController {
   );
 
   final ImagePicker _picker = ImagePicker();
+  final RxList<AttachmentModel> allMedia = <AttachmentModel>[].obs;
   final RxList<File> selectedMedia = <File>[].obs;
 
+  @override
+  void onInit() {
+    super.onInit();
+
+    allMedia.addAll([
+      AttachmentModel(type: MessageType.image, url: ImageConstant.profile2),
+      AttachmentModel(type: MessageType.image, url: ImageConstant.profile7),
+    ]);
+  }
+
+
+
+  Future<void> showBottomSheetMedia(BuildContext context) async {
+    final ImagePicker picker = ImagePicker();
+    final pickedFile = await showModalBottomSheet<XFile?>(
+      context: context,
+      builder: (context) => SafeArea(
+        child: Wrap(
+          children: [
+            ListTile(
+              leading: const Icon(Icons.photo),
+              title: const Text("Gallery"),
+              onTap: () async {
+                Navigator.pop(context);
+                await pickMedia(context, ImageSource.gallery);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.camera_alt),
+              title: const Text("Camera"),
+              onTap: () async {
+                Navigator.pop(context);
+                await pickMedia(context, ImageSource.camera);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Future<void> pickMedia(BuildContext context, ImageSource source) async {
-    final hasPermission = await PermissionsHelper.requestMediaPermissions();
+   /* final hasPermission = await PermissionsHelper.requestMediaPermissions();
     if (!hasPermission) {
       Get.snackbar("Permission Denied", "You need to grant permissions to continue.");
       return;
+    } */
+
+    ///Personalize Files in model
+    //Limiter à 5 fichiers ajoutés en plus des existants
+    final newFilesCount = allMedia.where((e) => e.file != null).length;
+    XFile? file;
+
+    if(newFilesCount >= 5){
+      // Afficher le dialog si dépasse 5
+      showMaxPhotosDialog(context);
+      return;
     }
 
+
+    ///Personalize Files without model
     if (selectedMedia.length >= 5) {
       // Afficher le dialog si dépasse 5
       showMaxPhotosDialog(context);
@@ -34,19 +90,19 @@ class MediaOwnerProfileController extends GetxController {
     }
 
     if(source == ImageSource.camera) {
-      XFile? file = await ImagePicker().pickImage(source: ImageSource.camera);
+      file = await _picker.pickImage(source: ImageSource.camera);
 
-      if (file != null) {
-        selectedMedia.add(File(file.path));
-      }
     } else {
-      XFile? file = await ImagePicker().pickMedia();
+      file = await _picker.pickMedia();
 
-      if (file != null) {
-        selectedMedia.add(File(file.path));
-      }
     }
 
+    if (file != null) {
+      final isVideo = file.path.endsWith(".mp4") || file.path.endsWith(".mov") || file.path.endsWith(".avi") || file.path.endsWith(".wmv");
+      allMedia.add(AttachmentModel(type: isVideo ? MessageType.video : MessageType.image, file: File(file.path)));
+
+      selectedMedia.add(File(file.path));
+    }
 
     //pick multi files
   /*  final List<XFile>? files = await _picker.pickMultiImage();
@@ -63,6 +119,7 @@ class MediaOwnerProfileController extends GetxController {
   }
 
   void removeMedia(int index) {
+    allMedia.removeAt(index);
     selectedMedia.removeAt(index);
   }
 
@@ -73,7 +130,8 @@ class MediaOwnerProfileController extends GetxController {
       barrierDismissible: false,
       builder: (builder) => CustomDialog(
         icon: Icons.close,
-        onCancel: () => Navigator.pop(context),
+        onCancel: () {Get.back();},
+        //onCancel: () => Navigator.pop(context),
         onTap: () {},
         showSuccessButton: false,
         //successText: "يقبل".tr,

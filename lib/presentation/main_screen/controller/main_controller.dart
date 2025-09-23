@@ -1,4 +1,5 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
+import 'package:dating_app_bilhalal/core/utils/popups/search_dating.dart';
 import 'package:dating_app_bilhalal/data/models/UserModel.dart';
 
 class MainController extends GetxController {
@@ -11,6 +12,14 @@ class MainController extends GetxController {
   void onInit() {
     super.onInit();
     loadUsers();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    Future.delayed(const Duration(milliseconds: 300), (){
+      SearchDating.openDialogFilterByPays(instance);
+    });
   }
 
   void loadUsers() {

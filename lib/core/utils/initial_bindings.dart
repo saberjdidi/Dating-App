@@ -12,7 +12,7 @@ class InitialBindings extends Bindings {
     Connectivity connectivity = Connectivity();
     Get.put(NetworkInfo(connectivity));
     Get.put(BottomBarController());
-    Get.put(MainController());
-    //Get.lazyPut(() => AnnoneController(), fenix: true);
+    //Get.put(MainController());
+    //Get.lazyPut(() => MainController(), fenix: true);
   }
 }

@@ -37,8 +37,8 @@ class FavoriteScreen extends StatelessWidget {
           textDirection: TextDirection.rtl,
           child: Obx(() => Column(
             children: [
+              //SizedBox(height: 10.v),
               // Search
-              SizedBox(height: TSizes.spaceBtwItems.v),
               CustomSearchView(
                 width: mediaQueryData.size.width * 0.9,
                 fillColor: TColors.white,

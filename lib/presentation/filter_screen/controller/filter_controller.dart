@@ -1,5 +1,6 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/popups/full_screen_loader.dart';
+import 'package:dating_app_bilhalal/core/utils/popups/search_dating.dart';
 import 'package:dating_app_bilhalal/data/models/UserModel.dart';
 import 'package:dating_app_bilhalal/data/models/interest_model.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +50,12 @@ class FilterController extends GetxController {
     super.onInit();
     loadUsers();
   }
+  @override
+  void onReady() {
+    super.onReady();
+    SearchDating.openDialogFilterUser(instance);
+  }
+
 
   void loadUsers() {
     users.value = [

@@ -62,7 +62,7 @@ class UserCardWidget extends StatelessWidget {
           ), */
 
           // Image en haut à droite
-          Positioned(
+        /*  Positioned(
               top: 20,
               right: 20,
               child: CircularContainer(
@@ -75,7 +75,7 @@ class UserCardWidget extends StatelessWidget {
                   onPressed: onTapFilter,
                 ),
               )
-          ),
+          ), */
 
           // bottom info container with gradient to improve readability
           Align(

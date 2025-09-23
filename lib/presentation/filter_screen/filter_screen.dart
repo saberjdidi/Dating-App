@@ -19,11 +19,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 
 class FilterScreen extends StatelessWidget {
-  const FilterScreen({super.key});
+   FilterScreen({super.key});
+
+  final controller = Get.put(FilterController());
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(FilterController());
+
     return Scaffold(
       //appBar: AppBar(title: const Text("Dating App")),
       body: Obx(() {
@@ -47,9 +49,9 @@ class FilterScreen extends StatelessWidget {
               onFavoriteTap: () async {
 
               },
-              onTapFilter: () async {
-                await dialogSearch(context, controller);
-              },
+            /*  onTapFilter: () async {
+                await dialogSearch(context);
+              }, */
             );
           },
         );
@@ -57,7 +59,7 @@ class FilterScreen extends StatelessWidget {
     );
   }
 
-  dialogSearch(BuildContext context, FilterController controller) async {
+  dialogSearch(BuildContext context) async {
     var screenWidth = MediaQuery.of(context).size.width;
     var isSmallPhone = screenWidth < 360;
     var isTablet = screenWidth >= 600;

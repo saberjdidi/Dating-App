@@ -6,6 +6,7 @@ import 'package:dating_app_bilhalal/widgets/circular_container.dart';
 import 'package:dating_app_bilhalal/widgets/grid_layout.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
+import 'package:dating_app_bilhalal/widgets/video_preview_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -38,6 +39,82 @@ class MediaOwnerProfileScreen extends GetWidget<MediaOwnerProfileController> {
           child: Obx(() => Directionality(
             textDirection: TextDirection.rtl,
             child: GridLayout(
+              itemCount: controller.allMedia.length + 1, // +1 pour l'upload
+              mainAxisExtent: isTablet ? 220.adaptSize : 180.adaptSize,
+              crossAxisCount: 3,
+              itemBuilder: (context, index) {
+                if (index == 0) {
+                  // L'icône upload
+                  return TRoundedContainer(
+                    showBorder: false,
+                    backgroundColor: TColors.white,
+                    borderColor: TColors.greyDating,
+                    radius: 12,
+                    padding: EdgeInsets.all(1),
+                    child: CustomImageView(
+                      imagePath: ImageConstant.uploadImage,
+                      height: 100.adaptSize,
+                      width: 100.adaptSize,
+                      fit: BoxFit.fill,
+                      onTap: () async {
+                        await controller.showBottomSheetMedia(context);
+                        //buildImagePickerOptions(context);
+                        //await controller.pickMedia(context);
+                      },
+                    ),
+                  );
+                } else {
+                  final media = controller.allMedia[index - 1]; // -1 car le 1er est upload
+                  return TRoundedContainer(
+                    showBorder: true,
+                    backgroundColor: TColors.white,
+                    borderColor: TColors.greyDating,
+                    radius: 12,
+                    padding: EdgeInsets.all(1),
+                    child: Stack(
+                      children: [
+                        if(media.type == MessageType.image)
+                          media.file != null
+                          ? CustomImageView(
+                            file: media.file,
+                            imagePath: null,
+                            height: Get.height,
+                            width: Get.width,
+                            fit: BoxFit.cover,
+                            radius: BorderRadius.circular(10),
+                          )
+                        : CustomImageView(
+                            imagePath: media.url,
+                            height: Get.height,
+                            width: Get.width,
+                            fit: BoxFit.cover,
+                            radius: BorderRadius.circular(10),
+                          ),
+
+                        if(media.type == MessageType.video)
+                          VideoPreviewWidget(file: media.file),
+
+                        Positioned(
+                          right: 1,
+                          top: 1,
+                          child: CustomImageView(
+                            imagePath: ImageConstant.removeImage,
+                            width: 30.adaptSize,
+                            height: 30.adaptSize,
+                            radius: BorderRadius.circular(30.adaptSize),
+                            fit: BoxFit.cover,
+                            onTap: (){
+                              controller.removeMedia(index - 1);
+                            },
+                          )
+                        ),
+                      ],
+                    ),
+                  );
+                }
+              },
+            ),
+           /* child: GridLayout(
               itemCount: controller.selectedMedia.length + 1, // +1 pour l'upload
               mainAxisExtent: isTablet ? 220.adaptSize : 180.adaptSize,
               crossAxisCount: 3,
@@ -56,7 +133,8 @@ class MediaOwnerProfileScreen extends GetWidget<MediaOwnerProfileController> {
                       width: 100.adaptSize,
                       fit: BoxFit.fill,
                       onTap: () async {
-                        _buildImagePickerOptions(context);
+                        await controller.showBottomSheetMedia(context);
+                        //buildImagePickerOptions(context);
                         //await controller.pickMedia(context);
                       },
                     ),
@@ -82,25 +160,25 @@ class MediaOwnerProfileScreen extends GetWidget<MediaOwnerProfileController> {
                           radius: BorderRadius.circular(10),
                         ),
                         Positioned(
-                          right: 1,
-                          top: 1,
-                          child: CustomImageView(
-                            imagePath: ImageConstant.removeImage,
-                            width: 30.adaptSize,
-                            height: 30.adaptSize,
-                            radius: BorderRadius.circular(30.adaptSize),
-                            fit: BoxFit.cover,
-                            onTap: (){
-                              controller.removeMedia(index - 1);
-                            },
-                          )
+                            right: 1,
+                            top: 1,
+                            child: CustomImageView(
+                              imagePath: ImageConstant.removeImage,
+                              width: 30.adaptSize,
+                              height: 30.adaptSize,
+                              radius: BorderRadius.circular(30.adaptSize),
+                              fit: BoxFit.cover,
+                              onTap: (){
+                                controller.removeMedia(index - 1);
+                              },
+                            )
                         ),
                       ],
                     ),
                   );
                 }
               },
-            ),
+            ) */
           )),
         ),
           bottomNavigationBar: Padding(
@@ -125,7 +203,7 @@ class MediaOwnerProfileScreen extends GetWidget<MediaOwnerProfileController> {
     );
   }
 
-   Widget _buildImagePickerOptions(BuildContext context) {
+   Widget buildImagePickerOptions(BuildContext context) {
      return SafeArea(
        child: Wrap(
          children: [

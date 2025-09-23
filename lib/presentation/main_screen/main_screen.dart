@@ -8,8 +8,10 @@ import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 
-class MainScreen extends GetView<MainController> {
-  const MainScreen({super.key});
+class MainScreen extends StatelessWidget {
+   MainScreen({super.key});
+
+  final controller = Get.put(MainController());
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +36,9 @@ class MainScreen extends GetView<MainController> {
                 await dialogSearchByCountry(context);
               },
               onFavoriteTap: () => debugPrint("Favorite ${user.fullName}"),
-              onTapFilter: () async {
+             /* onTapFilter: () async {
                 await dialogSearchByCountry(context);
-              },
+              }, */
             );
           },
         );

@@ -44,7 +44,7 @@ class ProfileScreen extends StatelessWidget {
                   borderColor: TColors.grey400,
                   radius: 20.adaptSize,
                   margin: EdgeInsets.all(10.adaptSize),
-                  padding: EdgeInsets.all(20.adaptSize),
+                  padding: EdgeInsets.all(15.adaptSize),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -61,7 +61,8 @@ class ProfileScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          TitleWidget(title: "ملفي الشخصي", fontWeightDelta: 1),
+                          //TitleWidget(title: "ملفي الشخصي", fontWeightDelta: 1),
+                          SubTitleWidget(subtitle: "ملفي الشخصي", fontWeightDelta: 2, fontSizeDelta: 2, color: TColors.black,),
                           SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                           CustomImageView(
                             imagePath: ImageConstant.profile8,
@@ -85,7 +86,7 @@ class ProfileScreen extends StatelessWidget {
                   borderColor: TColors.grey400,
                   radius: 20.adaptSize,
                   margin: EdgeInsets.all(10.adaptSize),
-                  padding: EdgeInsets.all(20.adaptSize),
+                  padding: EdgeInsets.all(15.adaptSize),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -100,7 +101,7 @@ class ProfileScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          TitleWidget(title: "إعدادات الاتصال", fontWeightDelta: 1),
+                          SubTitleWidget(subtitle: "إعدادات الاتصال", fontWeightDelta: 2, fontSizeDelta: 2, color: TColors.black,),
                           SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                           CustomImageView(
                             imagePath: ImageConstant.imgSettingsCalling,
@@ -117,19 +118,19 @@ class ProfileScreen extends StatelessWidget {
 
               InkWell(
                 onTap: (){
-
+                  Get.toNamed(Routes.changePasswordScreen);
                 },
                 child: TRoundedContainer(
                   showBorder: true,
                   borderColor: TColors.grey400,
                   radius: 20.adaptSize,
                   margin: EdgeInsets.all(10.adaptSize),
-                  padding: EdgeInsets.all(20.adaptSize),
+                  padding: EdgeInsets.all(15.adaptSize),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconButton(
-                        onPressed: (){},
+                        onPressed: (){Get.toNamed(Routes.changePasswordScreen);},
                           icon: Icon(Icons.arrow_back_ios),
                         iconSize: 25.adaptSize,
                         color: TColors.buttonSecondary,
@@ -137,7 +138,7 @@ class ProfileScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          TitleWidget(title: "تغيير كلمة المرور", fontWeightDelta: 1),
+                          SubTitleWidget(subtitle: "تغيير كلمة المرور", fontWeightDelta: 2, fontSizeDelta: 2, color: TColors.black,),
                           SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                           CustomImageView(
                             imagePath: ImageConstant.imgPassword,
@@ -160,7 +161,7 @@ class ProfileScreen extends StatelessWidget {
                   borderColor: TColors.grey400,
                   radius: 20.adaptSize,
                   margin: EdgeInsets.all(10.adaptSize),
-                  padding: EdgeInsets.all(20.adaptSize),
+                  padding: EdgeInsets.all(15.adaptSize),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -173,7 +174,7 @@ class ProfileScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          TitleWidget(title: "الاشتراك", fontWeightDelta: 1),
+                          SubTitleWidget(subtitle: "الاشتراك", fontWeightDelta: 2, fontSizeDelta: 2, color: TColors.black,),
                           SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                           CustomImageView(
                             imagePath: ImageConstant.imgSubscription,
@@ -197,7 +198,7 @@ class ProfileScreen extends StatelessWidget {
                   borderColor: TColors.grey400,
                   radius: 20.adaptSize,
                   margin: EdgeInsets.all(10.adaptSize),
-                  padding: EdgeInsets.all(20.adaptSize),
+                  padding: EdgeInsets.all(15.adaptSize),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -212,7 +213,7 @@ class ProfileScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          TitleWidget(title: "شروط الاستخدام", fontWeightDelta: 1),
+                          SubTitleWidget(subtitle: "شروط الاستخدام", fontWeightDelta: 2, fontSizeDelta: 2, color: TColors.black,),
                           SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                           CustomImageView(
                             imagePath: ImageConstant.imgTerms,
@@ -236,7 +237,7 @@ class ProfileScreen extends StatelessWidget {
                   borderColor: TColors.grey400,
                   radius: 20.adaptSize,
                   margin: EdgeInsets.all(10.adaptSize),
-                  padding: EdgeInsets.all(20.adaptSize),
+                  padding: EdgeInsets.all(15.adaptSize),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -251,7 +252,7 @@ class ProfileScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          TitleWidget(title: "سياسة الخصوصية", fontWeightDelta: 1),
+                          SubTitleWidget(subtitle: "سياسة الخصوصية", fontWeightDelta: 2, fontSizeDelta: 2, color: TColors.black,),
                           SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                           CustomImageView(
                             imagePath: ImageConstant.imgPrivacyPolicy,
@@ -274,7 +275,7 @@ class ProfileScreen extends StatelessWidget {
                   borderColor: TColors.grey400,
                   radius: 20.adaptSize,
                   margin: EdgeInsets.all(10.adaptSize),
-                  padding: EdgeInsets.all(20.adaptSize),
+                  padding: EdgeInsets.all(15.adaptSize),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -287,7 +288,7 @@ class ProfileScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          TitleWidget(title: "تسجيل الخروج", fontWeightDelta: 1),
+                          SubTitleWidget(subtitle: "تسجيل الخروج", fontWeightDelta: 2, fontSizeDelta: 2, color: TColors.black,),
                           SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                           CustomImageView(
                             imagePath: ImageConstant.imgLogout,
