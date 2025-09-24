@@ -34,6 +34,8 @@ class PrefUtils {
   static const _keyCallVoice = 'call_voice';
   static const _keyCallVideo = 'call_video';
 
+  static const _keySubscriptionPlan = 'subscriptionPlan';
+
   Future<void> init() async {
     _sharedPreferences ??= await SharedPreferences.getInstance();
     //print('SharedPreference Initialized');
@@ -240,5 +242,23 @@ class PrefUtils {
   static Future<bool> getCallVideo() async {
     return _sharedPreferences!.getBool(_keyCallVideo) ?? false;
   }
+
+  static Future<void> setSubscriptionPlan(Map<String, dynamic> plan) async {
+    await _sharedPreferences?.setString(_keySubscriptionPlan, jsonEncode(plan));
+  }
+
+
+  static Map<String, dynamic>? getSubscriptionPlan() {
+   final data = _sharedPreferences?.getString(_keySubscriptionPlan);
+   if(data != null){
+     return jsonDecode(data);
+   }
+   return null;
+  }
+
+  static Future<void> clearSubscriptionPlan() async {
+    await _sharedPreferences?.remove(_keySubscriptionPlan);
+  }
+
 }
     

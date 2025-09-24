@@ -95,7 +95,8 @@ class MediaOwnerProfileScreen extends GetWidget<MediaOwnerProfileController> {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: SizedBox(
-                              height: 150, // Taille fixe
+                              height: Get.height,
+                              //height: 150, // Taille fixe
                               width: double.infinity,
                               child: VideoPreviewWidget(file: media.file),
                             ),

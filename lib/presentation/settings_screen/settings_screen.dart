@@ -1,7 +1,9 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/presentation/settings_screen/controller/settings_controller.dart';
 import 'package:dating_app_bilhalal/widgets/app_bar/appbar_widget.dart';
+import 'package:dating_app_bilhalal/widgets/custom_divider.dart';
 import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
+import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends GetWidget<SettingsController> {
@@ -19,7 +21,8 @@ class SettingsScreen extends GetWidget<SettingsController> {
       appBar: TAppBar(
         //showBackArrow: true,
         //rightToLeft: true,
-        title: Text('إعدادات الاتصال',
+        title: TitleWidget(title: "إعدادات الاتصال", fontWeightDelta: 2, color: TColors.buttonSecondary,),
+        /*title: Text('إعدادات الاتصال',
           style: Theme.of(context).textTheme.headlineSmall!.copyWith(
             color: TColors.black,
             fontSize: 22.fSize,
@@ -27,7 +30,7 @@ class SettingsScreen extends GetWidget<SettingsController> {
             //decoration: TextDecoration.underline,
             decorationColor: TColors.black,
           ),
-        ),
+        ), */
       ),
       body: Padding(
         padding: EdgeInsets.all(18.hw),
@@ -52,6 +55,10 @@ class SettingsScreen extends GetWidget<SettingsController> {
                     )
                   ],
                 ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 5.v),
+                  child: CustomDividerWidget(),
+                ),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -67,6 +74,10 @@ class SettingsScreen extends GetWidget<SettingsController> {
                       activeColor: TColors.yellowAppDark,
                     )
                   ],
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 5.v),
+                  child: CustomDividerWidget(),
                 ),
 
                 Row(

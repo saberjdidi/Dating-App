@@ -152,8 +152,14 @@ class ProfileScreen extends StatelessWidget {
               ),
 
               InkWell(
-                onTap: (){
-                  Get.toNamed(Routes.subscribeScreen);
+                onTap: () async {
+                  //Get.toNamed(Routes.subscribeScreen);
+                  final savedPlan = await PrefUtils.getSubscriptionPlan();
+                  if (savedPlan == null) {
+                    Get.toNamed(Routes.subscribeScreen);
+                  } else {
+                    Get.toNamed(Routes.updateSubscribeScreen);
+                  }
                 },
                 child: TRoundedContainer(
                   showBorder: true,

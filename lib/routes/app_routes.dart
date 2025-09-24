@@ -35,6 +35,7 @@ import 'package:dating_app_bilhalal/presentation/splash_screen/binding/splash_bi
 import 'package:dating_app_bilhalal/presentation/splash_screen/splash_screen.dart';
 import 'package:dating_app_bilhalal/presentation/subscribe_screen/binding/subscribe_binding.dart';
 import 'package:dating_app_bilhalal/presentation/subscribe_screen/subscribe_screen.dart';
+import 'package:dating_app_bilhalal/presentation/subscribe_screen/update_subscribe_screen.dart';
 
 import '../core/app_export.dart';
 
@@ -205,6 +206,13 @@ class AppRoutes {
     GetPage(
       name: Routes.subscribeScreen,
       page: () => SubscribeScreen(),
+      bindings: [
+        SubscribeBinding(),
+      ],
+    ),
+    GetPage(
+      name: Routes.updateSubscribeScreen,
+      page: () => UpdateSubscribeScreen(),
       bindings: [
         SubscribeBinding(),
       ],

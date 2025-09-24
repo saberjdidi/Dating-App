@@ -33,7 +33,86 @@ class SubscribeScreen extends GetView<SubscribeController> {
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.adaptSize),
-            child: Obx(() => Column(
+           child: Obx(() {
+             //String? text = "Plan choisi : ${controller.selectedPlan.value!.title}\n${controller.selectedPlan.value!.details}";
+             //final controller = SubscribeController.instance;
+             return Column(
+               crossAxisAlignment: CrossAxisAlignment.end,
+               children: [
+                 SizedBox(height: TSizes.spaceBtwItems.v),
+                 Directionality(
+                     textDirection: TextDirection.rtl,
+                     child: TitleWidget(title: 'اختر الخطة', textAlign: TextAlign.end,)
+                 ),
+                 Directionality(
+                     textDirection: TextDirection.rtl,
+                     child: SubTitleWidget(subtitle: 'افتح ميزات حصرية وتواصل مع المزيد من الأعضاء.',)
+                 ),
+                 SizedBox(height: TSizes.spaceBtwItems.v),
+
+                 ListView.builder(
+                   shrinkWrap: true,
+                   physics: NeverScrollableScrollPhysics(),
+                   itemCount: controller.plans.value.length,
+                   itemBuilder: (context, index) {
+                     final plan = controller.plans.value[index];
+                     final isSelected = controller.selectedIndex.value == index;
+
+                     return GestureDetector(
+                       onTap: () => controller.selectPlan(index),
+                       child: TRoundedContainer(
+                         showBorder: true,
+                         borderColor: isSelected ? TColors.yellowAppDark : TColors.greyDating,
+                         radius: 20.adaptSize,
+                         margin: EdgeInsets.symmetric(vertical: 10.adaptSize),
+                         padding: EdgeInsets.all(15.adaptSize),
+                         backgroundColor: isSelected ? TColors.redSubscriptionCard : TColors.white,
+                         child: Row(
+                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                           children: [
+                             Icon(
+                               isSelected ? Icons.radio_button_checked : Icons.radio_button_off,
+                               color: isSelected ? TColors.yellowAppDark : Colors.grey,
+                             ),
+                             Column(
+                               crossAxisAlignment: CrossAxisAlignment.end,
+                               children: [
+                                 Text(plan.title!,
+                                     style: CustomTextStyles.headlineSmallBlack
+                                 ),
+                                 SubTitleWidget(subtitle: plan.description!),
+                                 Directionality(
+                                   textDirection: TextDirection.rtl,
+                                     child: Text(plan.details!, style: TextStyle(fontSize: 15.adaptSize, color: Colors.grey))
+                                 ),
+                               ],
+                             ),
+                           ],
+                         ),
+                       ),
+                     );
+                   },
+                 ),
+                 SizedBox(height: 20.v),
+
+                 if (controller.selectedPlan.value != null)
+                   Container(
+                     width: Get.width,
+                     alignment: Alignment.center,
+                     padding: EdgeInsets.all(16),
+                     decoration: BoxDecoration(
+                       color: Colors.green.withOpacity(0.1),
+                       borderRadius: BorderRadius.circular(12),
+                     ),
+                     child: Text(
+                       "الخطة المختارة : ${controller.selectedPlan.value!.title}\n${controller.selectedPlan.value!.description}",
+                       style: TextStyle(fontSize: 16),
+                     ),
+                   ),
+               ],
+             );
+           })
+           /* child: Obx(() => Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 SizedBox(height: TSizes.spaceBtwItems.v),
@@ -196,6 +275,7 @@ class SubscribeScreen extends GetView<SubscribeController> {
 
               ],
             )),
+            */
           ),
         ),
         bottomNavigationBar: Container(
@@ -213,7 +293,7 @@ class SubscribeScreen extends GetView<SubscribeController> {
                   fontSize: 20.adaptSize,
                   width: Get.width,
                   onPressed: () async {
-
+                   await controller.validatePlan();
                   },
                 ),
               ),

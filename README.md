@@ -21,3 +21,10 @@ https://pub.dev/packages/flutter_launcher_icons
 ## 1. image_picker : configuration in Android and iOS
 
 ## 2 image splash screen => supprimer une
+
+## 3. ajouter ces configuration in info.plist pour video_player
+<key>NSAppTransportSecurity</key>
+<dict>
+<key>NSAllowsArbitraryLoads</key>
+<true/>
+</dict>

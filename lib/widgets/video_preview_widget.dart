@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPreviewWidget extends StatefulWidget {
@@ -26,7 +27,10 @@ class _VideoPreviewWidgetState extends State<VideoPreviewWidget> {
             videoPlayerController: _controller!,
             autoPlay: false,
             looping: false,
+            allowFullScreen: true,
+            allowMuting: true,
             aspectRatio: _controller!.value.aspectRatio, // 🔹 Important pour le resize
+            //deviceOrientationsAfterFullScreen: [DeviceOrientation.portraitUp]
           );
           setState(() {});
         });

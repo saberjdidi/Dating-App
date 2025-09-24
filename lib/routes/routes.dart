@@ -32,6 +32,7 @@ class Routes {
 
   static const String settingsScreen = '/settings_screen';
   static const String subscribeScreen = '/subscribe_screen';
+  static const String updateSubscribeScreen = '/update_subscribe_screen';
 
   ///Other
 ///
