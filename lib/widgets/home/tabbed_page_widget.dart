@@ -29,6 +29,12 @@ class TabbedPageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    mediaQueryData = MediaQuery.of(context);
+    var screenWidth = mediaQueryData.size.width;
+    var screenheight = mediaQueryData.size.height;
+    var isSmallPhone = screenWidth < 360;
+    var isTablet = screenWidth >= 600;
+
     return Obx(() => Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: List.generate(tabs.length, (index) {
@@ -39,17 +45,19 @@ class TabbedPageWidget extends StatelessWidget {
             onTabChanged(index);
           },
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
+            padding: EdgeInsets.symmetric(vertical: 6, horizontal: isSmallPhone ? 3 : 16),
             decoration: BoxDecoration(
               color: isActive ? TColors.yellowAppLight.withOpacity(0.1) : TColors.greyDating.withOpacity(0.6),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
               tabs[index].title,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: isActive ? activeColor : inactiveColor,
               ),
+              maxLines: 2,
             ),
           ),
         );

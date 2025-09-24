@@ -279,7 +279,7 @@ class SubscribeScreen extends GetView<SubscribeController> {
           ),
         ),
         bottomNavigationBar: Container(
-          height: 170.v,
+          height:isSmallPhone ? 190.v : 170.v,
           padding: EdgeInsets.only(bottom: 5.v, left: TSizes.spaceBtwItems.hw, right: TSizes.spaceBtwItems.hw),
           child: Column(
             children: [
@@ -292,16 +292,17 @@ class SubscribeScreen extends GetView<SubscribeController> {
                   colorText: TColors.white,
                   fontSize: 20.adaptSize,
                   width: Get.width,
+                  height: 80.v,
                   onPressed: () async {
                    await controller.validatePlan();
                   },
                 ),
               ),
-              SizedBox(height: 15.v,),
+              SizedBox(height: 10.v,),
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: CustomOutlinedButton(
-                  height: 70.v,
+                  height: 80.v,
                   buttonTextStyle: CustomTextStyles.titleLargeBlackGrey,
                   buttonStyle: CustomButtonStyles.outlineBlack,
                   text: "اتصل بالدعم",

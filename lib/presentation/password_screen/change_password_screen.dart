@@ -104,7 +104,7 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
                 borderRadius: 10,
                 colorText: TColors.white,
                 fontSize: 30.adaptSize,
-                height: 70.v,
+                height: isSmallPhone ? 80.v : 70.v,
                 onPressed: () async {
                   controller.passwordFn(context);
                 },

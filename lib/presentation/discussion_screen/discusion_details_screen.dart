@@ -5,6 +5,7 @@ import 'package:dating_app_bilhalal/presentation/discussion_screen/controller/di
 import 'package:dating_app_bilhalal/presentation/settings_screen/controller/settings_controller.dart';
 import 'package:dating_app_bilhalal/widgets/app_bar/appbar_widget.dart';
 import 'package:dating_app_bilhalal/widgets/chat/message_bubble.dart';
+import 'package:dating_app_bilhalal/widgets/circle_icon_button.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
 import 'package:dating_app_bilhalal/widgets/custom_text_form_field.dart';
 import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
@@ -33,24 +34,20 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              CircularContainer(
-                width: 50.adaptSize,
-                height: 50.adaptSize,
-                radius: 50.adaptSize,
-                backgroundColor: TColors.greyDating.withOpacity(0.6),
-                child: IconButton(
-                  icon: Icon(Icons.more_vert, color: TColors.black.withOpacity(0.7), size: 30.adaptSize,),
-                  onPressed: (){
+              CircleIconButton(
+                  size: 50.adaptSize,
+                  backgroundColor: TColors.greyDating.withOpacity(0.6),
+                  child: IconButton(
+                    icon: Icon(Icons.more_vert, color: TColors.black.withOpacity(0.7), size: 30.adaptSize,),
+                    onPressed: (){
                       Get.toNamed(Routes.settingsScreen);
-                    //Navigator.pop(context);
-                  },
-                ),
+                      //Navigator.pop(context);
+                    },
+                  )
               ),
               SizedBox(width: 3.adaptSize,),
-              CircularContainer(
-                width: 50.adaptSize,
-                height: 50.adaptSize,
-                radius: 50.adaptSize,
+              CircleIconButton(
+                size: 50.adaptSize,
                 backgroundColor: TColors.greyDating.withOpacity(0.6),
                 child: IconButton(
                   icon: Icon(Icons.videocam_rounded, color: TColors.black.withOpacity(0.7), size: 30.adaptSize,),
@@ -65,10 +62,8 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
                 ),
               ),
               SizedBox(width: 3.adaptSize,),
-              CircularContainer(
-                width: 50.adaptSize,
-                height: 50.adaptSize,
-                radius: 50.adaptSize,
+              CircleIconButton(
+                size: 50.adaptSize,
                 backgroundColor: TColors.greyDating.withOpacity(0.6),
                 child: IconButton(
                   icon: Icon(Icons.call, color: TColors.black.withOpacity(0.7), size: 30.adaptSize,),
@@ -162,11 +157,9 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
           ],
         ), */
 
-        actions: [
-          CircularContainer(
-            width: 50.adaptSize,
-            height: 50.adaptSize,
-            radius: 50.adaptSize,
+       /* actions: [
+          CircleIconButton(
+            size: 50.adaptSize,
             backgroundColor: TColors.greyDating.withOpacity(0.6),
             child: IconButton(
               icon: Icon(Icons.arrow_forward_outlined, color: TColors.black.withOpacity(0.7), size: 30.adaptSize,),
@@ -175,7 +168,7 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
               },
             ),
           )
-        ],
+        ], */
       ),
       body: Obx(() => ListView.builder(
         reverse: true,

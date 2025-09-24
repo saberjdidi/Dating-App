@@ -1,6 +1,7 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/controller/user_owner_profile_controller.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/fullscreen_image_viewer.dart';
+import 'package:dating_app_bilhalal/widgets/circle_icon_button.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
 import 'package:dating_app_bilhalal/widgets/grid_layout.dart';
 import 'package:dating_app_bilhalal/widgets/home/tabbed_page_widget.dart';
@@ -39,6 +40,20 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
 
                 // Image en haut à droite
                 Positioned(
+                  top: 20,
+                  right: 20,
+                  child: CircleIconButton(
+                      size: 60.adaptSize,
+                      backgroundColor: TColors.greyDating.withOpacity(0.5),
+                      child: IconButton(
+                        icon: Icon(Icons.arrow_forward_outlined, color: TColors.white, size: 40.adaptSize,),
+                        onPressed: (){
+                          Navigator.pop(context);
+                        },
+                      )
+                  ),
+                ),
+              /*  Positioned(
                     top: 20,
                     right: 20,
                     child: CircularContainer(
@@ -53,7 +68,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                         },
                       ),
                     )
-                ),
+                ), */
 
 
                 // Conteneur avec infos utilisateur
@@ -81,7 +96,17 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                     Text(''),
                                     TitleWidget(title: 'نورا خالد', fontWeightDelta: 3, fontSizeDelta: 2,),
 
-                                    CircularContainer(
+                                    CircleIconButton(
+                                      size: 60.adaptSize,
+                                        backgroundColor: TColors.greyDating.withOpacity(0.5),
+                                        child: IconButton(
+                                          icon: Icon(Iconsax.share, color: TColors.textSecondary, size: 45.adaptSize,),
+                                          onPressed: (){
+                                            Navigator.pop(context);
+                                          },
+                                        )
+                                    ),
+                                  /*  CircularContainer(
                                       width: 60.adaptSize,
                                       height: 60.adaptSize,
                                       radius: 60.adaptSize,
@@ -92,7 +117,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                           Navigator.pop(context);
                                         },
                                       ),
-                                    )
+                                    ) */
 
                                   ],
                                 ),

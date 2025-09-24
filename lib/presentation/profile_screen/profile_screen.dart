@@ -276,6 +276,7 @@ class ProfileScreen extends StatelessWidget {
 
               InkWell(
                 onTap: (){
+                  Get.offAllNamed(Routes.signInScreen);
                 },
                 child: TRoundedContainer(
                   showBorder: true,

@@ -177,6 +177,7 @@ class _OTPScreenState extends State<OTPScreen> with SingleTickerProviderStateMix
                   colorText: TColors.white,
                   fontSize: 20.adaptSize,
                   width: Get.width,
+                  height: 80.v,
                   onPressed: () async {
                     onTapOTPSuccessPage(context);
                   },
@@ -186,7 +187,7 @@ class _OTPScreenState extends State<OTPScreen> with SingleTickerProviderStateMix
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: CustomOutlinedButton(
-                  height: 70.v,
+                  height: 80.v,
                   buttonTextStyle: CustomTextStyles.bodyMediumTextFormField,
                   buttonStyle: CustomButtonStyles.outlineBlack,
                   text: "إعادة إرسال OTP",

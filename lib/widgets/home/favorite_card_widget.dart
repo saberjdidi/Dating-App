@@ -21,6 +21,8 @@ class FavoriteCardWidget extends StatelessWidget {
     mediaQueryData = MediaQuery.of(context);
     var screenWidth = mediaQueryData.size.width;
     var screenheight = mediaQueryData.size.height;
+    var isSmallPhone = screenWidth < 360;
+    var isTablet = screenWidth >= 600;
     // small helpers for consistent sizing
     const double iconSize = 28;
     const double bottomPadding = 8;
@@ -53,7 +55,7 @@ class FavoriteCardWidget extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Container(
                 width: double.infinity,
-                height: 80.v,
+                height: isSmallPhone ? 100.v : 80.v,
                 padding: EdgeInsets.symmetric(
                   horizontal: horizontalPadding.hw,
                   vertical: bottomPadding.v,

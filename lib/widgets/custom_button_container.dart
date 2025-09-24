@@ -9,7 +9,7 @@ class CustomButtonContainer extends StatelessWidget {
     required this.color2,
     required this.borderRadius,
      this.paddingHorizontal = 10,
-     this.paddingVertical = 12,
+     this.paddingVertical = 10,
      this.fontSize,
     required this.colorText,
      this.textAlign,

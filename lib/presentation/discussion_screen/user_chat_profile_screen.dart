@@ -1,6 +1,7 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/presentation/discussion_screen/controller/user_chat_profile_controller.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/fullscreen_image_viewer.dart';
+import 'package:dating_app_bilhalal/widgets/circle_icon_button.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
 import 'package:dating_app_bilhalal/widgets/grid_layout.dart';
 import 'package:dating_app_bilhalal/widgets/home/tabbed_page_widget.dart';
@@ -41,10 +42,8 @@ class UserChatProfileScreen extends GetView<UserChatProfileController> {
                 Positioned(
                     top: 20,
                     left: 20,
-                    child:  CircularContainer(
-                      width: 60.adaptSize,
-                      height: 60.adaptSize,
-                      radius: 60.adaptSize,
+                    child:  CircleIconButton(
+                      size: 50.adaptSize,
                       backgroundColor: TColors.greyDating.withOpacity(0.5),
                       child: IconButton(
                         icon: Icon(Iconsax.share, color: TColors.white, size: 40.adaptSize,),
@@ -59,10 +58,8 @@ class UserChatProfileScreen extends GetView<UserChatProfileController> {
                 Positioned(
                     top: 20,
                     right: 20,
-                    child: CircularContainer(
-                      width: 60.adaptSize,
-                      height: 60.adaptSize,
-                      radius: 60.adaptSize,
+                    child: CircleIconButton(
+                      size: 50.adaptSize,
                       backgroundColor: TColors.greyDating.withOpacity(0.5),
                       child: IconButton(
                         icon: Icon(Icons.arrow_forward_outlined, color: TColors.white, size: 40.adaptSize,),
