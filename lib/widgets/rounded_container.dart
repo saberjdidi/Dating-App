@@ -12,6 +12,7 @@ class TRoundedContainer extends StatelessWidget {
     this.child,
     this.showBorder = false,
     this.borderColor = TColors.borderPrimary,
+    this.withBorder = 1.0,
     this.backgroundColor = TColors.white,
     this.margin,
     this.padding
@@ -24,6 +25,7 @@ class TRoundedContainer extends StatelessWidget {
   final Widget? child;
   final bool showBorder;
   final Color borderColor;
+  final double withBorder;
   final Color backgroundColor;
   final EdgeInsetsGeometry? margin;
   final EdgeInsetsGeometry? padding;
@@ -40,7 +42,7 @@ class TRoundedContainer extends StatelessWidget {
               ? BorderRadius.only(topRight: Radius.circular(radius), topLeft: Radius.circular(radius))
                : BorderRadius.circular(radius),
           color: backgroundColor,
-        border: showBorder ? Border.all(color: borderColor) : null
+        border: showBorder ? Border.all(color: borderColor, width: withBorder) : null
       ),
       child: child,
     );

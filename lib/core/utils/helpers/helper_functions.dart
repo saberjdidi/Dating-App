@@ -24,6 +24,21 @@ class THelperFunctions {
     } else if (value == 'skinColor8') {
       return TColors.skinColor8;
     }
+    else if (value == 'filterColorCallVideo1') {
+      return TColors.filterColorCallVideo1;
+    }
+    else if (value == 'filterColorCallVideo2') {
+      return TColors.filterColorCallVideo2;
+    }
+    else if (value == 'filterColorCallVideo3') {
+      return TColors.filterColorCallVideo3;
+    }
+    else if (value == 'filterColorCallVideo4') {
+      return TColors.filterColorCallVideo4;
+    }
+    else if (value == 'filterColorCallVideo5') {
+      return TColors.filterColorCallVideo5;
+    }
     else if (value == 'green') {
       return Colors.green;
     } else if (value == 'red') {

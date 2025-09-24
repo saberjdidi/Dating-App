@@ -1,3 +1,4 @@
+import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/helpers/helper_functions.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
 import 'package:flutter/material.dart';

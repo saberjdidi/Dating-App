@@ -45,6 +45,9 @@ class ImageConstant {
   static String imgLoves = '$imagePath/img_loves.gif';
   static String imgBack = '$imagePath/img_back.svg';
 
+  static String imgCallEffect = '$imagePath/img_call_effect.svg';
+  static String imgCallEffect1 = '$imagePath/img_call_effect1.svg';
+
   //Bottom Bar
   static String mainImg = '$imagePath/main_img.svg';
   static String searchImg = '$imagePath/search_img.svg';

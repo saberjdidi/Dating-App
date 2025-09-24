@@ -299,7 +299,8 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                             return Colors.grey; // Cercle inactif gris
                           }),
                         ),
-                        TitleWidget(title: 'امراة',),
+                        SubTitleWidget(subtitle: 'امراة', color: TColors.black, fontSizeDelta: 2, fontWeightDelta: 2),
+                        //TitleWidget(title: 'امراة',),
                       ],
                     )
                 ),
@@ -324,7 +325,8 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                             return Colors.grey;
                           }),
                         ),
-                        TitleWidget(title: 'رجل',),
+                        SubTitleWidget(subtitle: 'رجل', color: TColors.black, fontSizeDelta: 2, fontWeightDelta: 2),
+                        //TitleWidget(title: 'رجل',),
                       ],
                     )
                 ),

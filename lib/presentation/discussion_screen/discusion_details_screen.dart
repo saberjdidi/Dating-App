@@ -46,7 +46,25 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
                   },
                 ),
               ),
-              SizedBox(width: 5.adaptSize,),
+              SizedBox(width: 3.adaptSize,),
+              CircularContainer(
+                width: 50.adaptSize,
+                height: 50.adaptSize,
+                radius: 50.adaptSize,
+                backgroundColor: TColors.greyDating.withOpacity(0.6),
+                child: IconButton(
+                  icon: Icon(Icons.videocam_rounded, color: TColors.black.withOpacity(0.7), size: 30.adaptSize,),
+                  onPressed: (){
+                    if (!settingsController.isCallVideo.value) {
+                      Get.snackbar("Appel interdit", "L'utilisateur n'autorise pas les appels vidéo");
+                      return;
+                    }
+                    Get.toNamed(Routes.callVideoScreen);
+                    //Navigator.pop(context);
+                  },
+                ),
+              ),
+              SizedBox(width: 3.adaptSize,),
               CircularContainer(
                 width: 50.adaptSize,
                 height: 50.adaptSize,
@@ -59,25 +77,8 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
                       Get.snackbar("Appel interdit", "L'utilisateur n'autorise pas les appels vocaux");
                       return;
                     } else {
-                      Navigator.pop(context);
+                      Get.toNamed(Routes.callScreen);
                     }
-                  },
-                ),
-              ),
-              SizedBox(width: 5.adaptSize,),
-              CircularContainer(
-                width: 50.adaptSize,
-                height: 50.adaptSize,
-                radius: 50.adaptSize,
-                backgroundColor: TColors.greyDating.withOpacity(0.6),
-                child: IconButton(
-                  icon: Icon(Icons.video_call_outlined, color: TColors.black.withOpacity(0.7), size: 30.adaptSize,),
-                  onPressed: (){
-                    if (!settingsController.isCallVideo.value) {
-                      Get.snackbar("Appel interdit", "L'utilisateur n'autorise pas les appels vidéo");
-                      return;
-                    }
-                    Navigator.pop(context);
                   },
                 ),
               ),

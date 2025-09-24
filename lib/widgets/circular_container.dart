@@ -29,7 +29,7 @@ class CircularContainer extends StatelessWidget {
       padding: EdgeInsets.all(padding),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(radius),
-          color: backgroundColor
+          color: backgroundColor,
       ),
       child: child,
     );

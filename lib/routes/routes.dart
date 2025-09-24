@@ -34,6 +34,9 @@ class Routes {
   static const String subscribeScreen = '/subscribe_screen';
   static const String updateSubscribeScreen = '/update_subscribe_screen';
 
+  static const String callScreen = '/call_screen';
+  static const String callVideoScreen = '/call_video_screen';
+
   ///Other
 ///
 

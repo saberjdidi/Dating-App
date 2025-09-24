@@ -3,6 +3,9 @@ import 'package:dating_app_bilhalal/presentation/account_screen/create_account_s
 import 'package:dating_app_bilhalal/presentation/account_screen/overview_account_screen.dart';
 import 'package:dating_app_bilhalal/presentation/account_screen/success_account_screen.dart';
 import 'package:dating_app_bilhalal/presentation/account_screen/welcome_screen.dart';
+import 'package:dating_app_bilhalal/presentation/call_screen/binding/call_binding.dart';
+import 'package:dating_app_bilhalal/presentation/call_screen/call_screen.dart';
+import 'package:dating_app_bilhalal/presentation/call_screen/call_video_screen.dart';
 import 'package:dating_app_bilhalal/presentation/discussion_screen/binding/discussion_binding.dart';
 import 'package:dating_app_bilhalal/presentation/discussion_screen/discusion_details_screen.dart';
 import 'package:dating_app_bilhalal/presentation/discussion_screen/discussion_screen.dart';
@@ -215,6 +218,20 @@ class AppRoutes {
       page: () => UpdateSubscribeScreen(),
       bindings: [
         SubscribeBinding(),
+      ],
+    ),
+    GetPage(
+      name: Routes.callScreen,
+      page: () => CallScreen(),
+      bindings: [
+        CallBinding(),
+      ],
+    ),
+    GetPage(
+      name: Routes.callVideoScreen,
+      page: () => CallVideoScreen(),
+      bindings: [
+        CallBinding(),
       ],
     ),
   ];

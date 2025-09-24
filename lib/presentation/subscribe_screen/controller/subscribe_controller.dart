@@ -98,7 +98,7 @@ class SubscribeController extends GetxController {
                 await validatePlan();
                 Get.back();
               },
-              //cancelText: "lbl_no".tr,
+              cancelText: "يلغي".tr,
               successText: "نشيط".tr,
               title: "هل أنت متأكد أنك تريد تغيير خطة اشتراكك؟".tr,
               description: "سيتم تفعيل الخطة الجديدة على الفور.".tr,

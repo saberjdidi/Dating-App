@@ -28,6 +28,14 @@ class TColors {
   static const Color skinColor7 = Color(0xFF824D00);
   static const Color skinColor8 = Color(0xFF4D2E00);
 
+  //Colors CallVideo
+  static const Color filterColorCallVideo1 = Color(0xFFE5E7EB);
+  static const Color filterColorCallVideo2 = Color(0xFFAA69FF);
+  static const Color filterColorCallVideo3 = Color(0xFFF48CDE);
+  static const Color filterColorCallVideo4 = Color(0xFFF9CD68);
+  static const Color filterColorCallVideo5 = Color(0xFFE98AFE);
+
+
   static const Color blueLight700 = Color(0xFF0086C9);
   static const Color blueLight = Color(0xFFC1E4F7);
   static const Color colorActiveIconBottomBar = Color(0xFF065D8F);

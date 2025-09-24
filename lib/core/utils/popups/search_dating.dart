@@ -13,6 +13,7 @@ import 'package:dating_app_bilhalal/widgets/form_divider_widget.dart';
 import 'package:dating_app_bilhalal/widgets/home/pays_widget.dart';
 import 'package:dating_app_bilhalal/widgets/multi_select_dopdown.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
+import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -223,7 +224,7 @@ class SearchDating {
                                   return Colors.grey; // Cercle inactif gris
                                 }),
                               ),
-                              TitleWidget(title: 'امراة',),
+                              SubTitleWidget(subtitle: 'امراة', color: TColors.black, fontSizeDelta: 2, fontWeightDelta: 2),
                             ],
                           )
                       ),
@@ -248,7 +249,8 @@ class SearchDating {
                                   return Colors.grey;
                                 }),
                               ),
-                              TitleWidget(title: 'رجل',),
+                              SubTitleWidget(subtitle: 'رجل', color: TColors.black, fontSizeDelta: 2, fontWeightDelta: 2,),
+                              //TitleWidget(title: 'رجل',),
                             ],
                           )
                       ),
