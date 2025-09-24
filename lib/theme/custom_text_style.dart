@@ -79,6 +79,11 @@ class CustomTextStyles {
     color: TColors.black,
   );
 
+  static get bodyMediumTextFormFieldBold => theme.textTheme.bodyMedium!.copyWith(
+    color: TColors.black,
+    fontWeight: FontWeight.bold
+  );
+
   static get bodyMediumTextFormFieldGrey => theme.textTheme.bodyMedium!.copyWith(
     color: TColors.gray700,
   );

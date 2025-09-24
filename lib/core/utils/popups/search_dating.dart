@@ -27,7 +27,7 @@ class SearchDating {
         Get.context!,
         0.8,
         Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.fSize, vertical: TSizes.spaceBtwItems.fSize),
+            padding: EdgeInsets.symmetric(horizontal: 15.fSize, vertical: TSizes.spaceBtwItems.fSize),
             child: Obx(() => Directionality(
               textDirection: TextDirection.rtl,
               child: ListBody(
@@ -38,8 +38,7 @@ class SearchDating {
                     child: TitleWidget(title: "فلتر".tr,
                         textAlign: TextAlign.right),
                   ),
-                  SizedBox(height: TSizes.spaceBtwSections.adaptSize),
-                  SizedBox(height: TSizes.spaceBtwItems.v),
+                  SizedBox(height: TSizes.spaceBtwItems.adaptSize),
                   FormDividerWidget(dividerText: "عمر", thikness: 2),
                   SizedBox(height: TSizes.spaceBtwItems.v),
 
@@ -48,7 +47,7 @@ class SearchDating {
                     children: [
                       // ✅ Afficher l’âge sous le slider
                       Text("${controller.currentAgeValue.value.round()}",
-                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.bold),
                       ),
                       // Slider avec gradient, label toujours visible, hauteur augmentée
                       ShaderMask(
@@ -94,7 +93,7 @@ class SearchDating {
                     children: [
                       // ✅ Afficher l’âge sous le slider
                       Text("${controller.currentWeightValue.value.round()} KG",
-                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.bold),
                       ),
                       // Slider avec gradient, label toujours visible, hauteur augmentée
                       ShaderMask(
@@ -141,7 +140,7 @@ class SearchDating {
                     children: [
                       // ✅ Afficher l’âge sous le slider
                       Text("${controller.currentHeightValue.value.round()} CM",
-                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.bold),
                       ),
                       // Slider avec gradient, label toujours visible, hauteur augmentée
                       ShaderMask(
@@ -201,60 +200,63 @@ class SearchDating {
                   FormDividerWidget(dividerText: "جنسك", thikness: 2),
                   SizedBox(height: TSizes.spaceBtwItems.v),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      TRoundedContainer(
-                          showBorder: true,
-                          borderColor: TColors.greyDating,
-                          padding: EdgeInsets.symmetric(horizontal: 20.v, vertical: 10.v),
-                          child: Row(
-                            children: [
-                              Radio<int>(
-                                value: 0,
-                                groupValue: controller.sexValue.value,
-                                onChanged: (value) {
-                                  controller.sexValue.value = value!;
-                                  debugPrint("femme : ${controller.sexValue.value}");
-                                },
-                                fillColor: MaterialStateProperty.resolveWith<Color>((states) {
-                                  if (states.contains(MaterialState.selected)) {
-                                    return TColors.yellowAppDark; // ✅ Cercle actif jaune
-                                  }
-                                  return Colors.grey; // Cercle inactif gris
-                                }),
-                              ),
-                              SubTitleWidget(subtitle: 'امراة', color: TColors.black, fontSizeDelta: 2, fontWeightDelta: 2),
-                            ],
-                          )
-                      ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.hw),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TRoundedContainer(
+                            showBorder: true,
+                            borderColor: TColors.greyDating,
+                            padding: EdgeInsets.symmetric(horizontal: 30.v, vertical: 10.v),
+                            child: Row(
+                              children: [
+                                Radio<int>(
+                                  value: 0,
+                                  groupValue: controller.sexValue.value,
+                                  onChanged: (value) {
+                                    controller.sexValue.value = value!;
+                                    debugPrint("femme : ${controller.sexValue.value}");
+                                  },
+                                  fillColor: MaterialStateProperty.resolveWith<Color>((states) {
+                                    if (states.contains(MaterialState.selected)) {
+                                      return TColors.yellowAppDark; // ✅ Cercle actif jaune
+                                    }
+                                    return Colors.grey; // Cercle inactif gris
+                                  }),
+                                ),
+                                SubTitleWidget(subtitle: 'امراة', color: TColors.black, fontSizeDelta: 2, fontWeightDelta: 2),
+                              ],
+                            )
+                        ),
 
-                      TRoundedContainer(
-                          showBorder: true,
-                          borderColor: TColors.greyDating,
-                          padding: EdgeInsets.symmetric(horizontal: 20.v, vertical: 10.v),
-                          child: Row(
-                            children: [
-                              Radio<int>(
-                                value: 1,
-                                groupValue: controller.sexValue.value,
-                                onChanged: (value) {
-                                  controller.sexValue.value = value!;
-                                  debugPrint("homme : ${controller.sexValue.value}");
-                                },
-                                fillColor: MaterialStateProperty.resolveWith<Color>((states) {
-                                  if (states.contains(MaterialState.selected)) {
-                                    return TColors.yellowAppDark;
-                                  }
-                                  return Colors.grey;
-                                }),
-                              ),
-                              SubTitleWidget(subtitle: 'رجل', color: TColors.black, fontSizeDelta: 2, fontWeightDelta: 2,),
-                              //TitleWidget(title: 'رجل',),
-                            ],
-                          )
-                      ),
-                    ],
+                        TRoundedContainer(
+                            showBorder: true,
+                            borderColor: TColors.greyDating,
+                            padding: EdgeInsets.symmetric(horizontal: 30.v, vertical: 10.v),
+                            child: Row(
+                              children: [
+                                Radio<int>(
+                                  value: 1,
+                                  groupValue: controller.sexValue.value,
+                                  onChanged: (value) {
+                                    controller.sexValue.value = value!;
+                                    debugPrint("homme : ${controller.sexValue.value}");
+                                  },
+                                  fillColor: MaterialStateProperty.resolveWith<Color>((states) {
+                                    if (states.contains(MaterialState.selected)) {
+                                      return TColors.yellowAppDark;
+                                    }
+                                    return Colors.grey;
+                                  }),
+                                ),
+                                SubTitleWidget(subtitle: 'رجل', color: TColors.black, fontSizeDelta: 2, fontWeightDelta: 2,),
+                                //TitleWidget(title: 'رجل',),
+                              ],
+                            )
+                        ),
+                      ],
+                    ),
                   ),
                   SizedBox(height: TSizes.spaceBtwItems.v),
 
@@ -364,8 +366,8 @@ class SearchDating {
                     }).toList()
                 ), */
                   Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
+                    spacing: 5,
+                    runSpacing: 5,
                     children: controller.selectedInterests.map((interest) {
                       return InterestWidget(
                         text: interest.name,
@@ -386,10 +388,12 @@ class SearchDating {
                       color2: TColors.yellowAppLight,
                       borderRadius: 10,
                       colorText: TColors.redAppLight,
-                      fontSize: 20.adaptSize,
+                      fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
+                      height: isSmallPhone ? 80.v : 70.v,
+                      width: screenWidth * 0.8,
                       onPressed: () async {
-                        controller.applyFilters();
                         Navigator.pop(Get.context!);
+                       await controller.applyFilters();
                       },
                     ),
                   ),
@@ -455,7 +459,9 @@ class SearchDating {
                     color2: TColors.yellowAppLight,
                     borderRadius: 10,
                     colorText: TColors.redAppLight,
-                    fontSize: 20.adaptSize,
+                    fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
+                    height: isSmallPhone ? 80.v : 70.v,
+                    width: screenWidth * 0.8,
                     onPressed: () async {
                       //controller.saveBtn();
                     },

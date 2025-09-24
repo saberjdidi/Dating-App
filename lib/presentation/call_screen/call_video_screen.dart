@@ -66,7 +66,7 @@ class CallVideoScreen extends GetView<CallController> {
             ),
 
             Positioned(
-                bottom: 100,
+                bottom: 80,
                 right: 20,
                 child: TRoundedContainer(
                   borderColor: TColors.greyDating,
@@ -75,8 +75,8 @@ class CallVideoScreen extends GetView<CallController> {
                   showBorder: true,
                   child: CustomImageView(
                     imagePath: ImageConstant.profile8,
-                    width: 100.adaptSize,
-                    height: 140.adaptSize,
+                    width: 120.adaptSize,
+                    height: 160.adaptSize,
                     radius: BorderRadius.circular(20.adaptSize),
                     onTap: (){
 

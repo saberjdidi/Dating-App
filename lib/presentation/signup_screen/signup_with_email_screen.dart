@@ -106,6 +106,11 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
 
   /// Section Widget
   Widget _buildLoginForm(BuildContext context) {
+    mediaQueryData = MediaQuery.of(context);
+    var screenWidth = mediaQueryData.size.width;
+    var isSmallPhone = screenWidth < 360;
+    var isTablet = screenWidth >= 600;
+
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -132,7 +137,8 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
             textDirection: TextDirection.rtl,
             child: CustomTextFormField(
                 controller: controller.passwordController,
-                hintText: "كلمة المرور".tr, textInputAction: TextInputAction.done,
+                hintText: "كلمة المرور".tr,
+              textInputAction: TextInputAction.next,
                 textInputType: TextInputType.visiblePassword,
                /* prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
                     child: CustomImageView(imagePath: ImageConstant.imgLock, height: 20.adaptSize, width: 20.adaptSize)),
@@ -155,8 +161,9 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
           Obx(() => Directionality(
             textDirection: TextDirection.rtl,
             child: CustomTextFormField(
-                controller: controller.passwordController,
-                hintText: "تأكيد كلمة المرور".tr, textInputAction: TextInputAction.done,
+                controller: controller.confirmPasswordController,
+                hintText: "تأكيد كلمة المرور".tr,
+              textInputAction: TextInputAction.done,
                 textInputType: TextInputType.visiblePassword,
                /* prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
                     child: CustomImageView(imagePath: ImageConstant.imgLock, height: 20.adaptSize, width: 20.adaptSize)),
@@ -175,7 +182,6 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
               contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
             ),
           )),
-          const SizedBox(height: TSizes.spaceBtwInputFields,),
           /* GestureDetector(
               onTap: () {
                 onTapTxtForgotThePassword();
@@ -193,7 +199,7 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
                   )
               )
           ), */
-          SizedBox(height: 24.v),
+          SizedBox(height: TSizes.spaceBtwSections.v),
           Center(
             child: CustomButtonContainer(
               text: "اشتراك",
@@ -201,7 +207,8 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
               color2: TColors.yellowAppLight,
               borderRadius: 10,
               colorText: TColors.white,
-              fontSize: 20.adaptSize,
+              fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
+              height: isSmallPhone ? 80.v : 70.v,
               width: Get.width,
               onPressed: () async {
                 onTapOTPPage(context);
@@ -215,7 +222,7 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
                 controller.checkLogin(context);
               }
           ), */
-          SizedBox(height: 28.v),
+          SizedBox(height: 20.v),
           Align(
               alignment: Alignment.center,
               child: GestureDetector(onTap: () {

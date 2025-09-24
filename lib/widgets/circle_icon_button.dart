@@ -9,10 +9,11 @@ class CircleIconButton extends StatelessWidget {
   const CircleIconButton({
     Key? key,
     required this.child,
-    this.size = 48.0,
+    this.size = 40.0,
     this.backgroundColor,
     this.onTap,
-    this.minTapSize = 48.0,
+    this.minTapSize = 40.0,
+    this.effectiveSize = 40.0,
     this.tooltip,
   }) : super(key: key);
 
@@ -31,13 +32,15 @@ class CircleIconButton extends StatelessWidget {
   /// Taille minimale pour accessibilité
   final double minTapSize;
 
+  final double effectiveSize;
+
   /// Info-bulle affichée au survol / appui long
   final String? tooltip;
 
   @override
   Widget build(BuildContext context) {
     // garantit une zone tactile minimale
-    final double effectiveMin = math.max(minTapSize, 48.0);
+    final double effectiveMin = math.max(minTapSize, effectiveSize);
     final double visualSize = size;
     final double containerSize = visualSize < effectiveMin ? effectiveMin : visualSize;
 

@@ -61,7 +61,7 @@ class AppRoutes {
     ),
     GetPage(
       name: Routes.onboardingScreen,
-      page: () => const OnBoardingScreen(),
+      page: () => OnBoardingScreen(),
       bindings: [
         OnboardingBinding(),
       ],

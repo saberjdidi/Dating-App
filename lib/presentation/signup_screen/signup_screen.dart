@@ -87,7 +87,8 @@ class SignUpScreen extends GetView<SignUpController> {
                 color2: TColors.yellowAppLight,
                 borderRadius: 10,
                 colorText: TColors.white,
-                fontSize: 20.adaptSize,
+                fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
+                height: isSmallPhone ? 80.v : 70.v,
                 onPressed: () async {
                   await controller.nextPage();
                   //dialogVerifyAccount(context);

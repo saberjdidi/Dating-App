@@ -281,39 +281,41 @@ class SubscribeScreen extends GetView<SubscribeController> {
         bottomNavigationBar: Container(
           height:isSmallPhone ? 190.v : 170.v,
           padding: EdgeInsets.only(bottom: 5.v, left: TSizes.spaceBtwItems.hw, right: TSizes.spaceBtwItems.hw),
-          child: Column(
-            children: [
-              Center(
-                child: CustomButtonContainer(
-                  text: "استمرار",
-                  color1: TColors.yellowAppDark,
-                  color2: TColors.yellowAppLight,
-                  borderRadius: 10,
-                  colorText: TColors.white,
-                  fontSize: 20.adaptSize,
-                  width: Get.width,
-                  height: 80.v,
-                  onPressed: () async {
-                   await controller.validatePlan();
-                  },
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Center(
+                  child: CustomButtonContainer(
+                    text: "استمرار",
+                    color1: TColors.yellowAppDark,
+                    color2: TColors.yellowAppLight,
+                    borderRadius: 10,
+                    colorText: TColors.white,
+                    fontSize: 20.adaptSize,
+                    width: Get.width,
+                    height: isSmallPhone ? 80.v : 70.v,
+                    onPressed: () async {
+                     await controller.validatePlan();
+                    },
+                  ),
                 ),
-              ),
-              SizedBox(height: 10.v,),
-              Directionality(
-                textDirection: TextDirection.rtl,
-                child: CustomOutlinedButton(
-                  height: 80.v,
-                  buttonTextStyle: CustomTextStyles.titleLargeBlackGrey,
-                  buttonStyle: CustomButtonStyles.outlineBlack,
-                  text: "اتصل بالدعم",
-                  margin: EdgeInsets.only(top: 6.hw),
-                  borderRadius: 100.hw,
-                  onPressed: (){
+                SizedBox(height: 6.v,),
+                Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: CustomOutlinedButton(
+                    height:isSmallPhone ? 80.v : 70.v,
+                    buttonTextStyle: CustomTextStyles.titleLargeBlackGrey,
+                    buttonStyle: CustomButtonStyles.outlineBlack,
+                    text: "اتصل بالدعم",
+                    margin: EdgeInsets.only(top: 6.hw),
+                    borderRadius: 100.hw,
+                    onPressed: (){
 
-                  },
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

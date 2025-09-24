@@ -3,6 +3,7 @@ import 'package:dating_app_bilhalal/data/models/interest_model.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/controller/profile_details_controller.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/fullscreen_image_viewer.dart';
 import 'package:dating_app_bilhalal/widgets/account/interest_widget.dart';
+import 'package:dating_app_bilhalal/widgets/circle_icon_button.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
 import 'package:dating_app_bilhalal/widgets/grid_layout.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
@@ -42,10 +43,10 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
               Positioned(
                 top: 20,
                 left: 20,
-                child:  CircularContainer(
-                  width: 60.adaptSize,
-                  height: 60.adaptSize,
-                  radius: 60.adaptSize,
+                child:  CircleIconButton(
+                  size: 60.adaptSize,
+                  effectiveSize: 60.adaptSize,
+                  minTapSize: 60.adaptSize,
                   backgroundColor: TColors.greyDating.withOpacity(0.5),
                   child: IconButton(
                     icon: Icon(Icons.share_outlined, color: TColors.white, size: 40.adaptSize,),
@@ -60,10 +61,10 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
               Positioned(
                 top: 20,
                 right: 20,
-                child: CircularContainer(
-                  width: 60.adaptSize,
-                  height: 60.adaptSize,
-                  radius: 60.adaptSize,
+                child: CircleIconButton(
+                  size: 60.adaptSize,
+                  effectiveSize: 60.adaptSize,
+                  minTapSize: 60.adaptSize,
                   backgroundColor: TColors.greyDating.withOpacity(0.5),
                   child: IconButton(
                     icon: Icon(Icons.arrow_forward_outlined, color: TColors.white, size: 40.adaptSize,),

@@ -57,7 +57,7 @@ class FavoriteScreen extends StatelessWidget {
               // TabbedPage générique
               TabbedPageWidget(
                 tabs: [
-                  TabItem("الملفات الشخصية المفضلة"),
+                  TabItem("الملفات المفضلة"),
                   TabItem("الصور و الفيديوات المفضلة")
                 ],
                 onTabChanged: controller.onTabChanged,

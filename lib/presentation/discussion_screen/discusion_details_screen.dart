@@ -35,22 +35,26 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
           child: Row(
             children: [
               CircleIconButton(
-                  size: 50.adaptSize,
+                  size: 45.adaptSize,
+                  effectiveSize: 45.adaptSize,
+                  minTapSize: 40.adaptSize,
                   backgroundColor: TColors.greyDating.withOpacity(0.6),
                   child: IconButton(
-                    icon: Icon(Icons.more_vert, color: TColors.black.withOpacity(0.7), size: 30.adaptSize,),
+                    icon: Icon(Icons.more_vert, color: TColors.black.withOpacity(0.7), size: 27.adaptSize,),
                     onPressed: (){
                       Get.toNamed(Routes.settingsScreen);
                       //Navigator.pop(context);
                     },
                   )
               ),
-              SizedBox(width: 3.adaptSize,),
+              SizedBox(width: 2.adaptSize,),
               CircleIconButton(
-                size: 50.adaptSize,
+                size: 45.adaptSize,
+                effectiveSize: 45.adaptSize,
+                minTapSize: 40.adaptSize,
                 backgroundColor: TColors.greyDating.withOpacity(0.6),
                 child: IconButton(
-                  icon: Icon(Icons.videocam_rounded, color: TColors.black.withOpacity(0.7), size: 30.adaptSize,),
+                  icon: Icon(Icons.videocam_rounded, color: TColors.black.withOpacity(0.7), size: 27.adaptSize,),
                   onPressed: (){
                     if (!settingsController.isCallVideo.value) {
                       Get.snackbar("Appel interdit", "L'utilisateur n'autorise pas les appels vidéo");
@@ -61,12 +65,14 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
                   },
                 ),
               ),
-              SizedBox(width: 3.adaptSize,),
+              SizedBox(width: 2.adaptSize,),
               CircleIconButton(
-                size: 50.adaptSize,
+                size: 45.adaptSize,
+                effectiveSize: 45.adaptSize,
+                minTapSize: 40.adaptSize,
                 backgroundColor: TColors.greyDating.withOpacity(0.6),
                 child: IconButton(
-                  icon: Icon(Icons.call, color: TColors.black.withOpacity(0.7), size: 30.adaptSize,),
+                  icon: Icon(Icons.call, color: TColors.black.withOpacity(0.7), size: 27.adaptSize,),
                   onPressed: (){
                     if (!settingsController.isCallVoice.value) {
                       Get.snackbar("Appel interdit", "L'utilisateur n'autorise pas les appels vocaux");

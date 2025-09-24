@@ -9,6 +9,11 @@ class OTPSuccessScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    mediaQueryData = MediaQuery.of(context);
+    var screenWidth = mediaQueryData.size.width;
+    var isSmallPhone = screenWidth < 360;
+    var isTablet = screenWidth >= 600;
+
     return Scaffold(
       backgroundColor: TColors.white,
       body: Center(
@@ -44,7 +49,8 @@ class OTPSuccessScreen extends StatelessWidget {
                     color2: TColors.yellowAppLight,
                     borderRadius: 10,
                     colorText: TColors.white,
-                    fontSize: 20.adaptSize,
+                    fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
+                    height: isSmallPhone ? 80.v : 70.v,
                     width: Get.width,
                     textAlign: TextAlign.center,
                     onPressed: () async {

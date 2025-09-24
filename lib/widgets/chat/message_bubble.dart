@@ -70,11 +70,20 @@ class MessageBubble extends StatelessWidget {
 
                     ///Video
                     if (message.attachment!.type == MessageType.video && message.attachment!.file != null)
-                      SizedBox(
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: SizedBox(
+                          //height: Get.height,
+                          height: 200, // Taille fixe
+                          width: Get.width * 0.5,
+                          child: VideoPreviewWidget(file: message.attachment!.file),
+                        ),
+                      ),
+                      /*SizedBox(
                         height: 200,
                         width: 200,
                         child: VideoPreviewWidget(file: message.attachment!.file),
-                      ),
+                      ), */
 
                     if (message.attachment!.type == MessageType.camera && message.attachment!.file != null)
                       CustomImageView(

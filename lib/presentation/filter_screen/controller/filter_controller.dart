@@ -95,7 +95,7 @@ class FilterController extends GetxController {
   }
 
   ///Filter Function
-  applyFilters() {
+  applyFilters() async {
 //Start Loading
     FullScreenLoader.openLoadingSearchDialog("مباراة البحث", "مطابقة الأشخاص مع متطلباتك",ImageConstant.imgLove, ImageConstant.imgLoves);
     //FullScreenLoader.openLoadingDialog('مطابقة الأشخاص مع متطلباتك..', ImageConstant.lottieTrophy);

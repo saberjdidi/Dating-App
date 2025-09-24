@@ -86,7 +86,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                           CustomTextFormField(
                             controller: controller.bioController,
                             hintText: "${'بایو'.tr} *",
-                            maxLines: 3,
+                            maxLines: 2,
                             textInputType: TextInputType.text,
                             prefixConstraints: BoxConstraints(maxHeight: 60.v),
                             contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
@@ -102,7 +102,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             children: [
                               // ✅ Afficher l’âge sous le slider
                               Text("${controller.currentAgeValue.value.round()}",
-                                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                                style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.bold),
                               ),
                               // Slider avec gradient, label toujours visible, hauteur augmentée
                               ShaderMask(
@@ -148,7 +148,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             children: [
                               // ✅ Afficher l’âge sous le slider
                               Text("${controller.currentWeightValue.value.round()} KG",
-                                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                                style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.bold),
                               ),
                               // Slider avec gradient, label toujours visible, hauteur augmentée
                               ShaderMask(
@@ -195,7 +195,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             children: [
                               // ✅ Afficher l’âge sous le slider
                               Text("${controller.currentHeightValue.value.round()} CM",
-                                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                                style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.bold),
                               ),
                               // Slider avec gradient, label toujours visible, hauteur augmentée
                               ShaderMask(
@@ -238,61 +238,64 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                           FormDividerWidget(dividerText: "جنسك", thikness: 2),
                           SizedBox(height: TSizes.spaceBtwItems.v),
 
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              TRoundedContainer(
-                                showBorder: true,
-                                borderColor: TColors.greyDating,
-                                  padding: EdgeInsets.symmetric(horizontal: 20.v, vertical: 10.v),
-                                child: Row(
-                                  children: [
-                                    Radio<int>(
-                                      value: 0,
-                                      groupValue: controller.sexValue.value,
-                                      onChanged: (value) {
-                                        controller.sexValue.value = value!;
-                                        debugPrint("femme : ${controller.sexValue.value}");
-                                      },
-                                      fillColor: MaterialStateProperty.resolveWith<Color>((states) {
-                                        if (states.contains(MaterialState.selected)) {
-                                          return TColors.yellowAppDark; // ✅ Cercle actif jaune
-                                        }
-                                        return Colors.grey; // Cercle inactif gris
-                                      }),
-                                    ),
-                                    //TitleWidget(title: 'امراة',),
-                                    SubTitleWidget(subtitle: 'امراة', color: TColors.black, fontSizeDelta: 2, fontWeightDelta: 2),
-                                  ],
-                                )
-                              ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10.hw),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                TRoundedContainer(
+                                  showBorder: true,
+                                  borderColor: TColors.greyDating,
+                                    padding: EdgeInsets.symmetric(horizontal: 30.v, vertical: 10.v),
+                                  child: Row(
+                                    children: [
+                                      Radio<int>(
+                                        value: 0,
+                                        groupValue: controller.sexValue.value,
+                                        onChanged: (value) {
+                                          controller.sexValue.value = value!;
+                                          debugPrint("femme : ${controller.sexValue.value}");
+                                        },
+                                        fillColor: MaterialStateProperty.resolveWith<Color>((states) {
+                                          if (states.contains(MaterialState.selected)) {
+                                            return TColors.yellowAppDark; // ✅ Cercle actif jaune
+                                          }
+                                          return Colors.grey; // Cercle inactif gris
+                                        }),
+                                      ),
+                                      //TitleWidget(title: 'امراة',),
+                                      SubTitleWidget(subtitle: 'امراة', color: TColors.black, fontSizeDelta: 2, fontWeightDelta: 2),
+                                    ],
+                                  )
+                                ),
 
-                              TRoundedContainer(
-                                showBorder: true,
-                                borderColor: TColors.greyDating,
-                                  padding: EdgeInsets.symmetric(horizontal: 20.v, vertical: 10.v),
-                                child: Row(
-                                  children: [
-                                    Radio<int>(
-                                      value: 1,
-                                      groupValue: controller.sexValue.value,
-                                      onChanged: (value) {
-                                        controller.sexValue.value = value!;
-                                        debugPrint("homme : ${controller.sexValue.value}");
-                                      },
-                                      fillColor: MaterialStateProperty.resolveWith<Color>((states) {
-                                        if (states.contains(MaterialState.selected)) {
-                                          return TColors.yellowAppDark;
-                                        }
-                                        return Colors.grey;
-                                      }),
-                                    ),
-                                    SubTitleWidget(subtitle: 'رجل', color: TColors.black, fontSizeDelta: 2, fontWeightDelta: 2),
-                                    //TitleWidget(title: 'رجل',),
-                                  ],
-                                )
-                              ),
-                            ],
+                                TRoundedContainer(
+                                  showBorder: true,
+                                  borderColor: TColors.greyDating,
+                                    padding: EdgeInsets.symmetric(horizontal: 30.v, vertical: 10.v),
+                                  child: Row(
+                                    children: [
+                                      Radio<int>(
+                                        value: 1,
+                                        groupValue: controller.sexValue.value,
+                                        onChanged: (value) {
+                                          controller.sexValue.value = value!;
+                                          debugPrint("homme : ${controller.sexValue.value}");
+                                        },
+                                        fillColor: MaterialStateProperty.resolveWith<Color>((states) {
+                                          if (states.contains(MaterialState.selected)) {
+                                            return TColors.yellowAppDark;
+                                          }
+                                          return Colors.grey;
+                                        }),
+                                      ),
+                                      SubTitleWidget(subtitle: 'رجل', color: TColors.black, fontSizeDelta: 2, fontWeightDelta: 2),
+                                      //TitleWidget(title: 'رجل',),
+                                    ],
+                                  )
+                                ),
+                              ],
+                            ),
                           ),
                           SizedBox(height: TSizes.spaceBtwItems.v),
 
@@ -532,7 +535,17 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                                     ),
                                     Positioned(
                                       right: 0,
-                                      child: CircularContainer(
+                                      child: CustomImageView(
+                                        imagePath: ImageConstant.removeImage,
+                                        width: 30.adaptSize,
+                                        height: 30.adaptSize,
+                                        radius: BorderRadius.circular(30.adaptSize),
+                                        fit: BoxFit.cover,
+                                        onTap: (){
+                                          controller.removeMedia(index - 1);
+                                        },
+                                      ),
+                                    /*  child: CircularContainer(
                                         width: 35.adaptSize,
                                         height: 35.adaptSize,
                                         radius: 35.adaptSize,
@@ -541,7 +554,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                                           icon: Icon(Icons.close, color: Colors.red, size: 15.adaptSize,),
                                           onPressed: () => controller.removeMedia(index - 1),
                                         ),
-                                      ),
+                                      ), */
                                     ),
                                   ],
                                 ),
@@ -565,7 +578,9 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                 color2: TColors.yellowAppLight,
                 borderRadius: 10,
                 colorText: TColors.white,
-                fontSize: 20.adaptSize,
+                fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
+                height: isSmallPhone ? 80.v : 70.v,
+                width: screenWidth * 0.7,
                 onPressed: () async {
                   Get.offAllNamed(Routes.successAccountScreen);
                   //controller.saveBtn();

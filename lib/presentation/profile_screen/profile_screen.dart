@@ -105,7 +105,7 @@ class ProfileScreen extends StatelessWidget {
                             imagePath: ImageConstant.imgSettingsCalling,
                             width: 40.adaptSize,
                             height: 40.adaptSize,
-                            radius: BorderRadius.circular(40.adaptSize),
+                            //radius: BorderRadius.circular(40.adaptSize),
                           )
                         ],
                       )
@@ -142,7 +142,7 @@ class ProfileScreen extends StatelessWidget {
                             imagePath: ImageConstant.imgPassword,
                             width: 40.adaptSize,
                             height: 40.adaptSize,
-                            radius: BorderRadius.circular(40.adaptSize),
+                            //radius: BorderRadius.circular(40.adaptSize),
                           )
                         ],
                       )
@@ -187,7 +187,7 @@ class ProfileScreen extends StatelessWidget {
                             imagePath: ImageConstant.imgSubscription,
                             width: 40.adaptSize,
                             height: 40.adaptSize,
-                            radius: BorderRadius.circular(40.adaptSize),
+                           // radius: BorderRadius.circular(40.adaptSize),
                           )
                         ],
                       )
@@ -226,7 +226,7 @@ class ProfileScreen extends StatelessWidget {
                             imagePath: ImageConstant.imgTerms,
                             width: 40.adaptSize,
                             height: 40.adaptSize,
-                            radius: BorderRadius.circular(40.adaptSize),
+                            //radius: BorderRadius.circular(40.adaptSize),
                           )
                         ],
                       )
@@ -265,7 +265,7 @@ class ProfileScreen extends StatelessWidget {
                             imagePath: ImageConstant.imgPrivacyPolicy,
                             width: 40.adaptSize,
                             height: 40.adaptSize,
-                            radius: BorderRadius.circular(40.adaptSize),
+                            //radius: BorderRadius.circular(40.adaptSize),
                           )
                         ],
                       )
@@ -302,7 +302,7 @@ class ProfileScreen extends StatelessWidget {
                             imagePath: ImageConstant.imgLogout,
                             width: 40.adaptSize,
                             height: 40.adaptSize,
-                            radius: BorderRadius.circular(40.adaptSize),
+                           // radius: BorderRadius.circular(40.adaptSize),
                           )
                         ],
                       )

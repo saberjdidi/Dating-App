@@ -15,7 +15,7 @@ class OnBoardingDotNavigation extends StatelessWidget {
     final controller = OnBoardingController.instance;
     final dark = THelperFunctions.isDarkMode(context);
 
-    return Positioned(
+    return Align(
       //bottom: TDeviceUtils.getBottomNavigationBarHeight(),
       //left: TSizes.defaultSpace,
       child: Obx(() => AnimatedSmoothIndicator(

@@ -44,6 +44,8 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                   right: 20,
                   child: CircleIconButton(
                       size: 60.adaptSize,
+                      effectiveSize: 60.adaptSize,
+                      minTapSize: 60.adaptSize,
                       backgroundColor: TColors.greyDating.withOpacity(0.5),
                       child: IconButton(
                         icon: Icon(Icons.arrow_forward_outlined, color: TColors.white, size: 40.adaptSize,),
@@ -97,10 +99,12 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                     TitleWidget(title: 'نورا خالد', fontWeightDelta: 3, fontSizeDelta: 2,),
 
                                     CircleIconButton(
-                                      size: 60.adaptSize,
+                                        size: 60.adaptSize,
+                                        effectiveSize: 60.adaptSize,
+                                        minTapSize: 60.adaptSize,
                                         backgroundColor: TColors.greyDating.withOpacity(0.5),
                                         child: IconButton(
-                                          icon: Icon(Iconsax.share, color: TColors.textSecondary, size: 45.adaptSize,),
+                                          icon: Icon(Iconsax.share, color: TColors.textSecondary, size: 40.adaptSize,),
                                           onPressed: (){
                                             Navigator.pop(context);
                                           },
