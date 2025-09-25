@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/message_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,7 +30,7 @@ class SignInController extends GetxController {
     passwordController.dispose();
   }
 
-  checkLogin(BuildContext context) async {
+  loginFn() async {
     try {
 
    final isValid = formLoginKey.currentState!.validate();
@@ -38,7 +39,9 @@ class SignInController extends GetxController {
       }
       formLoginKey.currentState!.save();
 
+    await PrefUtils.setEmail(emailController.text.trim());
 
+   Get.offAllNamed(Routes.navigationScreen);
    ///Using http
    /*
       await apiClient.loginDeviceAuth(

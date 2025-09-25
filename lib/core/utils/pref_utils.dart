@@ -17,7 +17,6 @@ class PrefUtils {
 
   static const _KeyIsBoarding = 'isBoarding';
   static const _KeyToken = 'token';
-  static const _KeyTokenVerifAccount = 'tokenVerifAccount';
   static const _keyEmail = 'email';
   static const _KeyLangue = 'langue';
   static const _KeyTheme = 'theme';
@@ -111,16 +110,6 @@ class PrefUtils {
 
   static Future<void> clearToken() async {
     await _sharedPreferences!.remove(_KeyToken);
-  }
-
-  ///Token
-  static Future setTokenVerifAccount(String token) async =>
-      await _sharedPreferences!.setString(_KeyTokenVerifAccount, token);
-
-  static String? getTokenVerifAccount() => _sharedPreferences!.getString(_KeyTokenVerifAccount);
-
-  static Future<void> clearTokenVerifAccount() async {
-    await _sharedPreferences!.remove(_KeyTokenVerifAccount);
   }
 
   ///Email

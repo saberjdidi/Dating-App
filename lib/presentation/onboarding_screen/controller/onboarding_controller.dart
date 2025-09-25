@@ -22,7 +22,7 @@ class OnBoardingController extends GetxController {
   void onInit() {
     super.onInit();
     //PrefUtils.setIsFirstTime(true);
-    PrefUtils.setIsBoarding("true");
+    //PrefUtils.setIsBoarding("true");
   }
 
   /// Jump to the specific dot selected page
@@ -31,10 +31,16 @@ class OnBoardingController extends GetxController {
     pageController.jumpTo(index);
   }
 
+  /// Update current index & jump to the last page
+  void skipPage(){
+    currentPageIndex.value = 2;
+    pageController.jumpToPage(2);
+  }
+
    onTapSignIn() async {
       final storage = GetStorage();
       storage.write('IsFirstTime', false);
-      ///await PrefUtils.setIsFirstTime(false);
+      await PrefUtils.setOnBoarding("OnBoarding");
       //Get.offAll(Routes.signInScreen);
       Get.offAllNamed(Routes.signInScreen);
   }
@@ -42,14 +48,8 @@ class OnBoardingController extends GetxController {
   onTapSignup() async {
     final storage = GetStorage();
     storage.write('IsFirstTime', false);
-    ///await PrefUtils.setIsFirstTime(false);
+    await PrefUtils.setOnBoarding("OnBoarding");
     //Get.offAll(Routes.signInScreen);
     Get.offAllNamed(Routes.signUpScreen);
-  }
-
-  /// Update current index & jump to the last page
-  void skipPage(){
-    currentPageIndex.value = 2;
-    pageController.jumpToPage(2);
   }
 }
