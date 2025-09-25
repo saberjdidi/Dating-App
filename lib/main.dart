@@ -7,6 +7,11 @@ import 'core/app_export.dart';
 void main() async  {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
+  //For testing preview device
+ /* DevicePreview(
+    //enabled: !kReleaseMode,
+    builder: (context) => MyApp(), // Wrap your app
+  ); */
 }
 
 class MyApp extends StatelessWidget {
@@ -17,6 +22,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      //locale: DevicePreview.locale(context), //For testing preview device
+      //builder: DevicePreview.appBuilder, //For testing preview device
       theme: ThemeHelper().getCurrentTheme(),
       //translations: AppLocalization(),
       //locale: translationController.language,

@@ -197,7 +197,28 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
         IconButton(icon: Icon(Icons.add, color: TColors.buttonSecondary, size: 30.adaptSize), onPressed: () {
           controller.showAttachmentOptions(context);
         }),
-        IconButton(icon: Icon(Icons.keyboard_voice_outlined, color: TColors.buttonSecondary, size: 30.adaptSize), onPressed: () {}),
+            Obx(() {
+              final recording = controller.isRecording.value;
+              return IconButton(
+                icon: Icon(
+                  recording ? Icons.stop_circle : Icons.keyboard_voice_outlined,
+                  color: recording ? Colors.red : TColors.buttonSecondary,
+                  size: 30.adaptSize,
+                ),
+                onPressed: () async {
+                  if (recording) {
+                    await controller.stopRecordingAndSend();
+                  } else {
+                    await controller.startRecording();
+                  }
+                },
+              );
+            }),
+       /* IconButton(
+            icon: Icon(Icons.keyboard_voice_outlined, color: TColors.buttonSecondary, size: 30.adaptSize),
+            onPressed: () {
+
+            }), */
             Expanded(
               child: CustomTextFormField(
                 controller: controller.messageController,

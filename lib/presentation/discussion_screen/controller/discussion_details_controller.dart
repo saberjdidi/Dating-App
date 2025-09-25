@@ -6,11 +6,14 @@ import 'package:dating_app_bilhalal/data/models/attachment_model.dart';
 import 'package:dating_app_bilhalal/data/models/chat_model.dart';
 import 'package:dating_app_bilhalal/data/models/message_model.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
-import 'package:dating_app_bilhalal/widgets/grid_layout.dart';
 import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:record/record.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as p;
 
 class DiscussionDetailsController extends GetxController {
   static DiscussionDetailsController get instance => Get.find();
@@ -18,6 +21,142 @@ class DiscussionDetailsController extends GetxController {
   ChatModel userChatModel  = Get.arguments['ChatDiscussion'] ?? ChatModel.empty();
   final TextEditingController messageController = TextEditingController();
   var messages = <MessageModel>[].obs;
+
+  var pickedAttachment = Rx<AttachmentModel?>(null);
+
+  ///Record Audio Start
+  final record = AudioRecorder();
+  var isRecording = false.obs;
+  String? currentRecordingPath; //var currentRecordingPath = RxString('');
+
+
+  Future<void> startRecording() async {
+    try {
+      // Vérifier permission (Record fournit hasPermission)
+      final hasPermission = await record.hasPermission();
+      if (!hasPermission) {
+        Get.snackbar('Permission', 'Microphone permission is required');
+        return;
+      }
+
+      // Crée un chemin de fichier temporaire unique
+      final dir = await getTemporaryDirectory();
+      final fileName = 'audio_${DateTime.now().millisecondsSinceEpoch}.m4a';
+      final path = p.join(dir.path, fileName);
+
+      // Démarrer avec RecordConfig (nouvelle API)
+      await record.start(
+        RecordConfig(
+          encoder: AudioEncoder.aacLc, // format courant
+          bitRate: 128000,             // en bits/s
+          sampleRate: 44100,           // Hz
+        ),
+        path: path, // chemin requis (nommé)
+      );
+
+      currentRecordingPath = path;
+      isRecording.value = true;
+    } catch (e, st) {
+      debugPrint('startRecording error: $e\n$st');
+      Get.snackbar('Error', 'Unable to start recording');
+    }
+  }
+
+  /// Arrêter l'enregistrement et créer l'AttachmentModel puis l'envoyer
+  Future<void> stopRecordingAndSend() async {
+    try {
+      // stop retourne le path si l'enregistrement s'est bien terminé
+      final resultPath = await record.stop();
+      isRecording.value = false;
+
+      if (resultPath != null && resultPath.isNotEmpty) {
+        // Constituer l'attachment et l'ajouter comme message
+        final file = File(resultPath);
+        pickedAttachment.value = AttachmentModel(
+          type: MessageType.audio,
+          file: file,
+          name: p.basename(resultPath),
+        );
+
+        // Exemple d'envoi : ajoute en local à ta liste messages
+        messages.add(
+          MessageModel(
+            messageId: DateTime.now().toIso8601String(),
+            senderUid: 'user1',
+            receiverUid: 'user2',
+            senderName: 'Alice',
+            receiverName: 'Bob',
+            senderProfile: 'assets/images/alice.jpg',
+            receiverProfile: 'assets/images/bob.jpg',
+            text: null,
+            attachment: pickedAttachment.value,
+            createdAt: DateTime.now(),
+          ),
+        );
+
+        // réinitialiser le pickedAttachment si tu veux l'effacer après envoi
+        pickedAttachment.value = null;
+      } else {
+        Get.snackbar('Recording', 'No audio captured');
+      }
+    } catch (e, st) {
+      debugPrint('stopRecording error: $e\n$st');
+      Get.snackbar('Error', 'Unable to stop recording');
+    }
+  }
+
+  Future<void> cancelRecording() async {
+    try {
+      await record.stop();
+      isRecording.value = false;
+      if (currentRecordingPath != null) {
+        final f = File(currentRecordingPath!);
+        if (await f.exists()) await f.delete();
+      }
+      currentRecordingPath = null;
+    } catch (_) {}
+  }
+
+// Lecture de l'audio
+  /*
+  final player = AudioPlayer();
+  var isPlaying = false.obs;
+  var currentPosition = Duration.zero.obs;
+  var totalDuration = Duration.zero.obs;
+  Future<void> playAudio(String path) async {
+    await player.setFilePath(path);
+    totalDuration.value = player.duration ?? Duration.zero;
+
+    player.positionStream.listen((pos) {
+      currentPosition.value = pos;
+    });
+
+    player.playerStateStream.listen((state) {
+      isPlaying.value = state.playing;
+    });
+
+    await player.play();
+  }
+
+  // Pause
+  Future<void> pauseAudio() async {
+    await player.pause();
+  }
+
+  // Stop
+  Future<void> stopAudio() async {
+    await player.stop();
+    currentPosition.value = Duration.zero;
+  }
+  */
+
+  @override
+  void onClose() {
+    //player.dispose();
+    record.dispose();
+    super.onClose();
+  }
+  ///Record Audio End
 
   @override
   void onInit() {
@@ -28,8 +167,6 @@ class DiscussionDetailsController extends GetxController {
   void loadMessages() {
     messages.assignAll(MessageLocalDataSource.getMessages());
   }
-
-
 
   sendMessage() async {
     if (messageController.text.isEmpty && pickedAttachment.value == null) return;
@@ -171,7 +308,6 @@ class DiscussionDetailsController extends GetxController {
   }
 
   ///Upoad Media
-  var pickedAttachment = Rx<AttachmentModel?>(null);
  /* var pickedAttachment = Rx<File?>(null);
   Future<void> pickFromGallery() async {
     final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -237,3 +373,4 @@ class DiscussionDetailsController extends GetxController {
   }
 
 }
+

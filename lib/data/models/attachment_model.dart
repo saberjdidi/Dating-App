@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:dating_app_bilhalal/core/utils/enums.dart';
 
 class AttachmentModel {
