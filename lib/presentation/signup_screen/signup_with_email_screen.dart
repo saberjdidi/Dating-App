@@ -211,7 +211,8 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
               height: isSmallPhone ? 80.v : 70.v,
               width: Get.width,
               onPressed: () async {
-                onTapOTPPage(context);
+                await controller.signupFn();
+                //onTapOTPPage(context);
               },
             ),
           ),

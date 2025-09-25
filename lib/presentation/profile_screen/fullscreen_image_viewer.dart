@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dating_app_bilhalal/core/app_export.dart';
+import 'package:dating_app_bilhalal/widgets/circle_icon_button.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
 import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
@@ -40,6 +41,7 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
     mediaQueryData = MediaQuery.of(context);
     var screenWidth = mediaQueryData.size.width;
     var screenheight = mediaQueryData.size.height;
+    var isSmallPhone = screenWidth < 360;
     var isTablet = screenWidth >= 600;
 
     return Scaffold(
@@ -75,10 +77,10 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
           Positioned(
             top: 40,
             right: 20,
-            child: CircularContainer(
-                width: 60.adaptSize,
-                height: 60.adaptSize,
-                radius: 60.adaptSize,
+            child: CircleIconButton(
+              size: 60.adaptSize,
+              effectiveSize: 60.adaptSize,
+              minTapSize: 55.adaptSize,
                 backgroundColor: TColors.greyDating.withOpacity(0.9),
                 child: IconButton(
                   icon: Icon(Icons.close, color: TColors.grey400.withOpacity(1), size: 35.adaptSize,),
@@ -94,10 +96,10 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
             Positioned(
               left: 10,
               top: MediaQuery.of(context).size.height / 2 - 30,
-              child: CircularContainer(
-                  width: 60.adaptSize,
-                  height: 60.adaptSize,
-                  radius: 60.adaptSize,
+              child: CircleIconButton(
+                size: 60.adaptSize,
+                effectiveSize: 60.adaptSize,
+                minTapSize: 60.adaptSize,
                   backgroundColor: TColors.greyDating.withOpacity(0.9),
                   child: IconButton(
                     icon: Icon(Icons.arrow_back, color: TColors.grey400.withOpacity(1), size: 35.adaptSize,),
@@ -113,10 +115,10 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
             Positioned(
               right: 10,
               top: MediaQuery.of(context).size.height / 2 - 30,
-              child: CircularContainer(
-                  width: 60.adaptSize,
-                  height: 60.adaptSize,
-                  radius: 60.adaptSize,
+              child: CircleIconButton(
+                size: 60.adaptSize,
+                effectiveSize: 60.adaptSize,
+                minTapSize: 60.adaptSize,
                   backgroundColor: TColors.greyDating.withOpacity(0.9),
                   child: IconButton(
                     icon: Icon(Icons.arrow_forward, color: TColors.grey400.withOpacity(1), size: 35.adaptSize,),
@@ -131,7 +133,7 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
             alignment: Alignment.bottomCenter,
             child: TRoundedContainer(
                       width: double.infinity,
-                      height: screenheight * 0.15,
+                      height: isSmallPhone ? (screenheight * 0.18) : (screenheight * 0.15),
                       backgroundColor: Colors.black.withOpacity(0.5),
                       radius: 1.adaptSize,
                       isBorderRadiusTop: true,
@@ -145,14 +147,14 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        CircularContainer(
-                          width: 60.adaptSize,
-                          height: 60.adaptSize,
-                          radius: 60.adaptSize,
+                        CircleIconButton(
+                          size: 60.adaptSize,
+                          effectiveSize: 60.adaptSize,
+                          minTapSize: 60.adaptSize,
                           backgroundColor: TColors.greyDating.withOpacity(0.9),
-                          margin: EdgeInsets.symmetric(horizontal: 10.hw),
+                          //margin: EdgeInsets.symmetric(horizontal: 10.hw),
                           child: IconButton(
-                            icon: Icon(Iconsax.heart5, color: TColors.redAppLight, size: 40.adaptSize,),
+                            icon: Icon(Iconsax.heart5, color: TColors.redAppLight, size: 35.adaptSize,),
                             onPressed: (){
                               _goToPage(currentIndex + 1);
                             },
@@ -161,37 +163,45 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
                         SubTitleWidget(subtitle: '23 إعجاب', color: TColors.white, fontWeightDelta: 2,),
                       ],
                     ),
-                    ShaderMask(
-                      shaderCallback: (Rect bounds) {
-                        return const LinearGradient(
-                          colors: [TColors.greyDating, TColors.redAppLight], // ✅ Dégradé
-                        ).createShader(bounds);
-                      },
-                      child: SliderTheme(
-                        data: SliderTheme.of(context).copyWith(
-                          trackHeight: 8, // ✅ Augmenter la hauteur du slider
-                          thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 10),
-                          overlayShape: const RoundSliderOverlayShape(overlayRadius: 20),
-                          valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
-                          valueIndicatorTextStyle: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
+                   /* for(var image in widget.images){
+                      if(image.endsWith('.mp4')){
+
+                      }
+                    } */
+                    Visibility(
+                      visible: false,
+                      child: ShaderMask(
+                        shaderCallback: (Rect bounds) {
+                          return const LinearGradient(
+                            colors: [TColors.greyDating, TColors.redAppLight], // ✅ Dégradé
+                          ).createShader(bounds);
+                        },
+                        child: SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                            trackHeight: 8, // ✅ Augmenter la hauteur du slider
+                            thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 10),
+                            overlayShape: const RoundSliderOverlayShape(overlayRadius: 20),
+                            valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
+                            valueIndicatorTextStyle: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                            ),
+                            showValueIndicator: ShowValueIndicator.always, // ✅ Toujours afficher label
                           ),
-                          showValueIndicator: ShowValueIndicator.always, // ✅ Toujours afficher label
-                        ),
-                        child: Slider(
-                          value: currentWeightValue,
-                          min: 0,
-                          max: 140,
-                          divisions: 140,
-                          label: currentWeightValue.round().toString(),
-                          onChanged: (value) {
-                            setState(() {
-                              currentWeightValue = value;
-                            });
-                          },
-                          activeColor: Colors.white, // ✅ Couleur appliquée par gradient
-                          inactiveColor: Colors.white.withOpacity(0.3),
+                          child: Slider(
+                            value: currentWeightValue,
+                            min: 0,
+                            max: 140,
+                            divisions: 140,
+                            label: currentWeightValue.round().toString(),
+                            onChanged: (value) {
+                              setState(() {
+                                currentWeightValue = value;
+                              });
+                            },
+                            activeColor: Colors.white, // ✅ Couleur appliquée par gradient
+                            inactiveColor: Colors.white.withOpacity(0.3),
+                          ),
                         ),
                       ),
                     )

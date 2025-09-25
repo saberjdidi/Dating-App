@@ -1,4 +1,5 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
+import 'package:dating_app_bilhalal/presentation/otp_screen/controller/otp_controller.dart';
 import 'package:dating_app_bilhalal/presentation/otp_screen/otp_success_screen.dart';
 import 'package:dating_app_bilhalal/widgets/app_bar/appbar_widget.dart';
 import 'package:dating_app_bilhalal/widgets/countdown_widget.dart';
@@ -8,6 +9,183 @@ import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
+class OTPScreen extends GetView<OTPController> {
+  const OTPScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    mediaQueryData = MediaQuery.of(context);
+    var screenWidth = mediaQueryData.size.width;
+    var isSmallPhone = screenWidth < 360;
+    var isTablet = screenWidth >= 600;
+
+    return Scaffold(
+      backgroundColor: TColors.white,
+      appBar: TAppBar(
+        //showBackArrow: true,
+        //rightToLeft: true,
+        title: Text('تغيير البريد الإلكتروني',
+          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+            color: TColors.blueDating,
+            fontSize: 20.fSize,
+            fontWeight: FontWeight.w600,
+            decoration: TextDecoration.underline,
+            decorationColor: TColors.blueDating,
+          ),
+        ),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(18.hw),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: CustomImageView(
+                  imagePath: ImageConstant.logoHeaderPNG,
+                  height: 180.adaptSize,
+                  width: 180.adaptSize,
+                  fit: BoxFit.fill,
+                ),
+              ),
+              SizedBox(height: TSizes.spaceBtwItems),
+              Center(child: TitleWidget(title: "التحقق من حسابك", textAlign: TextAlign.center,)),
+              SubTitleWidget(subtitle: "تم إرسال رمز مكون من ستة أرقام إلى بريدك الإلكتروني المسجل. أدخل الرمز هنا للتحقق من حسابك.",
+                textAlign: TextAlign.center,),
+              SizedBox(height: TSizes.spaceBtwItems),
+              /* SizedBox(
+                height: 120,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: const [
+                    Text("Verification"),
+                    Text(
+                      "We sent you a SMS Code",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Text(
+                      "On number: +998993727053",
+                      style: TextStyle(fontWeight: FontWeight.w500),
+                    )
+                  ],
+                ),
+              ), */
+              Center(
+                child: Obx(() => PinFieldAutoFill(
+                  codeLength: 6,
+                  autoFocus: true,
+                  onCodeChanged: (code) {
+                    controller.otpCode.value = code ?? "";
+                  },
+                  currentCode: controller.otpCode.value,
+                  decoration: UnderlineDecoration(
+                    textStyle: const TextStyle(fontSize: 20, color: Colors.black),
+                    colorBuilder: PinListenColorBuilder(
+                        TColors.yellowAppDark, TColors.buttonSecondary), // ligne grise
+                    //bgColorBuilder: PinListenColorBuilder(Colors.yellow.shade200, Colors.grey.shade200),
+                  ),
+                )),
+              ),
+              SizedBox(height: 20.v),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(Icons.access_time_sharp, color: TColors.gray700),
+                      Obx(() => CountDownWidget(
+                        animation: StepTween(
+                          begin: controller.levelClock.value, // THIS IS A USER ENTERED NUMBER
+                          end: 0,
+                        ).animate(controller.animationController!),
+
+                      )),
+                    ],
+                  ),
+                  Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(padding: EdgeInsets.only(bottom: 1.v),
+                              child: Text("لم تستلم الرمز؟ ",
+                                  style:  isTablet
+                                      ? Theme.of(context).textTheme.titleMedium!.apply(color: TColors.gray700)
+                                      : CustomTextStyles.bodyMediumTextFormFieldGrey)
+                          ),
+                          GestureDetector(
+                              onTap: () async {
+                              },
+                              child: Padding(padding: EdgeInsets.only(left: 8.hw),
+                                  child: Text("أعد الإرسال",
+                                    //style: CustomTextStyles.titleMediumBlueVPT
+                                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                                      color: TColors.black,
+                                      fontSize: 16.fSize,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  )
+                              )
+                          )
+                        ]
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(height: 20.v),
+              Center(
+                child: CustomButtonContainer(
+                  text: "يكمل",
+                  color1: TColors.yellowAppDark,
+                  color2: TColors.yellowAppLight,
+                  borderRadius: 10,
+                  colorText: TColors.white,
+                  fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
+                  height: isSmallPhone ? 80.v : 70.v,
+                  width: Get.width,
+                  onPressed: () async {
+                   await controller.saveOTPFn(context);
+                    //onTapOTPSuccessPage(context);
+                  },
+                ),
+              ),
+              SizedBox(height: 15.v,),
+              Directionality(
+                textDirection: TextDirection.rtl,
+                child: CustomOutlinedButton(
+                  buttonTextStyle: CustomTextStyles.bodyMediumTextFormFieldBold,
+                  buttonStyle: CustomButtonStyles.outlineBlack,
+                  text: "إعادة إرسال OTP",
+                  margin: EdgeInsets.only(top: 6.hw),
+                  borderRadius: 100.hw,
+                  height: isSmallPhone ? 80.v : 70.v,
+                  width: Get.width,
+                  onPressed: (){
+                    //?  use this code to get sms signature for your app
+                    //final String signature = await SmsAutoFill().getAppSignature;
+                    //print("Signature: $signature");
+
+                    controller.animationController?.reset();
+                    controller.animationController?.forward();
+                    //_animationController!.forward();
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/*
 class OTPScreen extends StatefulWidget {
   const OTPScreen({super.key});
 
@@ -194,7 +372,12 @@ class _OTPScreenState extends State<OTPScreen> with SingleTickerProviderStateMix
                   borderRadius: 100.hw,
                   height: isSmallPhone ? 80.v : 70.v,
                   onPressed: (){
+                    //?  use this code to get sms signature for your app
+                    //final String signature = await SmsAutoFill().getAppSignature;
+                    //print("Signature: $signature");
 
+                    _animationController!.reset();
+                    _animationController!.forward();
                   },
                 ),
               ),
@@ -236,7 +419,7 @@ class _OTPScreenState extends State<OTPScreen> with SingleTickerProviderStateMix
     );
   }
 }
-
+*/
 onTapOTPSuccessPage(BuildContext context) {
   Navigator.push(
     context,

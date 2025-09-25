@@ -43,9 +43,9 @@ class Routes {
   static const String inscriptionScreen = '/inscription_screen';
   static const String signUpSuccessScreen = '/signup_success_screen';
 
-  static const String forgotPasswordScreen = '/forgot_password_screen';
+  static const String forgetPasswordScreen = '/forget_password_screen';
   static const String changePasswordScreen = '/change_password_screen';
 
-  static const String verificationAccountScreen = '/verification_account_screen';
+  static const String otpScreen = '/otp_screen';
 
 }

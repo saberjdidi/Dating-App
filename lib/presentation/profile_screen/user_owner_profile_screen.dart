@@ -48,7 +48,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                       minTapSize: 60.adaptSize,
                       backgroundColor: TColors.greyDating.withOpacity(0.5),
                       child: IconButton(
-                        icon: Icon(Icons.arrow_forward_outlined, color: TColors.white, size: 40.adaptSize,),
+                        icon: Icon(Icons.arrow_forward_outlined, color: TColors.white, size: isSmallPhone ? 35.adaptSize : 40.adaptSize),
                         onPressed: (){
                           Navigator.pop(context);
                         },
@@ -157,8 +157,9 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                   color2: TColors.yellowAppLight,
                                   borderRadius: 30,
                                   colorText: TColors.white,
-                                  fontSize: 20.adaptSize,
-                                  width: 220.adaptSize,
+                                  fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
+                                  height: isSmallPhone ? 80.v : 70.v,
+                                  width: Get.width * 0.5,
                                   onPressed: () async {
                                     Get.toNamed(Routes.overviewAccountScreen);
                                   },
@@ -174,7 +175,8 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                       color2: TColors.yellowAppLight,
                                       borderRadius: 30,
                                       colorText: TColors.white,
-                                      fontSize: 20.adaptSize,
+                                      fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
+                                      height: 70.v,
                                       width: 120.adaptSize,
                                       onPressed: () async {
                                         Get.toNamed(Routes.mediaOwnerProfileScreen);

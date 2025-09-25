@@ -20,8 +20,11 @@ import 'package:dating_app_bilhalal/presentation/navigation_screen/binding/navig
 import 'package:dating_app_bilhalal/presentation/navigation_screen/navigation_screen.dart';
 import 'package:dating_app_bilhalal/presentation/onboarding_screen/binding/onboarding_binding.dart';
 import 'package:dating_app_bilhalal/presentation/onboarding_screen/onboarding_screen.dart';
+import 'package:dating_app_bilhalal/presentation/otp_screen/binding/otp_binding.dart';
+import 'package:dating_app_bilhalal/presentation/otp_screen/otp_screen.dart';
 import 'package:dating_app_bilhalal/presentation/password_screen/binding/password_binding.dart';
 import 'package:dating_app_bilhalal/presentation/password_screen/change_password_screen.dart';
+import 'package:dating_app_bilhalal/presentation/password_screen/forget_password_screen.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/binding/profile_binding.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/media_owner_profile_screen.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/profile_details_screen.dart';
@@ -85,6 +88,13 @@ class AppRoutes {
       page: () => SignUpWithEmailScreen(),
       bindings: [
         SignUpBinding(),
+      ],
+    ),
+    GetPage(
+      name: Routes.otpScreen,
+      page: () => OTPScreen(),
+      bindings: [
+        OTPBinding(),
       ],
     ),
     GetPage(
@@ -202,6 +212,13 @@ class AppRoutes {
     GetPage(
       name: Routes.changePasswordScreen,
       page: () => ChangePasswordScreen(),
+      bindings: [
+        PasswordBinding(),
+      ],
+    ),
+    GetPage(
+      name: Routes.forgetPasswordScreen,
+      page: () => ForgetPasswordScreen(),
       bindings: [
         PasswordBinding(),
       ],

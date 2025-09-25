@@ -14,6 +14,32 @@ class SignUpWithEmailController extends GetxController {
 
   Rx<bool> isShowPassword = true.obs;
 
+  signupFn() async {
+    try {
+
+      final isValid = formSignUpKey.currentState!.validate();
+      if (!isValid) {
+        return;
+      }
+      formSignUpKey.currentState!.save();
+
+      Get.toNamed(Routes.otpScreen, arguments: {
+        "SourceOTP" : "FromSignup",
+        "Email" : emailController.text.trim(),
+      });
+      /* Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const OTPScreen()),
+      ); */
+
+    }
+    catch (exception) {
+      debugPrint('Exception : ${exception.toString()}');
+    } finally {
+      //isDataProcessing.value = false;
+    }
+  }
+
 /*
   checkEmail() async {
     try {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ChangePasswordController extends GetxController {
+  static ChangePasswordController get instance => Get.find();
 
   final GlobalKey<FormState> formChangePasswordKey = GlobalKey<FormState>();
 

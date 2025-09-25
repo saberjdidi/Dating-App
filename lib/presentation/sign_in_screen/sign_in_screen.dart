@@ -105,6 +105,11 @@ class SignInScreen extends GetView<SignInController> {
 
   /// Section Widget
   Widget _buildLoginForm(BuildContext context) {
+    mediaQueryData = MediaQuery.of(context);
+    var screenWidth = mediaQueryData.size.width;
+    var isSmallPhone = screenWidth < 360;
+    var isTablet = screenWidth >= 600;
+
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -159,16 +164,16 @@ class SignInScreen extends GetView<SignInController> {
                   child: Text("او قم بالتسجيل معنا؟",
                     //style: CustomTextStyles.titleMediumBlueVPT
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: TColors.black,
+                      color: TColors.blackGrey,
                       fontSize: 16.fSize,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w500,
                       decoration: TextDecoration.underline,
                       decorationColor: TColors.black54,
                     ),
                   )
               )
           ),
-         /* GestureDetector(
+          GestureDetector(
               onTap: () {
                 onTapTxtForgotThePassword();
               },
@@ -176,26 +181,31 @@ class SignInScreen extends GetView<SignInController> {
                   child: Text("نسيت كلمة المرور؟",
                     //style: CustomTextStyles.titleMediumBlueVPT
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: TColors.black,
+                      color: TColors.blackGrey,
                       fontSize: 16.fSize,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w500,
                       decoration: TextDecoration.underline,
                       decorationColor: TColors.black54,
                     ),
                   )
               )
-          ), */
+          ),
           SizedBox(height: 24.v),
-          CustomButtonContainer(
-            text: "تسجيل الدخول",
-            color1: TColors.yellowAppDark,
-            color2: TColors.yellowAppLight,
-            borderRadius: 10,
-            colorText: TColors.white,
-            fontSize: 20.adaptSize,
-            onPressed: () async {
-              controller.checkLogin(context);
-            },
+          Align(
+            alignment: Alignment.center,
+            child: CustomButtonContainer(
+              text: "تسجيل الدخول",
+              color1: TColors.yellowAppDark,
+              color2: TColors.yellowAppLight,
+              borderRadius: 10,
+              colorText: TColors.white,
+              fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
+              height: isSmallPhone ? 80.v : 70.v,
+              width: Get.width * 0.8,
+              onPressed: () async {
+                controller.checkLogin(context);
+              },
+            ),
           ),
         /*  CustomElevatedButton(
               buttonStyle: CustomButtonStyles.elevatedBlueLight700Radius10,
@@ -245,7 +255,7 @@ class SignInScreen extends GetView<SignInController> {
   }
   /// Navigates to the forgotPasswordScreen when the action is triggered.
   onTapTxtForgotThePassword() {
-    Get.toNamed(Routes.forgotPasswordScreen, );
+    Get.toNamed(Routes.forgetPasswordScreen, );
   }
   /// Navigates to the signUpBlankScreen when the action is triggered.
   onTapTxtSignUp() {
