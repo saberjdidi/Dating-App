@@ -1,4 +1,5 @@
-import 'dart:async';
+
+
 import 'dart:io';
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/data/datasources/message_local_data_source.dart';
@@ -15,8 +16,8 @@ import 'package:record/record.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 
-class DiscussionDetailsController extends GetxController {
-  static DiscussionDetailsController get instance => Get.find();
+class AudioController extends GetxController {
+  static AudioController get instance => Get.find();
 
   ChatModel userChatModel  = Get.arguments['ChatDiscussion'] ?? ChatModel.empty();
   final TextEditingController messageController = TextEditingController();
@@ -29,59 +30,7 @@ class DiscussionDetailsController extends GetxController {
   var isRecording = false.obs;
   String? currentRecordingPath; //var currentRecordingPath = RxString('');
 
-  var recordingDuration = Duration.zero.obs;
-  Timer? _recordTick;
-  Stopwatch? _recordStopwatch;
-  var isCancelRecording = false.obs; // set by drag detection
 
-  // Draft attachment (audio ready to send but not sent yet)
-  var draftAttachment = Rxn<AttachmentModel>();
-
-  // Optional: a central player you may want to reuse (or use one per widget)
-  final AudioPlayer sharedPlayer = AudioPlayer();
-
-  Future<void> toggleRecording() async {
-    if (isRecording.value) {
-      // Si on enregistre → arrêter
-      await stopRecordingAndPrepare();
-    } else {
-      // Si on n’enregistre pas → démarrer
-      await startRecording();
-    }
-  }
-
-// ---------------- Recording ----------------
-  Future<void> startRecording() async {
-    // Avant de commencer un nouvel enregistrement, on reset tout
-    //await cancelDraftAudio();  // <-- reset complet
-
-    final hasPermission = await record.hasPermission();
-    if (!hasPermission) {
-      Get.snackbar('Permission', 'Microphone permission required');
-      return;
-    }
-
-    final dir = await getTemporaryDirectory();
-    final fileName = 'audio_${DateTime.now().millisecondsSinceEpoch}.m4a';
-    final path = p.join(dir.path, fileName);
-
-    await record.start(
-      RecordConfig(encoder: AudioEncoder.aacLc, bitRate: 128000, sampleRate: 44100),
-      path: path,
-    );
-
-    currentRecordingPath = path;
-    isRecording.value = true;
-    recordingDuration.value = Duration.zero;
-
-    // Timer pour la durée // Démarrer chrono
-    _recordStopwatch = Stopwatch()..start();
-    _recordTick?.cancel();
-    _recordTick = Timer.periodic(Duration(milliseconds: 200), (_) {
-      recordingDuration.value = _recordStopwatch!.elapsed;
-    });
-  }
-  /*
   Future<void> startRecording() async {
     try {
       // Vérifier permission (Record fournit hasPermission)
@@ -108,174 +57,103 @@ class DiscussionDetailsController extends GetxController {
 
       currentRecordingPath = path;
       isRecording.value = true;
-      isCancelRecording.value = false;
-
-      // Stopwatch + periodic tick (update duration in real time)
-      _recordStopwatch = Stopwatch()..start();
-      _recordTick?.cancel();
-      _recordTick = Timer.periodic(Duration(milliseconds: 200), (_) {
-        recordingDuration.value = _recordStopwatch!.elapsed;
-      });
     } catch (e, st) {
       debugPrint('startRecording error: $e\n$st');
       Get.snackbar('Error', 'Unable to start recording');
-      isRecording.value = false;
     }
   }
-  */
 
   /// Arrêter l'enregistrement et créer l'AttachmentModel puis l'envoyer
-  // Called when user releases long press
-  // if canceled -> delete temp file and reset, else prepare draftAttachment
-  Future<void> stopRecordingAndPrepare() async {
-    final path = await record.stop();
-    _recordStopwatch?.stop();
-    _recordTick?.cancel();
-    _recordStopwatch = null;
-    isRecording.value = false;
-
-    if (path != null) {
-      final f = File(path);
-      draftAttachment.value = AttachmentModel(
-        type: MessageType.audio,
-        file: f,
-        name: p.basename(path),
-        duration: recordingDuration.value,
-      );
-      recordingDuration.value = Duration.zero;
-      //currentRecordingPath = path; // <-- bien garder le dernier path
-    }
-  }
-  /*
-  Future<void> stopRecordingAndPrepare({bool canceled = false}) async {
+  Future<void> stopRecordingAndSend() async {
     try {
-      final path = await record.stop(); // returns path or null
-      _recordTick?.cancel();
-      _recordStopwatch?.stop();
-      _recordStopwatch = null;
+      // stop retourne le path si l'enregistrement s'est bien terminé
+      final resultPath = await record.stop();
       isRecording.value = false;
 
-      if (canceled || isCancelRecording.value) {
-        // delete temp file if exists and reset
-        if (path != null) {
-          final f = File(path);
-          if (await f.exists()) await f.delete();
-        }
-        currentRecordingPath = null;
-        recordingDuration.value = Duration.zero;
-        draftAttachment.value = null;
-        return;
-      }
-
-      if (path != null) {
-        final f = File(path);
-        final dur = recordingDuration.value;
-        draftAttachment.value = AttachmentModel(
+      if (resultPath != null && resultPath.isNotEmpty) {
+        // Constituer l'attachment et l'ajouter comme message
+        final file = File(resultPath);
+        pickedAttachment.value = AttachmentModel(
           type: MessageType.audio,
-          file: f,
-          name: p.basename(path),
-          duration: dur,
+          file: file,
+          name: p.basename(resultPath),
         );
-        currentRecordingPath = path;
-        // recordingDuration already set by stopwatch
+
+        // Exemple d'envoi : ajoute en local à ta liste messages
+        messages.add(
+          MessageModel(
+            messageId: DateTime.now().toIso8601String(),
+            senderUid: 'user1',
+            receiverUid: 'user2',
+            senderName: 'Alice',
+            receiverName: 'Bob',
+            senderProfile: 'assets/images/alice.jpg',
+            receiverProfile: 'assets/images/bob.jpg',
+            text: null,
+            attachment: pickedAttachment.value,
+            createdAt: DateTime.now(),
+          ),
+        );
+
+        // réinitialiser le pickedAttachment si tu veux l'effacer après envoi
+        pickedAttachment.value = null;
       } else {
-        // nothing recorded
-        recordingDuration.value = Duration.zero;
-        draftAttachment.value = null;
+        Get.snackbar('Recording', 'No audio captured');
       }
     } catch (e, st) {
       debugPrint('stopRecording error: $e\n$st');
       Get.snackbar('Error', 'Unable to stop recording');
-    } finally {
-      // ensure timer stopped
-      _recordTick?.cancel();
-      _recordTick = null;
     }
   }
-  */
-  Future<void> cancelRecordingCompletely() async {
+
+  Future<void> cancelRecording() async {
     try {
       await record.stop();
+      isRecording.value = false;
       if (currentRecordingPath != null) {
         final f = File(currentRecordingPath!);
         if (await f.exists()) await f.delete();
       }
+      currentRecordingPath = null;
     } catch (_) {}
-    currentRecordingPath = null;
-    draftAttachment.value = null;
-    isRecording.value = false;
-    recordingDuration.value = Duration.zero;
-    _recordTick?.cancel();
   }
 
-  // Delete a draft audio (before send)
-  Future<void> deleteDraftAudio() async {
-    final att = draftAttachment.value;
-    if (att?.file != null) {
-      try {
-        final f = att!.file!;
-        if (await f.exists()) await f.delete();
-      } catch (_) {}
-    }
-    draftAttachment.value = null;
-    recordingDuration.value = Duration.zero;
+// Lecture de l'audio
+  /*
+  final player = AudioPlayer();
+  var isPlaying = false.obs;
+  var currentPosition = Duration.zero.obs;
+  var totalDuration = Duration.zero.obs;
+  Future<void> playAudio(String path) async {
+    await player.setFilePath(path);
+    totalDuration.value = player.duration ?? Duration.zero;
+
+    player.positionStream.listen((pos) {
+      currentPosition.value = pos;
+    });
+
+    player.playerStateStream.listen((state) {
+      isPlaying.value = state.playing;
+    });
+
+    await player.play();
   }
 
-  // Send recorded audio (draft -> message)
-  Future<void> sendDraftAudio() async {
-    final att = draftAttachment.value;
-    if (att == null) return;
-    final msg = MessageModel(
-      messageId: DateTime.now().toIso8601String(),
-      senderUid: "user1",
-      receiverUid: "user2",
-      senderName: "Alice",
-      receiverName: "Bob",
-      senderProfile: "assets/images/alice.jpg",
-      receiverProfile: "assets/images/bob.jpg",
-      text: null,
-      attachment: att,
-      createdAt: DateTime.now(),
-    );
-    messages.add(msg);
-    // Réinitialiser l’état pour un nouvel enregistrement
-    draftAttachment.value = null;
-    currentRecordingPath = null;
-    recordingDuration.value = Duration.zero;
-   /* Future.delayed(const Duration(milliseconds: 1500), (){
-      cancelDraftAudio();
-    }); */
+  // Pause
+  Future<void> pauseAudio() async {
+    await player.pause();
   }
 
-  /// Supprimer le draft et le fichier temporaire
-  Future<void> cancelDraftAudio() async {
-    if (currentRecordingPath != null) {
-      final f = File(currentRecordingPath!);
-      if (await f.exists()) await f.delete();
-    }
-    currentRecordingPath = null;
-    draftAttachment.value = null;
+  // Stop
+  Future<void> stopAudio() async {
+    await player.stop();
+    currentPosition.value = Duration.zero;
   }
-
-  // ---------------- Playback helper (optional centralized player) ----------------
-  // You can use sharedPlayer or a per-widget player. Here are helper wrappers:
-  Future<void> playFile(String path) async {
-    try {
-      await sharedPlayer.setFilePath(path);
-      await sharedPlayer.play();
-    } catch (e) {
-      debugPrint('playFile error: $e');
-    }
-  }
-
-  Future<void> pausePlayback() async => await sharedPlayer.pause();
-  Future<void> stopPlayback() async => await sharedPlayer.stop();
-
+  */
 
   @override
   void onClose() {
-    _recordTick?.cancel();
-    sharedPlayer.dispose();
+    //player.dispose();
     record.dispose();
     super.onClose();
   }
@@ -431,6 +309,20 @@ class DiscussionDetailsController extends GetxController {
   }
 
   ///Upoad Media
+  /* var pickedAttachment = Rx<File?>(null);
+  Future<void> pickFromGallery() async {
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      pickedAttachment.value = File(pickedFile.path);
+    }
+  }
+  Future<void> pickVideo() async {
+    final pickedFile = await ImagePicker().pickVideo(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      pickedAttachment.value = File(pickedFile.path);
+    }
+  } */
+
   Future<void> pickMediaFromGalley() async {
     final pickedFile = await ImagePicker().pickMedia(); // peut être image ou vidéo
 

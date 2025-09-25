@@ -26,7 +26,8 @@ class SplashController extends GetxController {
 
       } */
 
-      Get.offAllNamed(Routes.navigationScreen);
+      Get.offAllNamed(Routes.onboardingScreen);
+      //Get.offAllNamed(Routes.navigationScreen);
       ///Without deep link
      /* if(PrefUtils.getEmail() != null || PrefUtils.getEmail()!.isNotEmpty){
         Get.offAllNamed(Routes.navigationScreen);

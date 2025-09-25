@@ -1,6 +1,6 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/data/models/message_model.dart';
-import 'package:dating_app_bilhalal/widgets/audio_player_widget.dart';
+import 'package:dating_app_bilhalal/widgets/chat/audio_player_widget.dart';
 import 'package:dating_app_bilhalal/widgets/custom_image_view.dart';
 import 'package:dating_app_bilhalal/widgets/video_preview_widget.dart';
 import 'package:flutter/material.dart';

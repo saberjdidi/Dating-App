@@ -4,6 +4,7 @@ import 'package:dating_app_bilhalal/data/models/message_model.dart';
 import 'package:dating_app_bilhalal/presentation/discussion_screen/controller/discussion_details_controller.dart';
 import 'package:dating_app_bilhalal/presentation/settings_screen/controller/settings_controller.dart';
 import 'package:dating_app_bilhalal/widgets/app_bar/appbar_widget.dart';
+import 'package:dating_app_bilhalal/widgets/chat/draft_audio_widget.dart';
 import 'package:dating_app_bilhalal/widgets/chat/message_bubble.dart';
 import 'package:dating_app_bilhalal/widgets/circle_icon_button.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
@@ -189,6 +190,141 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
   }
 
   Widget buildMessageInput(BuildContext context) {
+    final controller = DiscussionDetailsController.instance;
+    const double cancelThreshold = -80.0; // pixels to the left
+
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Si draft existe, afficher DraftAudioWidget
+            Obx(() {
+              final draft = controller.draftAttachment.value;
+              if (draft != null && draft.type == MessageType.audio && draft.file != null) {
+                return DraftAudioWidget(attachment: draft);
+              }
+              return SizedBox.shrink();
+            }),
+            Row(
+              children: [
+                IconButton(icon: Icon(Icons.add, color: TColors.buttonSecondary, size: 30.adaptSize), onPressed: () {
+                  controller.showAttachmentOptions(context);
+                }),
+
+                // Bouton toggle (un clic start/stop)
+                Obx(() {
+                  return CircleAvatar(
+                    radius: 20,
+                    backgroundColor: controller.isRecording.value ? Colors.red : Colors.grey.shade300,
+                    child: IconButton(
+                      icon: Icon(controller.isRecording.value ? Icons.stop : Icons.keyboard_voice_outlined, color: Colors.white),
+                      onPressed: () async => await controller.toggleRecording(),
+                    ),
+                  );
+                }),
+                // Long press mic (record)
+              /*
+                GestureDetector(
+                  onLongPressStart: (_) async {
+                    await controller.startRecording();
+                  },
+                  onLongPressMoveUpdate: (details) {
+                    // details.offsetFromOrigin.dx : negative quand l'utilisateur glisse vers la gauche
+                    if (details.offsetFromOrigin.dx < cancelThreshold) {
+                      controller.isCancelRecording.value = true;
+                    } else {
+                      controller.isCancelRecording.value = false;
+                    }
+                  },
+                  onLongPressEnd: (_) async {
+                    final canceled = controller.isCancelRecording.value;
+                    await controller.stopRecordingAndPrepare(canceled: canceled);
+                  },
+                  child: Obx(() {
+                    final rec = controller.isRecording.value;
+                    return CircleAvatar(
+                      radius: 15,
+                      backgroundColor: rec ? Colors.red : Colors.grey.shade300,
+                      child: Icon(rec ? Icons.mic : Icons.keyboard_voice_outlined, color: Colors.white),
+                    );
+                  }),
+                ),
+                */
+
+                SizedBox(width: 8),
+
+                Expanded(
+                  child: CustomTextFormField(
+                    controller: controller.messageController,
+                    hintText: "اكتب رسالة",
+                    textInputType: TextInputType.text,
+                    prefixConstraints: BoxConstraints(maxHeight: 60.v),
+                    contentPadding: EdgeInsets.only(top: 15.v, right: 15.hw, left: 15.hw, bottom: 15.v),
+                    validator: (value) => Validator.validateEmptyText('${'Message'.tr}', value),
+                    borderDecoration: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15.adaptSize),
+                        borderSide: BorderSide(color: TColors.greyDating, width: 0.8)
+                      //borderSide: BorderSide.none,
+                    ),
+                  ),
+                ),
+
+                CustomImageView(
+                  imagePath: ImageConstant.imgSend,
+                  width: 50.adaptSize,
+                  height: 50.adaptSize,
+                  radius: BorderRadius.circular(50.adaptSize),
+                  onTap: () async {
+                    await controller.sendMessage();
+                  },
+                ),
+              ],
+            ),
+
+            // Small recording overlay while recording
+            Obx(() {
+              if (!controller.isRecording.value) return SizedBox.shrink();
+              return Container(
+                margin: EdgeInsets.only(top: 6),
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.7),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.mic, color: Colors.white, size: 18),
+                    SizedBox(width: 8),
+                    Text(
+                      _format(controller.recordingDuration.value),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    SizedBox(width: 12),
+                    Obx(() => Text(
+                      controller.isCancelRecording.value ? 'Release to cancel' : 'Slide left to cancel',
+                      style: TextStyle(color: controller.isCancelRecording.value ? Colors.redAccent : Colors.white70),
+                    )),
+                  ],
+                ),
+              );
+            }),
+          ],
+        ),
+      ),
+    );
+  }
+
+  String _format(Duration d) {
+    final m = d.inMinutes.remainder(60).toString().padLeft(2, '0');
+    final s = d.inSeconds.remainder(60).toString().padLeft(2, '0');
+    return "$m:$s";
+  }
+
+/*
+  Widget buildMessageInput(BuildContext context) {
     return SafeArea(
       child: Padding(
         padding: EdgeInsets.all(10.adaptSize),
@@ -286,6 +422,7 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
       ),
     );
   }
+  */
 }
 
 

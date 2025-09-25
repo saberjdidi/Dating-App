@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/presentation/discussion_screen/controller/discussion_details_controller.dart';
@@ -13,13 +14,54 @@ class AudioPlayerWidget extends StatefulWidget {
   _AudioPlayerWidgetState createState() => _AudioPlayerWidgetState();
 }
 class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
-  final player = AudioPlayer();
-  bool isPlaying = false;
+  late final AudioPlayer _player;
+  StreamSubscription<Duration>? _posSub;
+  StreamSubscription<PlayerState>? _stateSub;
+  Duration _duration = Duration.zero;
+  Duration _position = Duration.zero;
+  bool _isPlaying = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _player = AudioPlayer();
+    _init();
+  }
+
+  Future<void> _init() async {
+    try {
+      await _player.setFilePath(widget.file.path);
+      _duration = _player.duration ?? Duration.zero;
+
+      _posSub = _player.positionStream.listen((p) {
+        setState(() => _position = p);
+      });
+
+      _stateSub = _player.playerStateStream.listen((state) {
+        setState(() => _isPlaying = state.playing);
+        // When completed, reset position
+        if (state.processingState == ProcessingState.completed) {
+          _player.seek(Duration.zero);
+          _player.pause();
+        }
+      });
+    } catch (e) {
+      debugPrint('AudioPlayer init error: $e');
+    }
+  }
 
   @override
   void dispose() {
-    player.dispose();
+    _posSub?.cancel();
+    _stateSub?.cancel();
+    _player.dispose();
     super.dispose();
+  }
+
+  String _formatTime(Duration d) {
+    final s = d.inSeconds.remainder(60).toString().padLeft(2, '0');
+    final m = d.inMinutes.remainder(60).toString().padLeft(2, '0');
+    return "$m:$s";
   }
 
   @override
@@ -27,18 +69,34 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
     return Row(
       children: [
         IconButton(
-          icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
+          icon: Icon(_isPlaying ? Icons.pause_circle : Icons.play_circle_fill, size: 30),
           onPressed: () async {
-            if (isPlaying) {
-              await player.pause();
-            } else {
-              await player.setFilePath(widget.file.path);
-              await player.play();
-            }
-            setState(() => isPlaying = !isPlaying);
+            if (_isPlaying) await _player.pause();
+            else await _player.play();
           },
         ),
-        Text(widget.file.path.split('/').last),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Slider(
+                min: 0,
+                max: _duration.inMilliseconds.toDouble() > 0 ? _duration.inMilliseconds.toDouble() : 1,
+                value: _position.inMilliseconds.toDouble().clamp(0, _duration.inMilliseconds.toDouble() > 0 ? _duration.inMilliseconds.toDouble() : 1),
+                onChanged: (value) {
+                  _player.seek(Duration(milliseconds: value.toInt()));
+                },
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(_formatTime(_position), style: TextStyle(fontSize: 12)),
+                  Text(_formatTime(_duration), style: TextStyle(fontSize: 12)),
+                ],
+              )
+            ],
+          ),
+        ),
       ],
     );
   }
