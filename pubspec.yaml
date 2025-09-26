@@ -67,6 +67,7 @@ dependencies:
   #device_preview: ^1.1.0 # to review ui in many device
   record: ^5.0.5 #recording audio
   just_audio: ^0.9.37 #Reading audio
+  contacts_service: ^0.6.3
 
 dev_dependencies:
   flutter_test:

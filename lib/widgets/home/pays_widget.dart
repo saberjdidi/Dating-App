@@ -25,7 +25,7 @@ class PaysWidget extends StatelessWidget {
         child: Directionality(
           textDirection: TextDirection.rtl,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               /// Colonne pour l'image + texte
@@ -35,6 +35,7 @@ class PaysWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    SizedBox(width: 5.adaptSize),
                     if (imagePath != ImageConstant.logo)
                       CustomImageView(
                         imagePath: imagePath,
@@ -50,7 +51,7 @@ class PaysWidget extends StatelessWidget {
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.w600,
-                          fontSize: 18,
+                          fontSize: 20.adaptSize,
                         ),
                       ),
                     ),
@@ -62,6 +63,7 @@ class PaysWidget extends StatelessWidget {
               Container(
                 height: 30.adaptSize,
                 width: 30.adaptSize,
+                //margin: EdgeInsets.only(left: 10),
                 decoration: BoxDecoration(
                   color: isSelected ? Colors.grey : Colors.transparent,
                   border: Border.all(color: Colors.blueGrey, width: 1),
@@ -71,6 +73,7 @@ class PaysWidget extends StatelessWidget {
                     ? Icon(Icons.check, size: 18, color: TColors.yellowAppDark)
                     : null,
               ),
+              SizedBox(width: 20.hw,)
             ],
           ),
         ),

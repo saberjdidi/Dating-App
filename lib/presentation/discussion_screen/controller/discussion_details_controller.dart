@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:contacts_service/contacts_service.dart';
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/data/datasources/message_local_data_source.dart';
 import 'package:dating_app_bilhalal/data/models/attachment_model.dart';
@@ -11,6 +12,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:record/record.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
@@ -35,7 +37,7 @@ class DiscussionDetailsController extends GetxController {
   var isCancelRecording = false.obs; // set by drag detection
 
   // Draft attachment (audio ready to send but not sent yet)
-  var draftAttachment = Rxn<AttachmentModel>();
+  //var draftAttachment = Rxn<AttachmentModel>();
 
   // Optional: a central player you may want to reuse (or use one per widget)
   final AudioPlayer sharedPlayer = AudioPlayer();
@@ -55,7 +57,7 @@ class DiscussionDetailsController extends GetxController {
     // Avant de commencer un nouvel enregistrement, on reset tout
     //await cancelDraftAudio();  // <-- reset complet
     // Réinitialiser l’état pour un nouvel enregistrement
-    draftAttachment.value = null;
+    pickedAttachment.value = null;
     currentRecordingPath = null;
     recordingDuration.value = Duration.zero;
 
@@ -130,7 +132,7 @@ class DiscussionDetailsController extends GetxController {
 
   /// Arrêter l'enregistrement et créer l'AttachmentModel puis l'envoyer
   // Called when user releases long press
-  // if canceled -> delete temp file and reset, else prepare draftAttachment
+  // if canceled -> delete temp file and reset, else prepare pickedAttachment
   Future<void> stopRecordingAndPrepare() async {
     final path = await record.stop();
     _recordStopwatch?.stop();
@@ -140,7 +142,7 @@ class DiscussionDetailsController extends GetxController {
 
     if (path != null) {
       final f = File(path);
-      draftAttachment.value = AttachmentModel(
+      pickedAttachment.value = AttachmentModel(
         type: MessageType.audio,
         file: f,
         name: p.basename(path),
@@ -206,7 +208,7 @@ class DiscussionDetailsController extends GetxController {
       }
     } catch (_) {}
     currentRecordingPath = null;
-    draftAttachment.value = null;
+    pickedAttachment.value = null;
     isRecording.value = false;
     recordingDuration.value = Duration.zero;
     _recordTick?.cancel();
@@ -214,20 +216,20 @@ class DiscussionDetailsController extends GetxController {
 
   // Delete a draft audio (before send)
   Future<void> deleteDraftAudio() async {
-    final att = draftAttachment.value;
+    final att = pickedAttachment.value;
     if (att?.file != null) {
       try {
         final f = att!.file!;
         if (await f.exists()) await f.delete();
       } catch (_) {}
     }
-    draftAttachment.value = null;
+    pickedAttachment.value = null;
     recordingDuration.value = Duration.zero;
   }
 
   // Send recorded audio (draft -> message)
   Future<void> sendDraftAudio() async {
-    final att = draftAttachment.value;
+    final att = pickedAttachment.value;
     if (att == null) return;
     final msg = MessageModel(
       messageId: DateTime.now().toIso8601String(),
@@ -243,7 +245,7 @@ class DiscussionDetailsController extends GetxController {
     );
     messages.add(msg);
     // Réinitialiser l’état pour un nouvel enregistrement
-    draftAttachment.value = null;
+    pickedAttachment.value = null;
     currentRecordingPath = null;
     recordingDuration.value = Duration.zero;
    /* Future.delayed(const Duration(milliseconds: 1500), (){
@@ -258,7 +260,7 @@ class DiscussionDetailsController extends GetxController {
       if (await f.exists()) await f.delete();
     }
     currentRecordingPath = null;
-    draftAttachment.value = null;
+    pickedAttachment.value = null;
   }
 
   // ---------------- Playback helper (optional centralized player) ----------------
@@ -421,6 +423,7 @@ class DiscussionDetailsController extends GetxController {
                     icon: Icon(Icons.person_pin_outlined, color: TColors.black.withOpacity(0.9), size: 35.adaptSize,),
                     onPressed: (){
                       Navigator.pop(context);
+                      pickContact(context);
                     },
                   ),
                 ),
@@ -484,6 +487,102 @@ class DiscussionDetailsController extends GetxController {
       ); // Ton Rx<File?>
     }
   }
+
+  ///Contact Start
+  Future<List<Contact>> getContacts() async {
+    // Vérifier la permission
+    var status = await Permission.contacts.status;
+    if (!status.isGranted) {
+      status = await Permission.contacts.request();
+    }
+
+    if (status.isGranted) {
+      // Récupérer les contacts
+      return await ContactsService.getContacts(withThumbnails: false).then((contacts) => contacts.toList());
+    } else {
+      MessageSnackBar.warningSnackBar(title: 'Permission', message: "Permission refusée pour accéder aux contacts");
+      throw Exception("Permission refusée pour accéder aux contacts");
+    }
+  }
+
+  Future<void> pickContact(BuildContext context) async {
+    try {
+      List<Contact> contacts = await getContacts();
+      List<Contact> filteredContacts = List.from(contacts);
+      TextEditingController searchController = TextEditingController();
+
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        builder: (_) {
+          return StatefulBuilder(
+            builder: (context, setState) {
+              return Padding(
+                padding: const EdgeInsets.only(top: 50, left: 10, right: 10),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Champ de recherche
+                    TextField(
+                      controller: searchController,
+                      decoration: InputDecoration(
+                        hintText: "Rechercher un contact",
+                        prefixIcon: Icon(Icons.search),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          filteredContacts = contacts.where((contact) {
+                            String name = contact.displayName ?? "";
+                            return name.toLowerCase().contains(value.toLowerCase());
+                          }).toList();
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 10),
+
+                    // Liste des contacts filtrés
+                    Expanded(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: filteredContacts.length,
+                        itemBuilder: (context, index) {
+                          Contact contact = filteredContacts[index];
+                          String name = contact.displayName ?? "Inconnu";
+                          String phone = contact.phones!.isNotEmpty
+                              ? contact.phones!.first.value ?? ""
+                              : "";
+
+                          return ListTile(
+                            title: Text(name),
+                            subtitle: Text(phone),
+                            onTap: () {
+                              messageController.text = "$name - $phone";
+                              Navigator.pop(context);
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        },
+      );
+    } catch (e) {
+      print("Erreur: $e");
+    }
+  }
+
+
+///Contact End
 
 }
 

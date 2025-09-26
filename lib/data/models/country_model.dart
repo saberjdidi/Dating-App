@@ -20,4 +20,5 @@ final countriesList = [
   CountryModel(name: "السعودیة", imagePath: ImageConstant.paysArabeSaoudite),
   CountryModel(name: "العراق", imagePath: ImageConstant.paysIraq),
   CountryModel(name: "عمان", imagePath: ImageConstant.paysOman),
+  CountryModel(name: "المغرب", imagePath: ImageConstant.paysMarroc),
 ];

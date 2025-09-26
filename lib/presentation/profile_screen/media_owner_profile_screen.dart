@@ -6,7 +6,7 @@ import 'package:dating_app_bilhalal/widgets/circular_container.dart';
 import 'package:dating_app_bilhalal/widgets/grid_layout.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
-import 'package:dating_app_bilhalal/widgets/video_preview_widget.dart';
+import 'package:dating_app_bilhalal/widgets/chat/video_preview_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 

@@ -45,29 +45,30 @@ class TabbedPageWidget extends StatelessWidget {
             onTabChanged(index);
           },
           ///Ligne design of Text
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                tabs[index].title,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: isActive ? activeColor : inactiveColor,
+          child: IntrinsicWidth(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  tabs[index].title,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: isActive ? activeColor : inactiveColor,
+                  ),
+                  maxLines: 2,
                 ),
-                maxLines: 2,
-              ),
-              const SizedBox(height: 4),
-              // Ligne seulement si actif
-              if (isActive)
-                Container(
-                  height: 2,
-                  width: tabs[index].title.length  > 10
-                      ? 80
-                      : 40,
-                  color: activeColor,
-                ),
-            ],
+                //const SizedBox(height: 4),
+                // Ligne seulement si actif
+                if (isActive)
+                  Container(
+                    margin: const EdgeInsets.only(top: 3),
+                    height: 2,
+                    //width: tabs[index].title.length  > 10 ? 80 : 40,
+                    color: activeColor,
+                  ),
+              ],
+            ),
           ),
           ///Rounded design of Text
          /* child: Container(

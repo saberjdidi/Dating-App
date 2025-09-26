@@ -2,7 +2,7 @@ import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/data/models/message_model.dart';
 import 'package:dating_app_bilhalal/widgets/chat/audio_player_widget.dart';
 import 'package:dating_app_bilhalal/widgets/custom_image_view.dart';
-import 'package:dating_app_bilhalal/widgets/video_preview_widget.dart';
+import 'package:dating_app_bilhalal/widgets/chat/video_preview_widget.dart';
 import 'package:flutter/material.dart';
 
 class MessageBubble extends StatelessWidget {
@@ -61,12 +61,14 @@ class MessageBubble extends StatelessWidget {
                     if (message.attachment!.type == MessageType.image && message.attachment!.url != null)
                       CustomImageView(
                         imagePath: message.attachment!.url,
-                        height: 150,
+                        height: 200,
+                        width: Get.width * 0.7,
                       ),
                     if (message.attachment!.type == MessageType.image && message.attachment!.file != null)
                       CustomImageView(
                         file: message.attachment!.file,
-                        height: 150,
+                        height: 200,
+                        width: Get.width * 0.7,
                       ),
 
                     ///Video
@@ -75,8 +77,8 @@ class MessageBubble extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                         child: SizedBox(
                           //height: Get.height,
-                          height: 200, // Taille fixe
-                          width: Get.width * 0.5,
+                          height: 200,
+                          width: Get.width * 0.7,
                           child: VideoPreviewWidget(file: message.attachment!.file),
                         ),
                       ),
@@ -89,12 +91,16 @@ class MessageBubble extends StatelessWidget {
                     if (message.attachment!.type == MessageType.camera && message.attachment!.file != null)
                       CustomImageView(
                         file: message.attachment!.file,
-                        height: 150,
+                        height: 200,
+                        width: Get.width * 0.7,
                       ),
 
                     ///Message vocal
                     if (message.attachment?.type == MessageType.audio && message.attachment?.file != null)
-                      AudioPlayerWidget(file: message.attachment!.file!),
+                      SizedBox(
+                          width: Get.width * 0.7,
+                          child: AudioPlayerWidget(file: message.attachment!.file!)
+                      ),
 
                   /*  if (message.attachment!.type == MessageType.video && message.attachment!.url != null)
                       Container(

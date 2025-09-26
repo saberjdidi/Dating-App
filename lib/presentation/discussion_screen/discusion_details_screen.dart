@@ -201,7 +201,7 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
           children: [
             // Si draft existe, afficher DraftAudioWidget
             Obx(() {
-              final draft = controller.draftAttachment.value;
+              final draft = controller.pickedAttachment.value;
               if (draft != null && draft.type == MessageType.audio && draft.file != null) {
                 return DraftAudioWidget(attachment: draft);
               }

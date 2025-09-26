@@ -20,6 +20,8 @@
     <string>We need access to your photo library so you can select and upload images or videos to personalize your profile.</string>
     <key>NSMicrophoneUsageDescription</key>
     <string>Microphone access is required when recording videos and audios to include audio in your content.</string>
+    <key>NSContactsUsageDescription</key>
+    <string>We need access to your contacts to allow you to easily select and share contact information within the app.</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

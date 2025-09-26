@@ -38,7 +38,7 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
     BottomMenuModel(
       icon: ImageConstant.profileSettingsImg,
       activeIcon: ImageConstant.profileSettingsImg,
-      title: "الملف الشخصي".tr,
+      title: "إعدادات".tr,
       type: BottomBarEnum.Profile,
     )
   ];
@@ -47,6 +47,11 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
 
   @override
   Widget build(BuildContext context) {
+    mediaQueryData = MediaQuery.of(context);
+    var screenWidth = mediaQueryData.size.width;
+    var isSmallPhone = screenWidth < 360;
+    var isTablet = screenWidth >= 600;
+
     return Container(
       height: 90.v,
       decoration: BoxDecoration(
@@ -79,7 +84,12 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
                       width: 30.adaptSize,
                       color: TColors.grey300,
                     ),
-                    Text(bottomMenuList[index].title!, style: TextStyle(color: TColors.greyDating, fontSize: 22.adaptSize),)
+                    Text(bottomMenuList[index].title!,
+                      style: TextStyle(
+                          color: TColors.greyDating,
+                          fontSize:  isTablet ? 20.adaptSize : isSmallPhone ? 15.adaptSize : 16.adaptSize
+                      ),
+                    )
                   ],
                 ),
                 activeIcon: Column(
@@ -93,7 +103,12 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
                       color: TColors.yellowAppDark,
                       //color: theme.colorScheme.primary,
                     ),
-                    Text(bottomMenuList[index].title!, style: TextStyle(color: TColors.yellowAppDark, fontSize: 22.adaptSize),)
+                    Text(bottomMenuList[index].title!,
+                      style: TextStyle(
+                          color: TColors.yellowAppDark,
+                          fontSize: isTablet ? 20.adaptSize : isSmallPhone ? 15.adaptSize : 16.adaptSize
+                      ),
+                    )
                   ],
                 ),
                 label: '',
