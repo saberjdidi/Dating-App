@@ -54,6 +54,10 @@ class DiscussionDetailsController extends GetxController {
   Future<void> startRecording() async {
     // Avant de commencer un nouvel enregistrement, on reset tout
     //await cancelDraftAudio();  // <-- reset complet
+    // Réinitialiser l’état pour un nouvel enregistrement
+    draftAttachment.value = null;
+    currentRecordingPath = null;
+    recordingDuration.value = Duration.zero;
 
     final hasPermission = await record.hasPermission();
     if (!hasPermission) {

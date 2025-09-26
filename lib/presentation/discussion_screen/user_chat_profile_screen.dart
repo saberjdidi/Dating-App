@@ -43,10 +43,12 @@ class UserChatProfileScreen extends GetView<UserChatProfileController> {
                     top: 20,
                     left: 20,
                     child:  CircleIconButton(
-                      size: 50.adaptSize,
+                      size: 60.adaptSize,
+                      minTapSize: 60.adaptSize,
+                      effectiveSize: 60.adaptSize,
                       backgroundColor: TColors.greyDating.withOpacity(0.5),
                       child: IconButton(
-                        icon: Icon(Iconsax.share, color: TColors.white, size: 40.adaptSize,),
+                        icon: Icon(Iconsax.share, color: TColors.white, size: 30.adaptSize,),
                         onPressed: (){
                           Navigator.pop(context);
                         },
@@ -59,10 +61,12 @@ class UserChatProfileScreen extends GetView<UserChatProfileController> {
                     top: 20,
                     right: 20,
                     child: CircleIconButton(
-                      size: 50.adaptSize,
+                      size: 60.adaptSize,
+                      minTapSize: 60.adaptSize,
+                      effectiveSize: 60.adaptSize,
                       backgroundColor: TColors.greyDating.withOpacity(0.5),
                       child: IconButton(
-                        icon: Icon(Icons.arrow_forward_outlined, color: TColors.white, size: 40.adaptSize,),
+                        icon: Icon(Icons.arrow_forward_outlined, color: TColors.white, size: 30.adaptSize,),
                         onPressed: (){
                           Navigator.pop(context);
                         },

@@ -21,8 +21,6 @@ class OnBoardingController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    //PrefUtils.setIsFirstTime(true);
-    //PrefUtils.setIsBoarding("true");
   }
 
   /// Jump to the specific dot selected page
@@ -38,16 +36,16 @@ class OnBoardingController extends GetxController {
   }
 
    onTapSignIn() async {
-      final storage = GetStorage();
-      storage.write('IsFirstTime', false);
+      //final storage = GetStorage();
+      //storage.write('IsFirstTime', false);
       await PrefUtils.setOnBoarding("OnBoarding");
-      //Get.offAll(Routes.signInScreen);
+      //await PrefUtils.setOnBoarding("OnBoarding");
       Get.offAllNamed(Routes.signInScreen);
   }
 
   onTapSignup() async {
-    final storage = GetStorage();
-    storage.write('IsFirstTime', false);
+    //final storage = GetStorage();
+    //storage.write('IsFirstTime', false);
     await PrefUtils.setOnBoarding("OnBoarding");
     //Get.offAll(Routes.signInScreen);
     Get.offAllNamed(Routes.signUpScreen);

@@ -64,9 +64,9 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                   LineStepperWidget(
                     stepCount: controller.dotCount.value,
                     activeStep: controller.activeStep.value,
-                    dotRadius: 10,
-                    spacing: 10,
-                    connectorWidth: 40,
+                    dotRadius: 8,
+                    spacing: 0,
+                    connectorWidth: 60,
                     activeColor: TColors.black,
                     inactiveColor: TColors.greyDating,
                     onStepTapped: (index) {

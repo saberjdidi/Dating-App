@@ -21,6 +21,85 @@ class PaysWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: TRoundedContainer(
+        width: Get.width * 0.4,
+        child: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              /// Colonne pour l'image + texte
+              Expanded(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    if (imagePath != ImageConstant.logo)
+                      CustomImageView(
+                        imagePath: imagePath,
+                        height: 20.adaptSize,
+                        width: 20.adaptSize,
+                        fit: BoxFit.fill,
+                      ),
+                    SizedBox(width: 5.adaptSize),
+                    Flexible(
+                      child: Text(
+                        text,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              /// Colonne pour la checkbox custom
+              Container(
+                height: 30.adaptSize,
+                width: 30.adaptSize,
+                decoration: BoxDecoration(
+                  color: isSelected ? Colors.grey : Colors.transparent,
+                  border: Border.all(color: Colors.blueGrey, width: 1),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: isSelected
+                    ? Icon(Icons.check, size: 18, color: TColors.yellowAppDark)
+                    : null,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+///Method 2, pas l'alignement vertical des checkbox
+/*
+class PaysWidget extends StatelessWidget {
+  final String text;
+  final String? imagePath;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const PaysWidget({
+    super.key,
+    required this.text,
+    required this.imagePath,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: TRoundedContainer(
         //height: isTablet ? 20.hw : 52.hw,
         width: Get.width * 0.4,
         child: Directionality(
@@ -81,3 +160,4 @@ class PaysWidget extends StatelessWidget {
     );
   }
 }
+ */

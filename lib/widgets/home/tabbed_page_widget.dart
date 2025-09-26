@@ -44,7 +44,33 @@ class TabbedPageWidget extends StatelessWidget {
             controller.selectedIndex.value = index;
             onTabChanged(index);
           },
-          child: Container(
+          ///Ligne design of Text
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                tabs[index].title,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: isActive ? activeColor : inactiveColor,
+                ),
+                maxLines: 2,
+              ),
+              const SizedBox(height: 4),
+              // Ligne seulement si actif
+              if (isActive)
+                Container(
+                  height: 2,
+                  width: tabs[index].title.length  > 10
+                      ? 80
+                      : 40,
+                  color: activeColor,
+                ),
+            ],
+          ),
+          ///Rounded design of Text
+         /* child: Container(
             padding: EdgeInsets.symmetric(vertical: 6, horizontal: isSmallPhone ? 3 : 16),
             decoration: BoxDecoration(
               color: isActive ? TColors.yellowAppLight.withOpacity(0.1) : TColors.greyDating.withOpacity(0.6),
@@ -59,7 +85,7 @@ class TabbedPageWidget extends StatelessWidget {
               ),
               maxLines: 2,
             ),
-          ),
+          ), */
         );
       }),
     ));

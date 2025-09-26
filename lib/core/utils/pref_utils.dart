@@ -102,6 +102,37 @@ class PrefUtils {
 
   static String? getTheme() => _sharedPreferences!.getString(_KeyTheme);
 
+  /// OnBoarding
+  static Future setOnBoarding(String value) async =>
+      await _sharedPreferences!.setString(_KeyOnBoarding, value);
+
+  static String? getOnBoarding() => _sharedPreferences!.getString(_KeyOnBoarding);
+
+  static Future<void> clearOnBoarding() async {
+    await _sharedPreferences!.remove(_KeyOnBoarding);
+  }
+
+  static Future<void> setIsOnBoarding(bool value) async {
+    await _sharedPreferences!.setBool(_KeyIsBoarding, value);
+  }
+  static Future<bool> getIsOnBoarding() async {
+    return _sharedPreferences!.getBool(_KeyIsBoarding) ?? false;
+  }
+  static Future<void> clearIsOnBoarding() async {
+    await _sharedPreferences!.remove(_KeyIsBoarding);
+  }
+
+  // Vérifications
+  static bool isFirstTime() {
+    final onboarding = getOnBoarding();
+    return onboarding == null || onboarding.isEmpty;
+  }
+
+  static bool isLoggedIn() {
+    final email = getEmail();
+    return email != null && email.isNotEmpty;
+  }
+
   ///Token
   static Future setToken(String token) async =>
       await _sharedPreferences!.setString(_KeyToken, token);
@@ -121,6 +152,7 @@ class PrefUtils {
   static Future<void> clearEmail() async {
     await _sharedPreferences!.remove(_keyEmail);
   }
+
 
   ///FirstName
   static Future setFirstname(String firstName) async =>
@@ -191,15 +223,6 @@ class PrefUtils {
     await _sharedPreferences!.remove(_KeyPasswordLogin);
   }
 
-  ///OnBoarding
-  static Future setOnBoarding(String value) async =>
-      await _sharedPreferences!.setString(_KeyOnBoarding, value);
-
-  static String? getOnBoarding() => _sharedPreferences!.getString(_KeyOnBoarding);
-
-  static Future<void> clearOnBoarding() async {
-    await _sharedPreferences!.remove(_KeyOnBoarding);
-  }
 
   //Logo
   static Future setLogoUser(String value) async =>
@@ -250,4 +273,3 @@ class PrefUtils {
   }
 
 }
-    

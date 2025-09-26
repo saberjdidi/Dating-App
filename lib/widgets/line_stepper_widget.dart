@@ -16,11 +16,11 @@ class LineStepperWidget extends StatelessWidget {
     required this.stepCount,
     required this.activeStep,
     this.onStepTapped,
-    this.dotRadius = 10,
-    this.spacing = 12,
+    this.dotRadius = 8,
+    this.spacing = 5,
     this.activeColor = Colors.black,
     this.inactiveColor = Colors.grey,
-    this.connectorHeight = 4,
+    this.connectorHeight = 8,
     this.connectorWidth = 40,
   }) : super(key: key);
 
@@ -41,10 +41,11 @@ class LineStepperWidget extends StatelessWidget {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 250),
           width: dotRadius * 3,
-          height: dotRadius * 1.5,
+          height: dotRadius * 1,
           decoration: BoxDecoration(
             color: isCompleted ? activeColor : inactiveColor,
-            shape: BoxShape.circle,
+            shape: BoxShape.rectangle,
+            //shape: BoxShape.circle,
             boxShadow: isCompleted
                 ? [BoxShadow(color: activeColor.withOpacity(0.25), blurRadius: 6, offset: const Offset(0,2))]
                 : [],
@@ -63,7 +64,7 @@ class LineStepperWidget extends StatelessWidget {
           height: connectorHeight,
           decoration: BoxDecoration(
             color: connectorActive ? activeColor : inactiveColor,
-            borderRadius: BorderRadius.circular(connectorHeight / 2),
+            borderRadius: BorderRadius.circular(connectorHeight),
           ),
         ));
         children.add(SizedBox(width: spacing / 2));
