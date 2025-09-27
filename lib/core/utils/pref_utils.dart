@@ -6,13 +6,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 class PrefUtils {
-  static SharedPreferences? _sharedPreferences;
+  static SharedPreferences? sharedPreferences;
 
-  PrefUtils() {
+ /* PrefUtils() {
     // init();
     SharedPreferences.getInstance().then((value) {
-      _sharedPreferences = value;
+      sharedPreferences = value;
     });
+  } */
+
+  // Appelée une seule fois au démarrage (main)
+  static Future<void> init() async {
+    sharedPreferences ??= await SharedPreferences.getInstance();
+    //print('SharedPreference Initialized');
   }
 
   static const _KeyIsBoarding = 'isBoarding';
@@ -35,23 +41,18 @@ class PrefUtils {
 
   static const _keySubscriptionPlan = 'subscriptionPlan';
 
-  Future<void> init() async {
-    _sharedPreferences ??= await SharedPreferences.getInstance();
-    //print('SharedPreference Initialized');
-  }
-
   ///will clear all the data stored in preference
   void clearPreferencesData() async {
-    _sharedPreferences!.clear();
+    sharedPreferences!.clear();
   }
 
   Future<void> setThemeData(String value) {
-    return _sharedPreferences!.setString('themeData', value);
+    return sharedPreferences!.setString('themeData', value);
   }
 
   String getThemeData() {
     try {
-      return _sharedPreferences!.getString('themeData')!;
+      return sharedPreferences!.getString('themeData')!;
     } catch (e) {
       return 'light';
       //return 'dark';
@@ -61,9 +62,9 @@ class PrefUtils {
   /*String getThemeData() {
     try {
       // Check if the 'themeData' key is present
-      if (_sharedPreferences!.containsKey('themeData')) {
+      if (sharedPreferences!.containsKey('themeData')) {
         // If yes, return the stored value
-        return _sharedPreferences!.getString('themeData')!;
+        return sharedPreferences!.getString('themeData')!;
       } else {
         // If not, set the default value ('dark') and return it
          setThemeData('dark');
@@ -76,50 +77,53 @@ class PrefUtils {
 
   ///Is Boarding
   static Future setIsBoarding(String numIdentity) async =>
-      await _sharedPreferences!.setString(_KeyIsBoarding, numIdentity);
+      await sharedPreferences!.setString(_KeyIsBoarding, numIdentity);
 
-  static String? getIsBoarding() => _sharedPreferences!.getString(_KeyIsBoarding);
+  static String? getIsBoarding() => sharedPreferences!.getString(_KeyIsBoarding);
 
   static Future<void> clearIsBoarding() async {
-    await _sharedPreferences!.remove(_KeyIsBoarding);
+    await sharedPreferences!.remove(_KeyIsBoarding);
   }
 
 
   static Future setLangue(String lang) async =>
-      await _sharedPreferences!.setString(_KeyLangue, lang);
+      await sharedPreferences!.setString(_KeyLangue, lang);
 
   static String? getLangue() {
     try {
-      return _sharedPreferences!.getString(_KeyLangue) ?? 'fr'; // Provide a default value
+      return sharedPreferences!.getString(_KeyLangue) ?? 'fr'; // Provide a default value
     } catch (e) {
       return 'fr';
     }
   }
-  //static String? getLangue() => _sharedPreferences!.getString(_KeyLangue);
+  //static String? getLangue() => sharedPreferences!.getString(_KeyLangue);
 
-  static Future setTheme(String lang) async =>
-      await _sharedPreferences!.setString(_KeyTheme, lang);
+  static Future setTheme(String theme) async =>
+      await sharedPreferences!.setString(_KeyTheme, theme);
 
-  static String? getTheme() => _sharedPreferences!.getString(_KeyTheme);
+  static String getTheme() {
+    return sharedPreferences?.getString(_KeyTheme) ?? 'light';
+  }
+  //static String? getTheme() => sharedPreferences!.getString(_KeyTheme);
 
   /// OnBoarding
   static Future setOnBoarding(String value) async =>
-      await _sharedPreferences!.setString(_KeyOnBoarding, value);
+      await sharedPreferences!.setString(_KeyOnBoarding, value);
 
-  static String? getOnBoarding() => _sharedPreferences!.getString(_KeyOnBoarding);
+  static String? getOnBoarding() => sharedPreferences!.getString(_KeyOnBoarding);
 
   static Future<void> clearOnBoarding() async {
-    await _sharedPreferences!.remove(_KeyOnBoarding);
+    await sharedPreferences!.remove(_KeyOnBoarding);
   }
 
   static Future<void> setIsOnBoarding(bool value) async {
-    await _sharedPreferences!.setBool(_KeyIsBoarding, value);
+    await sharedPreferences!.setBool(_KeyIsBoarding, value);
   }
   static Future<bool> getIsOnBoarding() async {
-    return _sharedPreferences!.getBool(_KeyIsBoarding) ?? false;
+    return sharedPreferences!.getBool(_KeyIsBoarding) ?? false;
   }
   static Future<void> clearIsOnBoarding() async {
-    await _sharedPreferences!.remove(_KeyIsBoarding);
+    await sharedPreferences!.remove(_KeyIsBoarding);
   }
 
   // Vérifications
@@ -135,133 +139,133 @@ class PrefUtils {
 
   ///Token
   static Future setToken(String token) async =>
-      await _sharedPreferences!.setString(_KeyToken, token);
+      await sharedPreferences!.setString(_KeyToken, token);
 
-  static String? getToken() => _sharedPreferences!.getString(_KeyToken);
+  static String? getToken() => sharedPreferences!.getString(_KeyToken);
 
   static Future<void> clearToken() async {
-    await _sharedPreferences!.remove(_KeyToken);
+    await sharedPreferences!.remove(_KeyToken);
   }
 
   ///Email
   static Future setEmail(String username) async =>
-      await _sharedPreferences!.setString(_keyEmail, username);
+      await sharedPreferences!.setString(_keyEmail, username);
 
-  static String? getEmail() => _sharedPreferences!.getString(_keyEmail);
+  static String? getEmail() => sharedPreferences!.getString(_keyEmail);
 
   static Future<void> clearEmail() async {
-    await _sharedPreferences!.remove(_keyEmail);
+    await sharedPreferences!.remove(_keyEmail);
   }
 
 
   ///FirstName
   static Future setFirstname(String firstName) async =>
-      await _sharedPreferences!.setString(_KeyFirstname, firstName);
+      await sharedPreferences!.setString(_KeyFirstname, firstName);
 
-  static String? getFirstname() => _sharedPreferences!.getString(_KeyFirstname);
+  static String? getFirstname() => sharedPreferences!.getString(_KeyFirstname);
 
   static Future<void> clearFirstname() async {
-    await _sharedPreferences!.remove(_KeyFirstname);
+    await sharedPreferences!.remove(_KeyFirstname);
   }
 
   ///LastName
   static Future setLastName(String lastName) async =>
-      await _sharedPreferences!.setString(_KeyLastname, lastName);
+      await sharedPreferences!.setString(_KeyLastname, lastName);
 
-  static String? getLastName() => _sharedPreferences!.getString(_KeyLastname);
+  static String? getLastName() => sharedPreferences!.getString(_KeyLastname);
 
   static Future<void> clearLastName() async {
-    await _sharedPreferences!.remove(_KeyLastname);
+    await sharedPreferences!.remove(_KeyLastname);
   }
 
   ///Address
   static Future setAddress(String address) async =>
-      await _sharedPreferences!.setString(_KeyAddress, address);
+      await sharedPreferences!.setString(_KeyAddress, address);
 
-  static String? getAddress() => _sharedPreferences!.getString(_KeyAddress);
+  static String? getAddress() => sharedPreferences!.getString(_KeyAddress);
 
   static Future<void> clearAddress() async {
-    await _sharedPreferences!.remove(_KeyAddress);
+    await sharedPreferences!.remove(_KeyAddress);
   }
 
   ///Phone Number
   static Future setPhoneNumber(String phone) async =>
-      await _sharedPreferences!.setString(_KeyPhoneNumber, phone);
+      await sharedPreferences!.setString(_KeyPhoneNumber, phone);
 
-  static String? getPhoneNumber() => _sharedPreferences!.getString(_KeyPhoneNumber);
+  static String? getPhoneNumber() => sharedPreferences!.getString(_KeyPhoneNumber);
 
   static Future<void> clearPhoneNumber() async {
-    await _sharedPreferences!.remove(_KeyPhoneNumber);
+    await sharedPreferences!.remove(_KeyPhoneNumber);
   }
 
   ///Birth Date
   static Future setBirthDate(String birthDate) async =>
-      await _sharedPreferences!.setString(_KeyBirthDate, birthDate);
+      await sharedPreferences!.setString(_KeyBirthDate, birthDate);
 
-  static String? getBirthDate() => _sharedPreferences!.getString(_KeyBirthDate);
+  static String? getBirthDate() => sharedPreferences!.getString(_KeyBirthDate);
 
   static Future<void> clearBirthDate() async {
-    await _sharedPreferences!.remove(_KeyBirthDate);
+    await sharedPreferences!.remove(_KeyBirthDate);
   }
 
   ///Email & Password Login
   static Future setEmailLogin(String value) async =>
-      await _sharedPreferences!.setString(_KeyEmailLogin, value);
+      await sharedPreferences!.setString(_KeyEmailLogin, value);
 
-  static String? getEmailLogin() => _sharedPreferences!.getString(_KeyEmailLogin);
+  static String? getEmailLogin() => sharedPreferences!.getString(_KeyEmailLogin);
 
   static Future<void> clearEmailLogin() async {
-    await _sharedPreferences!.remove(_KeyEmailLogin);
+    await sharedPreferences!.remove(_KeyEmailLogin);
   }
 
   static Future setPasswordLogin(String password) async =>
-      await _sharedPreferences!.setString(_KeyPasswordLogin, password);
+      await sharedPreferences!.setString(_KeyPasswordLogin, password);
 
-  static String? getPasswordLogin() => _sharedPreferences!.getString(_KeyPasswordLogin);
+  static String? getPasswordLogin() => sharedPreferences!.getString(_KeyPasswordLogin);
 
   static Future<void> clearPasswordLogin() async {
-    await _sharedPreferences!.remove(_KeyPasswordLogin);
+    await sharedPreferences!.remove(_KeyPasswordLogin);
   }
 
 
   //Logo
   static Future setLogoUser(String value) async =>
-      await _sharedPreferences!.setString(_KeyLogoUser, value);
+      await sharedPreferences!.setString(_KeyLogoUser, value);
 
-  static String? getLogoUser() => _sharedPreferences!.getString(_KeyLogoUser);
+  static String? getLogoUser() => sharedPreferences!.getString(_KeyLogoUser);
 
   static Future<void> clearLogoUser() async {
-    await _sharedPreferences!.remove(_KeyLogoUser);
+    await sharedPreferences!.remove(_KeyLogoUser);
   }
 
   ///Call Voice & Video
   static Future<void> setCallVoice(bool value) async {
     //final prefs = await SharedPreferences.getInstance();
-    await _sharedPreferences!.setBool(_keyCallVoice, value);
+    await sharedPreferences!.setBool(_keyCallVoice, value);
   }
 
   static Future<void> setCallVideo(bool value) async {
-    await _sharedPreferences!.setBool(_keyCallVideo, value);
+    await sharedPreferences!.setBool(_keyCallVideo, value);
 
     //final prefs = await SharedPreferences.getInstance();
     //await prefs.setBool(_keyCallVideo, value);
   }
 
   static Future<bool> getCallVoice() async {
-    return _sharedPreferences!.getBool(_keyCallVoice) ?? false;
+    return sharedPreferences!.getBool(_keyCallVoice) ?? false;
   }
 
   static Future<bool> getCallVideo() async {
-    return _sharedPreferences!.getBool(_keyCallVideo) ?? false;
+    return sharedPreferences!.getBool(_keyCallVideo) ?? false;
   }
 
   static Future<void> setSubscriptionPlan(Map<String, dynamic> plan) async {
-    await _sharedPreferences?.setString(_keySubscriptionPlan, jsonEncode(plan));
+    await sharedPreferences?.setString(_keySubscriptionPlan, jsonEncode(plan));
   }
 
 
   static Map<String, dynamic>? getSubscriptionPlan() {
-   final data = _sharedPreferences?.getString(_keySubscriptionPlan);
+   final data = sharedPreferences?.getString(_keySubscriptionPlan);
    if(data != null){
      return jsonDecode(data);
    }
@@ -269,7 +273,7 @@ class PrefUtils {
   }
 
   static Future<void> clearSubscriptionPlan() async {
-    await _sharedPreferences?.remove(_keySubscriptionPlan);
+    await sharedPreferences?.remove(_keySubscriptionPlan);
   }
 
 }

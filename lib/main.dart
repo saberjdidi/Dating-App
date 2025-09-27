@@ -1,11 +1,17 @@
 import 'package:dating_app_bilhalal/core/utils/initial_bindings.dart';
 import 'package:dating_app_bilhalal/routes/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/app_export.dart';
 
 void main() async  {
   WidgetsFlutterBinding.ensureInitialized();
+  // Initialise SharedPreferences AVANT de construire l'app
+  await PrefUtils.init();
+  /* await SharedPreferences.getInstance().then((prefs) {
+    PrefUtils.sharedPreferences = prefs;
+  }); */
   runApp(const MyApp());
   //For testing preview device
  /* DevicePreview(

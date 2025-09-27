@@ -209,7 +209,9 @@ class ThemeHelper {
   PrimaryColors themeColor() => _getThemeColors();
 
   ThemeData getCurrentTheme() {
-    return getLightTheme();
+    final theme = PrefUtils.getTheme(); // safe : renvoie 'light' par défaut
+    return theme == 'dark' ? getDarkTheme() : getLightTheme();
+    //return getLightTheme();
   /*  if (_appTheme == 'dark') {
       return getDarkTheme();
     } else if (_appTheme == 'light') {
