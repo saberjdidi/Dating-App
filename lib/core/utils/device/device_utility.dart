@@ -102,6 +102,11 @@ class TDeviceUtils {
     return Platform.isAndroid;
   }
 
+  static bool isArabic(String text) {
+    // Vérifie si au moins un caractère arabe est présent
+    return RegExp(r'[\u0600-\u06FF]').hasMatch(text);
+  }
+
  /* static void launchUrl(String url) async {
     if (await canLaunchUrlString(url)) {
       await launchUrlString(url);

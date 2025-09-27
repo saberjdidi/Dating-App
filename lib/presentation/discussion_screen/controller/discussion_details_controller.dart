@@ -24,6 +24,7 @@ class DiscussionDetailsController extends GetxController {
   final TextEditingController messageController = TextEditingController();
   var messages = <MessageModel>[].obs;
 
+  var isRTL = false.obs;
   var pickedAttachment = Rx<AttachmentModel?>(null);
 
   ///Record Audio Start
@@ -230,7 +231,14 @@ class DiscussionDetailsController extends GetxController {
   // Send recorded audio (draft -> message)
   Future<void> sendDraftAudio() async {
     final att = pickedAttachment.value;
-    if (att == null) return;
+    if(att != null){
+      pickedAttachment.value = AttachmentModel(
+        type: MessageType.audio,
+        file: att.file,
+      );
+      sendMessage();
+    }
+   /* if (att == null) return;
     final msg = MessageModel(
       messageId: DateTime.now().toIso8601String(),
       senderUid: "user1",
@@ -243,7 +251,7 @@ class DiscussionDetailsController extends GetxController {
       attachment: att,
       createdAt: DateTime.now(),
     );
-    messages.add(msg);
+    messages.add(msg); */
     // Réinitialiser l’état pour un nouvel enregistrement
     pickedAttachment.value = null;
     currentRecordingPath = null;
@@ -332,8 +340,13 @@ class DiscussionDetailsController extends GetxController {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      builder: (_) {
-        return GridView.count(
+        builder: (context) => DraggableScrollableSheet(
+          expand: false,
+          initialChildSize: 0.6,
+          maxChildSize: 0.7,
+          minChildSize: 0.6,
+          builder: (context, scrollController) =>
+         GridView.count(
           crossAxisCount: 3, // Number of columns
           padding: const EdgeInsets.all(16.0), // Padding around the grid
           crossAxisSpacing: 10.0, // Spacing between items horizontally
@@ -432,8 +445,8 @@ class DiscussionDetailsController extends GetxController {
             )
 
           ],
-        );
-      },
+        )
+        )
     );
   }
 
@@ -451,6 +464,8 @@ class DiscussionDetailsController extends GetxController {
         type: isVideo ? MessageType.video : MessageType.image,
         file: file,
       );
+
+      sendMessage();
     }
   }
 
@@ -467,6 +482,8 @@ class DiscussionDetailsController extends GetxController {
         type: MessageType.camera,
         file: file,
       );
+
+      sendMessage();
     }
   }
 
@@ -485,6 +502,8 @@ class DiscussionDetailsController extends GetxController {
           file: file,
           name: fileName
       ); // Ton Rx<File?>
+
+      sendMessage();
     }
   }
 
@@ -562,7 +581,7 @@ class DiscussionDetailsController extends GetxController {
                             title: Text(name),
                             subtitle: Text(phone),
                             onTap: () {
-                              messageController.text = "$name - $phone";
+                              messageController.text = "$name : $phone";
                               Navigator.pop(context);
                             },
                           );
@@ -580,7 +599,6 @@ class DiscussionDetailsController extends GetxController {
       print("Erreur: $e");
     }
   }
-
 
 ///Contact End
 

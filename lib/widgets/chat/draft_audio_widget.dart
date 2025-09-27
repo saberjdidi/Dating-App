@@ -1,9 +1,11 @@
 import 'dart:io';
+import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/data/models/attachment_model.dart';
 import 'package:dating_app_bilhalal/presentation/discussion_screen/controller/discussion_details_controller.dart';
 import 'package:dating_app_bilhalal/widgets/chat/audio_player_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 
 class DraftAudioWidget extends StatelessWidget {
   final AttachmentModel attachment;
@@ -34,7 +36,7 @@ class DraftAudioWidget extends StatelessWidget {
             Row(
               children: [
                 IconButton(
-                  icon: Icon(Icons.send, color: Colors.green),
+                  icon: Icon(Iconsax.send1, color: TColors.yellowAppDark),
                   onPressed: () async {
                     await controller.sendDraftAudio();
                     //controller.draftAttachment.close();

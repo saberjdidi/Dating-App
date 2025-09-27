@@ -195,6 +195,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                   activeColor: TColors.yellowAppDark,
                                   inactiveColor: TColors.black,
                                 ),
+                                SizedBox(height: 5.v),
                                 GridLayout(
                                   itemCount: controller.ListImages.value.length,
                                   mainAxisExtent: isTablet ? 220.adaptSize : 180.adaptSize,

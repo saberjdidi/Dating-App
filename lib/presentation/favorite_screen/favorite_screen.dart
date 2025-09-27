@@ -64,6 +64,7 @@ class FavoriteScreen extends StatelessWidget {
                 activeColor: TColors.yellowAppDark,
                 inactiveColor: TColors.black,
               ),
+              SizedBox(height: 5.v),
 
               // Favorite Users
               if(controller.selectedTab.value == 0)

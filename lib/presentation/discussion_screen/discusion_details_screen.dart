@@ -9,6 +9,7 @@ import 'package:dating_app_bilhalal/widgets/chat/message_bubble.dart';
 import 'package:dating_app_bilhalal/widgets/circle_icon_button.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
 import 'package:dating_app_bilhalal/widgets/custom_text_form_field.dart';
+import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
 import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
@@ -26,176 +27,205 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
     var isSmallPhone = screenWidth < 360;
     var isTablet = screenWidth >= 600;
 
-    return Scaffold(
-      backgroundColor: TColors.white,
-      appBar: TAppBar(
-        leadingWidth: 160.adaptSize,
-        toolbarHeight: 80.adaptSize,
-        leading: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              CircleIconButton(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: TColors.white,
+        resizeToAvoidBottomInset: true, // important pour éviter que le clavier cache le champ
+        appBar: TAppBar(
+          leadingWidth: 160.adaptSize,
+          toolbarHeight: 80.adaptSize,
+          leading: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                CircleIconButton(
+                    size: 45.adaptSize,
+                    effectiveSize: 45.adaptSize,
+                    minTapSize: 40.adaptSize,
+                    backgroundColor: TColors.greyDating.withOpacity(0.6),
+                    child: IconButton(
+                      icon: Icon(Icons.more_vert, color: TColors.black.withOpacity(0.7), size: 27.adaptSize,),
+                      onPressed: (){
+                        Get.toNamed(Routes.settingsScreen);
+                        //Navigator.pop(context);
+                      },
+                    )
+                ),
+                SizedBox(width: 2.adaptSize,),
+                CircleIconButton(
                   size: 45.adaptSize,
                   effectiveSize: 45.adaptSize,
                   minTapSize: 40.adaptSize,
                   backgroundColor: TColors.greyDating.withOpacity(0.6),
                   child: IconButton(
-                    icon: Icon(Icons.more_vert, color: TColors.black.withOpacity(0.7), size: 27.adaptSize,),
+                    icon: Icon(Icons.videocam_rounded, color: TColors.black.withOpacity(0.7), size: 27.adaptSize,),
                     onPressed: (){
-                      Get.toNamed(Routes.settingsScreen);
+                      if (!settingsController.isCallVideo.value) {
+                        Get.snackbar("Appel interdit", "L'utilisateur n'autorise pas les appels vidéo");
+                        return;
+                      }
+                      Get.toNamed(Routes.callVideoScreen);
                       //Navigator.pop(context);
                     },
-                  )
-              ),
-              SizedBox(width: 2.adaptSize,),
-              CircleIconButton(
-                size: 45.adaptSize,
-                effectiveSize: 45.adaptSize,
-                minTapSize: 40.adaptSize,
-                backgroundColor: TColors.greyDating.withOpacity(0.6),
-                child: IconButton(
-                  icon: Icon(Icons.videocam_rounded, color: TColors.black.withOpacity(0.7), size: 27.adaptSize,),
-                  onPressed: (){
-                    if (!settingsController.isCallVideo.value) {
-                      Get.snackbar("Appel interdit", "L'utilisateur n'autorise pas les appels vidéo");
-                      return;
-                    }
-                    Get.toNamed(Routes.callVideoScreen);
-                    //Navigator.pop(context);
-                  },
-                ),
-              ),
-              SizedBox(width: 2.adaptSize,),
-              CircleIconButton(
-                size: 45.adaptSize,
-                effectiveSize: 45.adaptSize,
-                minTapSize: 40.adaptSize,
-                backgroundColor: TColors.greyDating.withOpacity(0.6),
-                child: IconButton(
-                  icon: Icon(Icons.call, color: TColors.black.withOpacity(0.7), size: 27.adaptSize,),
-                  onPressed: (){
-                    if (!settingsController.isCallVoice.value) {
-                      Get.snackbar("Appel interdit", "L'utilisateur n'autorise pas les appels vocaux");
-                      return;
-                    } else {
-                      Get.toNamed(Routes.callScreen);
-                    }
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-        title: Center(
-          // SingleChildScrollView (child: scrollDirection: Axis.horizontal,
-          child: ListTile(
-            contentPadding: EdgeInsets.zero,
-            leading: null,
-            title: Text(
-              controller.userChatModel.senderFullName!,
-              style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                color: TColors.black,
-                fontSize: 22.fSize,
-                fontWeight: FontWeight.bold,
-              ),
-              overflow: TextOverflow.ellipsis,
-            ),
-            subtitle: Row(
-              children: [
-                SubTitleWidget(subtitle: "متصل"),
-                if (controller.userChatModel.isConnect) ...[
-                  SizedBox(width: 3.adaptSize),
-                  CircleAvatar(radius: 6, backgroundColor: Colors.green)
-                ]
-              ],
-            ),
-            trailing: CustomImageView(
-              imagePath: controller.userChatModel.senderProfile,
-              width: 50.adaptSize,
-              height: 50.adaptSize,
-              radius: BorderRadius.circular(50.adaptSize),
-              onTap: () async {
-                Get.toNamed(Routes.userChatPofileScreen,
-                    //arguments: {"UserModel" : user}
-                );
-              },
-            ),
-          ),
-        ),
-        //Other method
-       /* title: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Column(
-              children: [
-                Text(controller.userChatModel.senderFullName!,
-                   overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                    color: TColors.black,
-                    fontSize: 22.fSize,
-                    fontWeight: FontWeight.bold,
-                    //decoration: TextDecoration.underline,
-                    decorationColor: TColors.black,
                   ),
                 ),
-                Row(
-                  children: [
-
-                    SubTitleWidget(subtitle: "متصل"),
-                    if (controller.userChatModel.isConnect) SizedBox(width: 3.adaptSize,),
-                    if (controller.userChatModel.isConnect) CircleAvatar(
-                      radius: 6,
-                      backgroundColor: Colors.green,
-                    )
-                  ],
-                )
+                SizedBox(width: 2.adaptSize,),
+                CircleIconButton(
+                  size: 45.adaptSize,
+                  effectiveSize: 45.adaptSize,
+                  minTapSize: 40.adaptSize,
+                  backgroundColor: TColors.greyDating.withOpacity(0.6),
+                  child: IconButton(
+                    icon: Icon(Icons.call, color: TColors.black.withOpacity(0.7), size: 27.adaptSize,),
+                    onPressed: (){
+                      if (!settingsController.isCallVoice.value) {
+                        Get.snackbar("Appel interdit", "L'utilisateur n'autorise pas les appels vocaux");
+                        return;
+                      } else {
+                        Get.toNamed(Routes.callScreen);
+                      }
+                    },
+                  ),
+                ),
               ],
             ),
-            SizedBox(width: 10.hw,),
-            Expanded( //verify Expanded
-              child: CustomImageView(
+          ),
+          title: Center(
+            // SingleChildScrollView (child: scrollDirection: Axis.horizontal,
+            child: ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: null,
+              title: Text(
+                controller.userChatModel.senderFullName!,
+                style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                  color: TColors.black,
+                  fontSize: 22.fSize,
+                  fontWeight: FontWeight.bold,
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
+              subtitle: Row(
+                children: [
+                  SubTitleWidget(subtitle: "متصل"),
+                  if (controller.userChatModel.isConnect) ...[
+                    SizedBox(width: 3.adaptSize),
+                    CircleAvatar(radius: 6, backgroundColor: Colors.green)
+                  ]
+                ],
+              ),
+              trailing: CustomImageView(
                 imagePath: controller.userChatModel.senderProfile,
                 width: 50.adaptSize,
                 height: 50.adaptSize,
                 radius: BorderRadius.circular(50.adaptSize),
+                onTap: () async {
+                  Get.toNamed(Routes.userChatPofileScreen,
+                      //arguments: {"UserModel" : user}
+                  );
+                },
+              ),
+            ),
+          ),
+          //Other method
+         /* title: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Column(
+                children: [
+                  Text(controller.userChatModel.senderFullName!,
+                     overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                      color: TColors.black,
+                      fontSize: 22.fSize,
+                      fontWeight: FontWeight.bold,
+                      //decoration: TextDecoration.underline,
+                      decorationColor: TColors.black,
+                    ),
+                  ),
+                  Row(
+                    children: [
+
+                      SubTitleWidget(subtitle: "متصل"),
+                      if (controller.userChatModel.isConnect) SizedBox(width: 3.adaptSize,),
+                      if (controller.userChatModel.isConnect) CircleAvatar(
+                        radius: 6,
+                        backgroundColor: Colors.green,
+                      )
+                    ],
+                  )
+                ],
+              ),
+              SizedBox(width: 10.hw,),
+              Expanded( //verify Expanded
+                child: CustomImageView(
+                  imagePath: controller.userChatModel.senderProfile,
+                  width: 50.adaptSize,
+                  height: 50.adaptSize,
+                  radius: BorderRadius.circular(50.adaptSize),
+                ),
+              )
+            ],
+          ), */
+
+         /* actions: [
+            CircleIconButton(
+              size: 50.adaptSize,
+              backgroundColor: TColors.greyDating.withOpacity(0.6),
+              child: IconButton(
+                icon: Icon(Icons.arrow_forward_outlined, color: TColors.black.withOpacity(0.7), size: 30.adaptSize,),
+                onPressed: (){
+                  Navigator.pop(context);
+                },
               ),
             )
-          ],
-        ), */
-
-       /* actions: [
-          CircleIconButton(
-            size: 50.adaptSize,
-            backgroundColor: TColors.greyDating.withOpacity(0.6),
-            child: IconButton(
-              icon: Icon(Icons.arrow_forward_outlined, color: TColors.black.withOpacity(0.7), size: 30.adaptSize,),
-              onPressed: (){
-                Navigator.pop(context);
-              },
-            ),
-          )
-        ], */
+          ], */
+        ),
+        body: Obx(() => ListView.builder(
+          reverse: true,
+          itemCount: controller.messages.length,
+          itemBuilder: (context, index) {
+            final message = controller.messages.reversed.toList()[index];
+            return MessageBubble(message: message, profileUser: controller.userChatModel.senderProfile, myImageProfile: ImageConstant.profile8);
+          },
+        )),
+        bottomNavigationBar: buildMessageInput(context),
+        //Si tu veux détecter si le clavier est ouvert pour faire des animations ou réduire la taille des autres widgets,
+        // installe => flutter_keyboard_visibility
+        /*
+        bottomNavigationBar: KeyboardVisibilityBuilder(
+         builder: (context, isKeyboardVisible) {
+           return Column(
+             mainAxisSize: MainAxisSize.min,
+             children: [
+               if (!isKeyboardVisible)
+                 SomeWidgetAboveInput(), // ne s'affiche que si clavier fermé
+               buildMessageInput(context),
+             ],
+           );
+         },
+       )
+         */
       ),
-      body: Obx(() => ListView.builder(
-        reverse: true,
-        itemCount: controller.messages.length,
-        itemBuilder: (context, index) {
-          final message = controller.messages.reversed.toList()[index];
-          return MessageBubble(message: message, profileUser: controller.userChatModel.senderProfile, myImageProfile: ImageConstant.profile8);
-        },
-      )),
-     bottomNavigationBar: buildMessageInput(context),
     );
   }
 
   Widget buildMessageInput(BuildContext context) {
-    final controller = DiscussionDetailsController.instance;
+    //final controller = DiscussionDetailsController.instance;
     const double cancelThreshold = -80.0; // pixels to the left
+    mediaQueryData = MediaQuery.of(context);
+    var screenWidth = mediaQueryData.size.width;
+    var screenHeight = mediaQueryData.size.height;
+    var isSmallPhone = screenWidth < 360;
+    var isTablet = screenWidth >= 600;
 
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.only(
+          left: 8.adaptSize,
+          right: 8.adaptSize,
+          bottom: MediaQuery.of(context).viewInsets.bottom + 8, // ajoute espace quand clavier ouvert
+          top: 8.adaptSize,
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -208,22 +238,26 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
               return SizedBox.shrink();
             }),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                IconButton(icon: Icon(Icons.add, color: TColors.buttonSecondary, size: 30.adaptSize), onPressed: () {
-                  controller.showAttachmentOptions(context);
-                }),
-
-                // Bouton toggle (un clic start/stop)
-                Obx(() {
-                  return CircleAvatar(
-                    radius: 20,
-                    backgroundColor: controller.isRecording.value ? Colors.red : Colors.grey.shade300,
+                SizedBox(
+                  width: screenWidth * 0.12,
+                  child: CircleIconButton(
+                    size: 60.adaptSize,
+                    minTapSize: 60.adaptSize,
+                    effectiveSize: 60.adaptSize,
+                    backgroundColor: TColors.greyDating,
                     child: IconButton(
-                      icon: Icon(controller.isRecording.value ? Icons.stop : Icons.keyboard_voice_outlined, color: Colors.white),
-                      onPressed: () async => await controller.toggleRecording(),
-                    ),
-                  );
-                }),
+                        icon: Icon(Icons.add, color: TColors.buttonSecondary, size: 30.adaptSize,),
+                        onPressed: () {
+                      controller.showAttachmentOptions(context);
+                    }),
+                  ),
+                ),
+      
+                // Bouton toggle (un clic start/stop)
+      
                 // Long press mic (record)
               /*
                 GestureDetector(
@@ -252,10 +286,56 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
                   }),
                 ),
                 */
-
-                SizedBox(width: 8),
-
-                Expanded(
+      
+                SizedBox(width: screenWidth * 0.02),
+      
+                TRoundedContainer(
+                  borderColor: TColors.greyDating,
+                 backgroundColor: TColors.greyDating,
+                 radius: 35.adaptSize,
+                 padding: EdgeInsets.symmetric(horizontal: 2.hw),
+                 child: Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                   mainAxisSize: MainAxisSize.min,
+                   children: [
+                     SizedBox(
+                       width: screenWidth * 0.1,
+                       child: Obx(() {
+                         return CircleAvatar(
+                           radius: 20,
+                           backgroundColor: controller.isRecording.value ? Colors.red : Colors.transparent,
+                           child: IconButton(
+                             icon: Icon(controller.isRecording.value ? Icons.stop : Icons.keyboard_voice_outlined,
+                                 color: controller.isRecording.value ? Colors.white : TColors.blackGrey),
+                             onPressed: () async => await controller.toggleRecording(),
+                           ),
+                         );
+                       }),
+                     ),
+                     SizedBox(
+                       width: screenWidth * 0.55,
+                       child: Obx(() => Directionality(
+                         textDirection: controller.isRTL.value ? TextDirection.rtl : TextDirection.ltr,
+                         //textDirection: TextDirection.rtl,
+                         child: TextField(
+                           controller: controller.messageController,
+                           onChanged: (value) => controller.isRTL.value = TDeviceUtils.isArabic(value),
+                           /* onChanged: (value) {
+                             // Déclenche la reconstruction pour changer la direction
+                             controller.update();
+                           }, */
+                           decoration: InputDecoration(
+                             hintText: "اكتب رسالة",
+                             border: InputBorder.none,
+                           ),
+                         ),
+                       )),
+                     )
+                   ],
+                 ),
+                ),
+      
+               /* Expanded(
                   child: CustomTextFormField(
                     controller: controller.messageController,
                     hintText: "اكتب رسالة",
@@ -269,20 +349,24 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
                       //borderSide: BorderSide.none,
                     ),
                   ),
-                ),
-
-                CustomImageView(
-                  imagePath: ImageConstant.imgSend,
-                  width: 50.adaptSize,
-                  height: 50.adaptSize,
-                  radius: BorderRadius.circular(50.adaptSize),
-                  onTap: () async {
-                    await controller.sendMessage();
-                  },
+                ), */
+                SizedBox(width: screenWidth * 0.02),
+      
+                SizedBox(
+                  width: screenWidth * 0.12,
+                  child: CustomImageView(
+                    imagePath: ImageConstant.imgSend,
+                    //width: 50.adaptSize,
+                    //height: 50.adaptSize,
+                    //radius: BorderRadius.circular(50.adaptSize),
+                    onTap: () async {
+                      await controller.sendMessage();
+                    },
+                  ),
                 ),
               ],
             ),
-
+      
             // Small recording overlay while recording
             Obx(() {
               if (!controller.isRecording.value) return SizedBox.shrink();
@@ -303,8 +387,8 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
                       style: TextStyle(color: Colors.white),
                     ),
                     SizedBox(width: 12),
-                    Obx(() => Text(
-                      controller.isCancelRecording.value ? 'Release to cancel' : 'Slide left to cancel',
+                    Obx(() => Text('Enregistrement',
+                      //controller.isCancelRecording.value ? 'Release to cancel' : 'Slide left to cancel',
                       style: TextStyle(color: controller.isCancelRecording.value ? Colors.redAccent : Colors.white70),
                     )),
                   ],
