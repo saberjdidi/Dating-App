@@ -12,7 +12,7 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
   ChangePasswordScreen({super.key});
 
   final GlobalKey<ScaffoldState> _scaffoldKeyChangePassword = GlobalKey<ScaffoldState>();
-  var _appTheme = PrefUtils().getThemeData();
+  var _appTheme = PrefUtils.getTheme();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
           child: Scaffold(
             key: _scaffoldKeyChangePassword,
               resizeToAvoidBottomInset: false,
-              backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
+              //backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
               appBar: TAppBar(
                 showAction: true,
               ),
@@ -50,7 +50,8 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
                           ),
                           SizedBox(height: TSizes.spaceBtwItems),
                           Text("إنشاء كلمة مرور جديدة",
-                              style: Theme.of(context).textTheme.headlineSmall!.apply(color: TColors.black, fontWeightDelta: 2),
+                              style: Theme.of(context).textTheme.headlineSmall!
+                                  .apply(color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 2),
                               textAlign: TextAlign.center),
                           SizedBox(height: TSizes.spaceBtwSections),
 
@@ -118,7 +119,7 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
   onTapPasswordSuccessPage(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const PassswordSuccessScreen()),
+      MaterialPageRoute(builder: (context) =>  PassswordSuccessScreen()),
     );
   }
   /// Navigates to the previous screen.

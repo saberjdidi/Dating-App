@@ -22,7 +22,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
 
   final GlobalKey<ScaffoldState> _scaffoldKeyOverviewAccount = GlobalKey<
       ScaffoldState>();
-  var _appTheme = PrefUtils().getThemeData();
+  var _appTheme = PrefUtils.getTheme();
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +36,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
           key: controller.formOverviewAccountKey,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Scaffold(
-            backgroundColor: _appTheme == 'light' ? TColors.white : appTheme
-                .primaryColor,
+            //backgroundColor: _appTheme == 'light' ? TColors.white : appTheme.primaryColor,
             appBar: TAppBar(
               //showBackArrow: true,
               //rightToLeft: true,
@@ -542,7 +541,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                                         radius: BorderRadius.circular(30.adaptSize),
                                         fit: BoxFit.cover,
                                         onTap: (){
-                                          controller.removeMedia(index - 1);
+                                          controller.removeMedia(index);
                                         },
                                       ),
                                     /*  child: CircularContainer(

@@ -121,7 +121,7 @@ class CustomDropDown extends StatelessWidget {
         hintText: hintText ?? "",
         labelText: hintText ?? "",
         hintStyle: hintStyle ?? CustomTextStyles.titleSmallGray400,
-        labelStyle: hintStyle ?? (PrefUtils().getThemeData() =='light'
+        labelStyle: hintStyle ?? (PrefUtils.getTheme() =='light'
             ? CustomTextStyles.titleMediumSemiBoldBlack
             : CustomTextStyles.titleMediumSourceSansPro),
         errorStyle: hintStyle ?? CustomTextStyles.bodyMediumOnError,
@@ -136,7 +136,7 @@ class CustomDropDown extends StatelessWidget {
               top: 19.v,
               bottom: 19.v,
             ),
-        fillColor: fillColor ?? (PrefUtils().getThemeData() =='light' ? TColors.darkerGrey : appTheme.blueGray900),
+        fillColor: fillColor ?? (PrefUtils.getTheme() =='light' ? TColors.darkerGrey : appTheme.blueGray900),
         filled: filled,
         border: borderDecoration ??
             OutlineInputBorder(

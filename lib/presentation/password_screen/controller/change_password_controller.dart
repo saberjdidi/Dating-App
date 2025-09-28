@@ -38,7 +38,7 @@ class ChangePasswordController extends GetxController {
 
    Navigator.push(
      context,
-     MaterialPageRoute(builder: (context) => const PassswordSuccessScreen()),
+     MaterialPageRoute(builder: (context) => PassswordSuccessScreen()),
    );
 
     }

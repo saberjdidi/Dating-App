@@ -8,21 +8,24 @@ import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
 class PrivacyPolicyScreen extends StatefulWidget {
-  const PrivacyPolicyScreen({super.key});
+   PrivacyPolicyScreen({super.key});
 
   @override
   State<PrivacyPolicyScreen> createState() => _PrivacyPolicyScreenState();
 }
 
 class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
+
+  var _appTheme = PrefUtils.getTheme();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: TColors.white,
+      //backgroundColor: TColors.white,
       appBar: TAppBar(
         //showBackArrow: true,
         //rightToLeft: true,
-        title: Text('سياسة الخصوصية',
+       /* title: Text('سياسة الخصوصية',
           style: Theme.of(context).textTheme.headlineSmall!.copyWith(
             color: TColors.black,
             fontSize: 22.fSize,
@@ -30,7 +33,9 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
             //decoration: TextDecoration.underline,
             decorationColor: TColors.black,
           ),
-        ),
+        ), */
+        title: TitleWidget(title: "سياسة الخصوصية", fontWeightDelta: 3,
+            color: _appTheme =='light' ? TColors.buttonSecondary : TColors.white),
       ),
       body: Padding(
         padding: EdgeInsets.fromLTRB(15.hw, 10.v, 15.hw, 5.v),
@@ -40,8 +45,11 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
             children: [
               CustomDividerWidget(),
               SizedBox(height: TSizes.spaceBtwItems),
-              TitleWidget(title: "سياسة الخصوصية", textAlign: TextAlign.right,),
+              TitleWidget(title: "سياسة الخصوصية",
+                color:  _appTheme =='light' ? TColors.black : TColors.white,
+                textAlign: TextAlign.right,),
               SubTitleWidget(subtitle: "آخر تحديث 3 يوليو 2025",
+                color:  _appTheme =='light' ? TColors.gray700 : TColors.white,
                 textAlign: TextAlign.right,),
               SizedBox(height: TSizes.spaceBtwItems),
               TRoundedContainer(
@@ -49,25 +57,34 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                 //width: isTablet ? 20.hw : 52.hw,
                 //margin: EdgeInsets.only(top: 5),
                   showBorder: true,
-                  backgroundColor: TColors.white,
+                  backgroundColor: _appTheme =='light' ? TColors.white : TColors.dark,
                   borderColor: TColors.gray700,
                   radius: 12,
                   padding: EdgeInsets.all(10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      TitleWidget(title: "مقدمة", textAlign: TextAlign.right,),
+                      TitleWidget(title: "مقدمة",
+                        color:  _appTheme =='light' ? TColors.black : TColors.white,
+                        textAlign: TextAlign.right,),
                       SubTitleWidget(subtitle: "لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار  النشوة وتمجيد الألم نشأت بالفعل، وسأعرض لك التفاصيل لتكتشف حقيقة وأساس تلك السعادة البشرية، فلا أحد يرفض أو يكره أو يتجنب الشعور بالسعادة لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار  النشوة وتمجيد الألم نشأت بالفعل، وسأعرض لك التفاصيل لتكتشف حقيقة وأساس تلك السعادة البشرية، فلا أحد يرفض أو يكره أو يتجنب الشعور بالسعادة",
+                        color:  _appTheme =='light' ? TColors.gray700 : TColors.white,
                         textAlign: TextAlign.right,),
                       SizedBox(height: TSizes.spaceBtwItems),
 
-                      TitleWidget(title: "العنوان 2", textAlign: TextAlign.right,),
+                      TitleWidget(title: "العنوان 2",
+                        color:  _appTheme =='light' ? TColors.black : TColors.white,
+                        textAlign: TextAlign.right,),
                       SubTitleWidget(subtitle: "لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار  النشوة وتمجيد الألم نشأت بالفعل، وسأعرض لك التفاصيل لتكتشف حقيقة وأساس تلك السعادة البشرية، فلا أحد يرفض أو يكره أو يتجنب الشعور بالسعادة",
+                        color:  _appTheme =='light' ? TColors.gray700 : TColors.white,
                         textAlign: TextAlign.right,),
                       SizedBox(height: TSizes.spaceBtwItems),
 
-                      TitleWidget(title: "العنوان3", textAlign: TextAlign.right,),
+                      TitleWidget(title: "العنوان3",
+                        color:  _appTheme =='light' ? TColors.black : TColors.white,
+                        textAlign: TextAlign.right,),
                       SubTitleWidget(subtitle: "لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار  النشوة وتمجيد الألم نشأت بالفعل، وسأعرض لك التفاصيل لتكتشف حقيقة وأساس تلك السعادة البشرية، فلا أحد يرفض أو يكره أو يتجنب الشعور بالسعادة",
+                        color:  _appTheme =='light' ? TColors.gray700 : TColors.white,
                         textAlign: TextAlign.right,),
                       SizedBox(height: TSizes.spaceBtwItems),
                     ],

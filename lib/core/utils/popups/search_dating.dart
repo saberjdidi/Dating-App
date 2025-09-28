@@ -412,6 +412,7 @@ class SearchDating {
     var isTablet = screenWidth >= 600;
 
     await Dialogs.customModalBottomSheet(
+        //await Dialogs.customModalBottomSheetMethod2(
         Get.context!,
         0.7,
         Padding(

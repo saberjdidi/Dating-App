@@ -46,6 +46,7 @@ class PrefUtils {
     sharedPreferences!.clear();
   }
 
+/*
   Future<void> setThemeData(String value) {
     return sharedPreferences!.setString('themeData', value);
   }
@@ -56,22 +57,6 @@ class PrefUtils {
     } catch (e) {
       return 'light';
       //return 'dark';
-    }
-  }
-
-  /*String getThemeData() {
-    try {
-      // Check if the 'themeData' key is present
-      if (sharedPreferences!.containsKey('themeData')) {
-        // If yes, return the stored value
-        return sharedPreferences!.getString('themeData')!;
-      } else {
-        // If not, set the default value ('dark') and return it
-         setThemeData('dark');
-        return 'dark';
-      }
-    } catch (e) {
-      return 'dark';
     }
   } */
 

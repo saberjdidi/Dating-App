@@ -17,7 +17,7 @@ class AppDecoration {
         color: theme.colorScheme.onPrimary,
       );
   static BoxDecoration get fillRed => BoxDecoration(
-        color: appTheme.red40019,
+        color: TColors.redAppDark,
       );
 
   // Gradient decorations

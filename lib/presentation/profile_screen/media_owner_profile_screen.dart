@@ -14,7 +14,7 @@ class MediaOwnerProfileScreen extends GetWidget<MediaOwnerProfileController> {
    MediaOwnerProfileScreen({super.key});
 
    final GlobalKey<ScaffoldState> _scaffoldKeyMediaProfile = GlobalKey<ScaffoldState>();
-  var _appTheme = PrefUtils().getThemeData();
+  var _appTheme = PrefUtils.getTheme();
 
   @override
   Widget build(BuildContext context) {

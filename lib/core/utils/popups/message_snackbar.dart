@@ -47,7 +47,7 @@ class MessageSnackBar {
             margin: EdgeInsets.symmetric(horizontal: 30.hw),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30.hw),
-              color: PrefUtils().getThemeData() =='dark' ? appTheme.darkerGrey.withOpacity(0.9) : appTheme.grey.withOpacity(0.9),
+              color: PrefUtils.getTheme() =='dark' ? appTheme.darkerGrey.withOpacity(0.9) : appTheme.grey.withOpacity(0.9),
             ),
             child: Center(
                 child: Text(
@@ -65,12 +65,12 @@ class MessageSnackBar {
         message,
         isDismissible: true,
         shouldIconPulse: true,
-        colorText: appTheme.whiteA700,
+        colorText: TColors.white,
         backgroundColor: appTheme.blueAstree,
         snackPosition: SnackPosition.BOTTOM,
         duration: Duration(seconds: duration),
         margin: EdgeInsets.all(10.hw),
-        icon: Icon(Iconsax.check, color: appTheme.whiteA700)
+        icon: Icon(Iconsax.check, color: TColors.white)
     );
   }
 
@@ -80,12 +80,12 @@ class MessageSnackBar {
         message,
         isDismissible: true,
         shouldIconPulse: true,
-        colorText: appTheme.whiteA700,
+        colorText: TColors.white,
         backgroundColor: Colors.orange,
         snackPosition: SnackPosition.BOTTOM,
         duration: const Duration(seconds: 3),
         margin: EdgeInsets.all(20.hw),
-        icon: Icon(Iconsax.warning_2, color: appTheme.whiteA700)
+        icon: Icon(Iconsax.warning_2, color: TColors.white)
     );
   }
 
@@ -95,12 +95,12 @@ class MessageSnackBar {
         message,
         isDismissible: true,
         shouldIconPulse: true,
-        colorText: appTheme.whiteA700,
+        colorText: TColors.white,
         backgroundColor: Colors.red.shade600,
         snackPosition: SnackPosition.BOTTOM,
         duration: const Duration(seconds: 3),
         margin: EdgeInsets.all(20.hw),
-        icon: Icon(Iconsax.warning_2, color: appTheme.whiteA700)
+        icon: Icon(Iconsax.warning_2, color: TColors.white)
     );
   }
 

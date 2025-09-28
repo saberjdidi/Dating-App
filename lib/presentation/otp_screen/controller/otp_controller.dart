@@ -54,7 +54,7 @@ class OTPController extends GetxController with GetSingleTickerProviderStateMixi
         } else {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const OTPSuccessScreen()),
+            MaterialPageRoute(builder: (context) => OTPSuccessScreen()),
           );
         }
         MessageSnackBar.successSnackBar(title: 'Successfully', message: "تم ادخال الرمز الصحيح");

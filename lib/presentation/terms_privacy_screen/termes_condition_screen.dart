@@ -16,22 +16,17 @@ class TermesAndConditionsScreen extends StatefulWidget {
 }
 
 class _TermesAndConditionsScreenState extends State<TermesAndConditionsScreen> {
+  var _appTheme = PrefUtils.getTheme();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: TColors.white,
+      //backgroundColor: TColors.white,
       appBar: TAppBar(
         //showBackArrow: true,
         //rightToLeft: true,
-        title: Text('شروط الاستخدام',
-          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-            color: TColors.black,
-            fontSize: 22.fSize,
-            fontWeight: FontWeight.bold,
-            //decoration: TextDecoration.underline,
-            decorationColor: TColors.black,
-          ),
-        ),
+        title: TitleWidget(title: "شروط الاستخدام", fontWeightDelta: 3,
+            color: _appTheme =='light' ? TColors.buttonSecondary : TColors.white),
       ),
       body: Padding(
         padding: EdgeInsets.fromLTRB(15.hw, 10.v, 15.hw, 5.v),
@@ -41,8 +36,11 @@ class _TermesAndConditionsScreenState extends State<TermesAndConditionsScreen> {
             children: [
               CustomDividerWidget(),
               SizedBox(height: TSizes.spaceBtwItems),
-              TitleWidget(title: "الشروط والأحكام", textAlign: TextAlign.right,),
+              TitleWidget(title: "الشروط والأحكام",
+                color:  _appTheme =='light' ? TColors.black : TColors.white,
+                textAlign: TextAlign.right,),
               SubTitleWidget(subtitle: "آخر تحديث 3 يوليو 2025",
+                color:  _appTheme =='light' ? TColors.gray700 : TColors.white,
                 textAlign: TextAlign.right,),
               SizedBox(height: TSizes.spaceBtwItems),
               TRoundedContainer(
@@ -50,25 +48,34 @@ class _TermesAndConditionsScreenState extends State<TermesAndConditionsScreen> {
                 //width: isTablet ? 20.hw : 52.hw,
                 //margin: EdgeInsets.only(top: 5),
                 showBorder: true,
-                backgroundColor: TColors.white,
+                backgroundColor: _appTheme =='light' ? TColors.white : TColors.dark,
                 borderColor: TColors.gray700,
                 radius: 12,
                 padding: EdgeInsets.all(10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    TitleWidget(title: "المصطلح 1", textAlign: TextAlign.right,),
+                    TitleWidget(title: "المصطلح 1",
+                      color:  _appTheme =='light' ? TColors.black : TColors.white,
+                      textAlign: TextAlign.right,),
                     SubTitleWidget(subtitle: "لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار  النشوة وتمجيد الألم نشأت بالفعل، وسأعرض لك التفاصيل لتكتشف حقيقة وأساس تلك السعادة البشرية، فلا أحد يرفض أو يكره أو يتجنب الشعور بالسعادة",
+                      color:  _appTheme =='light' ? TColors.gray700 : TColors.white,
                       textAlign: TextAlign.right,),
                     SizedBox(height: TSizes.spaceBtwItems),
 
-                    TitleWidget(title: "المصطلح 2", textAlign: TextAlign.right,),
+                    TitleWidget(title: "المصطلح 2",
+                      color:  _appTheme =='light' ? TColors.black : TColors.white,
+                      textAlign: TextAlign.right,),
                     SubTitleWidget(subtitle: "لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار  النشوة وتمجيد الألم نشأت بالفعل، وسأعرض لك التفاصيل لتكتشف حقيقة وأساس تلك السعادة البشرية، فلا أحد يرفض أو يكره أو يتجنب الشعور بالسعادة",
+                      color:  _appTheme =='light' ? TColors.gray700 : TColors.white,
                       textAlign: TextAlign.right,),
                     SizedBox(height: TSizes.spaceBtwItems),
 
-                    TitleWidget(title: "المصطلح 2", textAlign: TextAlign.right,),
+                    TitleWidget(title: "المصطلح 2",
+                      color:  _appTheme =='light' ? TColors.black : TColors.white,
+                      textAlign: TextAlign.right,),
                     SubTitleWidget(subtitle: "لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار  النشوة وتمجيد الألم نشأت بالفعل، وسأعرض لك التفاصيل لتكتشف حقيقة وأساس تلك السعادة البشرية، فلا أحد يرفض أو يكره أو يتجنب الشعور بالسعادة",
+                      color:  _appTheme =='light' ? TColors.gray700 : TColors.white,
                       textAlign: TextAlign.right,),
                     SizedBox(height: TSizes.xs.v),
                   ],
@@ -97,10 +104,12 @@ class _TermesAndConditionsScreenState extends State<TermesAndConditionsScreen> {
                    CustomOutlinedButton(
                      width: Get.width * 0.4,
                      height: 70.v,
-                     buttonTextStyle: CustomTextStyles.bodyMediumTextFormField,
-                     buttonStyle: CustomButtonStyles.outlineBlack,
+                     //buttonTextStyle: CustomTextStyles.bodyMediumTextFormField,
+                     buttonTextStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormFieldBold : CustomTextStyles.titleLargeWhite,
+                     buttonStyle: _appTheme =='light' ? CustomButtonStyles.outlineBlack : CustomButtonStyles.outlineWhite,
                      text: "لا أوافق",
                      margin: EdgeInsets.only(top: 6.hw),
+                     borderRadius: 10,
                      onPressed: (){
 
                      },

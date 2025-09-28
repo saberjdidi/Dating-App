@@ -84,7 +84,7 @@ class MultiSelectDropdown extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: fillColor ?? (PrefUtils().getThemeData() == 'light' ? Colors.white : appTheme.blueGray900),
+        color: fillColor ?? (PrefUtils.getTheme() == 'light' ? Colors.white : appTheme.blueGray900),
         borderRadius: BorderRadius.circular(borderRadius),
         border: Border.all(color: Color(0xFD636262)),
         boxShadow: [

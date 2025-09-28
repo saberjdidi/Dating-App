@@ -20,7 +20,7 @@ class AnimationLoaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _appTheme = PrefUtils().getThemeData();
+    var _appTheme = PrefUtils.getTheme();
 
     return Center(
       child: Column(
@@ -31,7 +31,9 @@ class AnimationLoaderWidget extends StatelessWidget {
           Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.hw),
           child: Text(text,
-            style: Theme.of(context).textTheme.titleLarge!.apply(color:_appTheme =='dark' ? appTheme.whiteA700 : appTheme.black, fontSizeDelta: 5, fontWeightDelta: 5),
+            style: Theme.of(context).textTheme.titleLarge!
+                .apply(color:_appTheme =='dark' ? TColors.white : TColors.black,
+                fontSizeDelta: 5, fontWeightDelta: 5),
             textAlign: TextAlign.center,
           )),
            SizedBox(height: 24.v),

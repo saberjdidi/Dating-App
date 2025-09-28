@@ -23,7 +23,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
 
     return SafeArea(
         child: Scaffold(
-          //backgroundColor: PrefUtils().getThemeData() =='light' ? TColors.lightContainer : TColors.darkerGrey,
+          //backgroundColor: PrefUtils.getTheme() =='light' ? TColors.lightContainer : TColors.darkerGrey,
             resizeToAvoidBottomInset: false,
 
             body: Stack(

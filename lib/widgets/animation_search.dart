@@ -28,7 +28,7 @@ class AnimationSearchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _appTheme = PrefUtils().getThemeData();
+    var _appTheme = PrefUtils.getTheme();
 
     return Center(
       child: SingleChildScrollView(
@@ -80,7 +80,7 @@ class AnimationSearchWidget extends StatelessWidget {
                       'تم العثور على 23 مباراة...'
                     ],
                     textStyle: Theme.of(context).textTheme.bodyMedium!.apply(
-                      color: _appTheme == 'dark' ? appTheme.whiteA700 : appTheme.black,
+                      color: _appTheme == 'dark' ? TColors.white : TColors.black,
                       fontSizeDelta: 1,
                       fontWeightDelta: 1,
                     ),

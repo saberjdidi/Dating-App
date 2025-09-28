@@ -5,7 +5,9 @@ import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
 class OTPSuccessScreen extends StatelessWidget {
-  const OTPSuccessScreen({super.key});
+   OTPSuccessScreen({super.key});
+
+  var _appTheme = PrefUtils.getTheme();
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class OTPSuccessScreen extends StatelessWidget {
     var isTablet = screenWidth >= 600;
 
     return Scaffold(
-      backgroundColor: TColors.white,
+      //backgroundColor: TColors.white,
       body: Center(
         child: Padding(
           padding: EdgeInsets.all(18.hw),
@@ -33,11 +35,14 @@ class OTPSuccessScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: TSizes.spaceBtwSections.fSize),
-                Center(child: TitleWidget(title: "مرحباً بكم في بالحلال", textAlign: TextAlign.center,)),
+                Center(child: TitleWidget(title: "مرحباً بكم في بالحلال",
+                  color:  _appTheme =='light' ? TColors.black : TColors.white,
+                  textAlign: TextAlign.center,)),
                 Center(
                   child: Directionality(
                     textDirection: TextDirection.rtl,
                     child: SubTitleWidget(subtitle: "لقد قمت بإنشاء حسابك على  بالحلال  بنجاح.",
+                      color:  _appTheme =='light' ? TColors.gray700 : TColors.white,
                       textAlign: TextAlign.center,),
                   ),
                 ),

@@ -15,7 +15,7 @@ import 'package:flutter/services.dart';
 class SignUpScreen extends GetView<SignUpController> {
   SignUpScreen({super.key});
 
-  var _appTheme = PrefUtils().getThemeData();
+  var _appTheme = PrefUtils.getTheme();
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class SignUpScreen extends GetView<SignUpController> {
               itemCount: ImagesDatingList.length,
               options: CarouselOptions(
                 height: MediaQuery.of(context).size.height * 0.6,
-                viewportFraction: 0.7,
+                viewportFraction: isTablet ? 0.6 : 0.7,
                 enlargeCenterPage: true,
                 autoPlay: true,
                 onPageChanged: (index, reason) {
@@ -74,7 +74,9 @@ class SignUpScreen extends GetView<SignUpController> {
             ),
 
              SizedBox(height: 10.v),
-            TitleWidget(title: "اشتراک", textAlign: TextAlign.center,),
+            TitleWidget(title: "اشتراک",
+              color: _appTheme =='light' ? TColors.black : TColors.white,
+              textAlign: TextAlign.center,),
 
             SizedBox(height: 10.v),
 

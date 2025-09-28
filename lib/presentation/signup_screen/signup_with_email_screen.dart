@@ -13,7 +13,7 @@ import 'package:flutter/services.dart';
 class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
   SignUpWithEmailScreen({super.key});
 
-  var _appTheme = PrefUtils().getThemeData();
+  var _appTheme = PrefUtils.getTheme();
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,8 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
                            /* Text("اشتراک",
                                 style: Theme.of(context).textTheme.headlineSmall!.apply(color: TColors.black, fontWeightDelta: 2),
                                 textAlign: TextAlign.center), */
-                            TitleWidget(title: "اشتراک"),
+                            TitleWidget(title: "اشتراک",
+                              color: _appTheme =='light' ? TColors.black : TColors.white,),
                             SizedBox(height: TSizes.spaceBtwSections),
                             _buildLoginForm(context),
                             SizedBox(height: 10.v),
@@ -266,7 +267,7 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
   onTapOTPPage(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const OTPScreen()),
+      MaterialPageRoute(builder: (context) => OTPScreen()),
     );
   }
 

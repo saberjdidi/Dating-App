@@ -35,6 +35,12 @@ class TColors {
   static const Color filterColorCallVideo4 = Color(0xFFF9CD68);
   static const Color filterColorCallVideo5 = Color(0xFFE98AFE);
 
+  // Background colors
+  static const Color white = Color(0xFFFFFFFF);
+  static const Color light = Color(0xFFF6F6F6);
+  static const Color dark = Color(0xFF272727);
+  static const Color primaryBackground = Color(0xFFF3F5FF);
+  static const Color lightGrey = Color(0xFFF9F9F9);
 
   static const Color blueLight700 = Color(0xFF0086C9);
   static const Color blueLight = Color(0xFFC1E4F7);
@@ -44,7 +50,6 @@ class TColors {
   static const Color grey500 = Color(0xFFDCDCE1);
   static const Color colorContainerHome = Color(0xFF7CCEF4);
 
-  static const Color white = Color(0xFFFFFFFF);
   static const Color whiteBackground = Color(0xFFF7F9FC);
   static const Color gray700 = Color(0XFF646D6D);
   static const Color greenLight = Color(0xFF9ED39B);
@@ -71,10 +76,7 @@ class TColors {
   static const Color textSecondary = Color(0xFF6C757D);
   static const Color textWhite = Colors.white;
 
-  // Background colors
-  static const Color light = Color(0xFFF6F6F6);
-  static const Color dark = Color(0xFF272727);
-  static const Color primaryBackground = Color(0xFFF3F5FF);
+
 
   // Background Container colors
   static const Color lightContainer = Color(0xFFF7F9FC); //Color(0xFFF6F6F6);
@@ -97,6 +99,5 @@ class TColors {
   static const Color darkGrey = Color(0xFF939393);
   static const Color grey = Color(0xFFE0E0E0);
   static const Color softGrey = Color(0xFFF4F4F4);
-  static const Color lightGrey = Color(0xFFF9F9F9);
 
 }

@@ -9,6 +9,8 @@ class CustomTermPrivacyWidget extends StatelessWidget {
     super.key,
   });
 
+  var _appTheme = PrefUtils.getTheme();
+
   @override
   Widget build(BuildContext context) {
 
@@ -18,18 +20,20 @@ class CustomTermPrivacyWidget extends StatelessWidget {
       children: [
         InkWell(
           onTap: (){
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TermesAndConditionsScreen()));
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  TermesAndConditionsScreen()));
           },
           child: Text("شروط الاستخدام",
-              style: Theme.of(context).textTheme.bodyLarge!.apply(color: TColors.black, fontWeightDelta: 2),
+              style: Theme.of(context).textTheme.bodyLarge!
+                  .apply(color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 2),
               textAlign: TextAlign.center),
         ),
         InkWell(
           onTap: (){
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const PrivacyPolicyScreen()));
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => PrivacyPolicyScreen()));
           },
           child: Text("سياسة الخصوصية",
-              style: Theme.of(context).textTheme.bodyLarge!.apply(color: TColors.black, fontWeightDelta: 2),
+              style: Theme.of(context).textTheme.bodyLarge!
+                  .apply(color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 2),
               textAlign: TextAlign.center),
         ),
       ],

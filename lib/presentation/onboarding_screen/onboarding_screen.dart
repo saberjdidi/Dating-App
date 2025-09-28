@@ -35,7 +35,7 @@ class OnBoardingScreen extends StatelessWidget {
               itemCount: onBoardingList.length,
               options: CarouselOptions(
                 height: screenHeight * 0.8,
-                viewportFraction: 0.7, // 80% image centrale + 10% gauche/droite
+                viewportFraction: isTablet ? 0.6 : 0.7, // 80% image centrale + 10% gauche/droite
                 enlargeCenterPage: true,
                 autoPlay: false,
                 onPageChanged: (index, reason) {

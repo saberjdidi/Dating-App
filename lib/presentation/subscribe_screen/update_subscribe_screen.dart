@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 class UpdateSubscribeScreen extends GetView<SubscribeController> {
   UpdateSubscribeScreen({super.key});
   final GlobalKey<ScaffoldState> _scaffoldKeyUpdateSubscribe = GlobalKey<ScaffoldState>();
-  var _appTheme = PrefUtils().getThemeData();
+  var _appTheme = PrefUtils.getTheme();
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +21,14 @@ class UpdateSubscribeScreen extends GetView<SubscribeController> {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: _appTheme == 'light' ? TColors.white : appTheme.primaryColor,
+        //backgroundColor: _appTheme == 'light' ? TColors.white : appTheme.primaryColor,
         key: _scaffoldKeyUpdateSubscribe,
         resizeToAvoidBottomInset: false,
         appBar: TAppBar(
           title: TitleWidget(
             title: "الاشتراک",
             fontWeightDelta: 2,
-            color: TColors.buttonSecondary,
+            color: _appTheme =='light' ? TColors.buttonSecondary : TColors.white
           ),
           showAction: true,
         ),
@@ -50,7 +50,9 @@ class UpdateSubscribeScreen extends GetView<SubscribeController> {
 
                   // Section plan choisi
                   if (currentPlan != null) ...[
-                    TitleWidget(title: 'الخطة المختارة', textAlign: TextAlign.end),
+                    TitleWidget(title: 'الخطة المختارة',
+                        color:  _appTheme =='light' ? TColors.black : TColors.white,
+                        textAlign: TextAlign.end),
                     SizedBox(height: TSizes.spaceBtwItems.v),
                     GestureDetector(
                       onTap: () {}, // Pas besoin de confirmation pour le plan déjà choisi
@@ -87,7 +89,9 @@ class UpdateSubscribeScreen extends GetView<SubscribeController> {
 
                   // Section autres plans
                   if (otherPlans.isNotEmpty) ...[
-                    TitleWidget(title: "خطط أخرى", textAlign: TextAlign.end),
+                    TitleWidget(title: "خطط أخرى",
+                        color:  _appTheme =='light' ? TColors.black : TColors.white,
+                        textAlign: TextAlign.end),
                     SizedBox(height: TSizes.spaceBtwItems.v),
                     ListView.builder(
                       shrinkWrap: true,

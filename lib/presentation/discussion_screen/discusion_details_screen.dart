@@ -18,6 +18,7 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
   DiscussionDetailsScreen({super.key});
 
   final settingsController = Get.put(SettingsController());
+  var _appTheme = PrefUtils.getTheme();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: TColors.white,
+        //backgroundColor: TColors.white,
         resizeToAvoidBottomInset: true, // important pour éviter que le clavier cache le champ
         appBar: TAppBar(
           leadingWidth: 160.adaptSize,
@@ -98,7 +99,7 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
               title: Text(
                 controller.userChatModel.senderFullName!,
                 style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                  color: TColors.black,
+                  color: _appTheme =='light' ? TColors.black : TColors.white,
                   fontSize: 22.fSize,
                   fontWeight: FontWeight.bold,
                 ),
@@ -106,7 +107,7 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
               ),
               subtitle: Row(
                 children: [
-                  SubTitleWidget(subtitle: "متصل"),
+                  SubTitleWidget(subtitle: "متصل", color: _appTheme =='light' ? TColors.gray700 : TColors.white),
                   if (controller.userChatModel.isConnect) ...[
                     SizedBox(width: 3.adaptSize),
                     CircleAvatar(radius: 6, backgroundColor: Colors.green)

@@ -103,7 +103,7 @@ class Dialogs {
 
 
  static customDialog(BuildContext context, Widget child, {visibleBtnClose = true}) {
-   var _appTheme = PrefUtils().getThemeData();
+   var _appTheme = PrefUtils.getTheme();
 
    showDialog(
        context: context,
@@ -117,7 +117,7 @@ class Dialogs {
                    padding: EdgeInsets.symmetric(horizontal: 10.hw, vertical: 16.v),
                    margin: EdgeInsets.all(16),
                    decoration: BoxDecoration(
-                       color: _appTheme =='dark' ? appTheme.darkGrey : appTheme.whiteA700,
+                       color: _appTheme =='dark' ? appTheme.darkGrey : TColors.white,
                        //color: appTheme.whiteA700,
                        borderRadius: BorderRadiusStyle.roundedBorder20
                    ),
@@ -152,6 +152,7 @@ class Dialogs {
        context: context,
        isScrollControlled: true,
        isDismissible: true,
+       //constraints: BoxConstraints.expand(),
        shape: RoundedRectangleBorder(
            borderRadius: BorderRadius.vertical(
                top: Radius.circular(30.adaptSize))),
@@ -187,4 +188,138 @@ class Dialogs {
        )
    );
  }
+
+  static customModalBottomSheetMethod2(BuildContext context, double initialChildSize, Widget child, {visibleBtnClose = true}){
+   /* showModalBottomSheet(
+      context: context,
+      isScrollControlled: true, // Permet de contrôler toute la hauteur
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            double maxHeight = constraints.maxHeight;
+            double maxWidth = constraints.maxWidth;
+
+            return FractionallySizedBox(
+              widthFactor: 1, // Prend toute la largeur
+              //heightFactor: 1, // Prend toute la hauteur
+              child: Container(
+                width: maxWidth,
+                //height: maxHeight,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                ),
+                child: Column(
+                  children: [
+                    // Header
+                    Container(
+                      height: 50,
+                      alignment: Alignment.center,
+                      child: Container(
+                        width: 40,
+                        height: 4,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[400],
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                      ),
+                    ),
+
+                    // Contenu avec Scroll si besoin
+                    Expanded(
+                      child: SingleChildScrollView(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          children: [
+                            Text(
+                              "Mon BottomSheet",
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            Text(
+                              "Contenu responsive qui prend toute la largeur et la hauteur.",
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 20),
+                            ElevatedButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: const Text("Fermer"),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    ); */
+   /* showModalBottomSheet(
+      constraints: BoxConstraints.expand(),
+      context: context,
+      isScrollControlled: true,
+      isDismissible: true,
+      useSafeArea: true,
+      backgroundColor: Colors.transparent,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+      ),
+      builder: (context) {
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            final screenWidth = constraints.maxWidth;
+            final bool isTablet = screenWidth >= 600;
+            final double maxWidth = isTablet ? screenWidth * 0.9 : screenWidth;
+
+            return Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: maxWidth),
+                child: DraggableScrollableSheet(
+                  expand: false,
+                  initialChildSize: 0.7,
+                  maxChildSize: 0.9,
+                  minChildSize: 0.5,
+                  builder: (context, scrollController) {
+                    return ClipRRect(
+                      borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+                      child: Material(
+                        color: Colors.white,
+                        child: Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            SingleChildScrollView(
+                              controller: scrollController,
+                              child: child, // Ton contenu ici
+                            ),
+                            if (visibleBtnClose)
+                              Positioned(
+                                top: -20,
+                                left: 0,
+                                right: 0,
+                                child: CustomImageView(
+                                  imagePath: ImageConstant.imgClose,
+                                  onTap: () => Navigator.pop(context),
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+   */
+  }
 }

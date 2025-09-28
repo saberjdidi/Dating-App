@@ -22,7 +22,7 @@ class CircularImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _appTheme = PrefUtils().getThemeData();
+    var _appTheme = PrefUtils.getTheme();
 
     return Container(
       width: width,

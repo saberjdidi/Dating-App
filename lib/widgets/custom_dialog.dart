@@ -62,6 +62,7 @@ class CustomDialog extends StatelessWidget {
       ),
     );
 
+    /*
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Stack(
@@ -93,13 +94,14 @@ class CustomDialog extends StatelessWidget {
         ],
       ),
     );
+    */
   }
 
   Widget get DialogWidget => Container(
     padding: EdgeInsets.symmetric(horizontal: 32.hw, vertical: 16.v),
     margin: EdgeInsets.all(16),
     decoration: BoxDecoration(
-        color: appTheme.whiteA700,
+        color: TColors.white,
         borderRadius: BorderRadiusStyle.roundedBorder20
     ),
     child: Column(

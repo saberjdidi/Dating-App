@@ -27,9 +27,9 @@ class ProfileScreen extends StatelessWidget {
         // Lis l'état du thème ici
         bool isDark = ThemeController.instance.isDark.value;
         return Scaffold(
-          backgroundColor: isDark ? Colors.black : Colors.white,
+          backgroundColor: isDark ? TColors.dark : TColors.white,
           appBar: TAppBar(
-            title: TitleWidget(title: "إعدادات ملفی", fontWeightDelta: 3, color: TColors.buttonSecondary,),
+            title: TitleWidget(title: "إعدادات ملفی", fontWeightDelta: 3, color: isDark ? TColors.white : TColors.buttonSecondary,),
             showAction: false,
           ),
           body: SingleChildScrollView(
@@ -203,7 +203,7 @@ class ProfileScreen extends StatelessWidget {
 
                 InkWell(
                   onTap: (){
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TermesAndConditionsScreen()));
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => TermesAndConditionsScreen()));
                   },
                   child: TRoundedContainer(
                     showBorder: true,
@@ -216,7 +216,7 @@ class ProfileScreen extends StatelessWidget {
                       children: [
                         IconButton(
                           onPressed: (){
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TermesAndConditionsScreen()));
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => TermesAndConditionsScreen()));
                           },
                           icon: Icon(Icons.arrow_back_ios),
                           iconSize: 25.adaptSize,
@@ -242,7 +242,7 @@ class ProfileScreen extends StatelessWidget {
 
                 InkWell(
                   onTap: (){
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const PrivacyPolicyScreen()));
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => PrivacyPolicyScreen()));
                   },
                   child: TRoundedContainer(
                     showBorder: true,
@@ -255,7 +255,7 @@ class ProfileScreen extends StatelessWidget {
                       children: [
                         IconButton(
                           onPressed: (){
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const PrivacyPolicyScreen()));
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => PrivacyPolicyScreen()));
                           },
                           icon: Icon(Icons.arrow_back_ios),
                           iconSize: 25.adaptSize,
@@ -292,23 +292,31 @@ class ProfileScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        Switch(
+                          value: isDark,
+                          onChanged: (value){
+                            ThemeController.instance.toggleTheme();
+                          },
+                          activeColor: TColors.yellowAppDark,
+                        ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Icon(
-                              isDark ? Icons.dark_mode : Icons.light_mode,
-                              color: isDark ? Colors.amber : Colors.blueGrey,
-                              size: 30,
-                            ),
-                            SizedBox(width: 12),
                             SubTitleWidget(
-                              subtitle: isDark ? "Dark Theme" : "Light Theme",
+                              subtitle: isDark ? "المظهر الداكن" : "المظهر الفاتح",
                               fontWeightDelta: 2,
                               fontSizeDelta: 2,
                               color: TColors.black,
                             ),
+                            SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
+                            Icon(
+                              isDark ? Icons.dark_mode : Icons.light_mode,
+                              color: isDark ? Colors.amber : Colors.blueGrey,
+                              size: 40.adaptSize,
+                            ),
                           ],
                         ),
-                        Icon(Icons.arrow_back_ios, color: TColors.buttonSecondary),
+                        //Icon(Icons.arrow_back_ios, color: TColors.buttonSecondary),
                       ],
                     ),
                   ),

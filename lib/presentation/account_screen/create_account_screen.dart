@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/validators/validation.dart';
 import 'package:dating_app_bilhalal/data/datasources/dropdown_local_data_source.dart';
@@ -19,14 +17,14 @@ import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
 import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:im_stepper/stepper.dart';
+//import 'package:im_stepper/stepper.dart';
 
 class CreateAccountScreen extends GetWidget<CreateAccountController> {
   CreateAccountScreen({super.key});
 
   final GlobalKey<ScaffoldState> _scaffoldKeyCreateAccount = GlobalKey<ScaffoldState>();
   final PageController _pageSignupStepperController = PageController();
-  var _appTheme = PrefUtils().getThemeData();
+  var _appTheme = PrefUtils.getTheme();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +39,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Scaffold(
           key: _scaffoldKeyCreateAccount,
-          backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
+          //backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
           appBar: TAppBar(
             //showBackArrow: true,
             //rightToLeft: true,
@@ -64,6 +62,17 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                   LineStepperWidget(
                     stepCount: controller.dotCount.value,
                     activeStep: controller.activeStep.value,
+                    activeColor: TColors.black,
+                    inactiveColor: TColors.greyDating,
+                    onStepTapped: (index) {
+                      // index est dans le sens logique (0 = première étape, affichée à droite)
+                      controller.activeStep.value = index;
+                    },
+                    lineHeight: 5.adaptSize,
+                  ),
+                 /* LineWithDotStepperWidget(
+                    stepCount: controller.dotCount.value,
+                    activeStep: controller.activeStep.value,
                     dotRadius: 8,
                     spacing: 0,
                     connectorWidth: 60,
@@ -73,8 +82,9 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                       // index est dans le sens logique (0 = première étape, affichée à droite)
                       controller.activeStep.value = index;
                     },
-                  ),
+                  ), */
                   /*
+                  //import 'package:im_stepper/stepper.dart';
                   DotStepper(
                     activeStep: controller.activeStep.value,
                     dotCount: controller.dotCount.value,

@@ -4,12 +4,14 @@ import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
 class PassswordSuccessScreen extends StatelessWidget {
-  const PassswordSuccessScreen({super.key});
+   PassswordSuccessScreen({super.key});
+
+  var _appTheme = PrefUtils.getTheme();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: TColors.white,
+      //backgroundColor: TColors.white,
       body: Center(
         child: Padding(
           padding: EdgeInsets.all(18.hw),
@@ -27,11 +29,14 @@ class PassswordSuccessScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: TSizes.spaceBtwSections.fSize),
-                Center(child: TitleWidget(title: "إعادة تعيين كلمة المرور", textAlign: TextAlign.center,)),
+                Center(child: TitleWidget(title: "إعادة تعيين كلمة المرور",
+                  color:  _appTheme =='light' ? TColors.black : TColors.white,
+                  textAlign: TextAlign.center,)),
                 Center(
                   child: Directionality(
                     textDirection: TextDirection.rtl,
                     child: SubTitleWidget(subtitle: "تم تحديث كلمة مرورك بنجاح. يمكنك الآن تسجيل الدخول بكلمة المرور الجديدة.",
+                      color:  _appTheme =='light' ? TColors.gray700 : TColors.white,
                       textAlign: TextAlign.center,),
                   ),
                 ),

@@ -10,7 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
 class OTPScreen extends GetView<OTPController> {
-  const OTPScreen({super.key});
+   OTPScreen({super.key});
+
+   var _appTheme = PrefUtils.getTheme();
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class OTPScreen extends GetView<OTPController> {
     var isTablet = screenWidth >= 600;
 
     return Scaffold(
-      backgroundColor: TColors.white,
+      //backgroundColor: TColors.white,
       appBar: TAppBar(
         //showBackArrow: true,
         //rightToLeft: true,
@@ -50,8 +52,11 @@ class OTPScreen extends GetView<OTPController> {
                 ),
               ),
               SizedBox(height: TSizes.spaceBtwItems),
-              Center(child: TitleWidget(title: "التحقق من حسابك", textAlign: TextAlign.center,)),
+              Center(child: TitleWidget(title: "التحقق من حسابك",
+                color:  _appTheme =='light' ? TColors.black : TColors.white,
+                textAlign: TextAlign.center,)),
               SubTitleWidget(subtitle: "تم إرسال رمز مكون من ستة أرقام إلى بريدك الإلكتروني المسجل. أدخل الرمز هنا للتحقق من حسابك.",
+                color:  _appTheme =='light' ? TColors.gray700 : TColors.white,
                 textAlign: TextAlign.center,),
               SizedBox(height: TSizes.spaceBtwItems),
               /* SizedBox(
@@ -84,7 +89,8 @@ class OTPScreen extends GetView<OTPController> {
                   },
                   currentCode: controller.otpCode.value,
                   decoration: UnderlineDecoration(
-                    textStyle: const TextStyle(fontSize: 20, color: Colors.black),
+                    textStyle: TextStyle(fontSize: 20,
+                        color: _appTheme =='light' ? TColors.black : TColors.white),
                     colorBuilder: PinListenColorBuilder(
                         TColors.yellowAppDark, TColors.buttonSecondary), // ligne grise
                     //bgColorBuilder: PinListenColorBuilder(Colors.yellow.shade200, Colors.grey.shade200),
@@ -97,7 +103,7 @@ class OTPScreen extends GetView<OTPController> {
                 children: [
                   Row(
                     children: [
-                      const Icon(Icons.access_time_sharp, color: TColors.gray700),
+                       Icon(Icons.access_time_sharp, color: _appTheme =='light' ? TColors.gray700 : TColors.white),
                       Obx(() => CountDownWidget(
                         animation: StepTween(
                           begin: controller.levelClock.value, // THIS IS A USER ENTERED NUMBER
@@ -116,17 +122,23 @@ class OTPScreen extends GetView<OTPController> {
                           Padding(padding: EdgeInsets.only(bottom: 1.v),
                               child: Text("لم تستلم الرمز؟ ",
                                   style:  isTablet
-                                      ? Theme.of(context).textTheme.titleMedium!.apply(color: TColors.gray700)
-                                      : CustomTextStyles.bodyMediumTextFormFieldGrey)
+                                      ? Theme.of(context).textTheme.titleMedium!
+                                      .apply(color: _appTheme =='light' ? TColors.gray700 : TColors.white)
+                                      : _appTheme =='light'
+                                      ? CustomTextStyles.bodyMediumTextFormFieldGrey
+                                      : CustomTextStyles.bodyMediumTextFormFieldLightGrey
+                              )
                           ),
                           GestureDetector(
                               onTap: () async {
+                                controller.animationController?.reset();
+                                controller.animationController?.forward();
                               },
                               child: Padding(padding: EdgeInsets.only(left: 8.hw),
                                   child: Text("أعد الإرسال",
                                     //style: CustomTextStyles.titleMediumBlueVPT
                                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                                      color: TColors.black,
+                                      color: _appTheme =='light' ? TColors.black : TColors.white,
                                       fontSize: 16.fSize,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -159,8 +171,8 @@ class OTPScreen extends GetView<OTPController> {
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: CustomOutlinedButton(
-                  buttonTextStyle: CustomTextStyles.bodyMediumTextFormFieldBold,
-                  buttonStyle: CustomButtonStyles.outlineBlack,
+                  buttonTextStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormFieldBold : CustomTextStyles.titleLargeWhite,
+                  buttonStyle: _appTheme =='light' ? CustomButtonStyles.outlineBlack : CustomButtonStyles.outlineWhite,
                   text: "إعادة إرسال OTP",
                   margin: EdgeInsets.only(top: 6.hw),
                   borderRadius: 100.hw,
@@ -423,6 +435,6 @@ class _OTPScreenState extends State<OTPScreen> with SingleTickerProviderStateMix
 onTapOTPSuccessPage(BuildContext context) {
   Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => const OTPSuccessScreen()),
+    MaterialPageRoute(builder: (context) => OTPSuccessScreen()),
   );
 }

@@ -9,17 +9,21 @@ import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
 class DiscussionScreen extends StatelessWidget {
+  DiscussionScreen({super.key});
   final controller = Get.put(DiscussionController());
   final FocusNode _focusNode = FocusNode();
+  var _appTheme = PrefUtils.getTheme();
 
-  DiscussionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: TAppBar(
-          title: TitleWidget(title: "الدردشة", fontWeightDelta: 3, color: TColors.buttonSecondary),
+          title: TitleWidget(
+              title: "الدردشة", fontWeightDelta: 3,
+              color: _appTheme =='light' ? TColors.buttonSecondary : TColors.white,
+          ),
           showAction: false,
         ),
         body: Directionality(
@@ -52,7 +56,7 @@ class DiscussionScreen extends StatelessWidget {
                 ],
                 onTabChanged: controller.onTabChanged,
                 activeColor: TColors.yellowAppDark,
-                inactiveColor: TColors.black,
+                inactiveColor: _appTheme =='light' ? TColors.black : TColors.white,
               ),
 
               // Liste

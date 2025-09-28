@@ -11,7 +11,7 @@ class SubscribeScreen extends GetView<SubscribeController> {
    SubscribeScreen({super.key});
 
   final GlobalKey<ScaffoldState> _scaffoldKeySubscribe = GlobalKey<ScaffoldState>();
-  var _appTheme = PrefUtils().getThemeData();
+  var _appTheme = PrefUtils.getTheme();
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +23,12 @@ class SubscribeScreen extends GetView<SubscribeController> {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
+        //backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
         key: _scaffoldKeySubscribe,
         resizeToAvoidBottomInset: false,
         appBar: TAppBar(
-          title: TitleWidget(title: "الاشتراک", fontWeightDelta: 3, color: TColors.buttonSecondary,),
+          title: TitleWidget(title: "الاشتراک", fontWeightDelta: 3,
+            color: _appTheme =='light' ? TColors.buttonSecondary : TColors.white),
           showAction: true,
         ),
         body: SingleChildScrollView(
@@ -42,11 +43,16 @@ class SubscribeScreen extends GetView<SubscribeController> {
                  SizedBox(height: TSizes.spaceBtwItems.v),
                  Directionality(
                      textDirection: TextDirection.rtl,
-                     child: TitleWidget(title: 'اختر الخطة', textAlign: TextAlign.end,)
+                     child: TitleWidget(title: 'اختر الخطة',
+                       color:  _appTheme =='light' ? TColors.black : TColors.white,
+                       textAlign: TextAlign.end,)
                  ),
                  Directionality(
                      textDirection: TextDirection.rtl,
-                     child: SubTitleWidget(subtitle: 'افتح ميزات حصرية وتواصل مع المزيد من الأعضاء.',)
+                     child: SubTitleWidget(
+                       subtitle: 'افتح ميزات حصرية وتواصل مع المزيد من الأعضاء.',
+                       color:  _appTheme =='light' ? TColors.gray700 : TColors.white,
+                     )
                  ),
                  SizedBox(height: TSizes.spaceBtwItems.v),
 
@@ -304,8 +310,8 @@ class SubscribeScreen extends GetView<SubscribeController> {
                   textDirection: TextDirection.rtl,
                   child: CustomOutlinedButton(
                     height:isSmallPhone ? 80.v : 70.v,
-                    buttonTextStyle: CustomTextStyles.titleLargeBlackGrey,
-                    buttonStyle: CustomButtonStyles.outlineBlack,
+                    buttonTextStyle: _appTheme =='light' ? CustomTextStyles.titleLargeBlackGrey : CustomTextStyles.titleLargeWhite,
+                    buttonStyle: _appTheme =='light' ? CustomButtonStyles.outlineBlack : CustomButtonStyles.outlineWhite,
                     text: "اتصل بالدعم",
                     margin: EdgeInsets.only(top: 6.hw),
                     borderRadius: 100.hw,

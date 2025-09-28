@@ -32,10 +32,10 @@ class ImageConstant {
 
 
   //On Boarding
-  static String imgOnBoarding1 = '$imagePath/onboarding1.jpg';
+  static String imgOnBoarding1 = '$imagePath/onboarding1.jpeg';
   static String imgOnBoarding2 = '$imagePath/onboarding2.jpg';
-  static String imgOnBoarding3 = '$imagePath/onboarding3.jpg';
-  static String imgOnBoarding4 = '$imagePath/onboarding4.jpg';
+  static String imgOnBoarding3 = '$imagePath/onboarding3.jpeg';
+  static String imgOnBoarding4 = '$imagePath/onboarding4.jpeg';
 
   //Card Swiper
   static String imgMessage = '$imagePath/img_message.png'; //'$imagePath/message_img.svg';

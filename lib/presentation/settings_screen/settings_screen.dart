@@ -7,7 +7,9 @@ import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends GetWidget<SettingsController> {
-  const SettingsScreen({Key? key}) : super(key: key);
+   SettingsScreen({Key? key}) : super(key: key);
+
+  var _appTheme = PrefUtils.getTheme();
 
   @override Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
@@ -17,11 +19,12 @@ class SettingsScreen extends GetWidget<SettingsController> {
     final isTablet = shortestSide < 1000;
 
     return Scaffold(
-      backgroundColor: TColors.white,
+      //backgroundColor: TColors.white,
       appBar: TAppBar(
         //showBackArrow: true,
         //rightToLeft: true,
-        title: TitleWidget(title: "إعدادات الاتصال", fontWeightDelta: 2, color: TColors.buttonSecondary,),
+        title: TitleWidget(title: "إعدادات الاتصال", fontWeightDelta: 2,
+          color:_appTheme =='light' ? TColors.buttonSecondary : TColors.white),
         /*title: Text('إعدادات الاتصال',
           style: Theme.of(context).textTheme.headlineSmall!.copyWith(
             color: TColors.black,
@@ -43,7 +46,11 @@ class SettingsScreen extends GetWidget<SettingsController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SubTitleWidget(subtitle: 'مكالمات الفيديو', fontWeightDelta: 2, fontSizeDelta: 1),
+                    SubTitleWidget(
+                        subtitle: 'مكالمات الفيديو',
+                        color: _appTheme =='light' ? TColors.gray700 : TColors.white,
+                        fontWeightDelta: 2,
+                        fontSizeDelta: 1),
                     Switch(
                       value: controller.isCallVideo.value,
                       onChanged: controller.toggleCallVideo,
@@ -63,7 +70,11 @@ class SettingsScreen extends GetWidget<SettingsController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SubTitleWidget(subtitle: 'المكالمات الصوتية', fontWeightDelta: 2, fontSizeDelta: 1),
+                    SubTitleWidget(
+                        subtitle: 'المكالمات الصوتية',
+                        color: _appTheme =='light' ? TColors.gray700 : TColors.white,
+                        fontWeightDelta: 2,
+                        fontSizeDelta: 1),
                     Switch(
                       value: controller.isCallVoice.value,
                       onChanged: controller.toggleCallVoice,
@@ -83,7 +94,12 @@ class SettingsScreen extends GetWidget<SettingsController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SubTitleWidget(subtitle: 'حالة الاتصال بالإنترنت', fontWeightDelta: 2, fontSizeDelta: 1),
+                    SubTitleWidget(
+                        subtitle: 'حالة الاتصال بالإنترنت',
+                        color: _appTheme =='light' ? TColors.gray700 : TColors.white,
+                        fontWeightDelta: 2,
+                        fontSizeDelta: 1
+                    ),
                     Switch(
                       value: controller.isInternetConnection.value,
                       onChanged: (value){

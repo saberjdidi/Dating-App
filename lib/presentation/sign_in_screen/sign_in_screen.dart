@@ -13,7 +13,7 @@ import 'package:flutter/services.dart';
 class SignInScreen extends GetView<SignInController> {
   SignInScreen({super.key});
 
-  var _appTheme = PrefUtils().getThemeData();
+  var _appTheme = PrefUtils.getTheme();
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class SignInScreen extends GetView<SignInController> {
     return SafeArea(
         child: Scaffold(
             resizeToAvoidBottomInset: false,
-            backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
+            //backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
             body: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Form(
@@ -58,7 +58,8 @@ class SignInScreen extends GetView<SignInController> {
                             ),
                             SizedBox(height: TSizes.spaceBtwItems),
                             Text("تسجيل الدخول",
-                                style: Theme.of(context).textTheme.headlineSmall!.apply(color: TColors.black, fontWeightDelta: 2),
+                                style: Theme.of(context).textTheme.headlineSmall!
+                                    .apply(color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 2),
                                 textAlign: TextAlign.center),
                             SizedBox(height: TSizes.spaceBtwSections),
                             _buildLoginForm(context),
@@ -164,11 +165,11 @@ class SignInScreen extends GetView<SignInController> {
                   child: Text("او قم بالتسجيل معنا؟",
                     //style: CustomTextStyles.titleMediumBlueVPT
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: TColors.blackGrey,
+                      color: _appTheme =='light' ? TColors.blackGrey : TColors.white,
                       fontSize: 16.fSize,
                       fontWeight: FontWeight.w500,
                       decoration: TextDecoration.underline,
-                      decorationColor: TColors.black54,
+                      decorationColor: _appTheme =='light' ? TColors.black54 : TColors.white,
                     ),
                   )
               )
@@ -181,11 +182,11 @@ class SignInScreen extends GetView<SignInController> {
                   child: Text("نسيت كلمة المرور؟",
                     //style: CustomTextStyles.titleMediumBlueVPT
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: TColors.blackGrey,
+                      color: _appTheme =='light' ? TColors.blackGrey : TColors.white,
                       fontSize: 16.fSize,
                       fontWeight: FontWeight.w500,
                       decoration: TextDecoration.underline,
-                      decorationColor: TColors.black54,
+                      decorationColor: _appTheme =='light' ? TColors.black54 : TColors.white,
                     ),
                   )
               )

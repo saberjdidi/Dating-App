@@ -28,3 +28,9 @@ https://pub.dev/packages/flutter_launcher_icons
 <key>NSAllowsArbitraryLoads</key>
 <true/>
 </dict>
+
+
+## problem showDialog et showModalBottomSheet pour Tablet => modifier par ce package: modal_bottom_sheet 
+
+## flutter_native_splash: ^2.4.0
+dart run flutter_native_splash:create --path=splash.yaml

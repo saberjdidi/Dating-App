@@ -12,7 +12,7 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
   ForgetPasswordScreen({super.key});
 
   final GlobalKey<ScaffoldState> _scaffoldKeyForgetPassword = GlobalKey<ScaffoldState>();
-  var _appTheme = PrefUtils().getThemeData();
+  var _appTheme = PrefUtils.getTheme();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
           child: Scaffold(
             key: _scaffoldKeyForgetPassword,
             resizeToAvoidBottomInset: false,
-            backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
+            //backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
             appBar: TAppBar(
               showAction: true,
             ),
@@ -49,8 +49,11 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
                             ),
                           ),
                           SizedBox(height: TSizes.spaceBtwItems),
-                          Center(child: TitleWidget(title: "هل نسيت كلمة المرور؟", textAlign: TextAlign.center,)),
+                          Center(child: TitleWidget(title: "هل نسيت كلمة المرور؟",
+                            color:  _appTheme =='light' ? TColors.black : TColors.white,
+                            textAlign: TextAlign.center,)),
                           SubTitleWidget(subtitle: "سنرسل لك رمزًا مكونًا من 6 أرقام على البريد الإلكتروني المسجل لإعادة تعيين كلمة المرور.",
+                            color:  _appTheme =='light' ? TColors.gray700 : TColors.white,
                             textAlign: TextAlign.center,),
                           SizedBox(height: TSizes.spaceBtwItems),
 

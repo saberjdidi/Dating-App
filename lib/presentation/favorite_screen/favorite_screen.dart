@@ -15,6 +15,7 @@ class FavoriteScreen extends StatelessWidget {
   FavoriteScreen({super.key});
   final controller = Get.put(FavoriteController());
   final FocusNode _focusNode = FocusNode();
+  var _appTheme = PrefUtils.getTheme();
 
 
   @override
@@ -30,7 +31,8 @@ class FavoriteScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: TAppBar(
-          title: TitleWidget(title: "المفضلة", fontWeightDelta: 3, color: TColors.buttonSecondary),
+          title: TitleWidget(title: "المفضلة", fontWeightDelta: 3,
+              color: _appTheme =='light' ? TColors.buttonSecondary : TColors.white),
           showAction: false,
         ),
         body: Directionality(
@@ -62,7 +64,7 @@ class FavoriteScreen extends StatelessWidget {
                 ],
                 onTabChanged: controller.onTabChanged,
                 activeColor: TColors.yellowAppDark,
-                inactiveColor: TColors.black,
+                inactiveColor: _appTheme =='light' ? TColors.black : TColors.white,
               ),
               SizedBox(height: 5.v),
 

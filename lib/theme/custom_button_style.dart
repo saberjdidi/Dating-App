@@ -88,4 +88,18 @@ class CustomButtonStyles {
     }),
   );
 
+  static ButtonStyle get outlineWhite => ButtonStyle(
+    backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
+    elevation: MaterialStateProperty.all<double>(0),
+    //side: BorderSide(color: appTheme.blueAstree),
+    side: MaterialStateProperty.resolveWith<BorderSide>((states) {
+      if (states.contains(MaterialState.disabled)) {
+        // Return disabled border color if button is disabled
+        return BorderSide(color: Colors.white, width: 2); // Adjust color as needed
+      }
+      // Return blue border color for other states
+      return BorderSide(color: TColors.white, width: 2); // Adjust color as needed
+    }),
+  );
+
 }

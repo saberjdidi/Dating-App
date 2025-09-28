@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 /// Helper class for managing themes and colors.
 class ThemeHelper {
   var _appTheme = 'light';
-  //var _appTheme = PrefUtils().getThemeData();
+  //var _appTheme = PrefUtils.getTheme();
 
 // A map of custom color themes supported by the app
   Map<String, PrimaryColors> _supportedCustomColor = {
@@ -55,7 +55,8 @@ class ThemeHelper {
       colorScheme: colorScheme,
       brightness: Brightness.light,
       //textTheme: TextThemes.textTheme(colorScheme),
-      scaffoldBackgroundColor: colorScheme.onPrimary,
+      scaffoldBackgroundColor: TColors.dark,
+      //scaffoldBackgroundColor: colorScheme.onPrimary,
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: colorScheme.primary,
@@ -138,7 +139,7 @@ class ThemeHelper {
       visualDensity: VisualDensity.standard,
       colorScheme: colorScheme,
       //textTheme: TextThemes.textTheme(colorScheme),
-      scaffoldBackgroundColor: appTheme.whiteE6F,
+      scaffoldBackgroundColor: TColors.white,
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: colorScheme.primary,
@@ -304,38 +305,6 @@ class PrimaryColors {
   // Green
   Color get green60019 => Color(0X19359766);
 
-  // GreenAf
-  Color get greenA7003f => Color(0X3F1AB65C);
-  Color get green => Color(0xff056e23);
-
-  // Indigo
-  Color get indigoA20014 => Color(0X145A6CEA);
-  Color get indigoAccent => Colors.indigoAccent;
-
-  // LightBlue
-  Color get lightBlue600 => Color(0XFF009CDE);
-
-  // Red
-  Color get red400 => Color(0XFFEA5B52);
-  Color get red40019 => Color(0X19C65454);
-  Color get red => Color(0xffff1515);
-
-  // Yellow
-  Color get yellow => Color(0xffbdb906);
-
-  // Teal
-  Color get teal900 => Color(0XFF093A3D);
-
-  // White
-  Color get whiteA700 => Color(0XFFFFFFFF);
-  Color get whiteE6F => Color(0xE6FCFCFF);
-  Color get whiteSmoke => Color(0xFFE5E6E9);
-
-  // Yellow
-  Color get yellowA700 => Color(0XFFFFD300);
-
-  // Orange
-  Color get orange => Colors.orange;
 }
 
 PrimaryColors get appTheme => ThemeHelper().themeColor();

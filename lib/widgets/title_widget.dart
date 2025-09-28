@@ -19,13 +19,14 @@ class TitleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _appTheme = PrefUtils().getThemeData();
+    var _appTheme = PrefUtils.getTheme();
 
     return Text(title,
         style: Theme.of(context).textTheme.headlineMedium!.apply(
-            color: _appTheme =='light'
+          color: color,
+           /* color: _appTheme =='light'
                 ? color
-                : TColors.white,
+                : TColors.dark, */
           //fontSizeDelta: 2,
           fontWeightDelta: fontWeightDelta,
           fontSizeDelta: fontSizeDelta

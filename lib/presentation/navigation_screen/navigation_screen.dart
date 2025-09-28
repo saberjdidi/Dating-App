@@ -16,7 +16,7 @@ class NavigationScreen extends GetWidget<NavigationController> {
 
   NavigationScreen({Key? key}) : super(key: key);
 
-  var _appTheme = PrefUtils().getThemeData();
+  var _appTheme = PrefUtils.getTheme();
   final GlobalKey<ScaffoldState> _scaffoldNavigationKey = GlobalKey<ScaffoldState>();
 
   @override Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class NavigationScreen extends GetWidget<NavigationController> {
     return SafeArea(
         child: Scaffold(
             key: _scaffoldNavigationKey,
-            backgroundColor: PrefUtils().getThemeData() =='light' ? TColors.lightContainer : appTheme.primaryColor,
+            //backgroundColor:PrefUtils.getTheme() =='light' ? TColors.lightContainer : appTheme.primaryColor,
             body: Navigator(
                 key: Get.nestedKey(1),
                 initialRoute: Routes.filterScreen,

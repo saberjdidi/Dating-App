@@ -87,9 +87,17 @@ class CustomTextStyles {
   static get bodyMediumTextFormFieldGrey => theme.textTheme.bodyMedium!.copyWith(
     color: TColors.gray700,
   );
+  static get bodyMediumTextFormFieldLightGrey => theme.textTheme.bodyMedium!.copyWith(
+    color: TColors.lightGrey,
+  );
 
   static get titleLargeBlackGrey => theme.textTheme.titleLarge!.copyWith(
     color: TColors.blackGrey.withOpacity(0.8),
+    fontWeight: FontWeight.bold,
+  );
+
+  static get titleLargeWhite => theme.textTheme.titleLarge!.copyWith(
+    color: TColors.white,
     fontWeight: FontWeight.bold,
   );
 
@@ -104,7 +112,7 @@ class CustomTextStyles {
       );
 
   static get bodyMediumOnError => theme.textTheme.bodyMedium!.copyWith(
-      color: appTheme.red400, //theme.colorScheme.onError,
+      color: TColors.redAppLight, //theme.colorScheme.onError,
       fontSize: 18.fSize,
       fontWeight: FontWeight.w500
   );

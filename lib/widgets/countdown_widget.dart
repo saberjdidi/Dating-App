@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class CountDownWidget extends AnimatedWidget {
   final Animation<int> animation;
+  var _appTheme = PrefUtils.getTheme();
 
   CountDownWidget({
     Key? key,
@@ -26,7 +27,7 @@ class CountDownWidget extends AnimatedWidget {
     return Text(
       timerText,
       style: TextStyle(
-        color: TColors.gray700, // ✅ Noir
+        color: _appTheme =='light' ? TColors.gray700 : TColors.white, // ✅ Noir
         fontSize: 25.adaptSize,
         fontWeight: FontWeight.w400,
       ),

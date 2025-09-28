@@ -88,7 +88,7 @@ class CustomCheckboxButton extends StatelessWidget {
     child: Text(
           text ?? "",
           textAlign: textAlignment ?? TextAlign.center,
-          style: textStyle ?? (PrefUtils().getThemeData() =='dark'
+          style: textStyle ?? (PrefUtils.getTheme() =='dark'
               ? CustomTextStyles.titleMediumOnPrimaryContainer
               : CustomTextStyles.titleMediumSemiBoldBlack),
         ),
