@@ -34,3 +34,10 @@ https://pub.dev/packages/flutter_launcher_icons
 
 ## flutter_native_splash: ^2.4.0
 dart run flutter_native_splash:create --path=splash.yaml
+
+create mode 100644 ios/Runner/Assets.xcassets/LaunchBackground.imageset/Contents.json
+create mode 100644 ios/Runner/Assets.xcassets/LaunchBackground.imageset/background.png
+create mode 100644 ios/Runner/Assets.xcassets/LaunchBackground.imageset/darkbackground.png
+create mode 100644 ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImageDark.png
+create mode 100644 ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImageDark@2x.png
+create mode 100644 ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImageD
