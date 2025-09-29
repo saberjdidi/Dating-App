@@ -67,24 +67,4 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class SplashRedirect extends StatelessWidget {
-  const SplashRedirect({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    Future.delayed(Duration.zero, () {
-      if (PrefUtils.isFirstTime()) {
-        Get.offAllNamed(Routes.onboardingScreen);
-      } else if (!PrefUtils.isLoggedIn()) {
-        Get.offAllNamed(Routes.signInScreen);
-      } else {
-        Get.offAllNamed(Routes.navigationScreen);
-      }
-    });
-
-    return const Scaffold(
-      body: Center(child: CircularProgressIndicator()), // Simple loader
-    );
-  }
-}
 

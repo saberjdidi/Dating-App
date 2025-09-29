@@ -14,7 +14,7 @@ final isMobile = shortestSide < 600;
 final isTablet = shortestSide < 1000;
 
 return Scaffold(
-  backgroundColor: TColors.white,
+  //backgroundColor: TColors.white,
   body: Center(
     child: AnimationLoaderWidget(
       text: 'شكرا لك على إكمال الملف الشخصي',

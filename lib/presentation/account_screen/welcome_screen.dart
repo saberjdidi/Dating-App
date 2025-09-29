@@ -8,6 +8,7 @@ class WelcomeScreen extends GetWidget<WelcomeController> {
   const WelcomeScreen({Key? key}) : super(key: key);
 
   @override Widget build(BuildContext context) {
+    var _appTheme = PrefUtils.getTheme();
     mediaQueryData = MediaQuery.of(context);
     var size = MediaQuery.of(context).size;
     var shortestSide = MediaQuery.of(context).size.shortestSide;

@@ -1,7 +1,10 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
+import 'package:dating_app_bilhalal/presentation/signup_screen/controller/social_buttons_controller.dart';
 import 'package:flutter/material.dart';
 
 class SocialButtonsWidget extends StatelessWidget {
+  final SocialButtonsController controller = Get.put(SocialButtonsController());
+
    SocialButtonsWidget({
     super.key,
     this.onPressed,
@@ -22,7 +25,7 @@ class SocialButtonsWidget extends StatelessWidget {
         Container(
           //decoration: BoxDecoration(border: Border.all(color: TColors.grey), borderRadius: BorderRadius.circular(100)),
           child: IconButton(
-            onPressed: () => onPressed,
+            onPressed: () => controller.loginWithGoogle(),
             icon: Image(
               width: width,
               height: height,

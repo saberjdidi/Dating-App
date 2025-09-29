@@ -331,7 +331,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             fillColor: TColors.white, //appTheme.gray50
                             //textStyle: TextStyle(color: appTheme.black),
                             hintStyle: CustomTextStyles.bodyMediumTextFormField,
-                            hintText: "${'أبحث عن'.tr} *",
+                            hintText: "${'نوع الزواج'.tr} *",
                             items: ListLookingFor.value,
                             onChanged: (value) async {
                               controller.lookingForController.text = value.title;
@@ -352,7 +352,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
 
                           CustomTextFormField(
                             controller: controller.jobController,
-                            hintText: "${'إشغال'.tr} *",
+                            hintText: "${'الوظيفة'.tr} *",
                             maxLines: 3,
                             textInputType: TextInputType.text,
                             prefixConstraints: BoxConstraints(maxHeight: 60.v),
@@ -579,7 +579,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
               //child: _buildButtonSection()
               child:
               CustomButtonContainer(
-                text:"تأكيد الحساب".tr,
+                text:"تم".tr,
                 color1: TColors.yellowAppDark,
                 color2: TColors.yellowAppLight,
                 borderRadius: 10,

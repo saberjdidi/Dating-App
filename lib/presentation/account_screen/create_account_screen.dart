@@ -573,7 +573,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               //textStyle: TextStyle(color: appTheme.black),
               hintStyle: CustomTextStyles.bodyMediumTextFormField,
               //prefix: Icon(Iconsax.activity, color: appTheme.black, size: 27.adaptSize),
-              hintText: "${'أبحث عن'.tr} *",
+              hintText: "${'نوع الزواج'.tr} *",
               items: ListLookingFor.value,
               onChanged: (value) async {
                 controller.lookingForController.text = value.title;
@@ -594,7 +594,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
 
             CustomTextFormField(
               controller: controller.jobController,
-              hintText: "${'إشغال'.tr} *",
+              hintText: "${'الوظيفة'.tr} *",
               maxLines: 3,
               textInputType: TextInputType.text,
               /* prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
@@ -716,12 +716,14 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             Align(
                 alignment: Alignment.topRight,
                 child: TitleWidget(title: "أضف الفائدة".tr,
-                  color:  _appTheme =='light' ? TColors.black : TColors.white,)
+                  color:  _appTheme =='light' ? TColors.black : TColors.white,
+                  textAlign: TextAlign.end,)
             ),
             Align(
                 alignment: Alignment.topRight,
                 child: SubTitleWidget(subtitle: "أضف أي 5 اهتمامات للعثور على شريك يتوافق مع شغفك.".tr,
-                  color:  _appTheme =='light' ? TColors.gray700 : TColors.white,)
+                  color:  _appTheme =='light' ? TColors.gray700 : TColors.white,
+                  textAlign: TextAlign.end,)
             ),
 
             SizedBox(height: TSizes.spaceBtwSections.v),
@@ -769,18 +771,21 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
   /// Section Media
   Widget _buildMediaForm(BuildContext context, bool isTablet) {
     return Obx(() => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        //crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           SizedBox(height: TSizes.spaceBtwItems.v),
           Align(
               alignment: Alignment.topRight,
               child: TitleWidget(title: "أضف صورة الملف الشخصي/الفيديو".tr,
-                  color:  _appTheme =='light' ? TColors.black : TColors.white)
+                  color:  _appTheme =='light' ? TColors.black : TColors.white,
+                textAlign: TextAlign.end,
+              )
           ),
           Align(
               alignment: Alignment.topRight,
               child: SubTitleWidget(subtitle: "قم بتحميل صورتك الخاصة، وسيتم عرضها كصورة ملفك الشخصي.".tr,
-                  color:  _appTheme =='light' ? TColors.gray700 : TColors.white)
+                  color:  _appTheme =='light' ? TColors.gray700 : TColors.white,
+                textAlign: TextAlign.end,)
           ),
 
           SizedBox(height: TSizes.spaceBtwSections.v),

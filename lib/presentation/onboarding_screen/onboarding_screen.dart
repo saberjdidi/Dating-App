@@ -15,6 +15,7 @@ class OnBoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(OnBoardingController());
+    var _appTheme = PrefUtils.getTheme();
 
     mediaQueryData = MediaQuery.of(context);
     var screenWidth = MediaQuery.of(context).size.width;
@@ -24,7 +25,7 @@ class OnBoardingScreen extends StatelessWidget {
 
     return Scaffold(
       key: _scaffoldKeyOnBoarding,
-      backgroundColor: TColors.white,
+      //backgroundColor: TColors.white,
       body: Column(
         children: [
           // === Carousel Slider ===
@@ -85,7 +86,7 @@ class OnBoardingScreen extends StatelessWidget {
 
                     Text(currentData.body!,
                         style: Theme.of(context).textTheme.bodyMedium!
-                            .apply(color: TColors.blackGrey, fontSizeDelta: 2),
+                            .apply(color: _appTheme =='light' ?  TColors.blackGrey : TColors.white, fontSizeDelta: 2),
                         textAlign: TextAlign.center)
                   ],
                 ),
@@ -276,7 +277,8 @@ class OnBoardingScreen extends StatelessWidget {
                         Padding(padding: EdgeInsets.only(bottom: 1.v),
                             child: Text("هل لديك حساب بالفعل؟ ",
                                 style:  isTablet
-                                    ? Theme.of(context).textTheme.titleMedium!.apply(color: TColors.gray700)
+                                    ? Theme.of(context).textTheme.titleMedium!
+                                    .apply(color: _appTheme =='light' ?  TColors.gray700 : TColors.white)
                                     : CustomTextStyles.bodyMediumTextFormFieldGrey)
                         ),
                         GestureDetector(

@@ -16,6 +16,7 @@ class SplashRedirectController extends GetxController {
 
   ///Function to show relevant screen
   screenRedirect() async {
+    //Get.offAllNamed(Routes.onboardingScreen);
     if (PrefUtils.isFirstTime()) {
       Get.offAllNamed(Routes.onboardingScreen);
     } else if (!PrefUtils.isLoggedIn()) {

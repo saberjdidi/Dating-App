@@ -176,7 +176,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                       borderRadius: 30,
                                       colorText: TColors.white,
                                       fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
-                                      height: 70.v,
+                                      height: isSmallPhone ? 80.v : isTablet ? 70.v : 65.v,
                                       width: 120.adaptSize,
                                       onPressed: () async {
                                         Get.toNamed(Routes.mediaOwnerProfileScreen);
@@ -231,19 +231,19 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                               child: Row(
                                                 children: [
                                                   CircularContainer(
-                                                    width: 40.adaptSize,
-                                                    height: 40.adaptSize,
-                                                    radius: 40.adaptSize,
+                                                    width: isTablet ? 40.adaptSize : 27,
+                                                    height:  isTablet ? 40.adaptSize : 27,
+                                                    radius:  isTablet ? 40.adaptSize : 27,
                                                     backgroundColor: TColors.greyDating.withOpacity(0.9),
                                                     //margin: EdgeInsets.symmetric(horizontal: 10.hw),
                                                     child: IconButton(
-                                                      icon: Icon(Iconsax.heart5, color: TColors.redAppLight, size: 20.adaptSize,),
+                                                      icon: Icon(Iconsax.heart5, color: TColors.redAppLight, size:  isTablet ? 20.adaptSize : 12),
                                                       onPressed: (){
 
                                                       },
                                                     ),
                                                   ),
-                                                  SizedBox(width: 5.adaptSize),
+                                                  SizedBox(width: 3.adaptSize),
                                                   SubTitleWidget(subtitle: '23 إعجابًا', color: TColors.white, fontWeightDelta: 2,),
                                                 ],
                                               )
