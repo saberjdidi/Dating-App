@@ -40,9 +40,9 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
             child: Row(
               children: [
                 CircleIconButton(
-                    size: 45.adaptSize,
-                    effectiveSize: 45.adaptSize,
-                    minTapSize: 40.adaptSize,
+                    size: isSmallPhone ? 52.adaptSize : 45.adaptSize,
+                    effectiveSize: isSmallPhone ? 52.adaptSize : 45.adaptSize,
+                    minTapSize: isSmallPhone ? 50.adaptSize : 40.adaptSize,
                     backgroundColor: TColors.greyDating.withOpacity(0.6),
                     child: IconButton(
                       icon: Icon(Icons.more_vert, color: TColors.black.withOpacity(0.7), size: 27.adaptSize,),
@@ -54,9 +54,9 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
                 ),
                 SizedBox(width: 2.adaptSize,),
                 CircleIconButton(
-                  size: 45.adaptSize,
-                  effectiveSize: 45.adaptSize,
-                  minTapSize: 40.adaptSize,
+                  size: isSmallPhone ? 52.adaptSize : 45.adaptSize,
+                  effectiveSize: isSmallPhone ? 52.adaptSize : 45.adaptSize,
+                  minTapSize: isSmallPhone ? 50.adaptSize : 40.adaptSize,
                   backgroundColor: TColors.greyDating.withOpacity(0.6),
                   child: IconButton(
                     icon: Icon(Icons.videocam_rounded, color: TColors.black.withOpacity(0.7), size: 27.adaptSize,),
@@ -72,9 +72,9 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
                 ),
                 SizedBox(width: 2.adaptSize,),
                 CircleIconButton(
-                  size: 45.adaptSize,
-                  effectiveSize: 45.adaptSize,
-                  minTapSize: 40.adaptSize,
+                  size: isSmallPhone ? 52.adaptSize : 45.adaptSize,
+                  effectiveSize: isSmallPhone ? 52.adaptSize : 45.adaptSize,
+                  minTapSize: isSmallPhone ? 50.adaptSize : 40.adaptSize,
                   backgroundColor: TColors.greyDating.withOpacity(0.6),
                   child: IconButton(
                     icon: Icon(Icons.call, color: TColors.black.withOpacity(0.7), size: 27.adaptSize,),
@@ -116,9 +116,9 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
               ),
               trailing: CustomImageView(
                 imagePath: controller.userChatModel.senderProfile,
-                width: 50.adaptSize,
-                height: 50.adaptSize,
-                radius: BorderRadius.circular(50.adaptSize),
+                width: isSmallPhone ? 60.adaptSize : 50.adaptSize,
+                height: isSmallPhone ? 60.adaptSize : 50.adaptSize,
+                radius: BorderRadius.circular(isSmallPhone ? 60.adaptSize : 50.adaptSize),
                 onTap: () async {
                   Get.toNamed(Routes.userChatPofileScreen,
                       //arguments: {"UserModel" : user}

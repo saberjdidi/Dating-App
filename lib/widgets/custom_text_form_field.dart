@@ -28,7 +28,9 @@ class CustomTextFormField extends StatelessWidget {
     this.filled = true,
     this.enabled = true,
     this.validator,
-    this.onChange
+    this.onChange,
+    this.onTap,
+    this.onEditingComplete
   }) : super(
           key: key,
         );
@@ -82,6 +84,8 @@ class CustomTextFormField extends StatelessWidget {
   final FormFieldValidator<String>? validator;
 
   final Function(String)? onChange;
+  final Function()? onTap;
+  final Function()? onEditingComplete;
 
   @override
   Widget build(BuildContext context) {
@@ -108,6 +112,8 @@ class CustomTextFormField extends StatelessWidget {
           decoration: decoration,
           validator: validator,
           onChanged: onChange,
+          onTap: onTap,
+          onEditingComplete: onEditingComplete,
           maxLength: maxLength,
           cursorColor: TColors.black,
         ),

@@ -29,7 +29,7 @@ class MediaOwnerProfileScreen extends GetWidget<MediaOwnerProfileController> {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Scaffold(
           key: _scaffoldKeyMediaProfile,
-        backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
+        //backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
         appBar: TAppBar(
           title: TitleWidget(title: "تعديل الصور / الفيديوات", fontWeightDelta: 1, color: TColors.buttonSecondary,),
           showAction: true,

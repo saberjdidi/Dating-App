@@ -25,14 +25,15 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
     return SafeArea(
         child: Scaffold(
             resizeToAvoidBottomInset: false,
-            backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
+            //backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
             body: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Form(
                   key: controller.formSignUpKey,
                   child: Container(
                       width: double.maxFinite,
-                      padding: EdgeInsets.symmetric(horizontal: 24.hw, vertical: 11.v),
+                      padding: EdgeInsets.only(left: 24.hw, right: 24.hw, top: 11.v, bottom: MediaQuery.of(context).viewInsets.bottom + 11.v),
+                      //padding: EdgeInsets.symmetric(horizontal: 24.hw, vertical: 11.v),
                       child: Column(
                           children: [
                             Visibility(
@@ -63,7 +64,7 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
                             TitleWidget(title: "اشتراک",
                               color: _appTheme =='light' ? TColors.black : TColors.white,),
                             SizedBox(height: TSizes.spaceBtwSections),
-                            _buildLoginForm(context),
+                            _buildRegisterForm(context),
                             SizedBox(height: 10.v),
 
                             CustomTermPrivacyWidget(),
@@ -106,23 +107,28 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
   }
 
   /// Section Widget
-  Widget _buildLoginForm(BuildContext context) {
+  Widget _buildRegisterForm(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
     var screenWidth = mediaQueryData.size.width;
     var isSmallPhone = screenWidth < 360;
     var isTablet = screenWidth >= 600;
 
-    return Column(
+    return Obx(() => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ///Email
           Directionality(
-            textDirection: TextDirection.rtl,
+            textDirection: controller.isRTL.value ? TextDirection.rtl : TextDirection.ltr,
             child: CustomTextFormField(
               controller: controller.emailController,
+              onChange: (value) => controller.isRTL.value = TDeviceUtils.isArabic(value),
+              focusNode: controller.emailFocus,
+              onTap: () => FocusScope.of(context).requestFocus(controller.emailFocus),
+              onEditingComplete: () => FocusScope.of(context).requestFocus(controller.passwordFocus),
               hintText: "بريد إلكتروني".tr,
               textInputType: TextInputType.emailAddress,
-             /* prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
+              textInputAction: TextInputAction.next,
+              /* prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
                   child: CustomImageView(
                       imagePath: ImageConstant.imgCheckmark,
                       height: 20.adaptSize,
@@ -134,55 +140,64 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
             ),
           ),
           const SizedBox(height: TSizes.spaceBtwInputFields,),
-          Obx(() => Directionality(
-            textDirection: TextDirection.rtl,
+          Directionality(
+            textDirection: controller.isRTL.value ? TextDirection.rtl : TextDirection.ltr,
             child: CustomTextFormField(
-                controller: controller.passwordController,
-                hintText: "كلمة المرور".tr,
+              controller: controller.passwordController,
+              onChange: (value) => controller.isRTL.value = TDeviceUtils.isArabic(value),
+              focusNode: controller.passwordFocus,
+              onTap: () => FocusScope.of(context).requestFocus(controller.passwordFocus),
+              onEditingComplete: () => FocusScope.of(context).requestFocus(controller.confirmPasswordFocus),
+              hintText: "كلمة المرور".tr,
               textInputAction: TextInputAction.next,
-                textInputType: TextInputType.visiblePassword,
-               /* prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
+              textInputType: TextInputType.visiblePassword,
+              /* prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
                     child: CustomImageView(imagePath: ImageConstant.imgLock, height: 20.adaptSize, width: 20.adaptSize)),
                 */
-                prefixConstraints: BoxConstraints(maxHeight: 60.v),
-                suffix: InkWell(onTap: () {controller.isShowPassword.value = !controller.isShowPassword.value;},
-                    child: Container(margin: EdgeInsets.fromLTRB(30.hw, 20.v, 20.hw, 20.v),
-                        child: CustomImageView(
-                            imagePath: ImageConstant.imgEye,
-                            height: 20.adaptSize,
-                            width: 20.adaptSize)
-                    )),
-                suffixConstraints: BoxConstraints(maxHeight: 60.v),
-                validator: (value) => Validator.validateEmptyText("lbl_password".tr, value),
-                obscureText: controller.isShowPassword.value,
+              prefixConstraints: BoxConstraints(maxHeight: 60.v),
+              suffix: InkWell(onTap: () {controller.isShowPassword.value = !controller.isShowPassword.value;},
+                  child: Container(margin: EdgeInsets.fromLTRB(30.hw, 20.v, 20.hw, 20.v),
+                      child: CustomImageView(
+                          imagePath: ImageConstant.imgEye,
+                          height: 20.adaptSize,
+                          width: 20.adaptSize)
+                  )),
+              suffixConstraints: BoxConstraints(maxHeight: 60.v),
+              validator: (value) => Validator.validateEmptyText("lbl_password".tr, value),
+              obscureText: controller.isShowPassword.value,
               contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
             ),
-          )),
+          ),
           const SizedBox(height: TSizes.spaceBtwInputFields,),
-          Obx(() => Directionality(
-            textDirection: TextDirection.rtl,
+          Directionality(
+            textDirection: controller.isRTL.value ? TextDirection.rtl : TextDirection.ltr,
+            //textDirection: TextDirection.rtl,
             child: CustomTextFormField(
-                controller: controller.confirmPasswordController,
-                hintText: "تأكيد كلمة المرور".tr,
-              textInputAction: TextInputAction.done,
-                textInputType: TextInputType.visiblePassword,
-               /* prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
+              controller: controller.confirmPasswordController,
+              onChange: (value) => controller.isRTL.value = TDeviceUtils.isArabic(value),
+              focusNode: controller.confirmPasswordFocus,
+              onTap: () => FocusScope.of(context).requestFocus(controller.confirmPasswordFocus),
+              onEditingComplete: () => FocusScope.of(context).requestFocus(controller.confirmPasswordFocus),
+              hintText: "تأكيد كلمة المرور".tr,
+              textInputAction: TextInputAction.next,
+              textInputType: TextInputType.visiblePassword,
+              /* prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
                     child: CustomImageView(imagePath: ImageConstant.imgLock, height: 20.adaptSize, width: 20.adaptSize)),
                 */
-                prefixConstraints: BoxConstraints(maxHeight: 60.v),
-                suffix: InkWell(onTap: () {controller.isShowPassword.value = !controller.isShowPassword.value;},
-                    child: Container(margin: EdgeInsets.fromLTRB(30.hw, 20.v, 20.hw, 20.v),
-                        child: CustomImageView(
-                            imagePath: ImageConstant.imgEye,
-                            height: 20.adaptSize,
-                            width: 20.adaptSize)
-                    )),
-                suffixConstraints: BoxConstraints(maxHeight: 60.v),
-                validator: (value) => Validator.validateEmptyText("lbl_password".tr, value),
-                obscureText: controller.isShowPassword.value,
+              prefixConstraints: BoxConstraints(maxHeight: 60.v),
+              suffix: InkWell(onTap: () {controller.isShowPassword.value = !controller.isShowPassword.value;},
+                  child: Container(margin: EdgeInsets.fromLTRB(30.hw, 20.v, 20.hw, 20.v),
+                      child: CustomImageView(
+                          imagePath: ImageConstant.imgEye,
+                          height: 20.adaptSize,
+                          width: 20.adaptSize)
+                  )),
+              suffixConstraints: BoxConstraints(maxHeight: 60.v),
+              validator: (value) => Validator.validateEmptyText("lbl_password".tr, value),
+              obscureText: controller.isShowPassword.value,
               contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
             ),
-          )),
+          ),
           /* GestureDetector(
               onTap: () {
                 onTapTxtForgotThePassword();
@@ -255,7 +270,7 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
           //CustomTermPrivacyWidget(),
           //SizedBox(height: 10.v),
         ]
-    );
+    ));
   }
 
   /// Navigates to the previous screen.

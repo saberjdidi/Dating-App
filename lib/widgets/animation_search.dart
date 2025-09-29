@@ -29,6 +29,11 @@ class AnimationSearchWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _appTheme = PrefUtils.getTheme();
+    mediaQueryData = MediaQuery.of(context);
+    var screenWidth = mediaQueryData.size.width;
+    var screenHeight = mediaQueryData.size.height;
+    var isSmallPhone = screenWidth < 360;
+    var isTablet = screenWidth >= 600;
 
     return Center(
       child: SingleChildScrollView(
@@ -80,9 +85,9 @@ class AnimationSearchWidget extends StatelessWidget {
                       'تم العثور على 23 مباراة...'
                     ],
                     textStyle: Theme.of(context).textTheme.bodyMedium!.apply(
-                      color: _appTheme == 'dark' ? TColors.white : TColors.black,
-                      fontSizeDelta: 1,
-                      fontWeightDelta: 1,
+                      color: _appTheme == 'light' ? TColors.black : TColors.darkerGrey,
+                      fontSizeDelta: isTablet ? 2 : 1,
+                      fontWeightDelta: isTablet ? 2 : 1,
                     ),
                     speed: const Duration(milliseconds: 80),
                     pause: const Duration(milliseconds: 1000),

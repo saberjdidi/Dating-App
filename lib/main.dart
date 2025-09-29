@@ -1,5 +1,6 @@
 import 'package:dating_app_bilhalal/core/utils/initial_bindings.dart';
 import 'package:dating_app_bilhalal/routes/app_routes.dart';
+import 'package:dating_app_bilhalal/splash_redirect_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,9 +18,12 @@ void main() async  {
   /* await SharedPreferences.getInstance().then((prefs) {
     PrefUtils.sharedPreferences = prefs;
   }); */
+
+  Get.put(SplashRedirectController());
+
   runApp(const MyApp());
   // Supprime le splash après que l'app soit prête
-  FlutterNativeSplash.remove();
+  //FlutterNativeSplash.remove();
   //For testing preview device
  /* DevicePreview(
     //enabled: !kReleaseMode,
@@ -42,7 +46,18 @@ class MyApp extends StatelessWidget {
       //locale: translationController.language,
       title: 'بالحلال',
       initialBinding: InitialBindings(),
-      home: const SplashRedirect(), // On commence par la redirection
+      home: Scaffold(
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(ImageConstant.logo),
+              fit: BoxFit.cover, // Couvre tout l’écran
+            ),
+          ),
+        ),
+      ),
+      //home: const Scaffold(backgroundColor: TColors.yellowAppDark, body: Center(child: CircularProgressIndicator(color: TColors.white,),),),
+      //home: const SplashRedirect(), // On commence par la redirection
       //initialRoute: Routes.initialRoute, //utilise si on utilise splashscreen/splashcontroller
       getPages: AppRoutes.pages,
      /* builder: (context, child) {

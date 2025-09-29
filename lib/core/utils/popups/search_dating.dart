@@ -39,7 +39,7 @@ class SearchDating {
                         textAlign: TextAlign.right),
                   ),
                   SizedBox(height: TSizes.spaceBtwItems.adaptSize),
-                  FormDividerWidget(dividerText: "عمر", thikness: 2),
+                  FormDividerWidget(dividerText: "عمر", thikness: 2, color: TColors.black),
                   SizedBox(height: TSizes.spaceBtwItems.v),
 
                   Column(
@@ -86,7 +86,7 @@ class SearchDating {
                   ),
 
                   SizedBox(height: TSizes.spaceBtwItems.v),
-                  FormDividerWidget(dividerText: "الوزن", thikness: 2),
+                  FormDividerWidget(dividerText: "الوزن", thikness: 2, color: TColors.black),
                   SizedBox(height: TSizes.spaceBtwItems.v),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -132,7 +132,7 @@ class SearchDating {
                   ),
 
                   SizedBox(height: TSizes.spaceBtwItems.v),
-                  FormDividerWidget(dividerText: "الطول", thikness: 2),
+                  FormDividerWidget(dividerText: "الطول", thikness: 2, color: TColors.black),
                   SizedBox(height: TSizes.spaceBtwItems.v),
 
                   Column(
@@ -179,7 +179,7 @@ class SearchDating {
                   ),
 
                   SizedBox(height: TSizes.spaceBtwItems.v),
-                  FormDividerWidget(dividerText: "لون البشرة", thikness: 2),
+                  FormDividerWidget(dividerText: "لون البشرة", thikness: 2, color: TColors.black),
                   SizedBox(height: TSizes.spaceBtwItems.v),
 
                   Wrap(
@@ -197,7 +197,7 @@ class SearchDating {
                   ),
 
                   SizedBox(height: TSizes.spaceBtwItems.v),
-                  FormDividerWidget(dividerText: "جنسك", thikness: 2),
+                  FormDividerWidget(dividerText: "جنسك", thikness: 2, color: TColors.black),
                   SizedBox(height: TSizes.spaceBtwItems.v),
 
                   Padding(
@@ -344,9 +344,9 @@ class SearchDating {
                     controller: controller,
                     borderRadius: 15,
                     fillColor: Colors.white,
-                    themeColor: appTheme.gray50,
+                    themeColor: appTheme.gray50, //appTheme.gray50
                     hintStyle: CustomTextStyles.bodyMediumTextFormField,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: isSmallPhone ? 8 : 16),
                   ),
                   /* GridView.count(
                     crossAxisCount: isTablet ? 3 : 2, // ✅ Deux colonnes fixes

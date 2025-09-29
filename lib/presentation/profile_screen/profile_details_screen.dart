@@ -18,7 +18,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
     var screenWidth = mediaQueryData.size.width;
-    var screenheight = mediaQueryData.size.height;
+    var screenHeight = mediaQueryData.size.height;
     var isSmallPhone = screenWidth < 360;
     var isTablet = screenWidth >= 600;
 
@@ -44,8 +44,8 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                 top: 20,
                 left: 20,
                 child:  CircleIconButton(
-                  size: 60.adaptSize,
-                  effectiveSize: 60.adaptSize,
+                  size: isSmallPhone ? 70.adaptSize : 60.adaptSize,
+                  effectiveSize: isSmallPhone ? 70.adaptSize : 60.adaptSize,
                   minTapSize: 60.adaptSize,
                   backgroundColor: TColors.greyDating.withOpacity(0.5),
                   child: IconButton(
@@ -62,8 +62,8 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                 top: 20,
                 right: 20,
                 child: CircleIconButton(
-                  size: 60.adaptSize,
-                  effectiveSize: 60.adaptSize,
+                  size: isSmallPhone ? 70.adaptSize : 60.adaptSize,
+                  effectiveSize: isSmallPhone ? 70.adaptSize : 60.adaptSize,
                   minTapSize: 60.adaptSize,
                   backgroundColor: TColors.greyDating.withOpacity(0.5),
                   child: IconButton(
@@ -81,7 +81,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                 alignment: Alignment.bottomCenter,
                 child: TRoundedContainer(
                   width: double.infinity,
-                  height: screenheight * 0.6,
+                  height: screenHeight * 0.6,
                   radius: 50.adaptSize,
                   isBorderRadiusTop: true,
                   padding: EdgeInsets.symmetric(

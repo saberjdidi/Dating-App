@@ -8,11 +8,35 @@ class SignUpWithEmailController extends GetxController {
 
   //final apiClient = Get.find<ApiClient>();
 
+  var isRTL = true.obs;
+  //Controllers
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
 
+  //FocusNodes
+  FocusNode emailFocus = FocusNode();
+  FocusNode passwordFocus = FocusNode();
+  FocusNode confirmPasswordFocus = FocusNode();
+
   Rx<bool> isShowPassword = true.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+
+    emailFocus.dispose();
+    passwordFocus.dispose();
+    confirmPasswordFocus.dispose();
+  }
 
   signupFn() async {
     try {

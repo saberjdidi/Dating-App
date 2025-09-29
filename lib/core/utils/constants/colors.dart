@@ -42,6 +42,21 @@ class TColors {
   static const Color primaryBackground = Color(0xFFF3F5FF);
   static const Color lightGrey = Color(0xFFF9F9F9);
 
+
+  // Error and validation colors
+  static const Color error = Color(0xFFD32F2F);
+  static const Color success = Color(0xFF0A7700);
+  static const Color warning = Color(0xFFDD7C27);
+  static const Color info = Color(0xFF1976D2);
+
+  // Neutral Shades
+  static const Color black = Colors.black;
+  static const Color black54 = Colors.black54;
+  static const Color darkerGrey = Color(0xFF4F4F4F);
+  static const Color darkGrey = Color(0xFF939393);
+  static const Color grey = Color(0xFFE0E0E0);
+  static const Color softGrey = Color(0xFFF4F4F4);
+
   static const Color blueLight700 = Color(0xFF0086C9);
   static const Color blueLight = Color(0xFFC1E4F7);
   static const Color colorActiveIconBottomBar = Color(0xFF065D8F);
@@ -86,18 +101,5 @@ class TColors {
   static const Color borderPrimary = Color(0xFFD9D9D9);
   static const Color borderSecondary = Color(0xFFE6E6E6);
 
-  // Error and validation colors
-  static const Color error = Color(0xFFD32F2F);
-  static const Color success = Color(0xFF0A7700);
-  static const Color warning = Color(0xFFDD7C27);
-  static const Color info = Color(0xFF1976D2);
-
-  // Neutral Shades
-  static const Color black = Colors.black;
-  static const Color black54 = Colors.black54;
-  static const Color darkerGrey = Color(0xFF4F4F4F);
-  static const Color darkGrey = Color(0xFF939393);
-  static const Color grey = Color(0xFFE0E0E0);
-  static const Color softGrey = Color(0xFFF4F4F4);
 
 }

@@ -12,8 +12,14 @@ class SignInController extends GetxController {
 
   //final apiClient = Get.find<ApiClient>();
 
+  var isRTL = true.obs;
+  //Controllers
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  //FocusNodes
+  FocusNode emailFocus = FocusNode();
+  FocusNode passwordFocus = FocusNode();
 
   Rx<bool> isShowPassword = true.obs;
   Rx<bool> rememberme = false.obs;
@@ -28,6 +34,9 @@ class SignInController extends GetxController {
     super.dispose();
     emailController.dispose();
     passwordController.dispose();
+
+    emailFocus.dispose();
+    passwordFocus.dispose();
   }
 
   loginFn() async {

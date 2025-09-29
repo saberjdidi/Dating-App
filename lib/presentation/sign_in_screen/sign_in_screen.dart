@@ -24,7 +24,7 @@ class SignInScreen extends GetView<SignInController> {
 
     return SafeArea(
         child: Scaffold(
-            resizeToAvoidBottomInset: false,
+            resizeToAvoidBottomInset: true, // important pour éviter que le clavier cache le champ
             //backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
             body: SingleChildScrollView(
               scrollDirection: Axis.vertical,
@@ -32,7 +32,8 @@ class SignInScreen extends GetView<SignInController> {
                   key: controller.formLoginKey,
                   child: Container(
                       width: double.maxFinite,
-                      padding: EdgeInsets.symmetric(horizontal: 24.hw, vertical: 11.v),
+                      padding: EdgeInsets.only(left: 24.hw, right: 24.hw, top: 11.v, bottom: MediaQuery.of(context).viewInsets.bottom + 11.v),
+                      //padding: EdgeInsets.symmetric(horizontal: 24.hw, vertical: 11.v),
                       child: Column(
                           children: [
                             Visibility(
@@ -111,17 +112,22 @@ class SignInScreen extends GetView<SignInController> {
     var isSmallPhone = screenWidth < 360;
     var isTablet = screenWidth >= 600;
 
-    return Column(
+    return Obx(() => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ///Email
           Directionality(
-            textDirection: TextDirection.rtl,
+            textDirection: controller.isRTL.value ? TextDirection.rtl : TextDirection.ltr,
             child: CustomTextFormField(
               controller: controller.emailController,
+              onChange: (value) => controller.isRTL.value = TDeviceUtils.isArabic(value),
+              focusNode: controller.emailFocus,
+              onTap: () => FocusScope.of(context).requestFocus(controller.emailFocus),
+              onEditingComplete: () => FocusScope.of(context).requestFocus(controller.passwordFocus),
               hintText: "بريد إلكتروني".tr,
               textInputType: TextInputType.emailAddress,
-            /*  prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
+              textInputAction: TextInputAction.next,
+              /*  prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
                   child: CustomImageView(
                       imagePath: ImageConstant.imgCheckmark,
                       height: 20.adaptSize,
@@ -133,29 +139,34 @@ class SignInScreen extends GetView<SignInController> {
             ),
           ),
           const SizedBox(height: TSizes.spaceBtwInputFields,),
-          Obx(() => Directionality(
-            textDirection: TextDirection.rtl,
+          Directionality(
+            textDirection: controller.isRTL.value ? TextDirection.rtl : TextDirection.ltr,
             child: CustomTextFormField(
-                controller: controller.passwordController,
-                hintText: "كلمة المرور".tr, textInputAction: TextInputAction.done,
-                textInputType: TextInputType.visiblePassword,
-               /* prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
+              controller: controller.passwordController,
+              onChange: (value) => controller.isRTL.value = TDeviceUtils.isArabic(value),
+              focusNode: controller.passwordFocus,
+              onTap: () => FocusScope.of(context).requestFocus(controller.passwordFocus),
+              onEditingComplete: () => FocusScope.of(context).requestFocus(controller.passwordFocus),
+              hintText: "كلمة المرور".tr,
+              textInputAction: TextInputAction.next,
+              textInputType: TextInputType.visiblePassword,
+              /* prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
                     child: CustomImageView(imagePath: ImageConstant.imgLock, height: 20.adaptSize, width: 20.adaptSize)),
                 */
-                prefixConstraints: BoxConstraints(maxHeight: 60.v),
-                suffix: InkWell(onTap: () {controller.isShowPassword.value = !controller.isShowPassword.value;},
+              prefixConstraints: BoxConstraints(maxHeight: 60.v),
+              /* suffix: InkWell(onTap: () {controller.isShowPassword.value = !controller.isShowPassword.value;},
                     child: Container(margin: EdgeInsets.fromLTRB(30.hw, 20.v, 20.hw, 20.v),
                         child: CustomImageView(
                             imagePath: ImageConstant.imgEye,
                             height: 20.adaptSize,
                             width: 20.adaptSize)
-                    )),
-                suffixConstraints: BoxConstraints(maxHeight: 60.v),
-                validator: (value) => Validator.validateEmptyText("lbl_password".tr, value),
-                obscureText: controller.isShowPassword.value,
-                contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
+                    )), */
+              suffixConstraints: BoxConstraints(maxHeight: 60.v),
+              validator: (value) => Validator.validateEmptyText("lbl_password".tr, value),
+              obscureText: controller.isShowPassword.value,
+              contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
             ),
-          )),
+          ),
           const SizedBox(height: TSizes.spaceBtwSections,),
           GestureDetector(
               onTap: () {
@@ -208,7 +219,7 @@ class SignInScreen extends GetView<SignInController> {
               },
             ),
           ),
-        /*  CustomElevatedButton(
+          /*  CustomElevatedButton(
               buttonStyle: CustomButtonStyles.elevatedBlueLight700Radius10,
               text: "Connexion".tr,
               onPressed: (){
@@ -224,10 +235,10 @@ class SignInScreen extends GetView<SignInController> {
                   child: Text("أو قم بالتسجيل مع".tr,
                     style: _appTheme =='light'
                         ? Theme.of(context).textTheme.titleMedium!.copyWith(
-                        color: TColors.black54,
-                        fontSize: 18.fSize,
-                        fontWeight: FontWeight.w600,
-                        //decoration: TextDecoration.underline
+                      color: TColors.black54,
+                      fontSize: 18.fSize,
+                      fontWeight: FontWeight.w600,
+                      //decoration: TextDecoration.underline
                     )
                         : CustomTextStyles.titleMediumBlueVPT,
 
@@ -246,7 +257,7 @@ class SignInScreen extends GetView<SignInController> {
           //CustomTermPrivacyWidget(),
           //SizedBox(height: 10.v),
         ]
-    );
+    ));
   }
 
   /// Navigates to the previous screen.

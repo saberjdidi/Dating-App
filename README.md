@@ -35,6 +35,12 @@ https://pub.dev/packages/flutter_launcher_icons
 ## flutter_native_splash: ^2.4.0
 dart run flutter_native_splash:create --path=splash.yaml
 
+dimension Android:
+hdpi 192X192,
+xhdpi 288X288,
+xxhdpi 384X384,
+xxxhdpi 1024X1024
+
 create mode 100644 ios/Runner/Assets.xcassets/LaunchBackground.imageset/Contents.json
 create mode 100644 ios/Runner/Assets.xcassets/LaunchBackground.imageset/background.png
 create mode 100644 ios/Runner/Assets.xcassets/LaunchBackground.imageset/darkbackground.png

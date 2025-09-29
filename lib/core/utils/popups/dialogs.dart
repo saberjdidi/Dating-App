@@ -117,7 +117,7 @@ class Dialogs {
                    padding: EdgeInsets.symmetric(horizontal: 10.hw, vertical: 16.v),
                    margin: EdgeInsets.all(16),
                    decoration: BoxDecoration(
-                       color: _appTheme =='dark' ? appTheme.darkGrey : TColors.white,
+                       color: _appTheme =='dark' ? TColors.white : TColors.darkGrey,
                        //color: appTheme.whiteA700,
                        borderRadius: BorderRadiusStyle.roundedBorder20
                    ),
@@ -148,6 +148,7 @@ class Dialogs {
  }
 
  static customModalBottomSheet(BuildContext context, double initialChildSize, Widget child, {visibleBtnClose = true}){
+   var _appTheme = PrefUtils.getTheme();
    showModalBottomSheet(
        context: context,
        isScrollControlled: true,
@@ -156,6 +157,7 @@ class Dialogs {
        shape: RoundedRectangleBorder(
            borderRadius: BorderRadius.vertical(
                top: Radius.circular(30.adaptSize))),
+       //backgroundColor: _appTheme =='light' ?  TColors.white : TColors.darkerGrey,
        builder: (context) => DraggableScrollableSheet(
          expand: false,
          initialChildSize: initialChildSize,

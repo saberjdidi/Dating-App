@@ -17,7 +17,7 @@ class UserChatProfileScreen extends GetView<UserChatProfileController> {
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
     var screenWidth = mediaQueryData.size.width;
-    var screenheight = mediaQueryData.size.height;
+    var screenHeight = mediaQueryData.size.height;
     var isSmallPhone = screenWidth < 360;
     var isTablet = screenWidth >= 600;
 
@@ -43,9 +43,9 @@ class UserChatProfileScreen extends GetView<UserChatProfileController> {
                     top: 20,
                     left: 20,
                     child:  CircleIconButton(
-                      size: 60.adaptSize,
-                      minTapSize: 60.adaptSize,
-                      effectiveSize: 60.adaptSize,
+                      size: isSmallPhone ? 70.adaptSize : 60.adaptSize,
+                      minTapSize: isSmallPhone ? 70.adaptSize : 60.adaptSize,
+                      effectiveSize: isSmallPhone ? 70.adaptSize : 60.adaptSize,
                       backgroundColor: TColors.greyDating.withOpacity(0.5),
                       child: IconButton(
                         icon: Icon(Iconsax.share, color: TColors.white, size: 30.adaptSize,),
@@ -61,9 +61,9 @@ class UserChatProfileScreen extends GetView<UserChatProfileController> {
                     top: 20,
                     right: 20,
                     child: CircleIconButton(
-                      size: 60.adaptSize,
-                      minTapSize: 60.adaptSize,
-                      effectiveSize: 60.adaptSize,
+                      size: isSmallPhone ? 70.adaptSize : 60.adaptSize,
+                      minTapSize: isSmallPhone ? 70.adaptSize : 60.adaptSize,
+                      effectiveSize: isSmallPhone ? 70.adaptSize : 60.adaptSize,
                       backgroundColor: TColors.greyDating.withOpacity(0.5),
                       child: IconButton(
                         icon: Icon(Icons.arrow_forward_outlined, color: TColors.white, size: 30.adaptSize,),
@@ -80,7 +80,7 @@ class UserChatProfileScreen extends GetView<UserChatProfileController> {
                   alignment: Alignment.bottomCenter,
                   child: TRoundedContainer(
                       width: double.infinity,
-                      height: screenheight * 0.6,
+                      height: screenHeight * 0.6,
                       radius: 50.adaptSize,
                       isBorderRadiusTop: true,
                       padding: EdgeInsets.symmetric(

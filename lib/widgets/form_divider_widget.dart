@@ -6,15 +6,17 @@ class FormDividerWidget extends StatelessWidget {
    FormDividerWidget({
     super.key,
     required this.dividerText,
-    this.thikness = 0.5
+    this.thikness = 0.5,
+     this.color
   });
 
   final String dividerText;
   double thikness;
+  Color? color;
 
   @override
   Widget build(BuildContext context) {
-
+    var _appTheme = PrefUtils.getTheme();
     final dark = THelperFunctions.isDarkMode(context);
 
     return Row(
@@ -22,7 +24,9 @@ class FormDividerWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Flexible(child: Divider(color: dark ? TColors.darkerGrey : TColors.grey, thickness: thikness, indent: 80, endIndent: 5,)),
-        Text(dividerText, style: Theme.of(context).textTheme.labelMedium,),
+        Text(dividerText, style: Theme.of(context).textTheme.labelMedium!.apply(
+          color: color ?? (_appTheme =='light' ? TColors.buttonSecondary : TColors.white)
+        )),
         Flexible(child: Divider(color: dark ? TColors.darkerGrey : TColors.grey, thickness: thikness, indent: 5, endIndent: 30)),
       ],
     );

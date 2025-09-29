@@ -38,9 +38,12 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
           child: Scaffold(
             //backgroundColor: _appTheme == 'light' ? TColors.white : appTheme.primaryColor,
             appBar: TAppBar(
-              //showBackArrow: true,
-              //rightToLeft: true,
-              title: Text('ملخص',
+              title: TitleWidget(
+                title: "ملخص",
+                fontWeightDelta: 3,
+                color: _appTheme =='light' ? TColors.buttonSecondary : TColors.white,
+              ),
+             /* title: Text('ملخص',
                 style: Theme
                     .of(context)
                     .textTheme
@@ -52,7 +55,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                   //decoration: TextDecoration.underline,
                   decorationColor: TColors.black,
                 ),
-              ),
+              ), */
             ),
             body: Padding(
               padding: const EdgeInsets.all(TSizes.spaceBtwItems),
@@ -93,7 +96,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                           ),
 
                           SizedBox(height: TSizes.spaceBtwItems.v),
-                          FormDividerWidget(dividerText: "عمر", thikness: 2),
+                          FormDividerWidget(dividerText: "عمر", thikness: 1),
                           SizedBox(height: TSizes.spaceBtwItems.v),
 
                           Column(
@@ -101,7 +104,8 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             children: [
                               // ✅ Afficher l’âge sous le slider
                               Text("${controller.currentAgeValue.value.round()}",
-                                style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.bold),
+                                style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.bold,
+                                    color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                               ),
                               // Slider avec gradient, label toujours visible, hauteur augmentée
                               ShaderMask(
@@ -140,14 +144,15 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                           ),
 
                           SizedBox(height: TSizes.spaceBtwItems.v),
-                          FormDividerWidget(dividerText: "الوزن", thikness: 2),
+                          FormDividerWidget(dividerText: "الوزن", thikness: 1),
                           SizedBox(height: TSizes.spaceBtwItems.v),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               // ✅ Afficher l’âge sous le slider
                               Text("${controller.currentWeightValue.value.round()} KG",
-                                style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.bold),
+                                style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.bold,
+                                    color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                               ),
                               // Slider avec gradient, label toujours visible, hauteur augmentée
                               ShaderMask(
@@ -186,7 +191,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                           ),
 
                           SizedBox(height: TSizes.spaceBtwItems.v),
-                          FormDividerWidget(dividerText: "الطول", thikness: 2),
+                          FormDividerWidget(dividerText: "الطول", thikness: 1),
                           SizedBox(height: TSizes.spaceBtwItems.v),
 
                           Column(
@@ -194,7 +199,8 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             children: [
                               // ✅ Afficher l’âge sous le slider
                               Text("${controller.currentHeightValue.value.round()} CM",
-                                style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.bold),
+                                style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.bold,
+                                    color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                               ),
                               // Slider avec gradient, label toujours visible, hauteur augmentée
                               ShaderMask(
@@ -234,7 +240,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                           SizedBox(height: TSizes.spaceBtwItems.v),
 
                           SizedBox(height: TSizes.spaceBtwItems.v),
-                          FormDividerWidget(dividerText: "جنسك", thikness: 2),
+                          FormDividerWidget(dividerText: "جنسك", thikness: 1),
                           SizedBox(height: TSizes.spaceBtwItems.v),
 
                           Padding(
@@ -376,7 +382,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                           ),
 
                           SizedBox(height: TSizes.spaceBtwItems.v),
-                          FormDividerWidget(dividerText: "لون البشرة", thikness: 2),
+                          FormDividerWidget(dividerText: "لون البشرة", thikness: 1),
                           SizedBox(height: TSizes.spaceBtwItems.v),
 
                           Wrap(
@@ -394,7 +400,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                           ),
 
                           SizedBox(height: TSizes.spaceBtwItems.v),
-                          FormDividerWidget(dividerText: "نطاق الراتب", thikness: 2),
+                          FormDividerWidget(dividerText: "نطاق الراتب", thikness: 1),
                           SizedBox(height: TSizes.spaceBtwItems.v),
 
                           Column(
@@ -403,7 +409,8 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                               // ✅ Afficher les valeurs sous le slider
                               Text(
                                 "${controller.currentRangeValues.value.start.round()}K - ${controller.currentRangeValues.value.end.round()}K",
-                                style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.bold),
+                                style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.bold,
+                                    color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                               ),
 
                               // ✅ Slider avec gradient et labels toujours visibles

@@ -132,7 +132,7 @@ class MultiSelectDropdown extends StatelessWidget {
                           onChanged: (_) {
                             controller.toggleInterest(item, context);
                           },
-                          activeColor: Colors.blue,
+                          activeColor: TColors.yellowAppDark,
                           checkColor: Colors.white,
                         )),
                         Expanded(

@@ -132,9 +132,9 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                   textAlign: TextAlign.right,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: 14,
+                                    fontSize: isTablet ? 17.adaptSize : 15.adaptSize,
                                   ),
                                 ),
                                 SizedBox(height: 6.v),
@@ -144,9 +144,9 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                   textAlign: TextAlign.right,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: 14,
+                                    fontSize: isTablet ? 17.adaptSize : 15.adaptSize,
                                   ),
                                 ),
 

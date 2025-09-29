@@ -44,7 +44,12 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             //showBackArrow: true,
             //rightToLeft: true,
             leadingWidth: screenWidth * 0.3,
-            title: Text('إنشاء حساب',
+            title: TitleWidget(
+              title: "إنشاء حساب",
+              fontWeightDelta: 3,
+              color: _appTheme =='light' ?  TColors.buttonSecondary : TColors.white,
+            ),
+           /* title: Text('إنشاء حساب',
               style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                 color: TColors.black,
                 fontSize: 22.fSize,
@@ -52,7 +57,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                 //decoration: TextDecoration.underline,
                 decorationColor: TColors.black,
               ),
-            ),
+            ), */
           ),
           body: Padding(
             padding: const EdgeInsets.all(TSizes.spaceBtwItems),
@@ -214,11 +219,13 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             SizedBox(height: TSizes.spaceBtwItems),
             Align(
                 alignment: Alignment.topRight,
-                child: TitleWidget(title: "التفاصيل الأساسية".tr)
+                child: TitleWidget(title: "التفاصيل الأساسية".tr,
+                color: _appTheme =='light' ? TColors.black : TColors.white,)
             ),
             Align(
                 alignment: Alignment.topRight,
-                child: SubTitleWidget(subtitle: "ومعلوماتك الأساسية.".tr)
+                child: SubTitleWidget(subtitle: "ومعلوماتك الأساسية.".tr,
+                    color:  _appTheme =='light' ? TColors.gray700 : TColors.white)
             ),
             SizedBox(height: TSizes.spaceBtwSections.v),
             /*  CustomTextFormField(
@@ -259,7 +266,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             ),
 
             SizedBox(height: TSizes.spaceBtwItems.v),
-            FormDividerWidget(dividerText: "جنسك", thikness: 2),
+            FormDividerWidget(dividerText: "جنسك", thikness: 1),
             SizedBox(height: TSizes.spaceBtwItems.v),
 
             /* Obx(() => Row(
@@ -349,7 +356,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             ),
 
             SizedBox(height: TSizes.spaceBtwItems.v),
-            FormDividerWidget(dividerText: "عمر", thikness: 2),
+            FormDividerWidget(dividerText: "عمر", thikness: 1),
             SizedBox(height: TSizes.spaceBtwItems.v),
             /*
             Obx(() => Slider(
@@ -372,7 +379,8 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               children: [
                 // ✅ Afficher l’âge sous le slider
                 Text("${controller.currentAgeValue.value.round()}",
-                  style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.bold,
+                  color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                 ),
                 // Slider avec gradient, label toujours visible, hauteur augmentée
                 ShaderMask(
@@ -411,7 +419,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             ),
 
             SizedBox(height: TSizes.spaceBtwItems.v),
-            FormDividerWidget(dividerText: "الوزن", thikness: 2),
+            FormDividerWidget(dividerText: "الوزن", thikness: 1),
             SizedBox(height: TSizes.spaceBtwItems.v),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -420,7 +428,8 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                 Directionality(
                   textDirection: TextDirection.ltr,
                   child: Text("${controller.currentWeightValue.value.round()} KG",
-                    style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.bold,
+                        color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                   ),
                 ),
                 // Slider avec gradient, label toujours visible, hauteur augmentée
@@ -460,7 +469,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             ),
 
             SizedBox(height: TSizes.spaceBtwItems.v),
-            FormDividerWidget(dividerText: "الطول", thikness: 2),
+            FormDividerWidget(dividerText: "الطول", thikness: 1),
             SizedBox(height: TSizes.spaceBtwItems.v),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -469,7 +478,8 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                 Directionality(
                   textDirection: TextDirection.ltr,
                   child: Text("${controller.currentHeightValue.value.round()} CM",
-                    style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.bold,
+                        color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                   ),
                 ),
                 // Slider avec gradient, label toujours visible, hauteur augmentée
@@ -525,11 +535,13 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             SizedBox(height: TSizes.spaceBtwItems),
             Align(
                 alignment: Alignment.topRight,
-                child: TitleWidget(title: "تفاصيل إضافية".tr)
+                child: TitleWidget(title: "تفاصيل إضافية".tr,
+                  color:  _appTheme =='light' ? TColors.black : TColors.white,)
             ),
             Align(
                 alignment: Alignment.topRight,
-                child: SubTitleWidget(subtitle: "والمزيد من التفاصيل لأفضل المباريات.".tr)
+                child: SubTitleWidget(subtitle: "والمزيد من التفاصيل لأفضل المباريات.".tr,
+                  color:  _appTheme =='light' ? TColors.gray700 : TColors.white,)
             ),
             SizedBox(height: TSizes.spaceBtwSections.v),
             CustomDropDown(
@@ -615,7 +627,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             ),
 
             SizedBox(height: TSizes.spaceBtwItems.v),
-            FormDividerWidget(dividerText: "لون البشرة", thikness: 2),
+            FormDividerWidget(dividerText: "لون البشرة", thikness: 1),
             SizedBox(height: TSizes.spaceBtwItems.v),
 
             Wrap(
@@ -633,7 +645,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             ),
 
             SizedBox(height: TSizes.spaceBtwItems.v),
-            FormDividerWidget(dividerText: "نطاق الراتب", thikness: 2),
+            FormDividerWidget(dividerText: "نطاق الراتب", thikness: 1),
             SizedBox(height: TSizes.spaceBtwItems.v),
 
             Column(
@@ -642,7 +654,8 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                 // ✅ Afficher les valeurs sous le slider
                 Text(
                   "${controller.currentRangeValues.value.start.round()}K - ${controller.currentRangeValues.value.end.round()}K",
-                  style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.bold,
+                      color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                 ),
 
                 // ✅ Slider avec gradient et labels toujours visibles
@@ -702,11 +715,13 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             SizedBox(height: TSizes.spaceBtwItems.v),
             Align(
                 alignment: Alignment.topRight,
-                child: TitleWidget(title: "أضف الفائدة".tr)
+                child: TitleWidget(title: "أضف الفائدة".tr,
+                  color:  _appTheme =='light' ? TColors.black : TColors.white,)
             ),
             Align(
                 alignment: Alignment.topRight,
-                child: SubTitleWidget(subtitle: "أضف أي 5 اهتمامات للعثور على شريك يتوافق مع شغفك.".tr)
+                child: SubTitleWidget(subtitle: "أضف أي 5 اهتمامات للعثور على شريك يتوافق مع شغفك.".tr,
+                  color:  _appTheme =='light' ? TColors.gray700 : TColors.white,)
             ),
 
             SizedBox(height: TSizes.spaceBtwSections.v),
@@ -759,11 +774,13 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
           SizedBox(height: TSizes.spaceBtwItems.v),
           Align(
               alignment: Alignment.topRight,
-              child: TitleWidget(title: "أضف صورة الملف الشخصي/الفيديو".tr)
+              child: TitleWidget(title: "أضف صورة الملف الشخصي/الفيديو".tr,
+                  color:  _appTheme =='light' ? TColors.black : TColors.white)
           ),
           Align(
               alignment: Alignment.topRight,
-              child: SubTitleWidget(subtitle: "قم بتحميل صورتك الخاصة، وسيتم عرضها كصورة ملفك الشخصي.".tr)
+              child: SubTitleWidget(subtitle: "قم بتحميل صورتك الخاصة، وسيتم عرضها كصورة ملفك الشخصي.".tr,
+                  color:  _appTheme =='light' ? TColors.gray700 : TColors.white)
           ),
 
           SizedBox(height: TSizes.spaceBtwSections.v),

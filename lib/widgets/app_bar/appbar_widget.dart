@@ -22,8 +22,13 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    mediaQueryData = MediaQuery.of(context);
+    var screenWidth = mediaQueryData.size.width;
+    var screenheight = mediaQueryData.size.height;
+    var isSmallPhone = screenWidth < 360;
+    var isTablet = screenWidth >= 600;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: TSizes.sm),
+      padding: EdgeInsets.symmetric(horizontal: isSmallPhone ? TSizes.xs.adaptSize :  TSizes.sm.adaptSize),
       child: AppBar(
         backgroundColor: PrefUtils.getTheme() == "light" ? TColors.white : TColors.dark,
         automaticallyImplyLeading: false,
@@ -35,6 +40,17 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
         actions: showAction
        ? (actions == null || actions == [])
             ? [
+          isSmallPhone
+              ? CustomImageView(
+                imagePath: ImageConstant.imgBack,
+                onTap: (){
+                  Navigator.of(context).pop();
+                },
+                width: 55.adaptSize,
+                height: 55.adaptSize,
+                radius: BorderRadius.circular(55.adaptSize),
+              )
+              :
               CustomImageView(
                 imagePath: ImageConstant.imgBack,
                 onTap: (){

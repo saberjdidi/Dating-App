@@ -13,6 +13,11 @@ class ChatItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
+    var isSmallPhone = screenWidth < 360;
+    var isTablet = screenWidth >= 600;
+
     return InkWell(
       onTap: onTap,
       child: Slidable(
@@ -61,7 +66,7 @@ class ChatItem extends StatelessWidget {
               Stack(
                 children: [
                   CircleAvatar(
-                    radius: 28,
+                    radius: isSmallPhone ? 22 : 28,
                    /* backgroundImage: CustomImageView(
                       imagePath: ImageConstant.uploadImageRounded,
                       //height: 50.adaptSize,

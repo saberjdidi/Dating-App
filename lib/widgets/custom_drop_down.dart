@@ -124,7 +124,7 @@ class CustomDropDown extends StatelessWidget {
         labelStyle: hintStyle ?? (PrefUtils.getTheme() =='light'
             ? CustomTextStyles.titleMediumSemiBoldBlack
             : CustomTextStyles.titleMediumSourceSansPro),
-        errorStyle: hintStyle ?? CustomTextStyles.bodyMediumOnError,
+        errorStyle: hintStyle ?? CustomTextStyles.bodyMediumOnError, //CustomTextStyles.bodyMediumOnError,
         prefixIcon: prefix,
         prefixIconConstraints: prefixConstraints,
         suffixIcon: suffix,
