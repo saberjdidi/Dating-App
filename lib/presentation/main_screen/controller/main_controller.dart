@@ -1,6 +1,7 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/popups/search_dating.dart';
 import 'package:dating_app_bilhalal/data/models/UserModel.dart';
+import 'package:flutter/foundation.dart';
 
 class MainController extends GetxController {
   static MainController get instance => Get.find();
@@ -13,14 +14,14 @@ class MainController extends GetxController {
     super.onInit();
     loadUsers();
   }
-
+/*
   @override
   void onReady() {
     super.onReady();
     Future.delayed(const Duration(milliseconds: 300), (){
       SearchDating.openDialogFilterByPays(instance);
     });
-  }
+  } */
 
   void loadUsers() {
     users.value = [
@@ -60,5 +61,19 @@ class MainController extends GetxController {
     } else {
       selectedCountries.add(countryName);
     }
+  }
+
+  //titre qui sera affiché dans la bottom navigation bar
+  var selectedCountryTitle = "الکل".obs;
+  //Mettre à jour le titre affiché dans le bottom bar
+  updateCountryTitle(){
+      if(selectedCountries.isEmpty){
+        selectedCountryTitle.value = "الکل";
+      } else if(selectedCountries.length == 1){
+        selectedCountryTitle.value = selectedCountries.first;
+      } else {
+        selectedCountryTitle.value = "عدة دول";
+      }
+      debugPrint('selectedCountryTitle : ${selectedCountryTitle.value}');
   }
 }

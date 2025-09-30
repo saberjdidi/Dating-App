@@ -1,4 +1,5 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
+import 'package:dating_app_bilhalal/presentation/main_screen/controller/main_controller.dart';
 import 'package:dating_app_bilhalal/presentation/navigation_screen/controller/bottom_bar_controller.dart';
 import 'package:dating_app_bilhalal/presentation/settings_screen/controller/theme_controller.dart';
 import 'package:flutter/material.dart';
@@ -53,9 +54,12 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
     var screenWidth = mediaQueryData.size.width;
     var isSmallPhone = screenWidth < 360;
     var isTablet = screenWidth >= 600;
+    final mainController = Get.put(MainController());
 
     return Obx(() {
       bool isDark = ThemeController.instance.isDark.value;
+      var selectedCountry = controller.selectedCountryTitle.value;
+      //debugPrint('selectedCountry bottom navigation: $selectedCountry');
 
       return Container(
           height: 90.v,
@@ -77,6 +81,7 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
               currentIndex: controller.selectedIndex.value,
               type: BottomNavigationBarType.fixed,
               items: List.generate(bottomMenuList.length, (index) {
+                bool isMain = bottomMenuList[index].type == BottomBarEnum.main;
                 return BottomNavigationBarItem(
                   icon: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -88,7 +93,12 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
                         width: 30.adaptSize,
                         color: isDark ? TColors.white : TColors.grey300,
                       ),
-                      Text(bottomMenuList[index].title!,
+                      Text(
+                        isMain
+                            ? controller.selectedCountryTitle.value
+                            : bottomMenuList[index].title!,
+                        //bottomMenuList[index].title!,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             color: isDark ? TColors.white : TColors.greyDating,
                             fontSize:  isTablet ? 20.adaptSize : isSmallPhone ? 15.adaptSize : 16.adaptSize
@@ -107,7 +117,12 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
                         color: TColors.yellowAppDark,
                         //color: theme.colorScheme.primary,
                       ),
-                      Text(bottomMenuList[index].title!,
+                      Text(
+                        isMain
+                            ? selectedCountry
+                            : bottomMenuList[index].title!,
+                        //bottomMenuList[index].title!,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             color: TColors.yellowAppDark,
                             fontSize: isTablet ? 20.adaptSize : isSmallPhone ? 15.adaptSize : 16.adaptSize

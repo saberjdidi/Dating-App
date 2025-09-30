@@ -8,10 +8,11 @@ import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends GetView<MainController> {
+//class MainScreen extends StatelessWidget {
    MainScreen({super.key});
 
-  final controller = Get.put(MainController());
+  //final controller = Get.put(MainController());
 
   @override
   Widget build(BuildContext context) {

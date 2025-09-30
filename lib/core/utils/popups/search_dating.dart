@@ -5,6 +5,7 @@ import 'package:dating_app_bilhalal/data/models/country_model.dart';
 import 'package:dating_app_bilhalal/data/models/interest_model.dart';
 import 'package:dating_app_bilhalal/presentation/filter_screen/controller/filter_controller.dart';
 import 'package:dating_app_bilhalal/presentation/main_screen/controller/main_controller.dart';
+import 'package:dating_app_bilhalal/presentation/navigation_screen/controller/bottom_bar_controller.dart';
 import 'package:dating_app_bilhalal/widgets/account/choice-chip.dart';
 import 'package:dating_app_bilhalal/widgets/account/interest_widget.dart';
 import 'package:dating_app_bilhalal/widgets/custom_drop_down.dart';
@@ -287,7 +288,7 @@ class SearchDating {
                     fillColor: TColors.white, //appTheme.gray50
                     //textStyle: TextStyle(color: appTheme.black),
                     hintStyle: CustomTextStyles.bodyMediumTextFormField,
-                    hintText: "${'أبحث عن'.tr} *",
+                    hintText: "${'نوع الزواج'.tr} *",
                     items: ListLookingFor.value,
                     onChanged: (value) async {
                       controller.lookingForController.text = value.title;
@@ -308,7 +309,7 @@ class SearchDating {
 
                   CustomTextFormField(
                     controller: controller.jobController,
-                    hintText: "${'إشغال'.tr} *",
+                    hintText: "${'الوظيفة'.tr} *",
                     maxLines: 2,
                     textInputType: TextInputType.text,
                     prefixConstraints: BoxConstraints(maxHeight: 60.v),
@@ -346,7 +347,7 @@ class SearchDating {
                     fillColor: Colors.white,
                     themeColor: appTheme.gray50, //appTheme.gray50
                     hintStyle: CustomTextStyles.bodyMediumTextFormField,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: isSmallPhone ? 8 : 16),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: isSmallPhone ? 8 : 14),
                   ),
                   /* GridView.count(
                     crossAxisCount: isTablet ? 3 : 2, // ✅ Deux colonnes fixes
@@ -464,6 +465,10 @@ class SearchDating {
                     height: isSmallPhone ? 80.v : 70.v,
                     width: screenWidth * 0.8,
                     onPressed: () async {
+                      var bottomController = BottomBarController.instance;
+                      bottomController.updateCountryTitle();
+                      //controller.updateCountryTitle();
+                      Get.back();
                       //controller.saveBtn();
                     },
                   ),

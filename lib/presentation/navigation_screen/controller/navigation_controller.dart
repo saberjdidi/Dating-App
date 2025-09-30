@@ -4,6 +4,8 @@ import 'package:dating_app_bilhalal/core/utils/logger.dart';
 import 'package:flutter/foundation.dart';
 
 class NavigationController extends GetxController {
+  static NavigationController get instance => Get.find();
+
   var email = PrefUtils.getEmail();
   var firstName = PrefUtils.getFirstname() ?? 'Saber';
   var lastName = PrefUtils.getLastName() ?? 'Jdidi';

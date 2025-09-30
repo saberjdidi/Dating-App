@@ -82,6 +82,11 @@ class MultiSelectDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    mediaQueryData = MediaQuery.of(context);
+    var screenWidth = mediaQueryData.size.width;
+    var isSmallPhone = screenWidth < 360;
+    var isTablet = screenWidth >= 600;
+
     return Container(
       decoration: BoxDecoration(
         color: fillColor ?? (PrefUtils.getTheme() == 'light' ? Colors.white : appTheme.blueGray900),
@@ -147,7 +152,7 @@ class MultiSelectDropdown extends StatelessWidget {
           onChanged: (_) {}, // On bloque la fermeture par défaut
           buttonStyleData: ButtonStyleData(
             padding: contentPadding ?? const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-            height: 70.v,
+            height: isTablet ? 90.v : 80.v,
           ),
           dropdownStyleData: DropdownStyleData(
             decoration: BoxDecoration(
