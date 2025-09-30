@@ -1,5 +1,5 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+//import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 class SplashRedirectController extends GetxController {
   static SplashRedirectController get instance => Get.find();
@@ -9,7 +9,7 @@ class SplashRedirectController extends GetxController {
   @override
   void onReady() {
     //Remove the native splash screen
-    FlutterNativeSplash.remove();
+    //FlutterNativeSplash.remove();
     //Redirect to the appropriate screen
     screenRedirect();
   }

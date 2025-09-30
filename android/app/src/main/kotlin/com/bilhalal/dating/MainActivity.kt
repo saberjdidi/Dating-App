@@ -1,4 +1,4 @@
-package com.example.dating_app_bilhalal
+package com.bilhalal.dating
 
 import io.flutter.embedding.android.FlutterActivity
 

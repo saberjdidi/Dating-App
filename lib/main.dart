@@ -1,8 +1,8 @@
 import 'package:dating_app_bilhalal/core/utils/initial_bindings.dart';
 import 'package:dating_app_bilhalal/routes/app_routes.dart';
-import 'package:dating_app_bilhalal/splash_redirect_controller.dart';
+import 'package:dating_app_bilhalal/presentation/splash_screen/controller/splash_redirect_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+//import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/app_export.dart';
@@ -12,14 +12,14 @@ void main() async  {
   ///Add Widgets Binding
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   // Garde le splash natif jusqu'à la fin de l'initialisation
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  //FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   // Initialise SharedPreferences AVANT de construire l'app
   await PrefUtils.init();
   /* await SharedPreferences.getInstance().then((prefs) {
     PrefUtils.sharedPreferences = prefs;
   }); */
 
-  Get.put(SplashRedirectController());
+  //Get.put(SplashRedirectController()); //using when use flutter_native_splash
 
   runApp(const MyApp());
   // Supprime le splash après que l'app soit prête
@@ -46,19 +46,9 @@ class MyApp extends StatelessWidget {
       //locale: translationController.language,
       title: 'بالحلال',
       initialBinding: InitialBindings(),
-      home: Scaffold(
-        body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(ImageConstant.logo),
-              fit: BoxFit.cover, // Couvre tout l’écran
-            ),
-          ),
-        ),
-      ),
       //home: const Scaffold(backgroundColor: TColors.yellowAppDark, body: Center(child: CircularProgressIndicator(color: TColors.white,),),),
       //home: const SplashRedirect(), // On commence par la redirection
-      //initialRoute: Routes.initialRoute, //utilise si on utilise splashscreen/splashcontroller
+      initialRoute: Routes.initialRoute, //utilise si on utilise splashscreen/splashcontroller
       getPages: AppRoutes.pages,
      /* builder: (context, child) {
         return MyAppWithDeepLinkHandling(child: child, initialUri: initialUri);
