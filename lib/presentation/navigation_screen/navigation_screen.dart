@@ -1,9 +1,5 @@
-
 import 'package:dating_app_bilhalal/core/app_export.dart';
-import 'package:dating_app_bilhalal/presentation/account_screen/create_account_screen.dart';
-import 'package:dating_app_bilhalal/presentation/account_screen/overview_account_screen.dart';
-import 'package:dating_app_bilhalal/presentation/account_screen/welcome_screen.dart';
-import 'package:dating_app_bilhalal/presentation/discussion_screen/discussion_screen.dart';
+import 'package:dating_app_bilhalal/presentation/chat_screen/chat_screen.dart';
 import 'package:dating_app_bilhalal/presentation/favorite_screen/favorite_screen.dart';
 import 'package:dating_app_bilhalal/presentation/filter_screen/filter_screen.dart';
 import 'package:dating_app_bilhalal/presentation/main_screen/main_screen.dart';
@@ -49,7 +45,7 @@ class NavigationScreen extends GetWidget<NavigationController> {
       case BottomBarEnum.search:
         return Routes.filterScreen;
       case BottomBarEnum.discussion:
-        return Routes.discussionScreen;
+        return Routes.chatScreen;
       case BottomBarEnum.main:
         return Routes.mainScreen;
       case BottomBarEnum.favoris:
@@ -64,8 +60,8 @@ class NavigationScreen extends GetWidget<NavigationController> {
     switch (currentRoute) {
       case Routes.filterScreen:
         return FilterScreen();
-      case Routes.discussionScreen:
-        return DiscussionScreen();
+      case Routes.chatScreen:
+        return ChatScreen();
       case Routes.mainScreen:
         return MainScreen();
       case Routes.favoriteScreen:

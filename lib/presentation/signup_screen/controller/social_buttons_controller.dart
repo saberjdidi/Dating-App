@@ -9,6 +9,7 @@ class SocialButtonsController extends GetxController {
   // Save user data to SharedPreferences
   Future<void> saveUserData(String email, String fullName) async {
     await PrefUtils.setEmail(email);
+    await PrefUtils.setEmailGoogle(email);
     await PrefUtils.setFullName(fullName);
   }
 
@@ -19,6 +20,10 @@ class SocialButtonsController extends GetxController {
       if (account != null) {
         debugPrint("Google Login : email : ${account.email} - fullame : ${account.displayName}");
         await saveUserData(account.email, account.displayName ?? '');
+        MessageSnackBar.successSnackBar(
+            title: "Successfully".tr,
+            message: "Sign In with ${account.email}",
+            duration: 2);
         Get.offAllNamed(Routes.navigationScreen);
       }
     } catch (e) {

@@ -27,7 +27,7 @@ class WelcomeScreen extends GetWidget<WelcomeController> {
                 Align(
                   alignment: Alignment.center,
                   child: CustomImageView(
-                    imagePath: ImageConstant.logoHeaderPNG,
+                    imagePath: ImageConstant.logoHeader,
                     height: 100.adaptSize,
                     width: 100.adaptSize,
                     fit: BoxFit.fill,

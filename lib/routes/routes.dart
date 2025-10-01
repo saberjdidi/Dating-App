@@ -20,9 +20,9 @@ class Routes {
   static const String mainScreen = '/main_screen';
   static const String favoriteScreen = '/favorite_screen';
   static const String filterScreen = '/filter_screen';
-  static const String discussionScreen = '/discussion_screen';
-  static const String discussionDetailsScreen = '/discussion_details_screen';
-  static const String userChatPofileScreen = '/user_chat_profile_screen';
+  static const String chatScreen = '/chat_screen';
+  static const String messageScreen = '/message_screen';
+  static const String chatUserProfileScreen = '/user_chat_profile_screen';
 
   static const String profileScreen = '/profile_screen';
   static const String userOwnerProfileScreen = '/user_owner_profile_screen';

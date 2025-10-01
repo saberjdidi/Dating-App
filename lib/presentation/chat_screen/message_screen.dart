@@ -1,7 +1,7 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/validators/validation.dart';
 import 'package:dating_app_bilhalal/data/models/message_model.dart';
-import 'package:dating_app_bilhalal/presentation/discussion_screen/controller/discussion_details_controller.dart';
+import 'package:dating_app_bilhalal/presentation/chat_screen/controller/message_controller.dart';
 import 'package:dating_app_bilhalal/presentation/settings_screen/controller/settings_controller.dart';
 import 'package:dating_app_bilhalal/widgets/app_bar/appbar_widget.dart';
 import 'package:dating_app_bilhalal/widgets/chat/draft_audio_widget.dart';
@@ -14,8 +14,8 @@ import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
-class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
-  DiscussionDetailsScreen({super.key});
+class MessageScreen extends GetView<MessageController> {
+  MessageScreen({super.key});
 
   final settingsController = Get.put(SettingsController());
   var _appTheme = PrefUtils.getTheme();
@@ -34,7 +34,7 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
         resizeToAvoidBottomInset: true, // important pour éviter que le clavier cache le champ
         appBar: TAppBar(
           leadingWidth: 160.adaptSize,
-          toolbarHeight: 80.adaptSize,
+          toolbarHeight: isTablet ? 100.adaptSize : 80.adaptSize,
           leading: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
@@ -116,11 +116,11 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
               ),
               trailing: CustomImageView(
                 imagePath: controller.userChatModel.senderProfile,
-                width: isSmallPhone ? 60.adaptSize : 50.adaptSize,
+                width: isSmallPhone ? 60.adaptSize :  50.adaptSize,
                 height: isSmallPhone ? 60.adaptSize : 50.adaptSize,
                 radius: BorderRadius.circular(isSmallPhone ? 60.adaptSize : 50.adaptSize),
                 onTap: () async {
-                  Get.toNamed(Routes.userChatPofileScreen,
+                  Get.toNamed(Routes.chatUserProfileScreen,
                       //arguments: {"UserModel" : user}
                   );
                 },
@@ -211,7 +211,7 @@ class DiscussionDetailsScreen extends GetView<DiscussionDetailsController> {
   }
 
   Widget buildMessageInput(BuildContext context) {
-    //final controller = DiscussionDetailsController.instance;
+    //final controller = MessageController.instance;
     const double cancelThreshold = -80.0; // pixels to the left
     mediaQueryData = MediaQuery.of(context);
     var screenWidth = mediaQueryData.size.width;

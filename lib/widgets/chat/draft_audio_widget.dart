@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/data/models/attachment_model.dart';
-import 'package:dating_app_bilhalal/presentation/discussion_screen/controller/discussion_details_controller.dart';
+import 'package:dating_app_bilhalal/presentation/chat_screen/controller/message_controller.dart';
 import 'package:dating_app_bilhalal/widgets/chat/audio_player_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,7 +9,7 @@ import 'package:iconsax/iconsax.dart';
 
 class DraftAudioWidget extends StatelessWidget {
   final AttachmentModel attachment;
-  final DiscussionDetailsController controller = DiscussionDetailsController.instance;
+  final MessageController controller = MessageController.instance;
 
   DraftAudioWidget({Key? key, required this.attachment}) : super(key: key);
 

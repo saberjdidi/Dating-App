@@ -45,7 +45,7 @@ class OTPScreen extends GetView<OTPController> {
               Align(
                 alignment: Alignment.center,
                 child: CustomImageView(
-                  imagePath: ImageConstant.logoHeaderPNG,
+                  imagePath: ImageConstant.logoHeader,
                   height: 180.adaptSize,
                   width: 180.adaptSize,
                   fit: BoxFit.fill,
@@ -264,7 +264,7 @@ class _OTPScreenState extends State<OTPScreen> with SingleTickerProviderStateMix
               Align(
                 alignment: Alignment.center,
                 child: CustomImageView(
-                  imagePath: ImageConstant.logoHeaderPNG,
+                  imagePath: ImageConstant.logoHeader,
                   height: 180.adaptSize,
                   width: 180.adaptSize,
                   fit: BoxFit.fill,

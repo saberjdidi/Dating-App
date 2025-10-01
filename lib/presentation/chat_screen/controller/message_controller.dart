@@ -17,8 +17,8 @@ import 'package:record/record.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 
-class DiscussionDetailsController extends GetxController {
-  static DiscussionDetailsController get instance => Get.find();
+class MessageController extends GetxController {
+  static MessageController get instance => Get.find();
 
   ChatModel userChatModel  = Get.arguments['ChatDiscussion'] ?? ChatModel.empty();
   final TextEditingController messageController = TextEditingController();

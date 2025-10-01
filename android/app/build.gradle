@@ -52,6 +52,22 @@ android {
         versionName flutterVersionName
     }
 
+    signingConfigs {
+        release {
+            keyAlias 'bilhalal'
+            keyPassword 'saber1992'
+            storePassword 'saber1992'
+            storeFile file('upload-bilhalal.jks')
+        }
+
+        debug {
+            storeFile file('upload-bilhalal.jks')
+            keyAlias 'bilhalal'
+            keyPassword 'saber1992'
+            storePassword 'saber1992'
+        }
+    }
+
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.

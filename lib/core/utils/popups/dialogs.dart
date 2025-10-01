@@ -20,10 +20,10 @@ class Dialogs {
               icon: Icons.logout,
               onCancel: onTapBack,
               onTap: Logout.onTapLogout,
-              cancelText: "lbl_no".tr,
-              successText: "lbl_yes".tr,
+              cancelText: "Non".tr,
+              successText: "Oui".tr,
               title: "logout".tr,
-              description: "exit_application".tr,
+              description: "Voulez vous quitter l'application".tr,
               descriptionTextStyle: CustomTextStyles.titleSmallGray400,
             )
     );

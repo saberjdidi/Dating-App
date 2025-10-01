@@ -24,6 +24,8 @@ class PrefUtils {
   static const _KeyIsBoarding = 'isBoarding';
   static const _KeyToken = 'token';
   static const _keyEmail = 'email';
+  static const _keyEmailGoogle = 'emailGoogle';
+  static const _keyEmailFacebook = 'emailFacebook';
   static const _keyFullName = 'fullName';
   static const _KeyLangue = 'langue';
   static const _KeyTheme = 'theme';
@@ -141,6 +143,15 @@ class PrefUtils {
 
   static Future<void> clearEmail() async {
     await sharedPreferences!.remove(_keyEmail);
+  }
+
+  static Future setEmailGoogle(String email) async =>
+      await sharedPreferences!.setString(_keyEmailGoogle, email);
+
+  static String? getEmailGoogle() => sharedPreferences!.getString(_keyEmailGoogle);
+
+  static Future<void> clearEmailGoogle() async {
+    await sharedPreferences!.remove(_keyEmailGoogle);
   }
 
   ///Email

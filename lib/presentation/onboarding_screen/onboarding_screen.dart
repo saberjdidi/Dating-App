@@ -38,7 +38,7 @@ class OnBoardingScreen extends StatelessWidget {
                 height: screenHeight * 0.8,
                 viewportFraction: isTablet ? 0.6 : 0.7, // 80% image centrale + 10% gauche/droite
                 enlargeCenterPage: true,
-                autoPlay: false,
+                autoPlay: true,
                 onPageChanged: (index, reason) {
                   controller.updatePageIndicator(index);
                 },
@@ -80,13 +80,13 @@ class OnBoardingScreen extends StatelessWidget {
                   children: [
                     Text(currentData.title!,
                         style: Theme.of(context).textTheme.headlineMedium!
-                            .apply(color: TColors.yellowAppDark, fontSizeDelta: 2, fontWeightDelta: 2),
+                            .apply(color: TColors.yellowAppDark, fontSizeDelta: isTablet ? 5 : 2, fontWeightDelta: isTablet ? 4 : 2),
                         textAlign: TextAlign.center),
                      SizedBox(height: 10.v),
 
                     Text(currentData.body!,
                         style: Theme.of(context).textTheme.bodyMedium!
-                            .apply(color: _appTheme =='light' ?  TColors.blackGrey : TColors.white, fontSizeDelta: 2),
+                            .apply(color: _appTheme =='light' ?  TColors.blackGrey : TColors.white, fontSizeDelta: isTablet ? 5 : 2),
                         textAlign: TextAlign.center)
                   ],
                 ),
@@ -277,8 +277,7 @@ class OnBoardingScreen extends StatelessWidget {
                         Padding(padding: EdgeInsets.only(bottom: 1.v),
                             child: Text("هل لديك حساب بالفعل؟ ",
                                 style:  isTablet
-                                    ? Theme.of(context).textTheme.titleMedium!
-                                    .apply(color: _appTheme =='light' ?  TColors.gray700 : TColors.white)
+                                    ? Theme.of(context).textTheme.titleLarge!.apply(color: _appTheme =='light' ?  TColors.gray700 : TColors.white)
                                     : CustomTextStyles.bodyMediumTextFormFieldGrey)
                         ),
                         GestureDetector(

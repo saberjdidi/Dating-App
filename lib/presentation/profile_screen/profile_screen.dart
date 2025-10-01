@@ -1,4 +1,5 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
+import 'package:dating_app_bilhalal/core/utils/logout.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/controller/profile_controller.dart';
 import 'package:dating_app_bilhalal/presentation/settings_screen/controller/theme_controller.dart';
 import 'package:dating_app_bilhalal/presentation/terms_privacy_screen/privacy_policy_screen.dart';
@@ -325,7 +326,9 @@ class ProfileScreen extends StatelessWidget {
 
                 InkWell(
                   onTap: (){
-                    Get.offAllNamed(Routes.signInScreen);
+                    //Get.offAllNamed(Routes.signInScreen);
+                    Logout.onTapLogout();
+                    //Dialogs.dialogLogout(context);
                   },
                   child: TRoundedContainer(
                     showBorder: true,
@@ -337,7 +340,10 @@ class ProfileScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButton(
-                          onPressed: (){},
+                          onPressed: () async {
+                            Logout.onTapLogout();
+                           //await Dialogs.dialogLogout(context);
+                          },
                           icon: Icon(Icons.arrow_back_ios),
                           iconSize: 25.adaptSize,
                           color: TColors.buttonSecondary,

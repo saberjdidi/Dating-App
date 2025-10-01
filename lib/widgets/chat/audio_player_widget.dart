@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:dating_app_bilhalal/core/app_export.dart';
-import 'package:dating_app_bilhalal/presentation/discussion_screen/controller/discussion_details_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -108,7 +107,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
 /*
 class AudioPlayerWidget extends StatelessWidget {
   final File file;
-  final controller = DiscussionDetailsController.instance;
+  final controller = MessageController.instance;
 
   AudioPlayerWidget({Key? key, required this.file}) : super(key: key);
 

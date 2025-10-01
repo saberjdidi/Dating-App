@@ -117,3 +117,106 @@ Vérifie aussi dans ios/Runner/Info.plist :
 
 <key>CFBundleIdentifier</key>
 <string>com.bilhalal.dating</string>
+
+## Google Sign-in
+Command for genrating keystore file for Mac/Linux:-
+keytool -genkey -v -keystore ~/upload-keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias {your alias name}
+
+Command for genrating keystore file for Window-
+cmd > keytool -genkey -v -keystore upload-bilhalal.jks -alias upload-bilhalal -keyalg RSA -keysize 2048 -validity 10000
+or use cmd> keytool -genkey -v -keystore %userprofile%\upload-keystore.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias {your alias name}
+commande generate by google > keytool -keystore path-to-debug-or-production-keystore -list -v
+
+Command to get SHA1 key:-
+keytool -list -v -keystore {path-to-keystore}
+## android/app > keytool -list -v -keystore upload-bilhalal.jks
+
+C:\Users\saber.jdidi\StudioProjects\dating_app_bilhalal\android\app>keytool -list -v -keystore upload-bilhalal.jks
+Entrez le mot de passe du fichier de clés :
+
+Type de fichier de clés : PKCS12
+Fournisseur de fichier de clés : SUN
+
+Votre fichier de clés d'accès contient 1 entrée
+
+Nom d'alias : bilhalal
+Date de création : 1 oct. 2025
+Type d'entrée : PrivateKeyEntry
+Longueur de chaîne du certificat : 1
+Certificat[1]:
+Propriétaire : CN=Saber, OU=BILHALAL, O=ASTREE, L=tunis, ST=Tunis, C=TN
+Emetteur : CN=Saber, OU=BILHALAL, O=ASTREE, L=tunis, ST=Tunis, C=TN
+Numéro de série : 58474cc
+Valide du : Wed Oct 01 09:00:17 GMT+01:00 2025 au : Sun Feb 16 09:00:17 GMT+01:00 2053
+Empreintes du certificat :
+MD5 : C9:B0:ED:AF:69:A9:41:A9:00:3C:DD:A5:5F:65:85:35:7F:21:F1:5D
+SHA1 : 82:26:48:61:FD:29:32:5B:39:61:9B:87:EC:BA:FB:36:CB:6A:04:73:67:44:3E:EF:D4:06:C0:28:D9:AB:62:B4
+SHA256 : SHA256withRSA
+Nom de l'algorithme de signature : Clé RSA 2048 bits
+Algorithme de clé publique du sujet : 3
+Version : {10}
+
+Extensions :
+
+#1: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: 92 DE 0D BB BB 51 8A 47   A5 FF 12 F0 53 36 7C A7  .....Q.G....S6..
+0010: 26 D8 75 C3                                        &.u.
+]
+]
+
+*******************************************
+## ajouter SHA1 to credentiels pour créer idclient: 
+## *******************ID CLIENT**** : 437512375831-082v2fchi8ftqgnp44q5aql8q7vs89nk.apps.googleusercontent.com
+
+Client OAuth créé: https://console.cloud.google.com/apis/credentials?project=bilhalal-dating
+
+## configuration android : 
+1. drag and drop the file upload-bilhalal.jks in  android/app/
+2. Ajouter signingConfigs to android/app/build.gradle: 
+     signingConfigs {
+        release {
+            keyAlias 'bilhalal'
+            keyPassword 'saber1992'
+            storePassword 'saber1992'
+            storeFile file('upload-bilhalal.jks')
+        }
+
+        debug {
+            storeFile file('upload-bilhalal.jks')
+            keyAlias 'bilhalal'
+            keyPassword 'saber1992'
+            storePassword 'saber1992'
+        }
+   }
+
+## Configuration Google Sign-in on iOS: 
+1. Créer le client OAuth pour iOS
+2. Modification in Info.plist
+info.plist: 
+<key>CFBundleURLTypes</key>
+<array>
+<dict>
+<key>CFBundleTypeRole</key>
+<string>Editor</string>
+<key>CFBundleURLSchemes</key>
+<array>
+<!-- Met l’ID client iOS récupéré de Google Cloud -->
+<string>com.googleusercontent.apps.YOUR_CLIENT_ID</string>
+</array>
+</dict>
+</array>
+
+<key>GIDClientID</key>
+<string>YOUR_IOS_CLIENT_ID.apps.googleusercontent.com</string>
+
+<key>LSApplicationQueriesSchemes</key>
+<array>
+<string>google</string>
+<string>com.googleusercontent.apps.YOUR_CLIENT_ID</string>
+</array>
+
+## Facebook Auth
+https://www.youtube.com/watch?v=Hj0csDW6WUs
+https://www.youtube.com/watch?v=8MQf2kAU3GA

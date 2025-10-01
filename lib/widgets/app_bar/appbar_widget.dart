@@ -46,9 +46,9 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
                 onTap: (){
                   Navigator.of(context).pop();
                 },
-                width: 55.adaptSize,
-                height: 55.adaptSize,
-                radius: BorderRadius.circular(55.adaptSize),
+                width: isTablet ? 60.adaptSize : 55.adaptSize,
+                height: isTablet ? 60.adaptSize : 55.adaptSize,
+                radius: BorderRadius.circular(isTablet ? 60.adaptSize : 55.adaptSize),
               )
               :
               CustomImageView(

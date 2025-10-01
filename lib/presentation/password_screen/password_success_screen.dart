@@ -23,8 +23,8 @@ class PassswordSuccessScreen extends StatelessWidget {
                   alignment: Alignment.center,
                   child: CustomImageView(
                     imagePath: ImageConstant.imgPasswordSuccess,
-                    height: 180.adaptSize,
-                    width: 180.adaptSize,
+                    //height: 180.adaptSize,
+                    //width: 180.adaptSize,
                     fit: BoxFit.fill,
                   ),
                 ),

@@ -1,5 +1,5 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
-import 'package:dating_app_bilhalal/presentation/discussion_screen/controller/user_chat_profile_controller.dart';
+import 'package:dating_app_bilhalal/presentation/chat_screen/controller/user_chat_profile_controller.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/fullscreen_image_viewer.dart';
 import 'package:dating_app_bilhalal/widgets/circle_icon_button.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
@@ -10,8 +10,8 @@ import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
-class UserChatProfileScreen extends GetView<UserChatProfileController> {
-  const UserChatProfileScreen({super.key});
+class ChatUserProfileScreen extends GetView<UserChatProfileController> {
+  const ChatUserProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -4,8 +4,8 @@ import 'package:dating_app_bilhalal/data/models/UserModel.dart';
 import 'package:dating_app_bilhalal/data/models/chat_model.dart';
 import 'package:flutter/material.dart';
 
-class DiscussionController extends GetxController {
-  static DiscussionController get instance => Get.find();
+class ChatController extends GetxController {
+  static ChatController get instance => Get.find();
 
   var searchText = "".obs;
   final TextEditingController searchController = TextEditingController();

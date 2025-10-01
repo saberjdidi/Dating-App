@@ -4,10 +4,11 @@ class ImageConstant {
   static String animationPath = 'assets/animations';
 
   //Dating App
-  static String logo = '$imagePath/logo.png';
-  static String logoSplash = '$imagePath/logo-splash.png';
-  static String logoHeaderSVG = '$imagePath/logo_header.svg';
-  static String logoHeaderPNG = '$imagePath/logo-header.png';
+  static String logo = '$imagePath/logo-splash.png'; //'$imagePath/logo.png';
+  //static String logoSplash = '$imagePath/logo-splash.png';
+  static String logoHeader = '$imagePath/new-logo-header.png'; //'$imagePath/new-logo.svg';
+  //static String logoHeaderSVG = '$imagePath/logo_header.svg';
+  //static String logoHeaderPNG = '$imagePath/logo-header.png';
   static String successOTPImage = '$imagePath/success_otp.png';
   static String imgPasswordSuccess = '$imagePath/img_password_success.svg';
 

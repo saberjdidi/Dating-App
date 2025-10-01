@@ -14,6 +14,11 @@ class MessageBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isSender = message.senderUid == "user1";
+    mediaQueryData = MediaQuery.of(context);
+    var screenWidth = mediaQueryData.size.width;
+    var screenHeight = mediaQueryData.size.height;
+    var isSmallPhone = screenWidth < 360;
+    var isTablet = screenWidth >= 600;
 
     return Align(
       alignment: isSender ? Alignment.centerRight : Alignment.centerLeft,
@@ -61,13 +66,13 @@ class MessageBubble extends StatelessWidget {
                     if (message.attachment!.type == MessageType.image && message.attachment!.url != null)
                       CustomImageView(
                         imagePath: message.attachment!.url,
-                        height: 200,
+                        height: isTablet ? 300 : 200,
                         width: Get.width * 0.7,
                       ),
                     if (message.attachment!.type == MessageType.image && message.attachment!.file != null)
                       CustomImageView(
                         file: message.attachment!.file,
-                        height: 200,
+                        height: isTablet ? 300 : 200,
                         width: Get.width * 0.7,
                       ),
 
@@ -77,7 +82,7 @@ class MessageBubble extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                         child: SizedBox(
                           //height: Get.height,
-                          height: 200,
+                          height: isTablet ? 300 : 200,
                           width: Get.width * 0.7,
                           child: VideoPreviewWidget(file: message.attachment!.file),
                         ),
@@ -91,7 +96,7 @@ class MessageBubble extends StatelessWidget {
                     if (message.attachment!.type == MessageType.camera && message.attachment!.file != null)
                       CustomImageView(
                         file: message.attachment!.file,
-                        height: 200,
+                        height: isTablet ? 300 : 200,
                         width: Get.width * 0.7,
                       ),
 

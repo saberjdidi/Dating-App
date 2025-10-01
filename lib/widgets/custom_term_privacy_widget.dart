@@ -13,6 +13,10 @@ class CustomTermPrivacyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    mediaQueryData = MediaQuery.of(context);
+    var screenWidth = mediaQueryData.size.width;
+    var isSmallPhone = screenWidth < 360;
+    var isTablet = screenWidth >= 600;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -23,8 +27,9 @@ class CustomTermPrivacyWidget extends StatelessWidget {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  TermesAndConditionsScreen()));
           },
           child: Text("شروط الاستخدام",
-              style: Theme.of(context).textTheme.bodyLarge!
-                  .apply(color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 2),
+              style: isTablet
+               ? Theme.of(context).textTheme.headlineMedium!.apply(color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 2)
+               : Theme.of(context).textTheme.bodyLarge!.apply(color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 2),
               textAlign: TextAlign.center),
         ),
         InkWell(
@@ -32,8 +37,9 @@ class CustomTermPrivacyWidget extends StatelessWidget {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => PrivacyPolicyScreen()));
           },
           child: Text("سياسة الخصوصية",
-              style: Theme.of(context).textTheme.bodyLarge!
-                  .apply(color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 2),
+              style: isTablet
+                  ? Theme.of(context).textTheme.headlineMedium!.apply(color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 2)
+                  : Theme.of(context).textTheme.bodyLarge!.apply(color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 2),
               textAlign: TextAlign.center),
         ),
       ],

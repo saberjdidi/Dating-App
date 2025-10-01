@@ -51,7 +51,7 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
                             Align(
                               alignment: Alignment.center,
                               child: CustomImageView(
-                                imagePath: ImageConstant.logoHeaderPNG,
+                                imagePath: ImageConstant.logoHeader,
                                 height: 200.adaptSize,
                                 width: 200.adaptSize,
                                 fit: BoxFit.fill,

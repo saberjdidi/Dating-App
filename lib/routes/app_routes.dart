@@ -6,10 +6,10 @@ import 'package:dating_app_bilhalal/presentation/account_screen/welcome_screen.d
 import 'package:dating_app_bilhalal/presentation/call_screen/binding/call_binding.dart';
 import 'package:dating_app_bilhalal/presentation/call_screen/call_screen.dart';
 import 'package:dating_app_bilhalal/presentation/call_screen/call_video_screen.dart';
-import 'package:dating_app_bilhalal/presentation/discussion_screen/binding/discussion_binding.dart';
-import 'package:dating_app_bilhalal/presentation/discussion_screen/discusion_details_screen.dart';
-import 'package:dating_app_bilhalal/presentation/discussion_screen/discussion_screen.dart';
-import 'package:dating_app_bilhalal/presentation/discussion_screen/user_chat_profile_screen.dart';
+import 'package:dating_app_bilhalal/presentation/chat_screen/binding/discussion_binding.dart';
+import 'package:dating_app_bilhalal/presentation/chat_screen/message_screen.dart';
+import 'package:dating_app_bilhalal/presentation/chat_screen/chat_screen.dart';
+import 'package:dating_app_bilhalal/presentation/chat_screen/chat_user_profile_screen.dart';
 import 'package:dating_app_bilhalal/presentation/favorite_screen/binding/favorite_binding.dart';
 import 'package:dating_app_bilhalal/presentation/favorite_screen/favorite_screen.dart';
 import 'package:dating_app_bilhalal/presentation/filter_screen/binding/filter_binding.dart';
@@ -147,22 +147,22 @@ class AppRoutes {
       ],
     ),
     GetPage(
-      name: Routes.discussionScreen,
-      page: () => DiscussionScreen(),
+      name: Routes.chatScreen,
+      page: () => ChatScreen(),
       bindings: [
         DiscussionBinding(),
       ],
     ),
     GetPage(
-      name: Routes.discussionDetailsScreen,
-      page: () => DiscussionDetailsScreen(),
+      name: Routes.messageScreen,
+      page: () => MessageScreen(),
       bindings: [
         DiscussionBinding(),
       ],
     ),
     GetPage(
-      name: Routes.userChatPofileScreen,
-      page: () => UserChatProfileScreen(),
+      name: Routes.chatUserProfileScreen,
+      page: () => ChatUserProfileScreen(),
       bindings: [
         DiscussionBinding(),
       ],

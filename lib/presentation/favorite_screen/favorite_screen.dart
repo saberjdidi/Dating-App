@@ -75,7 +75,7 @@ class FavoriteScreen extends StatelessWidget {
                     items: controller.filteredFavorisUsers,
                     onItemTap: (chat) {
                       // Navigation vers le chat détaillé
-                      Get.toNamed(Routes.discussionDetailsScreen, arguments: {
+                      Get.toNamed(Routes.messageScreen, arguments: {
                         "ChatDiscussion" : chat
                       });
                     },
