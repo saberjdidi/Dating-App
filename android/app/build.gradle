@@ -1,5 +1,6 @@
 plugins {
     id "com.android.application"
+    //id "com.google.gms.google-services" //ajouter pour firebase
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
 }
@@ -46,12 +47,12 @@ android {
         //applicationId "com.example.dating_app_bilhalal"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion 21 //flutter.minSdkVersion
+        minSdkVersion 23 //21 //flutter.minSdkVersion
         targetSdkVersion 34 //flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
-
+    //ajouter pour google sign-in
     signingConfigs {
         release {
             keyAlias 'bilhalal'
@@ -83,4 +84,6 @@ flutter {
 
 dependencies {
     //implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+    // Import the Firebase BoM //ajouter pour firebase
+    //implementation(platform("com.google.firebase:firebase-bom:34.3.0"))
 }

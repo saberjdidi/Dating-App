@@ -291,3 +291,70 @@ android:requestLegacyExternalStorage="true">
 
     </application>
 </manifest>
+
+## Firebase configuration
+### Méthode 1
+1. create project firebase
+2. Préparer votre espace de travail
+   Le plus simple pour vous aider à démarrer est d'utiliser la CLI FlutterFire.
+
+Avant de continuer, veillez à :
+
+Installez la CLI Firebase et connectez-vous (exécutez firebase login)
+installer le SDK Flutter ;
+créer un projet Flutter (exécuter flutter create).
+
+3. Installer et exécuter la CLI FlutterFire
+   Depuis n'importe quel répertoire, exécutez cette commande :
+
+dart pub global activate flutterfire_cli
+Ensuite, à la racine du répertoire de votre projet Flutter, exécutez cette commande :
+
+flutterfire configure --project=bilhalaldatingapp => cmd : C:\Users\saber.jdidi\StudioProjects\dating_app_bilhalal>flutterfire configure
+
+Cela enregistre automatiquement vos applications par plate-forme auprès de Firebase et ajoute un fichier de configuration lib/firebase_options.dart à votre projet Flutter.
+
+4. Initialiser Firebase et ajouter des plug-ins
+   Pour initialiser Firebase, appelez Firebase.initializeApp à partir du package firebase_core avec la configuration de votre nouveau fichier firebase_options.dart :
+
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+// ...
+
+await Firebase.initializeApp(
+options: DefaultFirebaseOptions.currentPlatform,
+);
+
+## Méthode 2
+1. Ajouter Firebase à votre application Apple
+télécharger GoogleService-Info.plist puis placer dans ios/Runner/GoogleService-Info.plist
+2. Ajouter Firebase à votre application Android
+télécharger google-services.json puis placer dans android/app/google-services.json
+id("com.google.gms.google-services") version "4.4.3" apply false
+
+plugins {
+id("com.android.application")
+
+// Add the Google services Gradle plugin
+id("com.google.gms.google-services")
+
+...
+}
+
+dependencies {
+// Import the Firebase BoM
+implementation(platform("com.google.firebase:firebase-bom:34.3.0"))
+
+
+// TODO: Add the dependencies for Firebase products you want to use
+// When using the BoM, don't specify versions in Firebase dependencies
+// https://firebase.google.com/docs/android/setup#available-libraries
+}
+
+
+## How to get the SHA-1 fingerprint certificate in Android Studio for debug mode? 
+dating_app_bilhalal/android cmd>        ./gradlew signingReport
+
+## WebSocket: 
+https://www.youtube.com/watch?v=YS0NfnRCtCg&list=PLCQvK2R5a8CLDC98o9xdVF9Uktqs0M82d&index=6

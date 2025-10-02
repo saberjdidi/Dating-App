@@ -1,6 +1,9 @@
 import 'package:dating_app_bilhalal/core/utils/initial_bindings.dart';
+import 'package:dating_app_bilhalal/data/repositories/authentication_repository.dart';
+import 'package:dating_app_bilhalal/firebase_options.dart';
 import 'package:dating_app_bilhalal/routes/app_routes.dart';
 import 'package:dating_app_bilhalal/presentation/splash_screen/controller/splash_redirect_controller.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,16 +11,23 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'core/app_export.dart';
 
 void main() async  {
-  ///WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   ///Add Widgets Binding
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  //WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   // Garde le splash natif jusqu'à la fin de l'initialisation
   //FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
   // Initialise SharedPreferences AVANT de construire l'app
   await PrefUtils.init();
   /* await SharedPreferences.getInstance().then((prefs) {
     PrefUtils.sharedPreferences = prefs;
   }); */
+
+  /// Initialize Firebase & Authentication Repository
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform).then(
+        (FirebaseApp value) => Get.put(AuthenticationRepository()),
+  );
+
 
   //Get.put(SplashRedirectController()); //using when use flutter_native_splash
 

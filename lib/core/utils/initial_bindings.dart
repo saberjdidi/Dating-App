@@ -1,4 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dating_app_bilhalal/core/utils/network_manager.dart';
 import 'package:dating_app_bilhalal/presentation/main_screen/controller/main_controller.dart';
 import 'package:dating_app_bilhalal/presentation/navigation_screen/controller/bottom_bar_controller.dart';
 import 'package:dating_app_bilhalal/presentation/settings_screen/controller/theme_controller.dart';
@@ -11,8 +12,10 @@ class InitialBindings extends Bindings {
     Get.put(PrefUtils());
     Get.put(ThemeController());
     //Get.put(ApiClient());
-    Connectivity connectivity = Connectivity();
-    Get.put(NetworkInfo(connectivity));
+    Get.put(NetworkManager()); //first method
+    //Connectivity connectivity = Connectivity();
+    //Get.put(NetworkInfo(connectivity)); //second method
+    Get.put(BottomBarController());
     Get.put(BottomBarController());
     //Get.put(MainController());
     //Get.lazyPut(() => MainController(), fenix: true);
