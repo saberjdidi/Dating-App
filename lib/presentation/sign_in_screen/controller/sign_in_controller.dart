@@ -2,6 +2,9 @@ import 'dart:convert';
 
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/message_snackbar.dart';
+import 'package:dating_app_bilhalal/core/utils/network_manager.dart';
+import 'package:dating_app_bilhalal/core/utils/popups/full_screen_loader.dart';
+import 'package:dating_app_bilhalal/data/repositories/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../routes/routes.dart';
@@ -37,6 +40,54 @@ class SignInController extends GetxController {
 
     emailFocus.dispose();
     passwordFocus.dispose();
+  }
+
+  /// Email and Password Sign In
+  Future<void> emailAndPasswordSignIn() async {
+    try {
+      //Start Loading
+      FullScreenLoader.openLoadingDialog('Logging you in...', ImageConstant.lottieTrophy);
+
+      //Check internet connection
+      final isConnected = await NetworkManager.instance.isConnected();
+      if(!isConnected) {
+        //Remove Loader
+        FullScreenLoader.stopLoading();
+        return;
+      }
+
+      //Form Validation
+      //if(!loginFormKey.currentState!.validate()) return;
+      if(!formLoginKey.currentState!.validate()) {
+        //Remove Loader
+        FullScreenLoader.stopLoading();
+        return;
+      }
+
+      //Login user
+      final userCredential = await AuthenticationRepository.instance.loginWithEmailAndPassword(emailController.text.trim(), passwordController.text.trim());
+
+      //Remove Loader
+      FullScreenLoader.stopLoading();
+
+      await PrefUtils.setEmail(emailController.text.trim());
+
+      //Redirect
+      Get.offAllNamed(Routes.navigationScreen);
+      //Show success message
+      MessageSnackBar.successSnackBar(title: 'Successfully', message: 'Login with ${emailController.text.trim()}');
+    }
+    catch(e){
+      //Remove Loader
+      FullScreenLoader.stopLoading();
+
+      //Show some generic error to the user
+      MessageSnackBar.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+    }
+    /* finally {
+      //Remove Loader
+      TFullScreenLoader.stopLoading();
+    } */
   }
 
   loginFn() async {
@@ -109,6 +160,47 @@ class SignInController extends GetxController {
       debugPrint('Exception : ${exception.toString()}');
     } finally {
       //isDataProcessing.value = false;
+    }
+  }
+
+  /// Google Sign In authentication
+  Future<void> googleSignIn() async {
+    try {
+      //Start Loading
+      FullScreenLoader.openLoadingDialog('Logging you in...', ImageConstant.lottieTrophy);
+
+      //Check internet connection
+      final isConnected = await NetworkManager.instance.isConnected();
+      if(!isConnected) {
+        //Remove Loader
+        FullScreenLoader.stopLoading();
+        return;
+      }
+
+
+      //Google Authentication
+     var userCredentials = await AuthenticationRepository.instance.signInWithGoogle();
+       debugPrint('userCredentials : ${userCredentials?.user}');
+      //Save User Record
+     // await userController.saveUserRecord(userCredentials);
+
+      //Remove Loader
+      FullScreenLoader.stopLoading();
+
+      //Redirect
+      //AuthenticationRepository.instance.screenRedirect();
+      MessageSnackBar.successSnackBar(
+          title: "Successfully".tr,
+          message: "Sign In with ${userCredentials?.user!.email}",
+          duration: 2);
+      Get.offAllNamed(Routes.navigationScreen);
+    }
+    catch(e){
+      //Remove Loader
+      FullScreenLoader.stopLoading();
+
+      //Show some generic error to the user
+      MessageSnackBar.errorSnackBar(title: 'Oh Snap!', message: e.toString());
     }
   }
 }

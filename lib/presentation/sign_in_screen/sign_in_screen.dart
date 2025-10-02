@@ -215,7 +215,8 @@ class SignInScreen extends GetView<SignInController> {
               height: isSmallPhone ? 80.v : 70.v,
               width: Get.width * 0.8,
               onPressed: () async {
-                controller.loginFn();
+                controller.emailAndPasswordSignIn();
+                //controller.loginFn();
               },
             ),
           ),

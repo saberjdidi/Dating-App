@@ -52,7 +52,8 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
-    //ajouter pour google sign-in
+    //ajouter pour google sign-in native sans firebase
+    /*
     signingConfigs {
         release {
             keyAlias 'bilhalal'
@@ -68,6 +69,7 @@ android {
             storePassword 'saber1992'
         }
     }
+    */
 
     buildTypes {
         release {

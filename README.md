@@ -131,6 +131,7 @@ Command to get SHA1 key:-
 keytool -list -v -keystore {path-to-keystore}
 ## android/app > keytool -list -v -keystore upload-bilhalal.jks
 
+
 C:\Users\saber.jdidi\StudioProjects\dating_app_bilhalal\android\app>keytool -list -v -keystore upload-bilhalal.jks
 Entrez le mot de passe du fichier de clés :
 
@@ -358,3 +359,19 @@ dating_app_bilhalal/android cmd>        ./gradlew signingReport
 
 ## WebSocket: 
 https://www.youtube.com/watch?v=YS0NfnRCtCg&list=PLCQvK2R5a8CLDC98o9xdVF9Uktqs0M82d&index=6
+
+
+## Firebase + Google Sign-in
+Nom d'alias : bilhalalgooglesignin
+Date de création : 2 oct. 2025
+Type d'entrée : PrivateKeyEntry
+Longueur de chaîne du certificat : 1
+Certificat[1]:
+Propriétaire : CN=Unknown, OU=Unknown, O=Unknown, L=Unknown, ST=Unknown, C=Unknown
+Emetteur : CN=Unknown, OU=Unknown, O=Unknown, L=Unknown, ST=Unknown, C=Unknown
+Numéro de série : 43c39eba
+Valide du : Thu Oct 02 17:06:11 GMT+01:00 2025 au : Mon Feb 17 17:06:11 GMT+01:00 2053
+Empreintes du certificat :
+MD5 : E5:ED:1F:DE:01:2A:A6:70:34:63:E1:E1:BC:7F:65:70:C4:60:5A:5A
+SHA1 : D3:61:CD:A2:C6:E6:9C:0E:27:6A:3F:8A:79:27:61:15:AF:09:D2:C8:D5:D0:39:0B:48:A1:30:33:BD:91:55:AC
+SHA256 : SHA256withRSA
