@@ -27,8 +27,7 @@ class SocialButtonsWidget extends StatelessWidget {
         Container(
           //decoration: BoxDecoration(border: Border.all(color: TColors.grey), borderRadius: BorderRadius.circular(100)),
           child: IconButton(
-            onPressed: () => signInController.loginWithGoogle(),
-            //onPressed: () => signInController.googleSignIn(),
+            onPressed: () => signInController.googleSignIn(),
             //onPressed: () => controller.loginWithGoogle(),
             icon: Image(
               width: width,
@@ -53,7 +52,8 @@ class SocialButtonsWidget extends StatelessWidget {
         Container(
           //decoration: BoxDecoration(border: Border.all(color: TColors.grey), borderRadius: BorderRadius.circular(100)),
           child: IconButton(
-            onPressed:  () => controller.loginWithFacebook(),
+            onPressed:  () => controller.signInWithFacebook(),
+            //onPressed:  () => controller.loginWithFacebook(),
             icon: Image(
               width: width,
               height: height,

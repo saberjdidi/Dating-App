@@ -187,18 +187,22 @@ class AuthenticationRepository extends GetxController {
       return await _auth.signInWithCredential(credentials);
     }
     on FirebaseAuthException catch (e){
+      debugPrint("Google Login Error: ${e.toString()}");
       throw TFirebaseAuthException(e.code).message;
     }
     on FirebaseException catch (e){
+      debugPrint("Google Login Error: ${e.toString()}");
       throw TFirebaseException(e.code).message;
     }
     on FormatException catch (_){
       throw const TFormatException();
     }
     on PlatformException catch (e){
+      debugPrint("Google Login Error: ${e.toString()}");
       throw TPlatformException(e.code).message;
     }
     catch (e) {
+      debugPrint("Google Login Error: ${e.toString()}");
       if(kDebugMode) print('Something went wrong : $e');
       return null;
       //throw 'Something went wrong. Please try again';

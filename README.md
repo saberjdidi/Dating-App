@@ -362,16 +362,55 @@ https://www.youtube.com/watch?v=YS0NfnRCtCg&list=PLCQvK2R5a8CLDC98o9xdVF9Uktqs0M
 
 
 ## Firebase + Google Sign-in
-Nom d'alias : bilhalalgooglesignin
-Date de création : 2 oct. 2025
-Type d'entrée : PrivateKeyEntry
-Longueur de chaîne du certificat : 1
-Certificat[1]:
-Propriétaire : CN=Unknown, OU=Unknown, O=Unknown, L=Unknown, ST=Unknown, C=Unknown
-Emetteur : CN=Unknown, OU=Unknown, O=Unknown, L=Unknown, ST=Unknown, C=Unknown
-Numéro de série : 43c39eba
-Valide du : Thu Oct 02 17:06:11 GMT+01:00 2025 au : Mon Feb 17 17:06:11 GMT+01:00 2053
-Empreintes du certificat :
-MD5 : E5:ED:1F:DE:01:2A:A6:70:34:63:E1:E1:BC:7F:65:70:C4:60:5A:5A
-SHA1 : D3:61:CD:A2:C6:E6:9C:0E:27:6A:3F:8A:79:27:61:15:AF:09:D2:C8:D5:D0:39:0B:48:A1:30:33:BD:91:55:AC
-SHA256 : SHA256withRSA
+Étape 1 : Générer les empreintes SHA correctement
+
+Si ta commande avec keytool ne marche pas, c’est souvent parce que :
+
+tu n’as pas Java JDK installé ou pas dans le PATH
+
+ou que tu es sous Windows et la commande %USERPROFILE% ne marche pas comme prévu
+
+👉 Voici les bonnes commandes selon ton OS :
+
+Sous Windows (PowerShell ou CMD) :
+keytool -list -v -alias androiddebugkey -keystore "%USERPROFILE%\.android\debug.keystore" -storepass android -keypass android
+
+Sous Mac/Linux :
+keytool -list -v -alias androiddebugkey -keystore ~/.android/debug.keystore -storepass android -keypass android
+
+
+⚠️ storepass et keypass par défaut sont android (sauf si tu as créé un keystore custom).
+
+C:\Users\LENOVO\StudioProjects\Dating-App>keytool -list -v -alias androiddebugkey -keystore "%USERPROFILE%\.android\debug.keystore" -storepass android -keypass android
+Alias name: androiddebugkey
+
+Certificate fingerprints:
+SHA1: 17:DA:D7:61:D6:4C:E7:A6:81:B7:E4:A8:CF:08:62:70:FC:BC:CE:87
+SHA256: 50:E0:51:D1:E2:BF:FB:D4:71:67:F0:A1:F3:32:BD:E7:3B:F8:AC:B4:72:67:41:FF:DE:D5:E0:93:B8:05:24:D1
+Signature algorithm name: SHA1withRSA (weak)
+
+
+🚨 la version Release
+
+Pour la publication en PlayStore, tu dois aussi ajouter le SHA1/SHA256 du keystore release :
+
+keytool -list -v -keystore my-release-key.jks -alias my-key-alias
+
+
+## Facebook login: 
+https://www.youtube.com/watch?v=sOa9xJuJDII
+1. https://developers.facebook.com/apps/1330583908717882/settings/basic/
+Application: Dating App Bilhalal
+Identifiant de l’application : 1330583908717882
+Clé secrète : a8b94364be548f17a4a24a591fbd3431
+token client: 5874447de2422b0d178dc388bae5a651 
+
+2. Firebase: activer facebook
+https://dating-app-bilhalal.firebaseapp.com/__/auth/handler
+
+3. configuration android: https://developers.facebook.com/apps/1330583908717882/use_cases/customize/?use_case_enum=FB_LOGIN&selected_tab=quickstart&product_route=fb-login
+Ajouter vos clés de hachage de développement et de publication :
+keytool -exportcert -alias androiddebugkey -keystore "C:\Users\USERNAME\.android\debug.keystore" | "PATH_TO_OPENSSL_LIBRARY\bin\openssl" sha1 -binary | "PATH_TO_OPENSSL_LIBRARY\bin\openssl" base64
+C:\Users\LENOVO>keytool -exportcert -alias androiddebugkey -keystore "%USERPROFILE%\.android\debug.keystore" -storepass android | openssl sha1 -binary | openssl base64
+izpgQ+bXvAYb+Yx5lnwr2n8By1k=
+      

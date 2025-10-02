@@ -171,63 +171,47 @@ class SignInController extends GetxController {
     await PrefUtils.setFullName(fullName);
   }
   /// Google Sign In authentication
-  Future<void> loginWithGoogle() async {
-    try {
-      final GoogleSignIn _googleSignIn = GoogleSignIn();
-      final account = await _googleSignIn.signIn();
-      if (account != null) {
-        debugPrint("Google Login : email : ${account.email} - fullame : ${account.displayName}");
-        await saveUserData(account.email, account.displayName ?? '');
-        MessageSnackBar.successSnackBar(
-            title: "Successfully".tr,
-            message: "Sign In with ${account.email}",
-            duration: 2);
-        Get.offAllNamed(Routes.navigationScreen);
-      }
-    } catch (e) {
-      MessageSnackBar.errorToast(
-          title: "Error".tr,
-          message: "Google Login Error: $e",
-          position: SnackPosition.TOP,
-          duration: 2);
-      debugPrint("Google Login Error: $e");
-    }
-  }
   Future<void> googleSignIn() async {
     try {
       //Start Loading
-      FullScreenLoader.openLoadingDialog('Logging you in...', ImageConstant.lottieTrophy);
+      //FullScreenLoader.openLoadingDialog('Logging you in...', ImageConstant.lottieTrophy);
 
       //Check internet connection
       final isConnected = await NetworkManager.instance.isConnected();
       if(!isConnected) {
         //Remove Loader
-        FullScreenLoader.stopLoading();
+        //FullScreenLoader.stopLoading();
         return;
       }
 
 
       //Google Authentication
      var userCredentials = await AuthenticationRepository.instance.signInWithGoogle();
-       debugPrint('userCredentials : ${userCredentials?.user}');
+      final user = userCredentials?.user;
+
+      if (user != null) {
+        await saveUserData(user.email ?? "", user.displayName ?? "");
+        MessageSnackBar.successSnackBar(
+          title: "Successfully".tr,
+          message: "Sign In with ${user.email}",
+          duration: 2,
+        );
+        Get.offAllNamed(Routes.navigationScreen);
+      }
+       debugPrint('userCredentials : ${user}');
       //Save User Record
      // await userController.saveUserRecord(userCredentials);
 
       //Remove Loader
-      FullScreenLoader.stopLoading();
+      //FullScreenLoader.stopLoading();
 
       //Redirect
       //AuthenticationRepository.instance.screenRedirect();
-      MessageSnackBar.successSnackBar(
-          title: "Successfully".tr,
-          message: "Sign In with ${userCredentials?.user!.email}",
-          duration: 2);
-      Get.offAllNamed(Routes.navigationScreen);
     }
     catch(e){
       //Remove Loader
-      FullScreenLoader.stopLoading();
-
+      //FullScreenLoader.stopLoading();
+      debugPrint("Google Login Error: ${e.toString()}");
       //Show some generic error to the user
       MessageSnackBar.errorSnackBar(title: 'Oh Snap!', message: e.toString());
     }

@@ -1,10 +1,12 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class SocialButtonsController extends GetxController {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // Save user data to SharedPreferences
   Future<void> saveUserData(String email, String fullName) async {
@@ -37,6 +39,36 @@ class SocialButtonsController extends GetxController {
   }
 
   // Facebook Login
+  Future<void> signInWithFacebook() async {
+    try {
+      // Début connexion Facebook
+      final LoginResult result = await FacebookAuth.instance.login(
+        permissions: ['email', 'public_profile'],
+      );
+
+      if (result.status == LoginStatus.success) {
+        final OAuthCredential credential =
+        FacebookAuthProvider.credential(result.accessToken!.token);
+
+        // Connexion Firebase
+        UserCredential userCred = await _auth.signInWithCredential(credential);
+        debugPrint("Google Login : email : ${userCred.user?.email} - fullame : ${userCred.user?.displayName}");
+        await saveUserData(userCred.user!.email!, userCred.user?.displayName ?? '');
+        //await saveUserData(userData['email'], userData['name']);
+        Get.offAllNamed(Routes.navigationScreen);
+      } else {
+        print("Facebook Login failed: ${result.status}");
+        return null;
+      }
+    } catch (e) {
+      MessageSnackBar.errorToast(
+          title: "Error".tr,
+          message: "Facebook Login Error: $e",
+          position: SnackPosition.TOP,
+          duration: 2);
+      print("Facebook Login Error: $e");
+    }
+  }
   Future<void> loginWithFacebook() async {
     try {
       final result = await FacebookAuth.instance.login();
