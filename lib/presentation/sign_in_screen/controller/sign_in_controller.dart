@@ -7,6 +7,7 @@ import 'package:dating_app_bilhalal/core/utils/popups/full_screen_loader.dart';
 import 'package:dating_app_bilhalal/data/repositories/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import '../../../routes/routes.dart';
 
 class SignInController extends GetxController {
@@ -163,7 +164,35 @@ class SignInController extends GetxController {
     }
   }
 
+  // Save user data to SharedPreferences
+  Future<void> saveUserData(String email, String fullName) async {
+    await PrefUtils.setEmail(email);
+    await PrefUtils.setEmailGoogle(email);
+    await PrefUtils.setFullName(fullName);
+  }
   /// Google Sign In authentication
+  Future<void> loginWithGoogle() async {
+    try {
+      final GoogleSignIn _googleSignIn = GoogleSignIn();
+      final account = await _googleSignIn.signIn();
+      if (account != null) {
+        debugPrint("Google Login : email : ${account.email} - fullame : ${account.displayName}");
+        await saveUserData(account.email, account.displayName ?? '');
+        MessageSnackBar.successSnackBar(
+            title: "Successfully".tr,
+            message: "Sign In with ${account.email}",
+            duration: 2);
+        Get.offAllNamed(Routes.navigationScreen);
+      }
+    } catch (e) {
+      MessageSnackBar.errorToast(
+          title: "Error".tr,
+          message: "Google Login Error: $e",
+          position: SnackPosition.TOP,
+          duration: 2);
+      debugPrint("Google Login Error: $e");
+    }
+  }
   Future<void> googleSignIn() async {
     try {
       //Start Loading
