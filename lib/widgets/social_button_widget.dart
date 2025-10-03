@@ -27,7 +27,7 @@ class SocialButtonsWidget extends StatelessWidget {
         Container(
           //decoration: BoxDecoration(border: Border.all(color: TColors.grey), borderRadius: BorderRadius.circular(100)),
           child: IconButton(
-            onPressed: () => signInController.googleSignIn(),
+            onPressed: () => controller.googleSignIn(),
             //onPressed: () => controller.loginWithGoogleWithoutFirebase(),
             icon: Image(
               width: width,

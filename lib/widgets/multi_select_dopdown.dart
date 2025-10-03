@@ -104,6 +104,11 @@ class MultiSelectDropdown extends StatelessWidget {
         child: DropdownButton2(
           isExpanded: true,
           hint: Text(hint, style: const TextStyle(fontSize: 16)),
+          iconStyleData: IconStyleData(
+            icon: Icon(Iconsax.arrow_down_1, color: Colors.grey.shade700),
+            //iconSize: 22, // taille personnalisée
+          ),
+          //customButton: Icon(Iconsax.arrow_down_1),
           items: [
 
             // ==== Ajout du bouton fermer ====

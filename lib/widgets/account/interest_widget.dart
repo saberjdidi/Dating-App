@@ -40,8 +40,8 @@ class InterestWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(width: 5.adaptSize,),
-              Icon(iconPath, size: 35.adaptSize, color: isSelected
+              SizedBox(width: 3.adaptSize,),
+              Icon(iconPath, size: 30.adaptSize, color: isSelected
                   ?  activeColor ? Colors.white : TColors.black
                   : Colors.black),
             /*  CustomImageView(
@@ -51,7 +51,7 @@ class InterestWidget extends StatelessWidget {
                 fit: BoxFit.fill,
               ), */
               //Image.asset(iconPath, height: 20, width: 20), // Icône
-               SizedBox(width: 10.hw),
+               SizedBox(width: 8.hw),
               Text(
                 text,
                 style: TextStyle(

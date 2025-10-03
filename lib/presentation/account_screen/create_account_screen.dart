@@ -266,7 +266,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               child: Text(
                 controller.fullNameError.value.isNotEmpty
                     ? controller.fullNameError.value
-                    : "${controller.fullNameRemaining.value} حروف متبقية",
+                    : "${controller.fullNameRemaining.value} حرف متبقي",
                 style: TextStyle(
                   fontSize: 15.adaptSize,
                   color: controller.fullNameError.value.isNotEmpty
@@ -296,7 +296,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               child: Text(
                 controller.bioError.value.isNotEmpty
                     ? controller.bioError.value
-                    : "${controller.bioRemaining.value} حروف متبقية",
+                    : "${controller.bioRemaining.value} حرف متبقي",
                 style: TextStyle(
                   fontSize: 15.adaptSize,
                   color: controller.bioError.value.isNotEmpty
@@ -653,7 +653,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               child: Text(
                 controller.jobError.value.isNotEmpty
                     ? controller.jobError.value
-                    : "${controller.jobRemaining.value} حروف متبقية",
+                    : "${controller.jobRemaining.value} حرف متبقي",
                 style: TextStyle(
                   fontSize: 15.adaptSize,
                   color: controller.jobError.value.isNotEmpty
@@ -829,6 +829,12 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
 
   /// Section Media
   Widget _buildMediaForm(BuildContext context, bool isTablet) {
+    mediaQueryData = MediaQuery.of(context);
+    var screenWidth = mediaQueryData.size.width;
+    var screenHeight = mediaQueryData.size.height;
+    var isSmallPhone = screenWidth < 360;
+    var isTablet = screenWidth >= 600;
+
     return Obx(() => Column(
         //crossAxisAlignment: CrossAxisAlignment.end,
         children: [
@@ -842,89 +848,107 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
           ),
           Align(
               alignment: Alignment.topRight,
-              child: SubTitleWidget(subtitle: "قم بتحميل صورتك الخاصة، وسيتم عرضها كصورة ملفك الشخصي.".tr,
+              child: SubTitleWidget(subtitle: "قم برفع صورتك الشخصية، وسيتم عرضها كصورة لملفك الشخصي.".tr,
                   color:  _appTheme =='light' ? TColors.gray700 : TColors.white,
                 textAlign: TextAlign.end,)
           ),
 
           SizedBox(height: TSizes.spaceBtwSections.v),
 
-          // Grid avec Upload Button + Images sélectionnées
-          Directionality(
-            textDirection: TextDirection.rtl,
-            child: GridLayout(
-              itemCount: controller.selectedMedia.length + 1, // +1 pour l'upload
-              mainAxisExtent: isTablet ? 220.adaptSize : 180.adaptSize,
-              crossAxisCount: 3,
-              itemBuilder: (context, index) {
-                if (index == 0) {
-                  // L'icône upload
-                  return TRoundedContainer(
-                    showBorder: false,
-                    backgroundColor: TColors.white,
-                    borderColor: TColors.greyDating,
-                    radius: 12,
-                    padding: EdgeInsets.all(1),
-                    child: CustomImageView(
-                      imagePath: ImageConstant.uploadImage,
-                      height: 100.adaptSize,
-                      width: 100.adaptSize,
-                      fit: BoxFit.fill,
-                      onTap: () async {
-                        await controller.pickMedia();
-                      },
-                    ),
-                  );
-                } else {
-                  final file = controller.selectedMedia[index - 1]; // -1 car le 1er est upload
-                  return TRoundedContainer(
-                    showBorder: true,
-                    backgroundColor: TColors.white,
-                    borderColor: TColors.greyDating,
-                    radius: 12,
-                    padding: EdgeInsets.all(1),
-                    child: Stack(
-                      children: [
-                        // Utiliser CustomImageView au lieu de Image.file
-                        CustomImageView(
-                          file: file,
-                          imagePath: null,
-                          //imagePath: file.path, // très important: .path car File
-                          height: Get.height,
-                          width: Get.width,
-                          fit: BoxFit.cover,
-                          radius: BorderRadius.circular(10),
-                        ),
-                        Positioned(
-                          right: 0,
-                          child: CustomImageView(
-                            imagePath: ImageConstant.removeImage,
-                            width: 30.adaptSize,
-                            height: 30.adaptSize,
-                            radius: BorderRadius.circular(30.adaptSize),
-                            fit: BoxFit.cover,
-                            onTap: (){
-                              controller.removeMedia(index - 1);
-                            },
-                          ),
-                         /* child: CircularContainer(
-                            width: 35.adaptSize,
-                            height: 35.adaptSize,
-                            radius: 35.adaptSize,
-                            backgroundColor: TColors.lightGrey,
-                            child: IconButton(
-                              icon: Icon(Icons.close, color: Colors.red, size: 15.adaptSize,),
-                              onPressed: () => controller.removeMedia(index - 1),
-                            ),
-                          ), */
-                        ),
-                      ],
-                    ),
-                  );
-                }
-              },
+          if(controller.selectedMedia.length == null || controller.selectedMedia.isEmpty)
+            TRoundedContainer(
+              showBorder: false,
+              backgroundColor: TColors.white,
+              borderColor: TColors.greyDating,
+              radius: 12,
+              padding: EdgeInsets.all(1),
+              child: CustomImageView(
+                imagePath: ImageConstant.uploadImage,
+                height: 300.adaptSize,
+                width: 220.adaptSize,
+                fit: BoxFit.fill,
+                onTap: () async {
+                  await controller.pickMedia();
+                },
+              ),
             ),
-          ),
+          // Grid avec Upload Button + Images sélectionnées
+          if(controller.selectedMedia.length != [] && controller.selectedMedia.isNotEmpty)
+            Directionality(
+              textDirection: TextDirection.rtl,
+              child: GridLayout(
+                itemCount: controller.selectedMedia.length + 1, // +1 pour l'upload
+                mainAxisExtent: isTablet ? 200.adaptSize : 150.adaptSize,
+                crossAxisCount: 3,
+                itemBuilder: (context, index) {
+                  if (index == 0) {
+                    // L'icône upload
+                    return TRoundedContainer(
+                      showBorder: false,
+                      backgroundColor: TColors.white,
+                      borderColor: TColors.greyDating,
+                      radius: 12,
+                      padding: EdgeInsets.all(1),
+                      child: CustomImageView(
+                        imagePath: ImageConstant.uploadImage,
+                        height: 100.adaptSize,
+                        width: 100.adaptSize,
+                        fit: BoxFit.fill,
+                        onTap: () async {
+                          await controller.pickMedia();
+                        },
+                      ),
+                    );
+                  } else {
+                    final file = controller.selectedMedia[index - 1]; // -1 car le 1er est upload
+                    return TRoundedContainer(
+                      showBorder: true,
+                      backgroundColor: TColors.white,
+                      borderColor: TColors.greyDating,
+                      radius: 12,
+                      padding: EdgeInsets.all(1),
+                      child: Stack(
+                        children: [
+                          // Utiliser CustomImageView au lieu de Image.file
+                          CustomImageView(
+                            file: file,
+                            imagePath: null,
+                            //imagePath: file.path, // très important: .path car File
+                            height: Get.height,
+                            width: Get.width,
+                            fit: BoxFit.cover,
+                            radius: BorderRadius.circular(10),
+                          ),
+                          Positioned(
+                            right: 0,
+                            child: CustomImageView(
+                              imagePath: ImageConstant.removeImage,
+                              width: 30.adaptSize,
+                              height: 30.adaptSize,
+                              radius: BorderRadius.circular(30.adaptSize),
+                              fit: BoxFit.cover,
+                              onTap: (){
+                                controller.removeMedia(index - 1);
+                              },
+                            ),
+                           /* child: CircularContainer(
+                              width: 35.adaptSize,
+                              height: 35.adaptSize,
+                              radius: 35.adaptSize,
+                              backgroundColor: TColors.lightGrey,
+                              child: IconButton(
+                                icon: Icon(Icons.close, color: Colors.red, size: 15.adaptSize,),
+                                onPressed: () => controller.removeMedia(index - 1),
+                              ),
+                            ), */
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                },
+              ),
+            ),
         /*
           CustomImageView(
             imagePath: ImageConstant.uploadImage,

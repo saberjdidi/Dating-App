@@ -214,18 +214,25 @@ class AuthenticationRepository extends GetxController {
   Future<UserCredential?> signInWithApple() async {
     try {
       //obtain the auth details from the request
-      //if connect with android
+    //👉 Pour iOS : Tu n’as pas besoin de webAuthenticationOptions.
       final appleCredential = await SignInWithApple.getAppleIDCredential(
-        scopes: [AppleIDAuthorizationScopes.email, AppleIDAuthorizationScopes.fullName],
-        webAuthenticationOptions: WebAuthenticationOptions(
-          clientId: 'apple.com', // Your Apple Service ID
-          //clientId: 'your.service.id', // Your Apple Service ID
-          redirectUri: Uri.parse('https://your.domain.com/callbacks/sign_in_with_apple'), // Your redirect URI
-        ),
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
       );
-      //if connect with ios
+      //👉 Pour Android : Android ne supporte pas nativement Apple Sign-in, donc on passe par le flow web (avec webAuthenticationOptions).if connect with android
      /* final appleCredential = await SignInWithApple.getAppleIDCredential(
-        scopes: [AppleIDAuthorizationScopes.email, AppleIDAuthorizationScopes.fullName],
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+        webAuthenticationOptions: WebAuthenticationOptions(
+          clientId: "com.your.bundleid.service", // Service ID exact
+          redirectUri: Uri.parse(
+            "https://your-domain.com/callbacks/sign_in_with_apple", // Doit être identique au portail Apple
+          ),
+        ),
       ); */
 
       debugPrint("appleCredential : $appleCredential");

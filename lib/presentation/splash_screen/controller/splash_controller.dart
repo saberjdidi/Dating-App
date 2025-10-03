@@ -26,11 +26,11 @@ class SplashController extends GetxController {
 
       } */
 
-      Get.offAllNamed(Routes.createAccountScreen);
+      //Get.offAllNamed(Routes.createAccountScreen);
       //Get.offAllNamed(Routes.onboardingScreen);
       //Get.offAllNamed(Routes.navigationScreen);
       // Si premier lancement → OnBoarding
-     /* if (PrefUtils.isFirstTime()) {
+      if (PrefUtils.isFirstTime()) {
         Get.offAllNamed(Routes.onboardingScreen);
       }
       // Si pas premier lancement mais pas connecté → SignIn
@@ -40,7 +40,7 @@ class SplashController extends GetxController {
       // Si déjà connecté → Home
       else {
         Get.offAllNamed(Routes.navigationScreen);
-      } */
+      }
       ///Without deep link
      /* if(PrefUtils.getEmail() != null || PrefUtils.getEmail()!.isNotEmpty){
         Get.offAllNamed(Routes.navigationScreen);

@@ -99,7 +99,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             child: Text(
                               controller.fullNameError.value.isNotEmpty
                                   ? controller.fullNameError.value
-                                  : "${controller.fullNameRemaining.value} حروف متبقية",
+                                  : "${controller.fullNameRemaining.value}حرف متبقي ",
                               style: TextStyle(
                                 fontSize: 15.adaptSize,
                                 color: controller.fullNameError.value.isNotEmpty
@@ -128,7 +128,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             child: Text(
                               controller.bioError.value.isNotEmpty
                                   ? controller.bioError.value
-                                  : "${controller.bioRemaining.value} حروف متبقية",
+                                  : "${controller.bioRemaining.value} حرف متبقي",
                               style: TextStyle(
                                 fontSize: 15.adaptSize,
                                 color: controller.bioError.value.isNotEmpty
@@ -410,7 +410,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             child: Text(
                               controller.jobError.value.isNotEmpty
                                   ? controller.jobError.value
-                                  : "${controller.jobRemaining.value} حروف متبقية",
+                                  : "${controller.jobRemaining.value} حرف متبقي",
                               style: TextStyle(
                                 fontSize: 15.adaptSize,
                                 color: controller.jobError.value.isNotEmpty

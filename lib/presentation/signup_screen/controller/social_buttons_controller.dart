@@ -21,6 +21,52 @@ class SocialButtonsController extends GetxController {
     await PrefUtils.setFullName(fullName);
   }
 
+  /// Google Sign In authentication
+  Future<void> googleSignIn() async {
+    try {
+      //Start Loading
+      //FullScreenLoader.openLoadingDialog('Logging you in...', ImageConstant.lottieTrophy);
+
+      //Check internet connection
+      final isConnected = await NetworkManager.instance.isConnected();
+      if(!isConnected) {
+        //Remove Loader
+        //FullScreenLoader.stopLoading();
+        return;
+      }
+
+
+      //Google Authentication
+      var userCredentials = await AuthenticationRepository.instance.signInWithGoogle();
+      final user = userCredentials?.user;
+
+      if (user != null) {
+        await saveUserData(user.email ?? "", user.displayName ?? "");
+        MessageSnackBar.successSnackBar(
+          title: "Successfully".tr,
+          message: "Sign In with ${user.email}",
+          duration: 2,
+        );
+        Get.offAllNamed(Routes.navigationScreen);
+      }
+      debugPrint('userCredentials : ${user}');
+      //Save User Record
+      // await userController.saveUserRecord(userCredentials);
+
+      //Remove Loader
+      //FullScreenLoader.stopLoading();
+
+      //Redirect
+      //AuthenticationRepository.instance.screenRedirect();
+    }
+    catch(e){
+      //Remove Loader
+      //FullScreenLoader.stopLoading();
+      debugPrint("Google Login Error: ${e.toString()}");
+      //Show some generic error to the user
+      MessageSnackBar.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+    }
+  }
   // Google Login
   Future<void> loginWithGoogleWithoutFirebase() async {
     try {
