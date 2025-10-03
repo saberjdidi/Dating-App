@@ -85,14 +85,23 @@ class CreateAccountController extends GetxController {
 
   RxInt bioRemaining = 100.obs;
   RxString bioError = "".obs;
-
-  /// --- Vérification compteur à chaque modification
   void onBioChanged(String value) {
     bioRemaining.value = 100 - value.length;
     if (value.length > 100) {
       bioError.value = "الاسم الكامل لا يمكن أن يتجاوز 100 حرف.";
     } else {
       bioError.value = "";
+    }
+  }
+
+  RxInt jobRemaining = 50.obs;
+  RxString jobError = "".obs;
+  void onJobChanged(String value) {
+    jobRemaining.value = 50 - value.length;
+    if (value.length > 50) {
+      jobError.value = "الاسم الكامل لا يمكن أن يتجاوز 50 حرف.";
+    } else {
+      jobError.value = "";
     }
   }
   ///Max Length TextFormField End

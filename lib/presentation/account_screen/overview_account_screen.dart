@@ -294,7 +294,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                                 TRoundedContainer(
                                   showBorder: true,
                                   borderColor: TColors.greyDating,
-                                    padding: EdgeInsets.symmetric(horizontal: 30.v, vertical: 10.v),
+                                    padding: EdgeInsets.symmetric(horizontal: 35.v, vertical: 13.v),
                                   child: Row(
                                     children: [
                                       Radio<int>(
@@ -320,7 +320,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                                 TRoundedContainer(
                                   showBorder: true,
                                   borderColor: TColors.greyDating,
-                                    padding: EdgeInsets.symmetric(horizontal: 30.v, vertical: 10.v),
+                                    padding: EdgeInsets.symmetric(horizontal: 35.v, vertical: 13.v),
                                   child: Row(
                                     children: [
                                       Radio<int>(
@@ -365,6 +365,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                               return null;
                             },
                             themeColor: appTheme.gray50,
+                            icon: Icon(Iconsax.arrow_down_1),
                             borderRadius: 15.hw,
                             contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
                           ),
@@ -388,6 +389,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                               return null;
                             },
                             themeColor: appTheme.gray50,
+                            icon: Icon(Iconsax.arrow_down_1),
                             borderRadius: 15.hw,
                             contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
                           ),
@@ -395,12 +397,27 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
 
                           CustomTextFormField(
                             controller: controller.jobController,
+                            onChange: controller.onJobChanged,
                             hintText: "${'الوظيفة'.tr} *",
                             maxLines: 3,
                             textInputType: TextInputType.text,
                             prefixConstraints: BoxConstraints(maxHeight: 60.v),
                             contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
                             validator: (value) => Validator.validateEmptyText('${'Job'.tr}', value),
+                          ),
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              controller.jobError.value.isNotEmpty
+                                  ? controller.jobError.value
+                                  : "${controller.jobRemaining.value} حروف متبقية",
+                              style: TextStyle(
+                                fontSize: 15.adaptSize,
+                                color: controller.jobError.value.isNotEmpty
+                                    ? Colors.red
+                                    : Colors.grey,
+                              ),
+                            ),
                           ),
                           SizedBox(height: TSizes.spaceBtwItems.v),
 
@@ -415,11 +432,12 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             },
                             validator: (value) {
                               if (value == null) {
-                                return "${'lbl_region'.tr} ${"lbl_is_required".tr}";
+                                return "الدولة مطلوبة";
                               }
                               return null;
                             },
                             themeColor: appTheme.gray50,
+                            icon: Icon(Iconsax.arrow_down_1),
                             borderRadius: 15.hw,
                             contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
                           ),
@@ -617,8 +635,8 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
             ),
             bottomNavigationBar: Padding(
               padding: EdgeInsets.only(bottom: TSizes.spaceBtwItems.v,
-                  left: TSizes.spaceBtwItems.hw,
-                  right: TSizes.spaceBtwItems.hw),
+                  left: TSizes.defaultSpace.hw,
+                  right: TSizes.defaultSpace.hw),
               //child: _buildButtonSection()
               child:
               CustomButtonContainer(

@@ -209,7 +209,7 @@ class SearchDating {
                         TRoundedContainer(
                             showBorder: true,
                             borderColor: TColors.greyDating,
-                            padding: EdgeInsets.symmetric(horizontal: 30.v, vertical: 10.v),
+                            padding: EdgeInsets.symmetric(horizontal: 35.v, vertical: 13.v),
                             child: Row(
                               children: [
                                 Radio<int>(
@@ -234,7 +234,7 @@ class SearchDating {
                         TRoundedContainer(
                             showBorder: true,
                             borderColor: TColors.greyDating,
-                            padding: EdgeInsets.symmetric(horizontal: 30.v, vertical: 10.v),
+                            padding: EdgeInsets.symmetric(horizontal: 35.v, vertical: 13.v),
                             child: Row(
                               children: [
                                 Radio<int>(
@@ -279,6 +279,7 @@ class SearchDating {
                       return null;
                     },
                     themeColor: appTheme.gray50,
+                    icon: Icon(Iconsax.arrow_down_1),
                     borderRadius: 15.hw,
                     contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
                   ),
@@ -302,6 +303,7 @@ class SearchDating {
                       return null;
                     },
                     themeColor: appTheme.gray50,
+                    icon: Icon(Iconsax.arrow_down_1),
                     borderRadius: 15.hw,
                     contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
                   ),
@@ -334,6 +336,7 @@ class SearchDating {
                       return null;
                     },
                     themeColor: appTheme.gray50,
+                    icon: Icon(Iconsax.arrow_down_1),
                     borderRadius: 15.hw,
                     contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
                   ),

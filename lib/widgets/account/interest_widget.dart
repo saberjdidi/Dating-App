@@ -38,8 +38,9 @@ class InterestWidget extends StatelessWidget {
           margin: EdgeInsets.symmetric(vertical: 10.adaptSize, horizontal: 8),
           child: Row(
             mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              SizedBox(width: 5.adaptSize,),
               Icon(iconPath, size: 35.adaptSize, color: isSelected
                   ?  activeColor ? Colors.white : TColors.black
                   : Colors.black),
@@ -50,7 +51,7 @@ class InterestWidget extends StatelessWidget {
                 fit: BoxFit.fill,
               ), */
               //Image.asset(iconPath, height: 20, width: 20), // Icône
-              //const SizedBox(width: 8),
+               SizedBox(width: 10.hw),
               Text(
                 text,
                 style: TextStyle(

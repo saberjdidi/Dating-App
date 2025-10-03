@@ -20,7 +20,7 @@ class InterestModel {
 final interestsList = [
   InterestModel(name: "التسوق", icon: Icons.shopping_bag_outlined),
   InterestModel(name: "فوتوغرافيا", icon: Icons.camera_alt_outlined),
-  InterestModel(name: "اليوغا", icon: Icons.sports_gymnastics_outlined),
+  InterestModel(name: "اليوغا", icon: Iconsax.colorfilter),
   InterestModel(name: "كاريوكي", icon: Icons.keyboard_voice_outlined),
   InterestModel(name: "التنس", icon: Icons.sports_tennis_outlined),
   InterestModel(name: "طبخ", icon: Icons.cookie_outlined),

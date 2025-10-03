@@ -174,19 +174,19 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             ),
           ),
           bottomNavigationBar: Padding(
-            padding: EdgeInsets.only(bottom: TSizes.spaceBtwItems.v, left: TSizes.spaceBtwItems.hw, right: TSizes.spaceBtwItems.hw),
+            padding: EdgeInsets.only(bottom: TSizes.spaceBtwItems.v, left: TSizes.defaultSpace.hw, right: TSizes.defaultSpace.hw),
             //child: _buildButtonSection()
             child:
             CustomButtonContainer(
-              text: controller.activeStep.value == 4 ?  "ملخص".tr : "التالي".tr,
-              //text: controller.activeStep.value < 3 ? "التالي".tr : "تأكيد الحساب".tr,
+              text: "التالي".tr,
+              //text: controller.activeStep.value == 4 ?  "ملخص".tr : "التالي".tr,
               color1: TColors.yellowAppDark,
               color2: TColors.yellowAppLight,
               borderRadius: 10,
               colorText: TColors.white,
               fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
               height: isSmallPhone ? 80.v : 70.v,
-              width: screenWidth * 0.7,
+              width: screenWidth * 0.8,
               onPressed: () async {
                 if (controller.activeStep.value < controller.dotCount.value - 1) {
                   controller.activeStep.value++;
@@ -344,7 +344,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                   TRoundedContainer(
                       showBorder: true,
                       borderColor: TColors.greyDating,
-                      padding: EdgeInsets.symmetric(horizontal: 30.v, vertical: 10.v),
+                      padding: EdgeInsets.symmetric(horizontal: 35.v, vertical: 13.v),
                       child: Row(
                         children: [
                           Radio<int>(
@@ -370,7 +370,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                   TRoundedContainer(
                       showBorder: true,
                       borderColor: TColors.greyDating,
-                      padding: EdgeInsets.symmetric(horizontal: 30.v, vertical: 10.v),
+                      padding: EdgeInsets.symmetric(horizontal: 35.v, vertical: 13.v),
                       child: Row(
                         children: [
                           Radio<int>(
@@ -605,6 +605,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               },
               themeColor: appTheme.gray50,
               borderRadius: 15.hw,
+              icon: Icon(Iconsax.arrow_down_1),
               contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
             ),
             SizedBox(height: TSizes.spaceBtwItems.v),
@@ -628,6 +629,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                 return null;
               },
               themeColor: appTheme.gray50,
+              icon: Icon(Iconsax.arrow_down_1),
               borderRadius: 15.hw,
               contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
             ),
@@ -635,8 +637,9 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
 
             CustomTextFormField(
               controller: controller.jobController,
+              onChange: controller.onJobChanged,
               hintText: "${'الوظيفة'.tr} *",
-              maxLines: 3,
+              maxLines: 2,
               textInputType: TextInputType.text,
               /* prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
                   child: Icon(Iconsax.user)
@@ -644,6 +647,20 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               prefixConstraints: BoxConstraints(maxHeight: 60.v),
               contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
               validator: (value) => Validator.validateEmptyText('${'Job'.tr}', value),
+            ),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Text(
+                controller.jobError.value.isNotEmpty
+                    ? controller.jobError.value
+                    : "${controller.jobRemaining.value} حروف متبقية",
+                style: TextStyle(
+                  fontSize: 15.adaptSize,
+                  color: controller.jobError.value.isNotEmpty
+                      ? Colors.red
+                      : Colors.grey,
+                ),
+              ),
             ),
             SizedBox(height: TSizes.spaceBtwItems.v),
 
@@ -658,11 +675,12 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               },
               validator: (value) {
                 if (value == null) {
-                  return "${'lbl_region'.tr} ${"lbl_is_required".tr}";
+                  return "الدولة مطلوبة";
                 }
                 return null;
               },
               themeColor: appTheme.gray50,
+              icon: Icon(Iconsax.arrow_down_1),
               borderRadius: 15.hw,
               contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
             ),
@@ -756,13 +774,13 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             SizedBox(height: TSizes.spaceBtwItems.v),
             Align(
                 alignment: Alignment.topRight,
-                child: TitleWidget(title: "أضف الفائدة".tr,
+                child: TitleWidget(title: "أضف ميزة".tr,
                   color:  _appTheme =='light' ? TColors.black : TColors.white,
                   textAlign: TextAlign.end,)
             ),
             Align(
                 alignment: Alignment.topRight,
-                child: SubTitleWidget(subtitle: "أضف أي 5 اهتمامات للعثور على شريك يتوافق مع شغفك.".tr,
+                child: SubTitleWidget(subtitle: "أضف 5 اهتمامات للعثور على شريك يتوافق مع شغفك.".tr,
                   color:  _appTheme =='light' ? TColors.gray700 : TColors.white,
                   textAlign: TextAlign.end,)
             ),
