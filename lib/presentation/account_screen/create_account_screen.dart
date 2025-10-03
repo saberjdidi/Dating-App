@@ -206,7 +206,6 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
 
   /// Section Identity
   Widget _buildBasicDetailsForm(BuildContext context) {
-
     //double sliderValue = controller.currentAgeValue.value.toDouble();
     //double weightValue = controller.currentWeightValue.value.toDouble();
     //double heightValue = controller.currentHeightValue.value.toDouble();
@@ -242,6 +241,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             const SizedBox(height: TSizes.spaceBtwSections,), */
             CustomTextFormField(
               controller: controller.fullNameController,
+              onChange: controller.onFullNameChanged,
               hintText: "${'الاسم الكامل'.tr} *",
               textInputType: TextInputType.text,
               /* prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
@@ -249,11 +249,36 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               ), */
               prefixConstraints: BoxConstraints(maxHeight: 60.v),
               contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
-              validator: (value) => Validator.validateEmptyText('${'lbl_lastName'.tr}', value),
+              //validator: (value) => Validator.validateEmptyText('${'lbl_lastName'.tr}', value),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "الاسم الكامل مطلوب";
+                }
+                if (value.length > 100) {
+                  return "الاسم الكامل لا يمكن أن يتجاوز 100 حرف.";
+                }
+                return null;
+              },
+            ),
+          /// --- Compteur sous le champ
+            Align(
+              alignment: Alignment.topLeft,
+              child: Text(
+                controller.fullNameError.value.isNotEmpty
+                    ? controller.fullNameError.value
+                    : "${controller.fullNameRemaining.value} حروف متبقية",
+                style: TextStyle(
+                  fontSize: 15.adaptSize,
+                  color: controller.fullNameError.value.isNotEmpty
+                      ? Colors.red
+                      : Colors.grey,
+                ),
+              ),
             ),
             SizedBox(height: TSizes.spaceBtwItems.v),
             CustomTextFormField(
               controller: controller.bioController,
+              onChange: controller.onBioChanged,
               hintText: "${'بایو'.tr} *",
               maxLines: 2,
               textInputType: TextInputType.text,
@@ -262,11 +287,27 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               ), */
               prefixConstraints: BoxConstraints(maxHeight: 60.v),
               contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
-              validator: (value) => Validator.validateEmptyText('${'lbl_firstName'.tr}', value),
+              //validator: (value) => Validator.validateEmptyText('${'lbl_firstName'.tr}', value),
+              validator: (value) => value == null || value.isEmpty ? "البایو مطلوب" : null,
+            ),
+            /// --- Compteur sous le champ
+            Align(
+              alignment: Alignment.topLeft,
+              child: Text(
+                controller.bioError.value.isNotEmpty
+                    ? controller.bioError.value
+                    : "${controller.bioRemaining.value} حروف متبقية",
+                style: TextStyle(
+                  fontSize: 15.adaptSize,
+                  color: controller.bioError.value.isNotEmpty
+                      ? Colors.red
+                      : Colors.grey,
+                ),
+              ),
             ),
 
             SizedBox(height: TSizes.spaceBtwItems.v),
-            FormDividerWidget(dividerText: "جنسك", thikness: 1),
+            FormDividerWidget(dividerText: "الجنس", thikness: 1),
             SizedBox(height: TSizes.spaceBtwItems.v),
 
             /* Obx(() => Row(

@@ -41,6 +41,7 @@ class SocialButtonsWidget extends StatelessWidget {
           //decoration: BoxDecoration(border: Border.all(color: TColors.grey), borderRadius: BorderRadius.circular(100)),
           child: IconButton(
             onPressed: () => controller.signInWithApple(),
+            //onPressed: () => controller.theAppleSignIn(),
             icon: Image(
               width: width,
               height: height,

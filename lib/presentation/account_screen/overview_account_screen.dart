@@ -77,22 +77,65 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                           SizedBox(height: TSizes.spaceBtwItems),
                           CustomTextFormField(
                             controller: controller.fullNameController,
+                            onChange: controller.onFullNameChanged,
                             hintText: "${'الاسم الكامل'.tr} *",
                             textInputType: TextInputType.text,
                             prefixConstraints: BoxConstraints(maxHeight: 60.v),
                             contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
-                            validator: (value) => Validator.validateEmptyText('${'lbl_lastName'.tr}', value),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "الاسم الكامل مطلوب";
+                              }
+                              if (value.length > 100) {
+                                return "الاسم الكامل لا يمكن أن يتجاوز 100 حرف.";
+                              }
+                              return null;
+                            },
+                            //validator: (value) => Validator.validateEmptyText('${'lbl_lastName'.tr}', value),
                           ),
+                          /// --- Compteur sous le champ
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              controller.fullNameError.value.isNotEmpty
+                                  ? controller.fullNameError.value
+                                  : "${controller.fullNameRemaining.value} حروف متبقية",
+                              style: TextStyle(
+                                fontSize: 15.adaptSize,
+                                color: controller.fullNameError.value.isNotEmpty
+                                    ? Colors.red
+                                    : Colors.grey,
+                              ),
+                            ),
+                          ),
+
                           SizedBox(height: TSizes.spaceBtwItems.v),
 
                           CustomTextFormField(
                             controller: controller.bioController,
+                            onChange: controller.onBioChanged,
                             hintText: "${'بایو'.tr} *",
                             maxLines: 2,
                             textInputType: TextInputType.text,
                             prefixConstraints: BoxConstraints(maxHeight: 60.v),
                             contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
-                            validator: (value) => Validator.validateEmptyText('${'lbl_firstName'.tr}', value),
+                            validator: (value) => value == null || value.isEmpty ? "البایو مطلوب" : null,
+                            //validator: (value) => Validator.validateEmptyText('${'lbl_firstName'.tr}', value),
+                          ),
+                          /// --- Compteur sous le champ
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              controller.bioError.value.isNotEmpty
+                                  ? controller.bioError.value
+                                  : "${controller.bioRemaining.value} حروف متبقية",
+                              style: TextStyle(
+                                fontSize: 15.adaptSize,
+                                color: controller.bioError.value.isNotEmpty
+                                    ? Colors.red
+                                    : Colors.grey,
+                              ),
+                            ),
                           ),
 
                           SizedBox(height: TSizes.spaceBtwItems.v),

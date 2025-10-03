@@ -21,6 +21,8 @@ class CreateAccountController extends GetxController {
 
   //final apiClient = Get.find<ApiClient>();
 
+  final TextCounterController nameCounterController = Get.put(TextCounterController(100));
+
   TextEditingController fullNameController = TextEditingController();
   TextEditingController bioController = TextEditingController();
   TextEditingController maritalStatusController = TextEditingController();
@@ -66,9 +68,45 @@ class CreateAccountController extends GetxController {
   Rx<bool> isShowPassword = true.obs;
   Rx<bool> isProcessing = false.obs;
 
+  ///Max Length TextFormField Start
+  /// --- Observables pour le compteur
+  RxInt fullNameRemaining = 20.obs;
+  RxString fullNameError = "".obs;
+
+  /// --- Vérification compteur à chaque modification
+  void onFullNameChanged(String value) {
+    fullNameRemaining.value = 20 - value.length;
+    if (value.length > 20) {
+      fullNameError.value = "الاسم الكامل لا يمكن أن يتجاوز 20 حرف.";
+    } else {
+      fullNameError.value = "";
+    }
+  }
+
+  RxInt bioRemaining = 100.obs;
+  RxString bioError = "".obs;
+
+  /// --- Vérification compteur à chaque modification
+  void onBioChanged(String value) {
+    bioRemaining.value = 100 - value.length;
+    if (value.length > 100) {
+      bioError.value = "الاسم الكامل لا يمكن أن يتجاوز 100 حرف.";
+    } else {
+      bioError.value = "";
+    }
+  }
+  ///Max Length TextFormField End
+
   @override
   void onInit() {
     super.onInit();
+  }
+
+  @override
+  void onClose() {
+    fullNameController.dispose();
+    bioController.dispose();
+    super.onClose();
   }
 
   /// Méthode pour afficher le dialog
@@ -235,5 +273,35 @@ class CreateAccountController extends GetxController {
     }
     */
   }
-  
+
+}
+
+
+class TextCounterController extends GetxController {
+  final int maxLength;
+  final TextEditingController textController = TextEditingController();
+
+  TextCounterController(this.maxLength) {
+    textController.addListener(_updateCount);
+  }
+
+  var remaining = 0.obs;
+  var errorText = "".obs;
+
+  void _updateCount() {
+    final currentLength = textController.text.length;
+    remaining.value = maxLength - currentLength;
+
+    if (currentLength > maxLength) {
+      errorText.value = "Vous ne pouvez pas dépasser $maxLength caractères.";
+    } else {
+      errorText.value = "";
+    }
+  }
+
+  @override
+  void onClose() {
+    textController.dispose();
+    super.onClose();
+  }
 }
