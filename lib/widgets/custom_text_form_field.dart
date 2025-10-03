@@ -89,6 +89,8 @@ class CustomTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //var _appTheme = PrefUtils.getTheme();
+
     return alignment != null
         ? Align(
             alignment: alignment ?? Alignment.center,
@@ -131,7 +133,7 @@ class CustomTextFormField extends StatelessWidget {
         //hintStyle: hintStyle ?? CustomTextStyles.titleSmallGray400,
         labelStyle: hintStyle ?? CustomTextStyles.titleMediumSemiBoldBlack,
         errorStyle: hintStyle ?? CustomTextStyles.bodyMediumOnError,
-        counterStyle: CustomTextStyles.titleMedium16BlueLight700,
+        counterStyle: CustomTextStyles.titleMedium16YellowDark,
         prefixIcon: prefix,
         prefixIconConstraints: prefixConstraints,
         suffixIcon: suffix,
@@ -143,13 +145,13 @@ class CustomTextFormField extends StatelessWidget {
         enabledBorder: borderDecoration ??
             OutlineInputBorder(
               borderRadius: BorderRadius.circular(15.hw),
-              borderSide: BorderSide(color: Color(0xFD636262), width: 1)
+              borderSide: BorderSide(color: PrefUtils.getTheme() =='light' ? Color(0xFD636262) : TColors.yellowAppLight, width: 1)
               //borderSide: BorderSide.none,
             ),
         focusedBorder: borderDecoration ??
             OutlineInputBorder(
               borderRadius: BorderRadius.circular(12.hw),
-              borderSide: BorderSide(color: TColors.blueLight700, width: 2)
+              borderSide: BorderSide(color: PrefUtils.getTheme() =='light' ? TColors.greyDating : TColors.yellowAppDark, width: 2)
               //borderSide: BorderSide.none,
             ),
       );

@@ -53,7 +53,7 @@ class CustomTextStyles {
           fontFamily: 'Poppins',
           fontWeight: FontWeight.w600
       );
-
+/*
   static get titleMediumBlueVPT =>
       theme.textTheme.titleMedium!.copyWith(
         color: TColors.blueDating,
@@ -74,6 +74,7 @@ class CustomTextStyles {
         fontSize: mediaQueryData.size.width >= 600 ?  11.fSize : 12.fSize,
         fontWeight: FontWeight.bold,
       );
+  */
 
   static get bodyMediumTextFormField => theme.textTheme.bodyMedium!.copyWith(
     color: TColors.black,
@@ -117,10 +118,10 @@ class CustomTextStyles {
       fontWeight: FontWeight.w500
   );
 
-  static get titleMedium16BlueLight700 => theme.textTheme.titleMedium!.copyWith(
+  static get titleMedium16YellowDark => theme.textTheme.titleMedium!.copyWith(
       fontSize: 16.fSize,
       fontWeight: FontWeight.bold,
-      color: TColors.blueLight700
+      color: TColors.yellowAppDark
   );
 
   static get labelSmallStatusWhite => mediaQueryData.size.width >= 600

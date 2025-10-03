@@ -14,7 +14,7 @@ class CountDownWidget extends AnimatedWidget {
   Widget build(BuildContext context) {
     Duration clockTimer = Duration(seconds: animation.value);
     String timerText =
-        '${clockTimer.inMinutes.remainder(60).toString()}:${clockTimer.inSeconds.remainder(60).toString().padLeft(2, '0')}s';
+        '0${clockTimer.inMinutes.remainder(60).toString()}:${clockTimer.inSeconds.remainder(60).toString().padLeft(2, '0')}s';
 
     // Convertir en minutes et secondes
    /* int totalSeconds = animation.value;

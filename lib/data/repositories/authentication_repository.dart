@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
@@ -186,7 +187,7 @@ class AuthenticationRepository extends GetxController {
       //Once Signed in, return the user credentials
       return await _auth.signInWithCredential(credentials);
     }
-    on FirebaseAuthException catch (e){
+   /* on FirebaseAuthException catch (e){
       debugPrint("Google Login Error: ${e.toString()}");
       throw TFirebaseAuthException(e.code).message;
     }
@@ -200,12 +201,51 @@ class AuthenticationRepository extends GetxController {
     on PlatformException catch (e){
       debugPrint("Google Login Error: ${e.toString()}");
       throw TPlatformException(e.code).message;
-    }
+    } */
     catch (e) {
       debugPrint("Google Login Error: ${e.toString()}");
       if(kDebugMode) print('Something went wrong : $e');
       return null;
       //throw 'Something went wrong. Please try again';
+    }
+  }
+
+  ///[AppleAuthentication] - APPLE
+  Future<UserCredential?> signInWithApple() async {
+    try {
+      //obtain the auth details from the request
+      //if connect with android
+      final appleCredential = await SignInWithApple.getAppleIDCredential(
+        scopes: [AppleIDAuthorizationScopes.email, AppleIDAuthorizationScopes.fullName],
+        webAuthenticationOptions: WebAuthenticationOptions(
+          clientId: 'apple.com', // Your Apple Service ID
+          //clientId: 'your.service.id', // Your Apple Service ID
+          redirectUri: Uri.parse('https://your.domain.com/callbacks/sign_in_with_apple'), // Your redirect URI
+        ),
+      );
+      //if connect with ios
+     /* final appleCredential = await SignInWithApple.getAppleIDCredential(
+        scopes: [AppleIDAuthorizationScopes.email, AppleIDAuthorizationScopes.fullName],
+      ); */
+
+      debugPrint("appleCredential : $appleCredential");
+
+      //Create a new credential
+      final credentials = OAuthProvider('apple.com').credential(
+          accessToken: appleCredential.authorizationCode,
+          idToken: appleCredential.identityToken
+      );
+
+      //Once Signed in, return the user credentials
+      return await _auth.signInWithCredential(credentials);
+    } catch (e) {
+      MessageSnackBar.errorToast(
+          title: "Error".tr,
+          message: "Apple Login Error: $e",
+          position: SnackPosition.TOP,
+          duration: 2);
+      debugPrint("Apple Login Error: $e");
+      return null;
     }
   }
 

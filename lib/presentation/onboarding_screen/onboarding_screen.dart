@@ -35,7 +35,7 @@ class OnBoardingScreen extends StatelessWidget {
               carouselController: controller.carouselController,
               itemCount: onBoardingList.length,
               options: CarouselOptions(
-                height: screenHeight * 0.8,
+                height: screenHeight * 0.7,
                 viewportFraction: isTablet ? 0.6 : 0.7, // 80% image centrale + 10% gauche/droite
                 enlargeCenterPage: true,
                 autoPlay: true,
@@ -247,7 +247,7 @@ class OnBoardingScreen extends StatelessWidget {
 
               ///Circular Button
               //const OnBoardingNextButton(),
-              SizedBox(height: 20.v),
+              SizedBox(height: 30.v),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: TSizes.spaceBtwItems),
                 child:  CustomButtonContainer(
@@ -275,9 +275,9 @@ class OnBoardingScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Padding(padding: EdgeInsets.only(bottom: 1.v),
-                            child: Text("هل لديك حساب بالفعل؟ ",
+                            child: Text("هل لديك حساب بالسابق؟ ",
                                 style:  isTablet
-                                    ? Theme.of(context).textTheme.titleLarge!.apply(color: _appTheme =='light' ?  TColors.gray700 : TColors.white)
+                                    ? Theme.of(context).textTheme.titleMedium!.apply(color: _appTheme =='light' ?  TColors.gray700 : TColors.white)
                                     : CustomTextStyles.bodyMediumTextFormFieldGrey)
                         ),
                         GestureDetector(

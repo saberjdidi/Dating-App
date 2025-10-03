@@ -9,12 +9,12 @@ List<OnboardingModel> onBoardingList = [
     //image: ImageConstant.imgOnBoarding1
   ),
   OnboardingModel(
-      title: "مباريات",
+      title: "التطابق",
       body: "نقوم بمطابقتك مع الأشخاص الذين لديهم مجموعة كبيرة من الاهتمامات المتشابهة.",
       image: ImageConstant.imgOnBoarding2
   ),
   OnboardingModel(
-      title: "خوارزمية",
+      title: "تحقق",
       body: "يخضع المستخدمون لعملية فحص للتأكد من عدم مطابقتهم أبدًا مع الروبوتات.",
       image: ImageConstant.imgOnBoarding3
   ),
@@ -28,12 +28,12 @@ List<OnboardingModel> ImagesDatingList = [
     //image: ImageConstant.imgOnBoarding1
   ),
   OnboardingModel(
-      title: "مباريات",
+      title: "التطابق",
       body: "نقوم بمطابقتك مع الأشخاص الذين لديهم مجموعة كبيرة من الاهتمامات المتشابهة.",
       image: ImageConstant.imgOnBoarding2
   ),
   OnboardingModel(
-      title: "خوارزمية",
+      title: "تحقق",
       body: "يخضع المستخدمون لعملية فحص للتأكد من عدم مطابقتهم أبدًا مع الروبوتات.",
       image: ImageConstant.imgOnBoarding3
   ),

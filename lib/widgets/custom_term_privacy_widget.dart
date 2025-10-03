@@ -29,7 +29,7 @@ class CustomTermPrivacyWidget extends StatelessWidget {
           child: Text("شروط الاستخدام",
               style: isTablet
                ? Theme.of(context).textTheme.headlineMedium!.apply(color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 2)
-               : Theme.of(context).textTheme.bodyLarge!.apply(color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 2),
+               : Theme.of(context).textTheme.bodyMedium!.apply(color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 2),
               textAlign: TextAlign.center),
         ),
         InkWell(
@@ -39,7 +39,7 @@ class CustomTermPrivacyWidget extends StatelessWidget {
           child: Text("سياسة الخصوصية",
               style: isTablet
                   ? Theme.of(context).textTheme.headlineMedium!.apply(color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 2)
-                  : Theme.of(context).textTheme.bodyLarge!.apply(color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 2),
+                  : Theme.of(context).textTheme.bodyMedium!.apply(color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 2),
               textAlign: TextAlign.center),
         ),
       ],

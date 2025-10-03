@@ -55,9 +55,12 @@ class OTPScreen extends GetView<OTPController> {
               Center(child: TitleWidget(title: "التحقق من حسابك",
                 color:  _appTheme =='light' ? TColors.black : TColors.white,
                 textAlign: TextAlign.center,)),
-              SubTitleWidget(subtitle: "تم إرسال رمز مكون من ستة أرقام إلى بريدك الإلكتروني المسجل. أدخل الرمز هنا للتحقق من حسابك.",
-                color:  _appTheme =='light' ? TColors.gray700 : TColors.white,
-                textAlign: TextAlign.center,),
+              Directionality(
+                textDirection: TextDirection.rtl,
+                child: SubTitleWidget(subtitle: "تم إرسال رمز مكون من ستة أرقام إلى بريدك الإلكتروني المسجل. أدخل الرمز هنا للتحقق من حسابك.",
+                  color:  _appTheme =='light' ? TColors.black : TColors.white,
+                  textAlign: TextAlign.center,),
+              ),
               SizedBox(height: TSizes.spaceBtwItems),
               /* SizedBox(
                 height: 120,
@@ -90,7 +93,7 @@ class OTPScreen extends GetView<OTPController> {
                   currentCode: controller.otpCode.value,
                   decoration: UnderlineDecoration(
                     textStyle: TextStyle(fontSize: 20,
-                        color: _appTheme =='light' ? TColors.black : TColors.white),
+                        color: _appTheme =='light' ? TColors.buttonSecondary : TColors.white),
                     colorBuilder: PinListenColorBuilder(
                         TColors.yellowAppDark, TColors.buttonSecondary), // ligne grise
                     //bgColorBuilder: PinListenColorBuilder(Colors.yellow.shade200, Colors.grey.shade200),
@@ -168,27 +171,28 @@ class OTPScreen extends GetView<OTPController> {
                 ),
               ),
               SizedBox(height: 15.v,),
-              Directionality(
-                textDirection: TextDirection.rtl,
-                child: CustomOutlinedButton(
-                  buttonTextStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormFieldBold : CustomTextStyles.titleLargeWhite,
-                  buttonStyle: _appTheme =='light' ? CustomButtonStyles.outlineBlack : CustomButtonStyles.outlineWhite,
-                  text: "إعادة إرسال OTP",
-                  margin: EdgeInsets.only(top: 6.hw),
-                  borderRadius: 100.hw,
-                  height: isSmallPhone ? 80.v : 70.v,
-                  width: Get.width,
-                  onPressed: (){
-                    //?  use this code to get sms signature for your app
-                    //final String signature = await SmsAutoFill().getAppSignature;
-                    //print("Signature: $signature");
+              //if(controller.levelClock.value == 0)
+                Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: CustomOutlinedButton(
+                    buttonTextStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormFieldBold : CustomTextStyles.titleLargeWhite,
+                    buttonStyle: _appTheme =='light' ? CustomButtonStyles.outlineBlack : CustomButtonStyles.outlineWhite,
+                    text: "إعادة إرسال OTP",
+                    margin: EdgeInsets.only(top: 6.hw),
+                    borderRadius: 100.hw,
+                    height: isSmallPhone ? 80.v : 70.v,
+                    width: Get.width,
+                    onPressed: (){
+                      //?  use this code to get sms signature for your app
+                      //final String signature = await SmsAutoFill().getAppSignature;
+                      //print("Signature: $signature");
 
-                    controller.animationController?.reset();
-                    controller.animationController?.forward();
-                    //_animationController!.forward();
-                  },
+                      controller.animationController?.reset();
+                      controller.animationController?.forward();
+                      //_animationController!.forward();
+                    },
+                  ),
                 ),
-              ),
             ],
           ),
         ),

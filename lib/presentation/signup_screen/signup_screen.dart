@@ -7,6 +7,7 @@ import 'package:dating_app_bilhalal/data/datasources/onboarding_local_data_sourc
 import 'package:dating_app_bilhalal/presentation/signup_screen/controller/signup_controller.dart';
 import 'package:dating_app_bilhalal/widgets/custom_term_privacy_widget.dart';
 import 'package:dating_app_bilhalal/widgets/custom_text_form_field.dart';
+import 'package:dating_app_bilhalal/widgets/form_divider_widget.dart';
 import 'package:dating_app_bilhalal/widgets/social_button_widget.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,7 @@ class SignUpScreen extends GetView<SignUpController> {
               carouselController: controller.carouselController,
               itemCount: ImagesDatingList.length,
               options: CarouselOptions(
-                height: MediaQuery.of(context).size.height * 0.6,
+                height: MediaQuery.of(context).size.height * 0.55,
                 viewportFraction: isTablet ? 0.6 : 0.7,
                 enlargeCenterPage: true,
                 autoPlay: true,
@@ -73,34 +74,49 @@ class SignUpScreen extends GetView<SignUpController> {
               },
             ),
 
-             SizedBox(height: 10.v),
+             SizedBox(height: 20.v),
             TitleWidget(title: "اشتراک",
               color: _appTheme =='light' ? TColors.black : TColors.white,
               textAlign: TextAlign.center,),
 
-            SizedBox(height: 10.v),
+            SizedBox(height: 20.v),
 
             /// Button
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.adaptSize),
-              child: CustomButtonContainer(
-                text: 'تواصل مع البريد الإلكتروني',
-                color1: TColors.yellowAppDark,
-                color2: TColors.yellowAppLight,
-                borderRadius: 10,
-                colorText: TColors.white,
-                textAlign: TextAlign.center,
-                fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
-                height: isSmallPhone ? 80.v : 70.v,
-                onPressed: () async {
-                  await controller.nextPage();
-                  //dialogVerifyAccount(context);
-                },
-              ),
+            CustomButtonContainer(
+              text: 'تواصل عبر البريد الإلكتروني',
+              color1: TColors.yellowAppDark,
+              color2: TColors.yellowAppLight,
+              borderRadius: 10,
+              colorText: TColors.white,
+              textAlign: TextAlign.center,
+              fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
+              height: isSmallPhone ? 80.v : 70.v,
+              width: screenWidth * 0.8,
+              onPressed: () async {
+                await controller.nextPage();
+                //dialogVerifyAccount(context);
+              },
             ),
 
-            SizedBox(height: 5.v),
-            Align(
+            SizedBox(height: 20.v),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Flexible(child: Divider(color: _appTheme =='light' ? TColors.black54 : TColors.white, thickness: 0.3, indent: 60, endIndent: 5,)),
+                Text("أو قم بالتسجيل مع".tr,
+                  style:Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: _appTheme =='light' ?TColors.black54 : TColors.white,
+                    fontSize: 18.fSize,
+                    fontWeight: FontWeight.w400,
+                    //decoration: TextDecoration.underline
+                  )
+
+                ),
+                Flexible(child: Divider(color: _appTheme =='light' ? TColors.black54 : TColors.white, thickness: 0.3, indent: 5, endIndent: 60)),
+              ],
+            ),
+          /*  Align(
                 alignment: Alignment.center,
                 child: GestureDetector(onTap: () {
                 },
@@ -116,7 +132,7 @@ class SignUpScreen extends GetView<SignUpController> {
 
                     )
                 )
-            ),
+            ), */
 
             ///Divider
             //FormDividerWidget(dividerText: TTexts.orSignInWith.capitalize!),
@@ -124,7 +140,7 @@ class SignUpScreen extends GetView<SignUpController> {
             const SizedBox(height: TSizes.xs),
 
             ///Footer
-            SocialButtonsWidget(width: 60.adaptSize, height: 60.adaptSize,),
+            SocialButtonsWidget(width: 70.adaptSize, height: 70.adaptSize,),
 
             SizedBox(height: 10.v),
 

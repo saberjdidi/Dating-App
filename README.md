@@ -141,30 +141,11 @@ Fournisseur de fichier de clés : SUN
 Votre fichier de clés d'accès contient 1 entrée
 
 Nom d'alias : bilhalal
-Date de création : 1 oct. 2025
-Type d'entrée : PrivateKeyEntry
-Longueur de chaîne du certificat : 1
-Certificat[1]:
-Propriétaire : CN=Saber, OU=BILHALAL, O=ASTREE, L=tunis, ST=Tunis, C=TN
-Emetteur : CN=Saber, OU=BILHALAL, O=ASTREE, L=tunis, ST=Tunis, C=TN
-Numéro de série : 58474cc
-Valide du : Wed Oct 01 09:00:17 GMT+01:00 2025 au : Sun Feb 16 09:00:17 GMT+01:00 2053
 Empreintes du certificat :
 MD5 : C9:B0:ED:AF:69:A9:41:A9:00:3C:DD:A5:5F:65:85:35:7F:21:F1:5D
 SHA1 : 82:26:48:61:FD:29:32:5B:39:61:9B:87:EC:BA:FB:36:CB:6A:04:73:67:44:3E:EF:D4:06:C0:28:D9:AB:62:B4
 SHA256 : SHA256withRSA
 Nom de l'algorithme de signature : Clé RSA 2048 bits
-Algorithme de clé publique du sujet : 3
-Version : {10}
-
-Extensions :
-
-#1: ObjectId: 2.5.29.14 Criticality=false
-SubjectKeyIdentifier [
-KeyIdentifier [
-0000: 92 DE 0D BB BB 51 8A 47   A5 FF 12 F0 53 36 7C A7  .....Q.G....S6..
-0010: 26 D8 75 C3                                        &.u.
-]
 *******************************************
 Serial number: 804c17851a554248
 Valid from: Wed Oct 01 20:12:49 CEST 2025 until: Sun Feb 16 19:12:49 CET 2053
@@ -173,17 +154,6 @@ SHA1: 2E:5C:8D:68:00:C5:6F:41:D7:C9:05:67:FF:50:D6:92:61:56:83:60
 SHA256: 96:E0:CA:29:6C:66:0F:36:E3:20:32:94:1C:51:EC:F5:52:0A:81:65:B6:09:D2:95:23:AF:DD:3D:FB:2E:9D:31
 Signature algorithm name: SHA384withRSA
 Subject Public Key Algorithm: 2048-bit RSA key
-Version: 3
-
-Extensions:
-
-#1: ObjectId: 2.5.29.14 Criticality=false
-SubjectKeyIdentifier [
-KeyIdentifier [
-0000: DF F6 2A F2 8C 72 0A 5B   71 A5 34 2F 44 D4 1C 59  ..*..r.[q.4/D..Y
-0010: B8 60 09 D0                                        .`..
-]
-]
 *******************
 Certificate fingerprints:
 SHA1: 01:8E:EE:7F:07:A1:E6:09:F4:35:8B:AF:65:7E:FB:3A:47:A7:46:87
@@ -240,58 +210,40 @@ info.plist:
 <string>com.googleusercontent.apps.YOUR_CLIENT_ID</string>
 </array>
 
-## Facebook Auth
-https://www.youtube.com/watch?v=Hj0csDW6WUs
-https://www.youtube.com/watch?v=8MQf2kAU3GA
+## Firebase + Google Sign-in
+Étape 1 : Générer les empreintes SHA correctement
+
+Si ta commande avec keytool ne marche pas, c’est souvent parce que :
+
+tu n’as pas Java JDK installé ou pas dans le PATH
+
+ou que tu es sous Windows et la commande %USERPROFILE% ne marche pas comme prévu
+
+👉 Voici les bonnes commandes selon ton OS :
+
+Sous Windows (PowerShell ou CMD) :
+keytool -list -v -alias androiddebugkey -keystore "%USERPROFILE%\.android\debug.keystore" -storepass android -keypass android
+
+Sous Mac/Linux :
+keytool -list -v -alias androiddebugkey -keystore ~/.android/debug.keystore -storepass android -keypass android
 
 
-Identifiant de l’application: 1330583908717882
-Clé secrète: a8b94364be548f17a4a24a591fbd3431
+⚠️ storepass et keypass par défaut sont android (sauf si tu as créé un keystore custom).
 
-https://developers.facebook.com/apps/1330583908717882/use_cases/customize/?use_case_enum=APP_INSTALL_ADS_APP_EVENTS&selected_tab=quickstart&product_route=analytics
+C:\Users\LENOVO\StudioProjects\Dating-App>keytool -list -v -alias androiddebugkey -keystore "%USERPROFILE%\.android\debug.keystore" -storepass android -keypass android
+Alias name: androiddebugkey
 
-## Android : 
-dependencies {
-implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
-}
+Certificate fingerprints:
+SHA1: 17:DA:D7:61:D6:4C:E7:A6:81:B7:E4:A8:CF:08:62:70:FC:BC:CE:87
+SHA256: 50:E0:51:D1:E2:BF:FB:D4:71:67:F0:A1:F3:32:BD:E7:3B:F8:AC:B4:72:67:41:FF:DE:D5:E0:93:B8:05:24:D1
+Signature algorithm name: SHA1withRSA (weak)
 
-strings.xml: 
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="facebook_app_id">1234</string>
-    <string name="fb_login_protocol_scheme">fb1234</string>
-    <string name="facebook_client_token">56789</string>
-</resources>
 
-AndroidManifest.xml: 
-<!--use for Facebook auth-->
-    <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove"/>
-<application
-android:label="BilHalal Dating"
-android:name="${applicationName}"
-android:icon="@mipmap/launcher_icon"
-android:requestLegacyExternalStorage="true">
- <!--Using for facebook auth-->
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
-        <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
+🚨 la version Release
 
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name" />
-        <activity
-            android:name="com.facebook.CustomTabActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="@string/fb_login_protocol_scheme" />
-            </intent-filter>
-        </activity>
+Pour la publication en PlayStore, tu dois aussi ajouter le SHA1/SHA256 du keystore release :
 
-    </application>
-</manifest>
+keytool -list -v -keystore my-release-key.jks -alias my-key-alias
 
 ## Firebase configuration
 ### Méthode 1
@@ -360,57 +312,43 @@ dating_app_bilhalal/android cmd>        ./gradlew signingReport
 ## WebSocket: 
 https://www.youtube.com/watch?v=YS0NfnRCtCg&list=PLCQvK2R5a8CLDC98o9xdVF9Uktqs0M82d&index=6
 
-
-## Firebase + Google Sign-in
-Étape 1 : Générer les empreintes SHA correctement
-
-Si ta commande avec keytool ne marche pas, c’est souvent parce que :
-
-tu n’as pas Java JDK installé ou pas dans le PATH
-
-ou que tu es sous Windows et la commande %USERPROFILE% ne marche pas comme prévu
-
-👉 Voici les bonnes commandes selon ton OS :
-
-Sous Windows (PowerShell ou CMD) :
-keytool -list -v -alias androiddebugkey -keystore "%USERPROFILE%\.android\debug.keystore" -storepass android -keypass android
-
-Sous Mac/Linux :
-keytool -list -v -alias androiddebugkey -keystore ~/.android/debug.keystore -storepass android -keypass android
-
-
-⚠️ storepass et keypass par défaut sont android (sauf si tu as créé un keystore custom).
-
-C:\Users\LENOVO\StudioProjects\Dating-App>keytool -list -v -alias androiddebugkey -keystore "%USERPROFILE%\.android\debug.keystore" -storepass android -keypass android
-Alias name: androiddebugkey
-
-Certificate fingerprints:
-SHA1: 17:DA:D7:61:D6:4C:E7:A6:81:B7:E4:A8:CF:08:62:70:FC:BC:CE:87
-SHA256: 50:E0:51:D1:E2:BF:FB:D4:71:67:F0:A1:F3:32:BD:E7:3B:F8:AC:B4:72:67:41:FF:DE:D5:E0:93:B8:05:24:D1
-Signature algorithm name: SHA1withRSA (weak)
-
-
-🚨 la version Release
-
-Pour la publication en PlayStore, tu dois aussi ajouter le SHA1/SHA256 du keystore release :
-
-keytool -list -v -keystore my-release-key.jks -alias my-key-alias
-
-
-## Facebook login: 
+## Facebook Auth
+https://www.youtube.com/watch?v=Hj0csDW6WUs
+https://www.youtube.com/watch?v=8MQf2kAU3GA
 https://www.youtube.com/watch?v=sOa9xJuJDII
 1. https://developers.facebook.com/apps/1330583908717882/settings/basic/
-Application: Dating App Bilhalal
-Identifiant de l’application : 1330583908717882
-Clé secrète : a8b94364be548f17a4a24a591fbd3431
-token client: 5874447de2422b0d178dc388bae5a651 
+   Application: Dating App Bilhalal
+   Identifiant de l’application : 1330583908717882
+   Clé secrète : a8b94364be548f17a4a24a591fbd3431
+   token client: 5874447de2422b0d178dc388bae5a651
 
 2. Firebase: activer facebook
-https://dating-app-bilhalal.firebaseapp.com/__/auth/handler
+   https://dating-app-bilhalal.firebaseapp.com/__/auth/handler
 
 3. configuration android: https://developers.facebook.com/apps/1330583908717882/use_cases/customize/?use_case_enum=FB_LOGIN&selected_tab=quickstart&product_route=fb-login
-Ajouter vos clés de hachage de développement et de publication :
-keytool -exportcert -alias androiddebugkey -keystore "C:\Users\USERNAME\.android\debug.keystore" | "PATH_TO_OPENSSL_LIBRARY\bin\openssl" sha1 -binary | "PATH_TO_OPENSSL_LIBRARY\bin\openssl" base64
-C:\Users\LENOVO>keytool -exportcert -alias androiddebugkey -keystore "%USERPROFILE%\.android\debug.keystore" -storepass android | openssl sha1 -binary | openssl base64
-izpgQ+bXvAYb+Yx5lnwr2n8By1k=
-      
+   Ajouter vos clés de hachage de développement et de publication :
+   keytool -exportcert -alias androiddebugkey -keystore "C:\Users\USERNAME\.android\debug.keystore" | "PATH_TO_OPENSSL_LIBRARY\bin\openssl" sha1 -binary | "PATH_TO_OPENSSL_LIBRARY\bin\openssl" base64
+   C:\Users\LENOVO>keytool -exportcert -alias androiddebugkey -keystore "%USERPROFILE%\.android\debug.keystore" -storepass android | openssl sha1 -binary | openssl base64
+   izpgQ+bXvAYb+Yx5lnwr2n8By1k=
+
+
+https://developers.facebook.com/apps/1330583908717882/use_cases/customize/?use_case_enum=APP_INSTALL_ADS_APP_EVENTS&selected_tab=quickstart&product_route=analytics
+
+## Android :
+dependencies {
+implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+}
+
+strings.xml:
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="facebook_app_id">1234</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">56789</string>
+</resources>
+
+configuration AndroidManifest.xml
+
+## Apple sign-in
+https://www.youtube.com/watch?v=JEwGol44xFQ
+activer le fournisseur Apple dans Firebase

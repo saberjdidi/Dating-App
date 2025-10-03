@@ -26,8 +26,9 @@ class OnBoardingDotNavigation extends StatelessWidget {
           activeDotColor: TColors.yellowAppDark,
           //activeDotColor: theme.colorScheme.primary,
           dotColor: TColors.greyDating,
-          dotHeight: 10.adaptSize,
-          dotWidth: 10.adaptSize,
+          dotHeight: 8.adaptSize,
+          dotWidth: 8.adaptSize,
+          offset: 8.adaptSize
         ),
       ))
     /*  child: SmoothPageIndicator(

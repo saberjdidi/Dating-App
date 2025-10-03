@@ -52,9 +52,14 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
                           Center(child: TitleWidget(title: "هل نسيت كلمة المرور؟",
                             color:  _appTheme =='light' ? TColors.black : TColors.white,
                             textAlign: TextAlign.center,)),
-                          SubTitleWidget(subtitle: "سنرسل لك رمزًا مكونًا من 6 أرقام على البريد الإلكتروني المسجل لإعادة تعيين كلمة المرور.",
-                            color:  _appTheme =='light' ? TColors.gray700 : TColors.white,
-                            textAlign: TextAlign.center,),
+                          Center(
+                            child: Directionality(
+                              textDirection: TextDirection.rtl,
+                              child: SubTitleWidget(subtitle: "سنرسل لك رمزًا مكونًا من 6 أرقام على البريد الإلكتروني المسجل لإعادة تعيين كلمة المرور.",
+                                color:  _appTheme =='light' ? TColors.black : TColors.white,
+                                textAlign: TextAlign.center,),
+                            ),
+                          ),
                           SizedBox(height: TSizes.spaceBtwItems),
 
                           Directionality(
@@ -68,28 +73,47 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
                               validator: Validator.validateEmail,
                             ),
                           ),
-                          SizedBox(height: TSizes.spaceBtwInputFields.adaptSize),
+                          SizedBox(height: TSizes.spaceBtwSections.adaptSize * 2),
+                          Directionality(
+                            textDirection: TextDirection.rtl,
+                            child: CustomButtonContainer(
+                              text:"يرسل OTP".tr,
+                              color1: TColors.yellowAppDark,
+                              color2: TColors.yellowAppLight,
+                              borderRadius: 10,
+                              colorText: TColors.white,
+                              fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
+                              height: isSmallPhone ? 80.v : 70.v,
+                              width: Get.width,
+                              onPressed: () async {
+                                controller.forgetPasswordFn();
+                              },
+                            ),
+                          )
                         ]
                     ))
             ),
-            bottomNavigationBar: Padding(
+           /* bottomNavigationBar: Padding(
               padding: EdgeInsets.only(bottom: TSizes.spaceBtwSections.v, left: TSizes.spaceBtwItems.hw, right: TSizes.spaceBtwItems.hw),
               //child: _buildButtonSection()
               child:
-              CustomButtonContainer(
-                text:"تسجيل".tr,
-                color1: TColors.yellowAppDark,
-                color2: TColors.yellowAppLight,
-                borderRadius: 10,
-                colorText: TColors.white,
-                fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
-                height: isSmallPhone ? 80.v : 70.v,
-                width: Get.width,
-                onPressed: () async {
-                  controller.forgetPasswordFn();
-                },
+              Directionality(
+                textDirection: TextDirection.rtl,
+                child: CustomButtonContainer(
+                  text:"يرسل OTP".tr,
+                  color1: TColors.yellowAppDark,
+                  color2: TColors.yellowAppLight,
+                  borderRadius: 10,
+                  colorText: TColors.white,
+                  fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
+                  height: isSmallPhone ? 80.v : 70.v,
+                  width: Get.width,
+                  onPressed: () async {
+                    controller.forgetPasswordFn();
+                  },
+                ),
               ),
-            ),
+            ), */
           ),
         ));
   }

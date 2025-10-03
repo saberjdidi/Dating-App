@@ -117,7 +117,8 @@ class SignInScreen extends GetView<SignInController> {
         children: [
           ///Email
           Directionality(
-            textDirection: controller.isRTL.value ? TextDirection.rtl : TextDirection.ltr,
+            textDirection: TextDirection.rtl,
+            //textDirection: controller.isRTL.value ? TextDirection.rtl : TextDirection.ltr,
             child: CustomTextFormField(
               controller: controller.emailController,
               onChange: (value) => controller.isRTL.value = TDeviceUtils.isArabic(value),
@@ -140,7 +141,8 @@ class SignInScreen extends GetView<SignInController> {
           ),
           const SizedBox(height: TSizes.spaceBtwInputFields,),
           Directionality(
-            textDirection: controller.isRTL.value ? TextDirection.rtl : TextDirection.ltr,
+            textDirection: TextDirection.rtl,
+            //textDirection: controller.isRTL.value ? TextDirection.rtl : TextDirection.ltr,
             child: CustomTextFormField(
               controller: controller.passwordController,
               onChange: (value) => controller.isRTL.value = TDeviceUtils.isArabic(value),
@@ -148,6 +150,7 @@ class SignInScreen extends GetView<SignInController> {
               onTap: () => FocusScope.of(context).requestFocus(controller.passwordFocus),
               onEditingComplete: () => FocusScope.of(context).requestFocus(controller.passwordFocus),
               hintText: "كلمة المرور".tr,
+
               textInputAction: TextInputAction.next,
               textInputType: TextInputType.visiblePassword,
               /* prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
@@ -211,12 +214,13 @@ class SignInScreen extends GetView<SignInController> {
               color2: TColors.yellowAppLight,
               borderRadius: 10,
               colorText: TColors.white,
+              paddingHorizontal: 1.hw,
               fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
               height: isSmallPhone ? 80.v : 70.v,
-              width: Get.width * 0.8,
+              width: screenWidth,
               onPressed: () async {
-                controller.emailAndPasswordSignIn();
-                //controller.loginFn();
+                //controller.emailAndPasswordSignIn();
+                controller.loginFn();
               },
             ),
           ),
@@ -228,23 +232,22 @@ class SignInScreen extends GetView<SignInController> {
               }
           ), */
           SizedBox(height: 28.v),
-          Align(
-              alignment: Alignment.center,
-              child: GestureDetector(onTap: () {
-                onTapTxtForgotThePassword();
-              },
-                  child: Text("أو قم بالتسجيل مع".tr,
-                    style: _appTheme =='light'
-                        ? Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: TColors.black54,
-                      fontSize: 18.fSize,
-                      fontWeight: FontWeight.w600,
-                      //decoration: TextDecoration.underline
-                    )
-                        : CustomTextStyles.titleMediumBlueVPT,
-
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Flexible(child: Divider(color: _appTheme =='light' ? TColors.black54 : TColors.white, thickness: 0.3, indent: 60, endIndent: 5,)),
+              Text("أو قم بالتسجيل مع".tr,
+                  style:Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: _appTheme =='light' ?TColors.black54 : TColors.white,
+                    fontSize: 18.fSize,
+                    fontWeight: FontWeight.w400,
+                    //decoration: TextDecoration.underline
                   )
-              )
+
+              ),
+              Flexible(child: Divider(color: _appTheme =='light' ? TColors.black54 : TColors.white, thickness: 0.3, indent: 5, endIndent: 60)),
+            ],
           ),
 
           ///Divider

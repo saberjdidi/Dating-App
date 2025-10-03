@@ -51,7 +51,8 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
                           SizedBox(height: TSizes.spaceBtwItems),
                           Text("إنشاء كلمة مرور جديدة",
                               style: Theme.of(context).textTheme.headlineSmall!
-                                  .apply(color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 2),
+                                  .apply(color: _appTheme =='light' ? TColors.black : TColors.white,
+                                  fontWeightDelta: 2, fontSizeDelta: 2),
                               textAlign: TextAlign.center),
                           SizedBox(height: TSizes.spaceBtwSections),
 
@@ -95,14 +96,14 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
                     ))
               ),
             bottomNavigationBar: Padding(
-              padding: EdgeInsets.only(bottom: TSizes.spaceBtwSections.v, left: TSizes.spaceBtwItems.hw, right: TSizes.spaceBtwItems.hw),
+              padding: EdgeInsets.only(bottom: TSizes.spaceBtwSections.v * 3, left: TSizes.spaceBtwItems.hw, right: TSizes.spaceBtwItems.hw),
               //child: _buildButtonSection()
               child:
               CustomButtonContainer(
                 text:"إعادة تعيين كلمة المرور".tr,
                 color1: TColors.yellowAppDark,
                 color2: TColors.yellowAppLight,
-                borderRadius: 10,
+                borderRadius: 20.adaptSize,
                 colorText: TColors.white,
                 fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
                 height: isSmallPhone ? 80.v : 70.v,
