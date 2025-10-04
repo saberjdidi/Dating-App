@@ -363,6 +363,49 @@ strings.xml:
 
 configuration AndroidManifest.xml
 
+✅ Rappel : pourquoi ce key hash ?
+
+Facebook Android attend un key hash (base64), généré à partir du SHA-1 du certificat utilisé pour signer l’APK. Tu dois ajouter chaque key hash utilisée (debug, release, upload) dans la console Facebook → Settings > Basic → Android → Key Hashes.
+
+Commandes utiles
+1) Sur macOS / Linux (avec keytool et openssl)
+
+debug keystore :
+
+keytool -exportcert -alias androiddebugkey -keystore ~/.android/debug.keystore -storepass android -keypass android | openssl sha1 -binary | openssl base64
+
+
+release / upload keystore (remplace upload-bilhalal.jks et alias/storepass):
+
+keytool -exportcert -alias <your_alias> -keystore path/to/upload-bilhalal.jks -storepass <storepass> | openssl sha1 -binary | openssl base64
+
+
+Remplace les mots de passe/alias par les tiens.
+
+2) Sur Windows (PowerShell) — si openssl n'est pas disponible
+
+Récupère le SHA-1 hex (exemple pour debug keystore) :
+
+$keytool = "C:\Program Files\Java\jdk...\bin\keytool.exe"
+& $keytool -list -v -alias androiddebugkey -keystore $env:USERPROFILE + "\.android\debug.keystore" -storepass android | Select-String "SHA1"
+
+
+Tu obtiendras une ligne SHA1: AA:BB:CC:....
+
+Convertir le SHA-1 hex en base64 (PowerShell 7+ : FromHexString), si tu as la chaîne hex (sans :) :
+
+$sha = "AA:BB:CC:...".Replace(":", "")
+[Convert]::ToBase64String([System.Convert]::FromHexString($sha))
+
+
+(Si tu es sur Windows + Git Bash / WSL, mieux d’utiliser la commande openssl Mac/Linux ci-dessus.)
+
+3) Méthode alternative si tu n’as pas openssl / PowerShell helper
+
+Fais keytool -list -v ... → copie le SHA-1 (hex, avec :).
+
+Va sur le site que tu as cité (ou tout autre convertisseur hex → base64) : entre le SHA-1 sans les :, convertis en base64 et colles ce résultat dans Facebook.
+
 ## Apple sign-in
 https://www.youtube.com/watch?v=JEwGol44xFQ
 activer le fournisseur Apple dans Firebase
