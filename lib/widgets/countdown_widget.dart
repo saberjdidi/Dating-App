@@ -28,7 +28,7 @@ class CountDownWidget extends AnimatedWidget {
       timerText,
       style: TextStyle(
         color: _appTheme =='light' ? TColors.gray700 : TColors.white, // ✅ Noir
-        fontSize: 25.adaptSize,
+        fontSize: 20.adaptSize,
         fontWeight: FontWeight.w400,
       ),
     );

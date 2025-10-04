@@ -29,7 +29,7 @@ class CustomTextStyles {
 
   static get titleMediumSemiBoldBlack => theme.textTheme.titleMedium!.copyWith(
       fontWeight: FontWeight.w600,
-      color: TColors.black
+      color: TColors.darkGrey
   );
 
   static get headlineSmallBlack => theme.textTheme.headlineSmall!.copyWith(

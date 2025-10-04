@@ -56,6 +56,7 @@ class TColors {
   static const Color darkGrey = Color(0xFF939393);
   static const Color grey = Color(0xFFE0E0E0);
   static const Color softGrey = Color(0xFFF4F4F4);
+  static const Color gray700 = Color(0XFF323755);
 
   static const Color blueLight700 = Color(0xFF0086C9);
   static const Color blueLight = Color(0xFFC1E4F7);
@@ -66,7 +67,6 @@ class TColors {
   static const Color colorContainerHome = Color(0xFF7CCEF4);
 
   static const Color whiteBackground = Color(0xFFF7F9FC);
-  static const Color gray700 = Color(0XFF323755);
   static const Color greenLight = Color(0xFF9ED39B);
   static const Color green = Color(0xFF027A48);
   static const Color redLight = Color(0xFFDEC2C2);

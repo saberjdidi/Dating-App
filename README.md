@@ -328,11 +328,16 @@ https://www.youtube.com/watch?v=sOa9xJuJDII
    https://dating-app-bilhalal.firebaseapp.com/__/auth/handler
 
 3. configuration android: https://developers.facebook.com/apps/1330583908717882/use_cases/customize/?use_case_enum=FB_LOGIN&selected_tab=quickstart&product_route=fb-login
-   Ajouter vos clés de hachage de développement et de publication :
+   👉 Pour générer la debug key hash - Création d’une clé de hachage de développement :
+
    keytool -exportcert -alias androiddebugkey -keystore "C:\Users\USERNAME\.android\debug.keystore" | "PATH_TO_OPENSSL_LIBRARY\bin\openssl" sha1 -binary | "PATH_TO_OPENSSL_LIBRARY\bin\openssl" base64
    C:\Users\LENOVO>keytool -exportcert -alias androiddebugkey -keystore "%USERPROFILE%\.android\debug.keystore" -storepass android | openssl sha1 -binary | openssl base64
    izpgQ+bXvAYb+Yx5lnwr2n8By1k=
+   ieDm1CpwQ5k3uRV2u/2BqvXtliE=
 
+   👉 Pour générer la release key hash - Création d’une clé de hachage de publication :
+   keytool -exportcert -alias YOUR_RELEASE_KEY_ALIAS -keystore YOUR_RELEASE_KEY_PATH | openssl sha1 -binary | openssl base64
+   keytool -exportcert -alias YOUR_RELEASE_ALIAS -keystore YOUR_RELEASE_KEY_PATH | openssl sha1 -binary | openssl base64
 
 https://developers.facebook.com/apps/1330583908717882/use_cases/customize/?use_case_enum=APP_INSTALL_ADS_APP_EVENTS&selected_tab=quickstart&product_route=analytics
 

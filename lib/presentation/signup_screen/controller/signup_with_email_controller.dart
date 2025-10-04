@@ -41,59 +41,75 @@ class SignUpWithEmailController extends GetxController {
     confirmPasswordFocus.dispose();
   }
 
+  bool _validationPassword() {
+    if (passwordController.text.trim() != confirmPasswordController.text.trim()) {
+      //MessageSnackBar.customSnackBar("Warning".tr, "Mot de passe ne correspondent pas".tr, SnackPosition.TOP);
+      MessageSnackBar.errorToast(
+          title: "Warning".tr,
+          message: "Mot de passe ne correspondent pas",
+          position: SnackPosition.TOP,
+          duration: 2);
+      return false;
+    }
+    return true;
+  }
+
   signupFn() async {
-    try {
-      debugPrint('We are processing your information');
-      //Start Loading
-      FullScreenLoader.openLoadingDialog('We are processing your information...', ImageConstant.lottieTrophy);
+    if(_validationPassword() && formSignUpKey.currentState!.validate()){
+      try {
+        debugPrint('We are processing your information');
+        //Start Loading
+        FullScreenLoader.openLoadingDialog('We are processing your information...', ImageConstant.lottieTrophy);
 
-      //Check internet connection
-      final isConnected = await NetworkManager.instance.isConnected();
-      if(!isConnected) {
-        //Remove Loader
-        FullScreenLoader.stopLoading();
-        return;
-      }
+        //Check internet connection
+        final isConnected = await NetworkManager.instance.isConnected();
+        if(!isConnected) {
+          //Remove Loader
+          FullScreenLoader.stopLoading();
+          return;
+        }
 
-     /* final isValid = formSignUpKey.currentState!.validate();
+        /* final isValid = formSignUpKey.currentState!.validate();
       if (!isValid) {
         return;
       }
       formSignUpKey.currentState!.save(); */
-      if(!formSignUpKey.currentState!.validate()) {
+        if(!formSignUpKey.currentState!.validate()) {
+          //Remove Loader
+          FullScreenLoader.stopLoading();
+          return;
+        }
+
+        //Register user in the Firebase authentication & save user data in the Firebase
+        // await AuthenticationRepository.instance.registerWithEmailAndPassword(emailController.text.trim(), passwordController.text.trim());
+
         //Remove Loader
         FullScreenLoader.stopLoading();
-        return;
-      }
 
-      //Register user in the Firebase authentication & save user data in the Firebase
-     // await AuthenticationRepository.instance.registerWithEmailAndPassword(emailController.text.trim(), passwordController.text.trim());
+        Get.toNamed(Routes.otpScreen, arguments: {
+          "SourceOTP" : "FromSignup",
+          "Email" : emailController.text.trim(),
+        });
 
-      //Remove Loader
-      FullScreenLoader.stopLoading();
-
-      Get.toNamed(Routes.otpScreen, arguments: {
-        "SourceOTP" : "FromSignup",
-        "Email" : emailController.text.trim(),
-      });
-
-      //Show success message
-      MessageSnackBar.successSnackBar(title: 'Successfully', message: 'Your account has been created!');
-      /* Navigator.push(
+        //Show success message
+        MessageSnackBar.successSnackBar(title: 'Successfully', message: 'Your account has been created!');
+        /* Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const OTPScreen()),
       ); */
 
-    }
-    catch (exception) {
-      debugPrint('Exception : ${exception.toString()}');
-      FullScreenLoader.stopLoading();
+      }
+      catch (exception) {
+        debugPrint('Exception : ${exception.toString()}');
+        FullScreenLoader.stopLoading();
 
-      //Show some generic error to the user
-      MessageSnackBar.errorSnackBar(title: 'Oh Snap!', message: exception.toString());
-    } finally {
-      //isDataProcessing.value = false;
+        //Show some generic error to the user
+        MessageSnackBar.errorSnackBar(title: 'Oh Snap!', message: exception.toString());
+      } finally {
+        //isDataProcessing.value = false;
+      }
     }
+
   }
 
 /*

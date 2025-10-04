@@ -241,8 +241,14 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             const SizedBox(height: TSizes.spaceBtwSections,), */
             CustomTextFormField(
               controller: controller.fullNameController,
-              onChange: controller.onFullNameChanged,
               hintText: "${'الاسم الكامل'.tr} *",
+              onChange: (value){
+                controller.onFullNameChanged(value);
+                controller.isRTL.value = TDeviceUtils.isArabic(value);
+              },
+              focusNode: controller.fullNameFocus,
+              onTap: () => FocusScope.of(context).requestFocus(controller.fullNameFocus),
+              onEditingComplete: () => FocusScope.of(context).requestFocus(controller.bioFocus),
               textInputType: TextInputType.text,
               /* prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
                   child: Icon(Iconsax.user_octagon)
@@ -278,8 +284,14 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             SizedBox(height: TSizes.spaceBtwItems.v),
             CustomTextFormField(
               controller: controller.bioController,
-              onChange: controller.onBioChanged,
               hintText: "${'بایو'.tr} *",
+              onChange: (value){
+                controller.onBioChanged(value);
+                controller.isRTL.value = TDeviceUtils.isArabic(value);
+              },
+              focusNode: controller.bioFocus,
+              onTap: () => FocusScope.of(context).requestFocus(controller.bioFocus),
+              onEditingComplete: () => FocusScope.of(context).requestFocus(controller.jobFocus),
               maxLines: 2,
               textInputType: TextInputType.text,
               /* prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
@@ -592,6 +604,10 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               //prefix: Icon(Iconsax.activity, color: appTheme.black, size: 27.adaptSize),
               hintText: "${'الحالة الاجتماعية'.tr} *",
               items: ListMaritalStatus.value,
+              //selectedValue: ListMaritalStatus.value.firstWhereOrNull((item) => item.title == controller.paysController.text,) ?? ListPays.value.first,
+             /* selectedValue: ListMaritalStatus.value.firstWhereOrNull(
+                    (item) => item.title == controller.maritalStatusController.text,
+              ), */
               onChanged: (value) async {
                 controller.maritalStatusController.text = value.title;
                 //controller.typePieceIdentityController.text = value.title;
@@ -603,6 +619,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                 }
                 return null;
               },
+              focusNode: controller.maritalStatusFocus,
               themeColor: appTheme.gray50,
               borderRadius: 15.hw,
               icon: Icon(Iconsax.arrow_down_1),
@@ -637,8 +654,14 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
 
             CustomTextFormField(
               controller: controller.jobController,
-              onChange: controller.onJobChanged,
               hintText: "${'الوظيفة'.tr} *",
+              onChange: (value){
+                controller.onJobChanged(value);
+                controller.isRTL.value = TDeviceUtils.isArabic(value);
+              },
+              focusNode: controller.jobFocus,
+              onTap: () => FocusScope.of(context).requestFocus(controller.jobFocus),
+              onEditingComplete: () => FocusScope.of(context).requestFocus(controller.jobFocus),
               maxLines: 2,
               textInputType: TextInputType.text,
               /* prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),

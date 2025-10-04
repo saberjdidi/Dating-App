@@ -106,7 +106,7 @@ class OTPScreen extends GetView<OTPController> {
                 children: [
                   Row(
                     children: [
-                       Icon(Icons.access_time_sharp, color: _appTheme =='light' ? TColors.gray700 : TColors.white),
+                       Icon(Icons.access_time_sharp, color: _appTheme =='light' ? TColors.gray700 : TColors.white,size: 25.adaptSize,),
                       Obx(() => CountDownWidget(
                         animation: StepTween(
                           begin: controller.levelClock.value, // THIS IS A USER ENTERED NUMBER
@@ -159,7 +159,7 @@ class OTPScreen extends GetView<OTPController> {
                   text: "يكمل",
                   color1: TColors.yellowAppDark,
                   color2: TColors.yellowAppLight,
-                  borderRadius: 10,
+                  borderRadius: 15,
                   colorText: TColors.white,
                   fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
                   height: isSmallPhone ? 80.v : 70.v,

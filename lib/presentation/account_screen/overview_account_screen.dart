@@ -77,8 +77,15 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                           SizedBox(height: TSizes.spaceBtwItems),
                           CustomTextFormField(
                             controller: controller.fullNameController,
-                            onChange: controller.onFullNameChanged,
+                            //onChange: controller.onFullNameChanged,
                             hintText: "${'الاسم الكامل'.tr} *",
+                            onChange: (value){
+                              controller.onFullNameChanged(value);
+                              controller.isRTL.value = TDeviceUtils.isArabic(value);
+                            },
+                            focusNode: controller.fullNameFocus,
+                            onTap: () => FocusScope.of(context).requestFocus(controller.fullNameFocus),
+                            onEditingComplete: () => FocusScope.of(context).requestFocus(controller.bioFocus),
                             textInputType: TextInputType.text,
                             prefixConstraints: BoxConstraints(maxHeight: 60.v),
                             contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
@@ -113,8 +120,14 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
 
                           CustomTextFormField(
                             controller: controller.bioController,
-                            onChange: controller.onBioChanged,
                             hintText: "${'بایو'.tr} *",
+                            onChange: (value){
+                              controller.onBioChanged(value);
+                              controller.isRTL.value = TDeviceUtils.isArabic(value);
+                            },
+                            focusNode: controller.bioFocus,
+                            onTap: () => FocusScope.of(context).requestFocus(controller.bioFocus),
+                            onEditingComplete: () => FocusScope.of(context).requestFocus(controller.jobFocus),
                             maxLines: 2,
                             textInputType: TextInputType.text,
                             prefixConstraints: BoxConstraints(maxHeight: 60.v),
@@ -353,6 +366,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             hintStyle: CustomTextStyles.bodyMediumTextFormField,
                             hintText: "${'الحالة الاجتماعية'.tr} *",
                             items: ListMaritalStatus.value,
+                            //selectedValue: ListMaritalStatus.value.firstWhereOrNull((item) => item.title == controller.maritalStatusController.text,),
                             onChanged: (value) async {
                               controller.maritalStatusController.text = value.title;
                               //controller.typePieceIdentityController.text = value.title;
@@ -364,6 +378,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                               }
                               return null;
                             },
+                            focusNode: controller.maritalStatusFocus,
                             themeColor: appTheme.gray50,
                             icon: Icon(Iconsax.arrow_down_1),
                             borderRadius: 15.hw,
@@ -397,8 +412,14 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
 
                           CustomTextFormField(
                             controller: controller.jobController,
-                            onChange: controller.onJobChanged,
                             hintText: "${'الوظيفة'.tr} *",
+                            onChange: (value){
+                              controller.onJobChanged(value);
+                              controller.isRTL.value = TDeviceUtils.isArabic(value);
+                            },
+                            focusNode: controller.jobFocus,
+                            onTap: () => FocusScope.of(context).requestFocus(controller.jobFocus),
+                            onEditingComplete: () => FocusScope.of(context).requestFocus(controller.jobFocus),
                             maxLines: 3,
                             textInputType: TextInputType.text,
                             prefixConstraints: BoxConstraints(maxHeight: 60.v),

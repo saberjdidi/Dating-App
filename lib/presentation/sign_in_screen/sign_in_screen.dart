@@ -151,7 +151,7 @@ class SignInScreen extends GetView<SignInController> {
               onEditingComplete: () => FocusScope.of(context).requestFocus(controller.passwordFocus),
               hintText: "كلمة المرور".tr,
 
-              textInputAction: TextInputAction.next,
+              textInputAction: TextInputAction.done,
               textInputType: TextInputType.visiblePassword,
               /* prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
                     child: CustomImageView(imagePath: ImageConstant.imgLock, height: 20.adaptSize, width: 20.adaptSize)),

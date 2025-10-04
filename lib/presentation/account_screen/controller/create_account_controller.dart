@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 
 class CreateAccountController extends GetxController {
   RxInt currentIndexStepper = 0.obs;
+  var isRTL = true.obs;
 
   final GlobalKey<FormState> formCreateAccountKey = GlobalKey<FormState>();
   final GlobalKey<FormState> formOverviewAccountKey = GlobalKey<FormState>();
@@ -21,7 +22,7 @@ class CreateAccountController extends GetxController {
 
   //final apiClient = Get.find<ApiClient>();
 
-  final TextCounterController nameCounterController = Get.put(TextCounterController(100));
+  //final TextCounterController nameCounterController = Get.put(TextCounterController(100));
 
   TextEditingController fullNameController = TextEditingController();
   TextEditingController bioController = TextEditingController();
@@ -29,6 +30,15 @@ class CreateAccountController extends GetxController {
   TextEditingController lookingForController = TextEditingController();
   TextEditingController jobController = TextEditingController();
   TextEditingController paysController = TextEditingController();
+
+  //FocusNodes
+  FocusNode fullNameFocus = FocusNode();
+  FocusNode bioFocus = FocusNode();
+  FocusNode jobFocus = FocusNode();
+  FocusNode maritalStatusFocus = FocusNode();
+  FocusNode lookingForFocus = FocusNode();
+  FocusNode paysFocus = FocusNode();
+
   RxInt sexValue = 0.obs;
   RxDouble currentAgeValue = 20.toDouble().obs;
   RxDouble currentWeightValue = 50.toDouble().obs;
@@ -60,13 +70,6 @@ class CreateAccountController extends GetxController {
   }
 
   ///Interest End
-
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
-
-  Rx<bool> isShowPassword = true.obs;
-  Rx<bool> isProcessing = false.obs;
 
   ///Max Length TextFormField Start
   /// --- Observables pour le compteur
@@ -112,10 +115,21 @@ class CreateAccountController extends GetxController {
   }
 
   @override
-  void onClose() {
+  void dispose() {
+    super.dispose();
     fullNameController.dispose();
     bioController.dispose();
-    super.onClose();
+    maritalStatusController.dispose();
+    jobController.dispose();
+    lookingForController.dispose();
+    paysController.dispose();
+
+    fullNameFocus.dispose();
+    bioFocus.dispose();
+    jobFocus.dispose();
+    maritalStatusFocus.dispose();
+    lookingForFocus.dispose();
+    paysFocus.dispose();
   }
 
   /// Méthode pour afficher le dialog
@@ -184,24 +198,13 @@ class CreateAccountController extends GetxController {
   } */
   ///Upload user profile end
 
-  bool _dataValidation() {
-    if (passwordController.text.trim() != confirmPasswordController.text.trim()) {
-      //MessageSnackBar.customSnackBar("Warning".tr, "Mot de passe ne correspondent pas".tr, SnackPosition.TOP);
-      MessageSnackBar.errorToast(
-          title: "Warning".tr,
-          message: "Mot de passe ne correspondent pas",
-          position: SnackPosition.TOP,
-          duration: 2);
-      return false;
-    }
-    return true;
-  }
+
 
   saveBtn() async {
     /*
     debugPrint('-----------------saveBtn');
     //if(formSignUpKey.currentState!.validate()){}
-    if(_dataValidation() && formSignUpStepperKey.currentState!.validate()){
+    if(formSignUpStepperKey.currentState!.validate()){
       debugPrint('firstname : ${firstNameController.text.trim()}');
       debugPrint('lastname : ${lastNameController.text.trim()}');
       debugPrint('phone : ${phoneController.text.trim()}');
@@ -283,34 +286,4 @@ class CreateAccountController extends GetxController {
     */
   }
 
-}
-
-
-class TextCounterController extends GetxController {
-  final int maxLength;
-  final TextEditingController textController = TextEditingController();
-
-  TextCounterController(this.maxLength) {
-    textController.addListener(_updateCount);
-  }
-
-  var remaining = 0.obs;
-  var errorText = "".obs;
-
-  void _updateCount() {
-    final currentLength = textController.text.length;
-    remaining.value = maxLength - currentLength;
-
-    if (currentLength > maxLength) {
-      errorText.value = "Vous ne pouvez pas dépasser $maxLength caractères.";
-    } else {
-      errorText.value = "";
-    }
-  }
-
-  @override
-  void onClose() {
-    textController.dispose();
-    super.onClose();
-  }
 }

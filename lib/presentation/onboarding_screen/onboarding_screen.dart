@@ -84,10 +84,13 @@ class OnBoardingScreen extends StatelessWidget {
                         textAlign: TextAlign.center),
                      SizedBox(height: 10.v),
 
-                    Text(currentData.body!,
-                        style: Theme.of(context).textTheme.bodyMedium!
-                            .apply(color: _appTheme =='light' ?  TColors.blackGrey : TColors.white, fontSizeDelta: isTablet ? 5 : 2),
-                        textAlign: TextAlign.center)
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: TSizes.spaceBtwItems.adaptSize),
+                      child: Text(currentData.body!,
+                          style: Theme.of(context).textTheme.bodyMedium!
+                              .apply(color: _appTheme =='light' ?  TColors.blackGrey : TColors.white, fontSizeDelta: isTablet ? 5 : 2),
+                          textAlign: TextAlign.center),
+                    )
                   ],
                 ),
               ),
@@ -275,7 +278,7 @@ class OnBoardingScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Padding(padding: EdgeInsets.only(bottom: 1.v),
-                            child: Text("هل لديك حساب بالسابق؟ ",
+                            child: Text("هل لديك حساب سابق؟ ",
                                 style:  isTablet
                                     ? Theme.of(context).textTheme.titleMedium!.apply(color: _appTheme =='light' ?  TColors.gray700 : TColors.white)
                                     : CustomTextStyles.bodyMediumTextFormFieldGrey)

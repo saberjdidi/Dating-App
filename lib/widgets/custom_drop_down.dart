@@ -29,6 +29,7 @@ class CustomDropDown extends StatelessWidget {
     this.filled = true,
     this.validator,
     this.onChanged,
+    //this.selectedValue,
   }) : super(
           key: key,
         );
@@ -76,6 +77,8 @@ class CustomDropDown extends StatelessWidget {
 
   final Function(SelectionPopupModel)? onChanged;
 
+  //final SelectionPopupModel? selectedValue;
+
   @override
   Widget build(BuildContext context) {
     return alignment != null
@@ -97,6 +100,7 @@ class CustomDropDown extends StatelessWidget {
             style: textStyle ?? CustomTextStyles.titleMediumSourceSansPro,
             items: items?.map((SelectionPopupModel item) {
               return DropdownMenuItem<SelectionPopupModel>(
+                //value: selectedValue,
                 value: item,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.v),
