@@ -92,12 +92,13 @@ class SocialButtonsController extends GetxController {
   }
 
   /// Facebook Login
+  /// https://developers.facebook.com/apps/1330583908717882/dashboard/
+  /// site pour générer Clés de hachage à travers SHA-1 : https://tomeko.net/online_tools/hex_to_base64.php?lang=en
   Future<void> signInWithFacebook() async {
     try {
       // Début connexion Facebook
-      final LoginResult result = await FacebookAuth.instance.login(
-        permissions: ['email', 'public_profile'],
-      );
+      final LoginResult result = await FacebookAuth.instance.login(permissions: ['email', 'public_profile']);
+      //final LoginResult result = await FacebookAuth.instance.login();
 
       if (result.status == LoginStatus.success) {
         final OAuthCredential credential =
@@ -105,10 +106,14 @@ class SocialButtonsController extends GetxController {
 
         // Connexion Firebase
         UserCredential userCred = await _auth.signInWithCredential(credential);
-        debugPrint("Google Login : email : ${userCred.user?.email} - fullame : ${userCred.user?.displayName}");
+        debugPrint("Facebook Login : email : ${userCred.user?.email} - fullame : ${userCred.user?.displayName}");
         await saveUserData(userCred.user!.email!, userCred.user?.displayName ?? '');
         //await saveUserData(userData['email'], userData['name']);
         Get.offAllNamed(Routes.navigationScreen);
+        MessageSnackBar.successSnackBar(
+            title: "Successfully".tr,
+            message: "Sign In with ${userCred.user!.email!} - ${userCred.user?.displayName}",
+            duration: 2);
       } else {
         print("Facebook Login failed: ${result.status}");
         return null;

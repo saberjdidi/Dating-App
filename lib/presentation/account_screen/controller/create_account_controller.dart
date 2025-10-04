@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/permissions_helper.dart';
 import 'package:dating_app_bilhalal/data/models/interest_model.dart';
+import 'package:dating_app_bilhalal/data/models/selection_popup_model.dart';
 import 'package:dating_app_bilhalal/widgets/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -30,6 +31,10 @@ class CreateAccountController extends GetxController {
   TextEditingController lookingForController = TextEditingController();
   TextEditingController jobController = TextEditingController();
   TextEditingController paysController = TextEditingController();
+  // Dropdowns
+  final selectedPays = Rxn<SelectionPopupModel>();
+  final selectedMaritalStatus = Rxn<SelectionPopupModel>();
+  final selectedLookingFor = Rxn<SelectionPopupModel>();
 
   //FocusNodes
   FocusNode fullNameFocus = FocusNode();

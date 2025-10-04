@@ -604,15 +604,12 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               //prefix: Icon(Iconsax.activity, color: appTheme.black, size: 27.adaptSize),
               hintText: "${'الحالة الاجتماعية'.tr} *",
               items: ListMaritalStatus.value,
-              //selectedValue: ListMaritalStatus.value.firstWhereOrNull((item) => item.title == controller.paysController.text,) ?? ListPays.value.first,
-             /* selectedValue: ListMaritalStatus.value.firstWhereOrNull(
-                    (item) => item.title == controller.maritalStatusController.text,
-              ), */
-              onChanged: (value) async {
-                controller.maritalStatusController.text = value.title;
-                //controller.typePieceIdentityController.text = value.title;
-                debugPrint('marital status : ${controller.maritalStatusController.text}');
-              },
+              selectedValue: controller.selectedMaritalStatus.value,
+              onChanged: (val) => controller.selectedMaritalStatus.value = val,
+              /* onChanged: (value) async {
+                              controller.maritalStatusController.text = value.title;
+                              debugPrint('marital status : ${controller.maritalStatusController.text}');
+                 }, */
               validator: (value) {
                 if (value == null) {
                   return "${'lbl_region'.tr} ${"lbl_is_required".tr}";
@@ -634,11 +631,12 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               //prefix: Icon(Iconsax.activity, color: appTheme.black, size: 27.adaptSize),
               hintText: "${'نوع الزواج'.tr} *",
               items: ListLookingFor.value,
-              onChanged: (value) async {
+              selectedValue: controller.selectedLookingFor.value,
+              onChanged: (val) => controller.selectedLookingFor.value = val,
+            /*  onChanged: (value) async {
                 controller.lookingForController.text = value.title;
-                //controller.typePieceIdentityController.text = value.title;
                 debugPrint('looking for : ${controller.lookingForController.text}');
-              },
+              }, */
               validator: (value) {
                 if (value == null) {
                   return "${'lbl_region'.tr} ${"lbl_is_required".tr}";
@@ -646,6 +644,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                 return null;
               },
               themeColor: appTheme.gray50,
+              focusNode: controller.lookingForFocus,
               icon: Icon(Iconsax.arrow_down_1),
               borderRadius: 15.hw,
               contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
@@ -692,10 +691,12 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               hintStyle: CustomTextStyles.bodyMediumTextFormField,
               hintText: "${'دولة'.tr} *",
               items: ListPays.value,
-              onChanged: (value) async {
+              selectedValue: controller.selectedPays.value,
+              onChanged: (val) => controller.selectedPays.value = val,
+             /* onChanged: (value) async {
                 controller.paysController.text = value.title;
                 debugPrint('pays : ${controller.paysController.text}');
-              },
+              }, */
               validator: (value) {
                 if (value == null) {
                   return "الدولة مطلوبة";
@@ -703,6 +704,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                 return null;
               },
               themeColor: appTheme.gray50,
+              focusNode: controller.paysFocus,
               icon: Icon(Iconsax.arrow_down_1),
               borderRadius: 15.hw,
               contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),

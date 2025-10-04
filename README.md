@@ -16,6 +16,7 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 
 ## show iconsax: https://iconsax-icon-list.netlify.app/
+## Generate image (Android + iOS): https://www.appicon.co/
 
 ## Splash Screen 
 https://pub.dev/packages/flutter_launcher_icons
@@ -316,8 +317,10 @@ https://www.youtube.com/watch?v=YS0NfnRCtCg&list=PLCQvK2R5a8CLDC98o9xdVF9Uktqs0M
 
 ## Facebook Auth
 https://www.youtube.com/watch?v=Hj0csDW6WUs
+https://www.youtube.com/watch?v=jbNhiQRugPI
 https://www.youtube.com/watch?v=8MQf2kAU3GA
 https://www.youtube.com/watch?v=sOa9xJuJDII
+
 1. https://developers.facebook.com/apps/1330583908717882/settings/basic/
    Application: Dating App Bilhalal
    Identifiant de l’application : 1330583908717882
@@ -340,6 +343,10 @@ https://www.youtube.com/watch?v=sOa9xJuJDII
    keytool -exportcert -alias YOUR_RELEASE_ALIAS -keystore YOUR_RELEASE_KEY_PATH | openssl sha1 -binary | openssl base64
 
 https://developers.facebook.com/apps/1330583908717882/use_cases/customize/?use_case_enum=APP_INSTALL_ADS_APP_EVENTS&selected_tab=quickstart&product_route=analytics
+4. site pour générer Clés de hachage 👉 https://tomeko.net/online_tools/hex_to_base64.php?lang=en
+ ce site remplace keytool, 
+donne le code SHA-1 : 17:da:d7:61:d6:4c:e7:a6:81:b7:e4:a8:cf:08:62:70:fc:bc:ce:87
+Clés de hachage : F9rXYdZM56aBt+SozwhicPy8zoc=
 
 ## Android :
 dependencies {

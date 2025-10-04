@@ -29,7 +29,7 @@ class CustomDropDown extends StatelessWidget {
     this.filled = true,
     this.validator,
     this.onChanged,
-    //this.selectedValue,
+    this.selectedValue,
   }) : super(
           key: key,
         );
@@ -77,7 +77,8 @@ class CustomDropDown extends StatelessWidget {
 
   final Function(SelectionPopupModel)? onChanged;
 
-  //final SelectionPopupModel? selectedValue;
+  final SelectionPopupModel? selectedValue;
+  //final String? selectedValue;
 
   @override
   Widget build(BuildContext context) {
@@ -94,8 +95,10 @@ class CustomDropDown extends StatelessWidget {
         child: Theme(
           data: Theme.of(context).copyWith(canvasColor: themeColor ?? appTheme.gray700), //background dropdown list
           child: DropdownButtonFormField<SelectionPopupModel>(
+            value:  selectedValue,
             focusNode: focusNode ?? FocusNode(),
             icon: icon,
+            isExpanded: true,
             autofocus: autofocus!,
             style: textStyle ?? CustomTextStyles.titleMediumSourceSansPro,
             items: items?.map((SelectionPopupModel item) {
@@ -145,19 +148,20 @@ class CustomDropDown extends StatelessWidget {
         border: borderDecoration ??
             OutlineInputBorder(
               borderRadius: BorderRadius.circular(borderRadius.hw),
-              borderSide: BorderSide.none,
-            ),
-        enabledBorder: borderDecoration ??
-            OutlineInputBorder(
-              borderRadius: BorderRadius.circular(borderRadius.hw),
-              borderSide: BorderSide(color: Color(0xFD636262), width: 1)
+              borderSide: BorderSide(color: TColors.darkGrey, width: 1),
               //borderSide: BorderSide.none,
             ),
-        focusedBorder: borderDecoration ??
-            OutlineInputBorder(
-              borderRadius: BorderRadius.circular(borderRadius.hw),
-              borderSide: BorderSide(color: Color(0xFD636262), width: 2)
-              //borderSide: BorderSide.none,
-            ),
+            enabledBorder: borderDecoration ??
+                OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(borderRadius.hw),
+                  borderSide: BorderSide(color: Color(0xFD636262), width: 1)
+                  //borderSide: BorderSide.none,
+                ),
+            focusedBorder: borderDecoration ??
+                OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(borderRadius.hw),
+                  borderSide: BorderSide(color: TColors.yellowAppDark, width: 2)
+                  //borderSide: BorderSide.none,
+                ),
       );
 }

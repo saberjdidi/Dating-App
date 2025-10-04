@@ -41,17 +41,6 @@ class SplashController extends GetxController {
       else {
         Get.offAllNamed(Routes.navigationScreen);
       }
-      ///Without deep link
-     /* if(PrefUtils.getEmail() != null || PrefUtils.getEmail()!.isNotEmpty){
-        Get.offAllNamed(Routes.navigationScreen);
-      }
-      else {
-        (PrefUtils.getOnBoarding()!.isEmpty || PrefUtils.getOnBoarding() == null)
-            ? Get.offAllNamed(Routes.onboardingScreen)
-            : Get.offAllNamed(Routes.signInScreen);
-      } */
-
-      ///Get.offAllNamed(Routes.navigationScreen);
     });
   }
 }
