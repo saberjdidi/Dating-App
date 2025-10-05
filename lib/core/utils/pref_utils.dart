@@ -29,6 +29,7 @@ class PrefUtils {
   static const _keyFullName = 'fullName';
   static const _KeyLangue = 'langue';
   static const _KeyTheme = 'theme';
+  static const _keyShowGuide = 'showGuide';
   static const _KeyFirstname = 'firstName';
   static const _KeyLastname = 'lastName';
   static const _KeyPhoneNumber = 'phoneNumber';
@@ -113,6 +114,13 @@ class PrefUtils {
   static Future<void> clearIsOnBoarding() async {
     await sharedPreferences!.remove(_KeyIsBoarding);
   }
+
+  //Guide
+  static Future setShowGuide(bool value) async =>
+      await sharedPreferences!.setBool(_keyShowGuide, value);
+
+  static bool? getShowGuide() =>
+      sharedPreferences!.getBool(_keyShowGuide);
 
   // Vérifications
   static bool isFirstTime() {

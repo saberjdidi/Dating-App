@@ -2,6 +2,8 @@ import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/presentation/chat_screen/chat_screen.dart';
 import 'package:dating_app_bilhalal/presentation/favorite_screen/favorite_screen.dart';
 import 'package:dating_app_bilhalal/presentation/filter_screen/filter_screen.dart';
+import 'package:dating_app_bilhalal/presentation/guide/animated_arrow_hint.dart';
+import 'package:dating_app_bilhalal/presentation/guide/app_guide_dialog.dart';
 import 'package:dating_app_bilhalal/presentation/main_screen/main_screen.dart';
 import 'package:dating_app_bilhalal/presentation/navigation_screen/controller/navigation_controller.dart';
 import 'package:dating_app_bilhalal/presentation/navigation_screen/custom_bottom_bar.dart';
@@ -21,12 +23,20 @@ class NavigationScreen extends GetWidget<NavigationController> {
         child: Scaffold(
             key: _scaffoldNavigationKey,
             //backgroundColor:PrefUtils.getTheme() =='light' ? TColors.lightContainer : appTheme.primaryColor,
-            body: Navigator(
-                key: Get.nestedKey(1),
-                initialRoute: Routes.filterScreen,
-                onGenerateRoute: (routeSetting) => GetPageRoute(
-                    page: () => getCurrentPage(routeSetting.name!),
-                    transition: Transition.noTransition)
+            body: Stack(
+              children: [
+                Navigator(
+                    key: Get.nestedKey(1),
+                    initialRoute: Routes.filterScreen,
+                    onGenerateRoute: (routeSetting) => GetPageRoute(
+                        page: () => getCurrentPage(routeSetting.name!),
+                        transition: Transition.noTransition)
+                ),
+                // 👇 Flèche animée au-dessus du bottom bar
+                AnimatedArrowHint(),
+                // 👇 Guide interactif
+                AppGuideDialog(), // 👈 guide superposé
+              ],
             ),
             bottomNavigationBar: _buildBottomBar()
         ));

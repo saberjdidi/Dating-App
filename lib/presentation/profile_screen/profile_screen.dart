@@ -323,6 +323,44 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
 
+                InkWell(
+                  onTap: (){
+                    PrefUtils.setShowGuide(true);
+                    Get.offAllNamed(Routes.navigationScreen);
+                  },
+                  child: TRoundedContainer(
+                    showBorder: true,
+                    borderColor: TColors.grey400,
+                    radius: 20.adaptSize,
+                    margin: EdgeInsets.all(10.adaptSize),
+                    padding: EdgeInsets.all(15.adaptSize),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          onPressed: () async {
+                            PrefUtils.setShowGuide(true);
+                            Get.offAllNamed(Routes.navigationScreen);
+                          },
+                          icon: Icon(Icons.arrow_back_ios),
+                          iconSize: 25.adaptSize,
+                          color: TColors.buttonSecondary,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            SubTitleWidget(subtitle: "توجيه استخدام التطبيق", fontWeightDelta: 2, fontSizeDelta: 2, color: TColors.black,),
+                            SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
+                            Icon(Icons.view_timeline_outlined,
+                              color: isDark ? Colors.amber : Colors.blueGrey,
+                              size: 40.adaptSize,
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
 
                 InkWell(
                   onTap: (){

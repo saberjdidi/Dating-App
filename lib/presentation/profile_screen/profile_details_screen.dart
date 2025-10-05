@@ -3,6 +3,7 @@ import 'package:dating_app_bilhalal/data/models/interest_model.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/controller/profile_details_controller.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/fullscreen_image_viewer.dart';
 import 'package:dating_app_bilhalal/widgets/account/interest_widget.dart';
+import 'package:dating_app_bilhalal/widgets/chat/user_stats_widget.dart';
 import 'package:dating_app_bilhalal/widgets/circle_icon_button.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
 import 'package:dating_app_bilhalal/widgets/grid_layout.dart';
@@ -97,29 +98,63 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                           children: [
                             TitleWidget(title: '${controller.userModel.fullName}، ${controller.userModel.age} عاما'),
                             SizedBox(height: 6.v),
-                            // bio - allow up to 2 lines then ellipsis
-                            Text(
-                              controller.userModel.bio,
-                              textAlign: TextAlign.right,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                              ),
+                            // job - allow up to 2 lines then ellipsis
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                CustomImageView(
+                                  imagePath: ImageConstant.iconJob,
+                                  //height: 200.adaptSize,
+                                  //width: 200.adaptSize,
+                                  fit: BoxFit.cover,
+                                ),
+                                SizedBox(width: 10.adaptSize),
+                                Text(
+                                  controller.userModel.bio,
+                                  textAlign: TextAlign.right,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: isTablet ? 17.adaptSize : 15.adaptSize,
+                                  ),
+                                ),
+                              ],
                             ),
                             SizedBox(height: 6.v),
                             // bio - allow up to 2 lines then ellipsis
-                            Text(
-                              "المملكة العربية السعودية",
-                              textAlign: TextAlign.right,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                              ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                CustomImageView(
+                                  imagePath: ImageConstant.iconLocation,
+                                  //height: 200.adaptSize,
+                                  //width: 200.adaptSize,
+                                  fit: BoxFit.cover,
+                                ),
+                                SizedBox(width: 10.adaptSize),
+                                Text(
+                                  "المملكة العربية السعودية",
+                                  textAlign: TextAlign.right,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: isTablet ? 17.adaptSize : 15.adaptSize,
+                                  ),
+                                ),
+                              ],
                             ),
+
+                            SizedBox(height: TSizes.spaceBtwItems.v),
+                            UserStatsWidget(
+                              height: "172 cm",
+                              weight: "60 kg",
+                              salary: "110K - 600K",
+                              skinColor: "skinColor3",
+                              iconSize: 30,
+                            ),
+
                             SizedBox(height: 10.v),
                             SubTitleWidget(subtitle: "بایو:", color: TColors.black, fontWeightDelta: 4, fontSizeDelta: 5,),
                             SubTitleWidget(subtitle: "اسمي جيسيكا باركر، وأستمتع بلقاء أشخاص جدد وإيجاد طرق لمساعدتهم على خوض تجربة إيجابية. أستمتع بالقراءة....اقرأ المزيد",

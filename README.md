@@ -409,3 +409,6 @@ Va sur le site que tu as cité (ou tout autre convertisseur hex → base64) : en
 ## Apple sign-in
 https://www.youtube.com/watch?v=JEwGol44xFQ
 activer le fournisseur Apple dans Firebase
+
+NB: swipe user card automatic after 10 secondes 
+support email screen : upload juste one file

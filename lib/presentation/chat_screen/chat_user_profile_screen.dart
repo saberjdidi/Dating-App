@@ -1,6 +1,7 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/presentation/chat_screen/controller/user_chat_profile_controller.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/fullscreen_image_viewer.dart';
+import 'package:dating_app_bilhalal/widgets/chat/user_stats_widget.dart';
 import 'package:dating_app_bilhalal/widgets/circle_icon_button.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
 import 'package:dating_app_bilhalal/widgets/grid_layout.dart';
@@ -84,7 +85,7 @@ class ChatUserProfileScreen extends GetView<UserChatProfileController> {
                       radius: 50.adaptSize,
                       isBorderRadiusTop: true,
                       padding: EdgeInsets.symmetric(
-                        horizontal: TSizes.spaceBtwSections.hw,
+                        horizontal: TSizes.spaceBtwItems.hw,
                         vertical: TSizes.spaceBtwItems.v,
                       ),
                       child: Directionality(
@@ -97,27 +98,58 @@ class ChatUserProfileScreen extends GetView<UserChatProfileController> {
                                 TitleWidget(title: 'نورا خالد'),
                                 SizedBox(height: 6.v),
                                 // bio - allow up to 2 lines then ellipsis
-                                Text(
-                                  "نموذج احترافي",
-                                  textAlign: TextAlign.right,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                  ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    CustomImageView(
+                                      imagePath: ImageConstant.iconJob,
+                                      //height: 200.adaptSize,
+                                      //width: 200.adaptSize,
+                                      fit: BoxFit.cover,
+                                    ),
+                                    SizedBox(width: 10.adaptSize),
+                                    Text(
+                                      "نموذج احترافي",
+                                      textAlign: TextAlign.right,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: isTablet ? 17.adaptSize : 15.adaptSize,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                                 SizedBox(height: 6.v),
-                                // bio - allow up to 2 lines then ellipsis
-                                Text(
-                                  "المملكة العربية السعودية",
-                                  textAlign: TextAlign.right,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                  ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    CustomImageView(
+                                      imagePath: ImageConstant.iconLocation,
+                                      //height: 200.adaptSize,
+                                      //width: 200.adaptSize,
+                                      fit: BoxFit.cover,
+                                    ),
+                                    SizedBox(width: 10.adaptSize),
+                                    Text(
+                                      "المملكة العربية السعودية",
+                                      textAlign: TextAlign.right,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: isTablet ? 17.adaptSize : 15.adaptSize,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(width: 10.adaptSize),
+                                UserStatsWidget(
+                                  height: "172 cm",
+                                  weight: "60 kg",
+                                  salary: "110K - 600K",
+                                  skinColor: "skinColor3",
+                                  iconSize: 30,
                                 ),
 
                                 SizedBox(height: TSizes.spaceBtwSections.v),

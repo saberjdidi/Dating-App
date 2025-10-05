@@ -3,11 +3,13 @@ import 'package:dating_app_bilhalal/core/utils/validators/validation.dart';
 import 'package:dating_app_bilhalal/data/models/message_model.dart';
 import 'package:dating_app_bilhalal/presentation/chat_screen/controller/message_controller.dart';
 import 'package:dating_app_bilhalal/presentation/settings_screen/controller/settings_controller.dart';
+import 'package:dating_app_bilhalal/presentation/settings_screen/settings_screen.dart';
 import 'package:dating_app_bilhalal/widgets/app_bar/appbar_widget.dart';
 import 'package:dating_app_bilhalal/widgets/chat/draft_audio_widget.dart';
 import 'package:dating_app_bilhalal/widgets/chat/message_bubble.dart';
 import 'package:dating_app_bilhalal/widgets/circle_icon_button.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
+import 'package:dating_app_bilhalal/widgets/custom_divider.dart';
 import 'package:dating_app_bilhalal/widgets/custom_text_form_field.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
 import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
@@ -39,6 +41,28 @@ class MessageScreen extends GetView<MessageController> {
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
+                InkWell(
+                  child: Icon(Icons.more_vert, color: TColors.black.withOpacity(0.7), size: 35.adaptSize,),
+                  onTap: (){
+                    buildDialogSettings(context);
+                  /*  Get.dialog(
+                      Dialog(
+                        insetPadding: const EdgeInsets.all(16),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                        backgroundColor: Colors.white,
+                        child: SizedBox(
+                          height: 420, // fixe la hauteur de ton popup
+                          width: double.infinity,
+                          child: SettingsScreen(),
+                        ),
+                      ),
+                      barrierDismissible: true, // Ferme si l'utilisateur clique à l'extérieur
+                    ); */
+                    //Get.toNamed(Routes.settingsScreen);
+                    //Navigator.pop(context);
+                  },
+                ),
+                /*
                 CircleIconButton(
                     size: isSmallPhone ? 52.adaptSize : 45.adaptSize,
                     effectiveSize: isSmallPhone ? 52.adaptSize : 45.adaptSize,
@@ -52,6 +76,7 @@ class MessageScreen extends GetView<MessageController> {
                       },
                     )
                 ),
+                 */
                 SizedBox(width: 2.adaptSize,),
                 CircleIconButton(
                   size: isSmallPhone ? 52.adaptSize : 45.adaptSize,
@@ -302,14 +327,10 @@ class MessageScreen extends GetView<MessageController> {
                      SizedBox(
                        width: screenWidth * 0.1,
                        child: Obx(() {
-                         return CircleAvatar(
-                           radius: 20,
-                           backgroundColor: controller.isRecording.value ? Colors.red : Colors.transparent,
-                           child: IconButton(
-                             icon: Icon(controller.isRecording.value ? Icons.stop : Icons.keyboard_voice_outlined,
-                                 color: controller.isRecording.value ? Colors.white : TColors.blackGrey),
-                             onPressed: () async => await controller.toggleRecording(),
-                           ),
+                         return IconButton(
+                           icon: Icon(controller.isRecording.value ? Icons.stop : Icons.keyboard_voice_outlined,
+                               color: controller.isRecording.value ? Colors.red : TColors.blackGrey),
+                           onPressed: () async => await controller.toggleRecording(),
                          );
                        }),
                      ),
@@ -508,6 +529,113 @@ class MessageScreen extends GetView<MessageController> {
     );
   }
   */
+
+buildDialogSettings(BuildContext context){
+  final settingsController = Get.put(SettingsController());
+  Get.dialog(
+    Dialog(
+      insetPadding: const EdgeInsets.all(16),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      backgroundColor: Colors.white,
+
+      child: SizedBox(
+        height: 420, // fixe la hauteur de ton popup
+        width: double.infinity,
+        child: Padding(
+          padding: EdgeInsets.all(18.hw),
+          child: SingleChildScrollView(
+            child: Obx(() => Directionality(
+              textDirection: TextDirection.rtl,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SubTitleWidget(
+                          subtitle: 'مكالمات الفيديو',
+                          color: _appTheme =='light' ? TColors.gray700 : TColors.white,
+                          fontWeightDelta: 2,
+                          fontSizeDelta: 1),
+                      Switch(
+                        value: settingsController.isCallVideo.value,
+                        onChanged: settingsController.toggleCallVideo,
+                        activeColor: TColors.yellowAppDark,
+                      )
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 5.v),
+                    child: CustomDividerWidget(),
+                  ),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SubTitleWidget(
+                          subtitle: 'المكالمات الصوتية',
+                          color: _appTheme =='light' ? TColors.gray700 : TColors.white,
+                          fontWeightDelta: 2,
+                          fontSizeDelta: 1),
+                      Switch(
+                        value: settingsController.isCallVoice.value,
+                        onChanged: settingsController.toggleCallVoice,
+                        activeColor: TColors.yellowAppDark,
+                      )
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 5.v),
+                    child: CustomDividerWidget(),
+                  ),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SubTitleWidget(
+                          subtitle: 'حالة الاتصال بالإنترنت',
+                          color: _appTheme =='light' ? TColors.gray700 : TColors.white,
+                          fontWeightDelta: 2,
+                          fontSizeDelta: 1
+                      ),
+                      Switch(
+                        value: settingsController.isInternetConnection.value,
+                        onChanged: (value){
+                          settingsController.isInternetConnection.value = value;
+                          debugPrint("internet connection : ${settingsController.isInternetConnection.value}");
+                        },
+                        activeColor: TColors.yellowAppDark,
+                      )
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 5.v),
+                    child: CustomDividerWidget(),
+                  ),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Icon(Iconsax.user_remove),
+                      SizedBox(width: 10.hw),
+                      SubTitleWidget(
+                          subtitle: 'حظر المستخدم',
+                          color: _appTheme =='light' ? TColors.gray700 : TColors.white,
+                          fontWeightDelta: 2,
+                          fontSizeDelta: 1
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            )),
+          ),
+        ),
+      ),
+    ),
+    barrierDismissible: true, // Ferme si l'utilisateur clique à l'extérieur
+  );
+}
 }
 
 

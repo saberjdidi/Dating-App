@@ -1,0 +1,184 @@
+import 'package:dating_app_bilhalal/core/utils/image_constant.dart';
+import 'package:dating_app_bilhalal/widgets/account/choice-chip.dart';
+import 'package:dating_app_bilhalal/widgets/custom_image_view.dart';
+import 'package:flutter/material.dart';
+
+class UserStatsWidget extends StatelessWidget {
+  final String height;
+  final String weight;
+  final String salary;
+  final String skinColor;
+  final Color dividerColor;
+  final double iconSize;
+  final TextStyle? textStyle;
+
+  const UserStatsWidget({
+    Key? key,
+    required this.height,
+    required this.weight,
+    required this.salary,
+    required this.skinColor,
+    this.dividerColor = Colors.grey,
+    this.iconSize = 26,
+    this.textStyle,
+  }) : super(key: key);
+
+  Widget _buildDivider(Color color, double height) {
+    return Container(
+      height: height,
+      //height: height * 0.7,
+      width: 1,
+      color: color,
+      margin: const EdgeInsets.symmetric(horizontal: 8),
+    );
+  }
+
+  Widget _buildStatItem(BuildContext context, String text, String imagePath) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final bool isSmallScreen = screenWidth < 400;
+
+    return Expanded(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          CustomImageView(
+            imagePath: imagePath,
+            height: isSmallScreen ? iconSize * 0.8 : iconSize,
+            width: isSmallScreen ? iconSize * 0.8 : iconSize,
+            fit: BoxFit.cover,
+          ),
+          if (imagePath == ImageConstant.iconSkinColor)
+             SizedBox(height: 2)
+          else
+            SizedBox(height: 6),
+          /// Si c’est le champ de couleur → affiche le TChoiceChip
+          if (imagePath == ImageConstant.iconSkinColor)
+            TChoiceChip(
+              text: text,
+              size: 30,
+              selected: false,
+              onSelected: (_) {},
+            )
+          else
+            Text(
+              text,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              style: textStyle ??
+                  TextStyle(
+                    color: Colors.grey,
+                    fontSize: isSmallScreen ? 12 : 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final bool isTablet = MediaQuery.of(context).size.width > 600;
+
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          _buildStatItem(context, height.toString(), ImageConstant.iconHeight),
+          _buildDivider(dividerColor, 50),
+          _buildStatItem(context, weight, ImageConstant.iconWeight),
+          _buildDivider(dividerColor, 50),
+          _buildStatItem(context, salary, ImageConstant.iconSalary),
+          _buildDivider(dividerColor, 50),
+          _buildStatItem(context, skinColor, ImageConstant.iconSkinColor),
+        ],
+      ),
+    );
+  }
+}
+
+//Method without ChoiceChip
+/*
+class UserStatsWidget extends StatelessWidget {
+  final String height;
+  final String weight;
+  final String salary;
+  final String skinColor;
+  final Color dividerColor;
+  final double iconSize;
+  final TextStyle? textStyle;
+
+  const UserStatsWidget({
+    Key? key,
+    required this.height,
+    required this.weight,
+    required this.salary,
+    required this.skinColor,
+    this.dividerColor = Colors.grey,
+    this.iconSize = 26,
+    this.textStyle,
+  }) : super(key: key);
+
+  Widget _buildStatItem(String text, String imagePath, {bool addDivider = false, Color? dividerColor}) {
+    return Expanded(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          CustomImageView(
+            imagePath: imagePath,
+            height: iconSize,
+            width: iconSize,
+            fit: BoxFit.cover,
+          ),
+          const SizedBox(height: 6),
+          Text(
+            text,
+            textAlign: TextAlign.center,
+            overflow: TextOverflow.ellipsis,
+            style: textStyle ??
+                const TextStyle(
+                  color: Colors.black87,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Wrap(
+        spacing: 6,
+        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          _buildStatItem(height, ImageConstant.iconHeight),
+          Container(
+            height: 30,
+            width: 1,
+            color: dividerColor,
+          ),
+          _buildStatItem(weight, ImageConstant.iconWeight),
+          Container(
+            height: 30,
+            width: 1,
+            color: dividerColor,
+          ),
+          _buildStatItem(salary, ImageConstant.iconSalary),
+          Container(
+            height: 30,
+            width: 1,
+            color: dividerColor,
+          ),
+          _buildStatItem(skinColor, ImageConstant.iconSkinColor),
+        ],
+      ),
+    );
+  }
+}
+*/

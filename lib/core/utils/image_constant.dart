@@ -2,6 +2,7 @@ class ImageConstant {
   // Image folder path
   static String imagePath = 'assets/images';
   static String animationPath = 'assets/animations';
+  static String iconPath = 'assets/icons';
 
   //Dating App
   static String logo = '$imagePath/logo-splash.png'; //'$imagePath/logo.png';
@@ -89,6 +90,14 @@ class ImageConstant {
   static String imgTerms = '$imagePath/profiles/img_terms.svg';
   static String imgPrivacyPolicy = '$imagePath/profiles/img_privacy_policy.svg';
   static String imgLogout = '$imagePath/profiles/img_logout.svg';
+
+  //Icons
+  static String iconJob = '$iconPath/icon_job.svg';
+  static String iconLocation = '$iconPath/icon_location.svg';
+  static String iconWeight = '$iconPath/icon_weight.svg';
+  static String iconSkinColor = '$iconPath/icon_skin_color.svg';
+  static String iconHeight = '$iconPath/icon_height.svg';
+  static String iconSalary = '$iconPath/icon_salary.svg';
 
   ///Images Button
   static String imgSend = '$imagePath/img_send.png';

@@ -2,6 +2,7 @@ import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/validators/validation.dart';
 import 'package:dating_app_bilhalal/data/datasources/dropdown_local_data_source.dart';
 import 'package:dating_app_bilhalal/data/datasources/onboarding_local_data_source.dart';
+import 'package:dating_app_bilhalal/data/models/country_model.dart';
 import 'package:dating_app_bilhalal/data/models/interest_model.dart';
 import 'package:dating_app_bilhalal/presentation/account_screen/controller/create_account_controller.dart';
 import 'package:dating_app_bilhalal/widgets/account/interest_widget.dart';
@@ -9,6 +10,7 @@ import 'package:dating_app_bilhalal/widgets/app_bar/appbar_widget.dart';
 import 'package:dating_app_bilhalal/widgets/account/choice-chip.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
 import 'package:dating_app_bilhalal/widgets/custom_drop_down.dart';
+import 'package:dating_app_bilhalal/widgets/custom_drop_down_country.dart';
 import 'package:dating_app_bilhalal/widgets/custom_text_form_field.dart';
 import 'package:dating_app_bilhalal/widgets/form_divider_widget.dart';
 import 'package:dating_app_bilhalal/widgets/grid_layout.dart';
@@ -686,11 +688,11 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             ),
             SizedBox(height: TSizes.spaceBtwItems.v),
 
-            CustomDropDown(
+            CustomDropDownCountry(
               fillColor: TColors.white,
               hintStyle: CustomTextStyles.bodyMediumTextFormField,
               hintText: "${'دولة'.tr} *",
-              items: ListPays.value,
+              items: PaysList.value,
               selectedValue: controller.selectedPays.value,
               onChanged: (val) => controller.selectedPays.value = val,
              /* onChanged: (value) async {
@@ -708,6 +710,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               icon: Icon(Iconsax.arrow_down_1),
               borderRadius: 15.hw,
               contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
+              //alignment: Alignment.topLeft
             ),
 
             SizedBox(height: TSizes.spaceBtwItems.v),

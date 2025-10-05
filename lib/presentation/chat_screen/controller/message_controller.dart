@@ -599,7 +599,6 @@ class MessageController extends GetxController {
       print("Erreur: $e");
     }
   }
-
 ///Contact End
 
 }

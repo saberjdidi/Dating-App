@@ -1,6 +1,7 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/controller/user_owner_profile_controller.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/fullscreen_image_viewer.dart';
+import 'package:dating_app_bilhalal/widgets/chat/user_stats_widget.dart';
 import 'package:dating_app_bilhalal/widgets/circle_icon_button.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
 import 'package:dating_app_bilhalal/widgets/grid_layout.dart';
@@ -82,7 +83,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                       radius: 50.adaptSize,
                       isBorderRadiusTop: true,
                       padding: EdgeInsets.symmetric(
-                        horizontal: TSizes.spaceBtwSections.hw,
+                        horizontal: TSizes.spaceBtwItems.hw,
                         vertical: TSizes.spaceBtwItems.v,
                       ),
                       child: Directionality(
@@ -127,29 +128,51 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                 ),
                                 SizedBox(height: 6.v),
                                 // bio - allow up to 2 lines then ellipsis
-                                Text(
-                                  "نموذج احترافي",
-                                  textAlign: TextAlign.right,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: isTablet ? 17.adaptSize : 15.adaptSize,
-                                  ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    CustomImageView(
+                                      imagePath: ImageConstant.iconJob,
+                                      //height: 200.adaptSize,
+                                      //width: 200.adaptSize,
+                                      fit: BoxFit.cover,
+                                    ),
+                                    SizedBox(width: 10.adaptSize),
+                                    Text(
+                                      "نموذج احترافي",
+                                      textAlign: TextAlign.right,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: isTablet ? 17.adaptSize : 15.adaptSize,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                                 SizedBox(height: 6.v),
-                                // bio - allow up to 2 lines then ellipsis
-                                Text(
-                                  "المملكة العربية السعودية",
-                                  textAlign: TextAlign.right,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: isTablet ? 17.adaptSize : 15.adaptSize,
-                                  ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    CustomImageView(
+                                      imagePath: ImageConstant.iconLocation,
+                                      //height: 200.adaptSize,
+                                      //width: 200.adaptSize,
+                                      fit: BoxFit.cover,
+                                    ),
+                                    SizedBox(width: 10.adaptSize),
+                                    Text(
+                                      "المملكة العربية السعودية",
+                                      textAlign: TextAlign.right,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: isTablet ? 17.adaptSize : 15.adaptSize,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-
                                 SizedBox(height: TSizes.spaceBtwItems.v),
                                 CustomButtonContainer(
                                   text: "تعديل الملف الشخصي",
@@ -164,6 +187,15 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                     Get.toNamed(Routes.overviewAccountScreen);
                                   },
                                 ),
+                                SizedBox(height: TSizes.spaceBtwItems.v),
+                                UserStatsWidget(
+                                  height: "172 cm",
+                                  weight: "60 kg",
+                                  salary: "110K - 600K",
+                                  skinColor: "skinColor3",
+                                  iconSize: 30,
+                                ),
+
                                 SizedBox(height: TSizes.spaceBtwSections.v),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
