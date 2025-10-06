@@ -23,16 +23,9 @@ class NavigationScreen extends GetWidget<NavigationController> {
 
   @override Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
-    final bottomCtrl = BottomBarController.instance; // si pas déjà injecté
-    //final bottomCtrl = Get.put(BottomBarController()); // si pas déjà injecté
+    //final bottomCtrl = BottomBarController.instance; // si pas déjà injecté
     // initialise la logique "montrer guide 1 fois"
     //bottomCtrl.initGuideAutoShowIfNeeded();
-
-    final pages = [
-      const Center(child: Text("🏠 Home Page")),
-      const Center(child: Text("❤️ Favoris Page")),
-       ProfileScreen(),
-    ];
 
     return SafeArea(
         child: Scaffold(
@@ -47,7 +40,6 @@ class NavigationScreen extends GetWidget<NavigationController> {
                         page: () => getCurrentPage(routeSetting.name!),
                         transition: Transition.noTransition)
                 ),
-                //Obx(() => pages[bottomCtrl.selectedIndex.value]),
                 GuideDialog(),
                 // Flèche animée (au dessus de l'icône active) - visible seulement si showArrow true
                /*  Obx(() {

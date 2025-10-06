@@ -29,7 +29,7 @@ class PrefUtils {
   static const _keyFullName = 'fullName';
   static const _KeyLangue = 'langue';
   static const _KeyTheme = 'theme';
-  static const _keyShowGuide = 'showGuide';
+  static const _keyShowGuide = 'show_app_guide';
   static const _KeyHasSeenGuide = 'has_seen_app_guide';
   static const _KeyFirstname = 'firstName';
   static const _KeyLastname = 'lastName';
@@ -119,8 +119,8 @@ class PrefUtils {
   //Guide
   static Future setShowGuide(bool value) async =>
       await sharedPreferences!.setBool(_keyShowGuide, value);
-  static bool? getShowGuide() =>
-      sharedPreferences!.getBool(_keyShowGuide);
+  static bool getShowGuide() =>
+      sharedPreferences?.getBool(_keyShowGuide) ?? true;
 
   static Future<void> setHasSeenGuide(bool value) async =>
       await sharedPreferences!.setBool(_KeyHasSeenGuide, value);

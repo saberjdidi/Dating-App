@@ -12,7 +12,7 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
 
   var _appTheme = PrefUtils.getTheme();
   //RxInt selectedIndex = 0.obs;
-
+/*
   List<BottomMenuModel> bottomMenuList = [
     BottomMenuModel(
       icon: ImageConstant.searchImg,
@@ -44,7 +44,7 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
       title: "إعدادات".tr,
       type: BottomBarEnum.Profile,
     )
-  ];
+  ]; */
 
   Function(BottomBarEnum)? onChanged;
 
@@ -80,15 +80,15 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
               elevation: 0,
               currentIndex: controller.selectedIndex.value,
               type: BottomNavigationBarType.fixed,
-              items: List.generate(bottomMenuList.length, (index) {
-                bool isMain = bottomMenuList[index].type == BottomBarEnum.main;
+              items: List.generate(controller.bottomMenuList.length, (index) {
+                bool isMain = controller.bottomMenuList[index].type == BottomBarEnum.main;
                 return BottomNavigationBarItem(
                   icon: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CustomImageView(
-                        imagePath: bottomMenuList[index].icon,
+                        imagePath: controller.bottomMenuList[index].icon,
                         height: 30.adaptSize,
                         width: 30.adaptSize,
                         color: isDark ? TColors.white : TColors.grey300,
@@ -96,7 +96,7 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
                       Text(
                         isMain
                             ? controller.selectedCountryTitle.value
-                            : bottomMenuList[index].title!,
+                            : controller.bottomMenuList[index].title!,
                         //bottomMenuList[index].title!,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -111,7 +111,7 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CustomImageView(
-                        imagePath: bottomMenuList[index].activeIcon,
+                        imagePath: controller.bottomMenuList[index].activeIcon,
                         height: 35.adaptSize,
                         width: 35.adaptSize,
                         color: TColors.yellowAppDark,
@@ -120,7 +120,7 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
                       Text(
                         isMain
                             ? selectedCountry
-                            : bottomMenuList[index].title!,
+                            : controller.bottomMenuList[index].title!,
                         //bottomMenuList[index].title!,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -136,7 +136,7 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
               onTap: (index) {
                 //selectedIndex.value = index;
                 controller.changeTabIndex(index);
-                onChanged?.call(bottomMenuList[index].type);
+                onChanged?.call(controller.bottomMenuList[index].type);
               },
             ),
           )

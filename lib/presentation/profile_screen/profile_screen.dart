@@ -326,7 +326,13 @@ class ProfileScreen extends StatelessWidget {
                 ),
 
                 InkWell(
-                  onTap: (){
+                  onTap: () async {
+                    await PrefUtils.setHasSeenGuide(false);
+                    await PrefUtils.setShowGuide(true);
+                    GuideController.instance.resetGuide();
+                    Get.snackbar("Guide", "Le guide est réaffiché");
+                  },
+                 /* onTap: (){
                     GuideController.instance.resetGuide();
                     //other method
                   /*  PrefUtils.setHasSeenGuide(false); // réinitialise la préférence
@@ -337,7 +343,7 @@ class ProfileScreen extends StatelessWidget {
                   //other 2
                    // PrefUtils.setShowGuide(true);
                    // Get.offAllNamed(Routes.navigationScreen);
-                  },
+                  }, */
                   child: TRoundedContainer(
                     showBorder: true,
                     borderColor: TColors.grey400,
