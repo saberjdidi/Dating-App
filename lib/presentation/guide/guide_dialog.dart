@@ -3,13 +3,8 @@ import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/presentation/guide/guide_controller.dart';
 import 'package:dating_app_bilhalal/presentation/navigation_screen/controller/bottom_bar_controller.dart';
 import 'package:flutter/material.dart';
-
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../core/app_export.dart';
-import '../navigation_screen/controller/bottom_bar_controller.dart';
-import 'guide_controller.dart';
+import 'package:lottie/lottie.dart';
 
 class GuideDialog extends StatelessWidget {
   final bottomBarController = BottomBarController.instance;
@@ -24,22 +19,29 @@ class GuideDialog extends StatelessWidget {
       guideController.currentGuidePage.value = index;
       final guideTexts = guideController.pageGuides[index] ?? [];
       final media = MediaQuery.of(context);
-      final iconOffset =
-          (media.size.width / bottomBarController.bottomMenuList.length * index) +
-              (media.size.width / bottomBarController.bottomMenuList.length) / 2 -
-              20;
+
+      // 🔹 LTR offset (flèche)
+      //final iconOffset = (media.size.width / bottomBarController.bottomMenuList.length * index) + (media.size.width / bottomBarController.bottomMenuList.length) / 2 - 20;
+      // 🔹 RTL offset (flèche inversée)
+      final iconWidth = media.size.width / bottomBarController.bottomMenuList.length;
+      final iconOffset = media.size.width - ((index + 1) * iconWidth) + (iconWidth / 2) - 20;
 
       return Stack(
         children: [
+          // 🔹 Flèche animée (position RTL)
           Positioned(
-            bottom: 80,
+            bottom: 5,
             left: iconOffset,
-            child: const AnimatedArrowHint(),
+            child: Directionality(
+                textDirection: TextDirection.rtl,
+                child: const AnimatedArrowHint()
+            ),
           ),
+          // 🔹 Bulle d’explication
           Positioned(
-            bottom: 120,
-            left: 20,
-            right: 20,
+            bottom: 70,
+            left: 30,
+            right: 30,
             child: GuideBubble(guideTexts: guideTexts),
           ),
         ],
@@ -80,6 +82,7 @@ class GuideBubble extends StatelessWidget {
                 ],
               ),
               CarouselSlider(
+                carouselController: guideController.carouselController,
                 items: guideTexts
                     .map((text) => Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -91,46 +94,66 @@ class GuideBubble extends StatelessWidget {
                       color: Colors.black87,
                     ),
                   ),
-                ))
-                    .toList(),
+                )).toList(),
                 options: CarouselOptions(
-                  height: 90,
+                  height: 70,
                   viewportFraction: 1,
                   enableInfiniteScroll: false,
-                  onPageChanged: (i, _) =>
-                  guideController.currentStep.value = i,
+                  onPageChanged: (i, _) => guideController.currentStep.value = i,
                 ),
               ),
               const SizedBox(height: 8),
+              // 🔹 Points + bouton "التالي"
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  guideTexts.length,
-                      (i) => Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 3),
-                    width: 8,
-                    height: 8,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: i == guideController.currentStep.value
-                          ? TColors.yellowAppDark
-                          : Colors.grey.shade400,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(''),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(
+                      guideTexts.length,
+                          (i) => Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 3),
+                        width: 8,
+                        height: 8,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: i == guideController.currentStep.value
+                              ? TColors.yellowAppDark
+                              : Colors.grey.shade400,
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  CustomButtonContainer(
+                    height: 60.v,
+                    width: Get.width * 0.3,
+                    text: "التالي",
+                    color1: TColors.greenAccept,
+                    color2: TColors.greenAccept,
+                    borderRadius: 10,
+                    colorText: TColors.white,
+                    fontSize: 20.adaptSize,
+                    onPressed: () {
+                      guideController.nextStep(guideTexts);
+                    },
+                   /* onPressed: () {
+                      if (guideController.currentStep.value < guideTexts.length - 1) {
+                        guideController.currentStep.value++;
+                        guideController.currentStep.value;
+                      /*  guideController.carouselController.animateToPage(guideController.currentStep.value + 1,
+                            duration: const Duration(milliseconds: 400),
+                            curve: Curves.easeInOut); */
+                      } else {
+                        guideController.nextStep(guideTexts);
+                      }
+                    }, */
+                  ),
+                ],
               ),
-              const SizedBox(height: 10),
-              CustomButtonContainer(
-                height: 60.v,
-                width: Get.width * 0.3,
-                text: "التالي",
-                color1: TColors.greenAccept,
-                color2: TColors.greenAccept,
-                borderRadius: 10,
-                colorText: TColors.white,
-                fontSize: 20.adaptSize,
-                onPressed: () => guideController.nextStep(guideTexts),
-              ),
+
+               SizedBox(height: 10.v),
+
             ],
           ),
         ),
@@ -169,8 +192,8 @@ class _AnimatedArrowHintState extends State<AnimatedArrowHint>
       animation: _animation,
       builder: (_, child) => Transform.translate(
         offset: Offset(0, _animation.value),
-        child: Icon(Icons.arrow_drop_up,
-            size: 40, color: TColors.yellowAppDark.withOpacity(0.8)),
+        child: Lottie.asset(ImageConstant.lottieArroDown, width: 60, height: 80),
+        //child: Icon(Icons.arrow_drop_up, size: 40, color: TColors.yellowAppDark.withOpacity(0.8)),
       ),
     );
   }

@@ -2,13 +2,8 @@ import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/presentation/chat_screen/chat_screen.dart';
 import 'package:dating_app_bilhalal/presentation/favorite_screen/favorite_screen.dart';
 import 'package:dating_app_bilhalal/presentation/filter_screen/filter_screen.dart';
-import 'package:dating_app_bilhalal/presentation/guide/animated_arrow_hint.dart';
-import 'package:dating_app_bilhalal/presentation/guide/animated_arrow_hint2.dart';
-import 'package:dating_app_bilhalal/presentation/guide/app_guide_dialog.dart';
-import 'package:dating_app_bilhalal/presentation/guide/app_guide_dialog2.dart';
 import 'package:dating_app_bilhalal/presentation/guide/guide_dialog.dart';
 import 'package:dating_app_bilhalal/presentation/main_screen/main_screen.dart';
-import 'package:dating_app_bilhalal/presentation/navigation_screen/controller/bottom_bar_controller.dart';
 import 'package:dating_app_bilhalal/presentation/navigation_screen/controller/navigation_controller.dart';
 import 'package:dating_app_bilhalal/presentation/navigation_screen/custom_bottom_bar.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/profile_screen.dart';
@@ -40,26 +35,8 @@ class NavigationScreen extends GetWidget<NavigationController> {
                         page: () => getCurrentPage(routeSetting.name!),
                         transition: Transition.noTransition)
                 ),
+                //Affiche le guide de lapplication
                 GuideDialog(),
-                // Flèche animée (au dessus de l'icône active) - visible seulement si showArrow true
-               /*  Obx(() {
-                  return bottomCtrl.showArrow.value
-                      ? AnimatedArrowHint(currentIndex: bottomCtrl.selectedIndex.value, itemCount: 5, arrowSize: 44, bottomOffset: 80)
-                      : SizedBox.shrink();
-                }),
-                // dialog guide (unique instance)
-                AppGuideDialog(maxWidth: 360, containerHeight: 150, bottomItemCount: 5),
-                 */
-                /*
-                // 👇 Flèche animée au-dessus du bottom bar
-                AnimatedArrowHint2(),
-                // 👇 Guide interactif
-                Positioned(
-                    bottom: 20,
-                    left: 20,
-                    child: AppGuideDialog2()
-                ), // 👈 guide superposé
-                */
               ],
             ),
             bottomNavigationBar: _buildBottomBar()
@@ -69,12 +46,12 @@ class NavigationScreen extends GetWidget<NavigationController> {
   Widget _buildBottomBar() {
     return CustomBottomBar(
         onChanged: (BottomBarEnum type) {
-          Get.offAllNamed(getCurrentRoute(type), id: 1);
+          Get.offAllNamed(controller.getCurrentRoute(type), id: 1);
           //Get.toNamed(getCurrentRoute(type), id: 1);
         });
   }
   ///Handling route based on bottom click actions
-  String getCurrentRoute(BottomBarEnum type) {
+/*  String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
       case BottomBarEnum.search:
         return Routes.filterScreen;
@@ -88,7 +65,7 @@ class NavigationScreen extends GetWidget<NavigationController> {
         return Routes.profileScreen;
       default: return "/";
     }
-  }
+  } */
   ///Handling page based on route
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {

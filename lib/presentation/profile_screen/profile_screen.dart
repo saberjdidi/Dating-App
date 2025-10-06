@@ -327,10 +327,36 @@ class ProfileScreen extends StatelessWidget {
 
                 InkWell(
                   onTap: () async {
+                    // 🔹 1. Réinitialiser les préférences pour forcer l’affichage du guide
                     await PrefUtils.setHasSeenGuide(false);
                     await PrefUtils.setShowGuide(true);
-                    GuideController.instance.resetGuide();
-                    Get.snackbar("Guide", "Le guide est affiché");
+
+                    // 🔹 2. Récupérer les contrôleurs
+                    final guideController = GuideController.instance;
+
+                    // 🔹 4. Revenir à la page d’accueil (index 0)
+                    BottomBarController.instance.changeTabIndex(0);
+
+                    // 🔹 3. Réinitialiser le guide (étape 0)
+                    guideController.currentStep.value = 0;
+                    guideController.currentGuidePage.value = 0;
+                    guideController.showGuide.value = true;
+
+                    // 🔹 5. Forcer la navigation vers la page d’accueil
+                    //Get.offAllNamed(Routes.navigationScreen);
+                   Get.offAllNamed(Routes.filterScreen, id: 1);
+
+
+                    // 🔹 6. Afficher une confirmation visuelle
+                    Get.snackbar(
+                      "Guide",
+                      "Le guide a été réinitialisé et recommence depuis le début",
+                      snackPosition: SnackPosition.BOTTOM,
+                      backgroundColor: Colors.black87,
+                      colorText: Colors.white,
+                      margin: const EdgeInsets.all(12),
+                      duration: const Duration(seconds: 3),
+                    );
                   },
                  /* onTap: (){
                     GuideController.instance.resetGuide();
@@ -365,7 +391,7 @@ class ProfileScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            SubTitleWidget(subtitle: "توجيه استخدام التطبيق", fontWeightDelta: 2, fontSizeDelta: 2, color: TColors.black,),
+                            SubTitleWidget(subtitle: "إعادة عرض الدليل", fontWeightDelta: 2, fontSizeDelta: 2, color: TColors.black,),
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             Icon(Icons.view_timeline_outlined,
                               color: isDark ? Colors.amber : Colors.blueGrey,

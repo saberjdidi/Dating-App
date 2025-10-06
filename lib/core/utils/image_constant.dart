@@ -22,6 +22,7 @@ class ImageConstant {
 
   //lottie
   static String lottieTrophy = '$animationPath/trophy.json';
+  static String lottieArroDown = '$animationPath/arrow_down.json';
 
   //logo
   static String backgroundSplash = '$imagePath/background_splash.png';
