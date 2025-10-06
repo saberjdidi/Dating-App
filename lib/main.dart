@@ -19,6 +19,7 @@ void main() async  {
 
   // Initialise SharedPreferences AVANT de construire l'app
   await PrefUtils.init();
+  await GetStorage.init();
   /* await SharedPreferences.getInstance().then((prefs) {
     PrefUtils.sharedPreferences = prefs;
   }); */

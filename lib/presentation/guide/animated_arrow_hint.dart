@@ -3,58 +3,80 @@ import 'package:dating_app_bilhalal/presentation/navigation_screen/controller/bo
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AnimatedArrowHint extends StatelessWidget {
-  final BottomBarController controller = Get.find();
+import 'dart:math' as math;
+import 'package:flutter/material.dart';
+
+class AnimatedArrowHint extends StatefulWidget {
+  final int currentIndex;
+  final int itemCount;
+  final double arrowSize;
+  final double bottomOffset;
+
+  const AnimatedArrowHint({
+    Key? key,
+    required this.currentIndex,
+    this.itemCount = 5,
+    this.arrowSize = 44,
+    this.bottomOffset = 90, // ajuste selon ton bottom bar height
+  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Obx(() {
-      if (!controller.showGuide.value) return const SizedBox.shrink();
-
-      final offsetX = controller.getArrowXOffset(context);
-
-      return Positioned(
-        bottom: 65, // juste au-dessus du BottomNavigationBar
-        left: offsetX,
-        child: const _AnimatedArrow(),
-      );
-    });
-  }
+  State<AnimatedArrowHint> createState() => _AnimatedArrowHintState();
 }
 
-class _AnimatedArrow extends StatefulWidget {
-  const _AnimatedArrow();
-
-  @override
-  State<_AnimatedArrow> createState() => _AnimatedArrowState();
-}
-
-class _AnimatedArrowState extends State<_AnimatedArrow>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _opacity;
+class _AnimatedArrowHintState extends State<AnimatedArrowHint> with SingleTickerProviderStateMixin {
+  late final AnimationController _ctrl;
+  late final Animation<double> _anim;
 
   @override
   void initState() {
     super.initState();
-    _controller =
-    AnimationController(vsync: this, duration: const Duration(seconds: 1))
-      ..repeat(reverse: true);
-    _opacity = Tween<double>(begin: 0.3, end: 1).animate(_controller);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: _opacity,
-      child:
-      const Icon(Icons.arrow_drop_up, color: Colors.blueAccent, size: 35),
-    );
+    _ctrl = AnimationController(vsync: this, duration: Duration(milliseconds: 900))..repeat(reverse: true);
+    _anim = Tween<double>(begin: -6, end: -18).animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeInOut));
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _ctrl.dispose();
     super.dispose();
+  }
+
+  double _calcLeft(BuildContext ctx, int index) {
+    final w = MediaQuery.of(ctx).size.width;
+    final itemWidth = w / widget.itemCount;
+    final arrowW = widget.arrowSize;
+    final rtl = Directionality.of(ctx) == TextDirection.rtl;
+
+    double center;
+    if (!rtl) {
+      center = itemWidth * index + itemWidth / 2 - arrowW / 2;
+    } else {
+      center = w - (itemWidth * index + itemWidth / 2) - arrowW / 2;
+    }
+    return center.clamp(8.0, w - arrowW - 8.0);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final bottomPad = MediaQuery.of(context).padding.bottom;
+    return AnimatedBuilder(
+      animation: _anim,
+      builder: (context, child) {
+        final left = _calcLeft(context, widget.currentIndex);
+        return Positioned(
+          bottom: widget.bottomOffset + _anim.value + bottomPad,
+          left: left,
+          child: Transform.rotate(
+            angle: math.pi, // pointe vers le bas
+            child: Container(
+              width: widget.arrowSize,
+              height: widget.arrowSize,
+              alignment: Alignment.center,
+              child: Icon(Icons.arrow_drop_down_rounded, size: widget.arrowSize, color: Colors.amber),
+            ),
+          ),
+        );
+      },
+    );
   }
 }

@@ -55,7 +55,7 @@ class FavoriteCardWidget extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Container(
                 width: double.infinity,
-                height: isSmallPhone ? 100.v : 80.v,
+                height: isSmallPhone ? 100.v : 90.v,
                 padding: EdgeInsets.symmetric(
                   horizontal: horizontalPadding.hw,
                   vertical: bottomPadding.v,

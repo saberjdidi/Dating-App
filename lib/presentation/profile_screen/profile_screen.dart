@@ -1,5 +1,7 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/logout.dart';
+import 'package:dating_app_bilhalal/presentation/guide/guide_controller.dart';
+import 'package:dating_app_bilhalal/presentation/navigation_screen/controller/bottom_bar_controller.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/controller/profile_controller.dart';
 import 'package:dating_app_bilhalal/presentation/settings_screen/controller/theme_controller.dart';
 import 'package:dating_app_bilhalal/presentation/terms_privacy_screen/privacy_policy_screen.dart';
@@ -325,8 +327,16 @@ class ProfileScreen extends StatelessWidget {
 
                 InkWell(
                   onTap: (){
-                    PrefUtils.setShowGuide(true);
-                    Get.offAllNamed(Routes.navigationScreen);
+                    GuideController.instance.resetGuide();
+                    //other method
+                  /*  PrefUtils.setHasSeenGuide(false); // réinitialise la préférence
+                    final bc = Get.find<BottomBarController>();
+                    bc.openGuideForIndex(bc.selectedIndex.value, autoHide: true); // ouvre immédiatement
+                    Get.snackbar("Guide", "Guide affiché à nouveau"); */
+
+                  //other 2
+                   // PrefUtils.setShowGuide(true);
+                   // Get.offAllNamed(Routes.navigationScreen);
                   },
                   child: TRoundedContainer(
                     showBorder: true,
@@ -339,8 +349,8 @@ class ProfileScreen extends StatelessWidget {
                       children: [
                         IconButton(
                           onPressed: () async {
-                            PrefUtils.setShowGuide(true);
-                            Get.offAllNamed(Routes.navigationScreen);
+                           // PrefUtils.setShowGuide(true);
+                           // Get.offAllNamed(Routes.navigationScreen);
                           },
                           icon: Icon(Icons.arrow_back_ios),
                           iconSize: 25.adaptSize,

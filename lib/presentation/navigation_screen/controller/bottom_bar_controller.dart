@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:dating_app_bilhalal/core/utils/popups/search_dating.dart';
 import 'package:dating_app_bilhalal/core/utils/pref_utils.dart';
 import 'package:dating_app_bilhalal/presentation/guide/app_guide_controller.dart';
@@ -6,6 +7,129 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+class BottomBarController extends GetxController {
+
+  static BottomBarController get instance => Get.find();
+  final mainController = Get.put(MainController());
+
+  // index bottom bar
+  RxInt selectedIndex = 0.obs;
+
+  // title exemple (ton usage existant)
+  RxString selectedCountryTitle = "الکل".obs;
+
+
+
+  void changeTabIndex(int index) {
+    selectedIndex.value = index;
+    // open guide for this index only if user asked (we open automatically on first load
+    // or when user taps the "show guide again" in settings)
+    openGuideForIndex(index, autoHide: true);
+  }
+
+  void updateCountryTitle() {
+    if (mainController.selectedCountries.isEmpty || mainController.selectedCountries.contains("الکل")) {
+      selectedCountryTitle.value = "الکل";
+    } else if (mainController.selectedCountries.length == 1) {
+      selectedCountryTitle.value = mainController.selectedCountries.first;
+    } else {
+      selectedCountryTitle.value = "عدة دول";
+    }
+    debugPrint('update Country Title : ${selectedCountryTitle.value}');
+  }
+
+  void openSearchDialog() {
+
+    Future.delayed(Duration.zero, () {
+      SearchDating.openDialogFilterByPays(mainController); // 👈 appelé uniquement quand onglet "main"
+    });
+  }
+
+  // Guide related
+  RxBool showGuide = false.obs;
+  RxBool showArrow = false.obs;
+  RxInt currentSlideIndex = 0.obs;
+
+  // slides per tab (modifiable, localizable)
+  final List<List<String>> guideSlides = [
+    ["بحث: استخدم المرشحات للعثور على المستخدمين حسب البلد.", "اسحب لليمين أو لليسار لتصفح المستخدمين."],
+    ["محادثة: افتح المحادثات وابدأ الحديث."],
+    ["الکل: اسحب لرؤية المستخدمين. اضغط للإطلاع على الملف."],
+    ["المفضلة: هنا تجد مستخدميك المفضلين."],
+    ["الملف: حرر معلوماتك الشخصية.", "تأكد من إضافة صورة و بایو جيد."],
+  ];
+
+  Timer? _autoHideTimer;
+  final int guideAutoHideSeconds = 12;
+
+  /// Call this from binding init once
+  Future<void> initGuideAutoShowIfNeeded() async {
+    // show guide by default the FIRST time, unless stored
+    final hasSeen = PrefUtils.hasSeenGuide();
+    if (!hasSeen) {
+      // small delay to ensure UI ready
+      Future.delayed(Duration(milliseconds: 300), () {
+        openGuideForIndex(selectedIndex.value, autoHide: true);
+        PrefUtils.setHasSeenGuide(true);
+      });
+    }
+  }
+
+  void openGuideForIndex(int idx, {bool autoHide = true}) {
+    if (idx < 0 || idx >= guideSlides.length) return;
+    selectedIndex.value = idx;
+    currentSlideIndex.value = 0;
+    showGuide.value = true;
+    showArrow.value = true;
+
+    _autoHideTimer?.cancel();
+    if (autoHide) {
+      _autoHideTimer = Timer(Duration(seconds: guideAutoHideSeconds), closeGuide);
+    }
+  }
+
+  void closeGuide() {
+    _autoHideTimer?.cancel();
+    showGuide.value = false;
+    showArrow.value = false;
+  }
+
+  void nextGuideAction() {
+    final slides = guideSlides[selectedIndex.value];
+    if (currentSlideIndex.value < slides.length - 1) {
+      currentSlideIndex.value++;
+    } else {
+      // last slide: move to next tab if exists
+      if (selectedIndex.value < guideSlides.length - 1) {
+        final nextIndex = selectedIndex.value + 1;
+        selectedIndex.value = nextIndex;
+        currentSlideIndex.value = 0;
+        // open next guide
+        openGuideForIndex(nextIndex, autoHide: true);
+      } else {
+        closeGuide();
+      }
+    }
+    _autoHideTimer?.cancel();
+    _autoHideTimer = Timer(Duration(seconds: guideAutoHideSeconds), closeGuide);
+  }
+
+  void prevGuideAction() {
+    if (currentSlideIndex.value > 0) {
+      currentSlideIndex.value--;
+      _autoHideTimer?.cancel();
+      _autoHideTimer = Timer(Duration(seconds: guideAutoHideSeconds), closeGuide);
+    }
+  }
+
+  @override
+  void onClose() {
+    _autoHideTimer?.cancel();
+    super.onClose();
+  }
+}
+
+/*
 class BottomBarController extends GetxController {
   static BottomBarController get instance => Get.find();
   final mainController = Get.put(MainController());
@@ -211,3 +335,4 @@ class BottomBarController extends GetxController {
   }
  */
 }
+*/
