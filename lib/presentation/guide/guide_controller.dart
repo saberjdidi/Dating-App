@@ -1,13 +1,11 @@
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-
-import 'package:get/get.dart';
+//import 'package:get_storage/get_storage.dart';
 import '../../core/utils/pref_utils.dart';
 import '../navigation_screen/controller/bottom_bar_controller.dart';
 
 class GuideController extends GetxController {
   static GuideController get instance => Get.find();
-
+  //final storage = GetStorage();
   var showGuide = false.obs;
   var currentStep = 0.obs;
   var currentGuidePage = 0.obs;
@@ -27,12 +25,22 @@ class GuideController extends GetxController {
     if (!hasSeen && PrefUtils.getShowGuide()) {
       showGuide.value = true;
     }
+    //using GetStorage
+   /* final hasSeenGuide = storage.read('hasSeenGuide') ?? false;
+    if (!hasSeenGuide) {
+      showGuide.value = true;
+    } */
   }
 
   void markGuideAsSeen() async {
     await PrefUtils.setHasSeenGuide(true);
     showGuide.value = false;
   }
+  //using GetStorage
+ /* void markGuideAsSeen() {
+    storage.write('hasSeenGuide', true);
+    showGuide.value = false;
+  } */
 
   void resetGuide() async {
     await PrefUtils.setHasSeenGuide(false);
@@ -41,6 +49,12 @@ class GuideController extends GetxController {
     currentGuidePage.value = 0;
     showGuide.value = true;
   }
+  //using GetStorage
+/*  void resetGuide() {
+    storage.write('hasSeenGuide', false);
+    showGuide.value = true;
+    currentStep.value = 0;
+  } */
 
   /// Aller à l’étape suivante (si la dernière → aller à la page suivante)
   void nextStep(List<String> guideTexts) {

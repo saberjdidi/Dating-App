@@ -330,7 +330,7 @@ class ProfileScreen extends StatelessWidget {
                     await PrefUtils.setHasSeenGuide(false);
                     await PrefUtils.setShowGuide(true);
                     GuideController.instance.resetGuide();
-                    Get.snackbar("Guide", "Le guide est réaffiché");
+                    Get.snackbar("Guide", "Le guide est affiché");
                   },
                  /* onTap: (){
                     GuideController.instance.resetGuide();
