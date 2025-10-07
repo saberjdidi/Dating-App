@@ -51,13 +51,13 @@ class AppRoutes {
 
   GetPage(
   name: Routes.splashScreen,
-  page: () => const SplashScreen(),
+  page: () => SplashScreen(),
   bindings: [
     SplashBinding(),
   ]),
     GetPage(
       name: Routes.initialRoute,
-      page: () => const SplashScreen(),
+      page: () => SplashScreen(),
       bindings: [
         SplashBinding(),
       ],

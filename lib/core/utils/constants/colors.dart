@@ -38,10 +38,15 @@ class TColors {
   // Background colors
   static const Color white = Color(0xFFFFFFFF);
   static const Color light = Color(0xFFF6F6F6);
-  static const Color dark = Color(0xFF272727);
+  static const Color dark = Color(0xFF1F1F20);
+  //static const Color dark = Color(0xFF272727);
   static const Color primaryBackground = Color(0xFFF3F5FF);
   static const Color lightGrey = Color(0xFFF9F9F9);
 
+
+  // Border colors
+  static const Color borderPrimary = Color(0xFFD9D9D9);
+  static const Color borderSecondary = Color(0xFFE6E6E6);
 
   // Error and validation colors
   static const Color error = Color(0xFFD32F2F);
@@ -97,9 +102,6 @@ class TColors {
   static const Color lightContainer = Color(0xFFF7F9FC); //Color(0xFFF6F6F6);
   static Color darkContainer = TColors.white.withOpacity(0.1);
 
-  // Border colors
-  static const Color borderPrimary = Color(0xFFD9D9D9);
-  static const Color borderSecondary = Color(0xFFE6E6E6);
 
 
 }

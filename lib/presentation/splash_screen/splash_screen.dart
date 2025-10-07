@@ -5,7 +5,9 @@ import 'package:dating_app_bilhalal/widgets/gradient_text.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends GetWidget<SplashController> {
-  const SplashScreen({Key? key}) : super(key: key);
+  SplashScreen({Key? key}) : super(key: key);
+
+  var _appTheme = PrefUtils.getTheme();
 
   @override Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
@@ -16,7 +18,7 @@ class SplashScreen extends GetWidget<SplashController> {
 
     return Container(
       decoration: BoxDecoration(
-        color: TColors.white
+        color: _appTheme =='light' ? TColors.white : TColors.dark
       ),
       child: Center(
         //child: Image.asset(ImageConstant.logo),

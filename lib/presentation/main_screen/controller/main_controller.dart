@@ -12,11 +12,6 @@ class MainController extends GetxController {
   final RxList<UserModel> users = <UserModel>[].obs;
   var selectedCountries = <String>[].obs;
 
-  final CardSwiperController swiperController = CardSwiperController();
-  final RxDouble progress = 0.0.obs;
-  //Timer? autoSwipeTimer;
-  Timer? progressTimer;
-
   @override
   void onInit() {
     super.onInit();
@@ -25,51 +20,6 @@ class MainController extends GetxController {
     Future.delayed(const Duration(seconds: 2), startAutoSwipe);
   }
 
-  void startAutoSwipe() {
-    stopAutoSwipe();
-
-    const swipeInterval = Duration(seconds: 10);
-    const tickInterval = Duration(milliseconds: 100);
-    const totalTicks = 10000 ~/ 100; // 10s -> 100 ticks
-
-    int tickCount = 0;
-    progress.value = 0;
-
-    progressTimer = Timer.periodic(tickInterval, (timer) {
-      tickCount++;
-      progress.value = tickCount / totalTicks;
-      if (tickCount >= totalTicks) {
-        timer.cancel();
-        swiperController.swipe(CardSwiperDirection.right);
-        startAutoSwipe(); // relance le cycle automatiquement
-      }
-    });
-  }
-
-  //without progress timer
- /* void startAutoSwipe() {
-    // 🔁 Swipe automatique toutes les 10 secondes
-    autoSwipeTimer = Timer.periodic(const Duration(seconds: 8), (timer) {
-      swiperController.swipe(CardSwiperDirection.right);
-    });
-  } */
-
-  void stopAutoSwipe() {
-    //autoSwipeTimer?.cancel();
-    progressTimer?.cancel(); //if add progess timer
-  }
-
-  /// 🔁 Appelé après chaque swipe (manuel ou auto)
-  void onSwipe() {
-    stopAutoSwipe();
-    startAutoSwipe();
-  }
-
-  @override
-  void onClose() {
-    stopAutoSwipe();
-    super.onClose();
-  }
 /*
   @override
   void onReady() {
@@ -132,4 +82,56 @@ class MainController extends GetxController {
       }
       debugPrint('selectedCountryTitle : ${selectedCountryTitle.value}');
   }
+
+  ///LinearProgressIndicator Start
+  final CardSwiperController swiperController = CardSwiperController();
+  final RxDouble progress = 0.0.obs;
+  //Timer? autoSwipeTimer;
+  Timer? progressTimer;
+  void startAutoSwipe() {
+    stopAutoSwipe();
+
+    const swipeInterval = Duration(seconds: 10);
+    const tickInterval = Duration(milliseconds: 100);
+    const totalTicks = 10000 ~/ 100; // 10s -> 100 ticks
+
+    int tickCount = 0;
+    progress.value = 0;
+
+    progressTimer = Timer.periodic(tickInterval, (timer) {
+      tickCount++;
+      progress.value = tickCount / totalTicks;
+      if (tickCount >= totalTicks) {
+        timer.cancel();
+        swiperController.swipe(CardSwiperDirection.right);
+        startAutoSwipe(); // relance le cycle automatiquement
+      }
+    });
+  }
+
+  //without progress timer
+  /* void startAutoSwipe() {
+    // 🔁 Swipe automatique toutes les 10 secondes
+    autoSwipeTimer = Timer.periodic(const Duration(seconds: 8), (timer) {
+      swiperController.swipe(CardSwiperDirection.right);
+    });
+  } */
+
+  void stopAutoSwipe() {
+    //autoSwipeTimer?.cancel();
+    progressTimer?.cancel(); //if add progess timer
+  }
+
+  /// 🔁 Appelé après chaque swipe (manuel ou auto)
+  void onSwipe() {
+    stopAutoSwipe();
+    startAutoSwipe();
+  }
+
+  @override
+  void onClose() {
+    stopAutoSwipe();
+    super.onClose();
+  }
+///LinearProgressIndicator End
 }
