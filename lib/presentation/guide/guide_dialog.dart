@@ -58,6 +58,12 @@ class GuideBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    mediaQueryData = MediaQuery.of(context);
+    var screenWidth = mediaQueryData.size.width;
+    var screenHeight = mediaQueryData.size.height;
+    var isSmallPhone = screenWidth < 360;
+    var isTablet = screenWidth >= 600;
+
     return Obx(() {
       return AnimatedScale(
         scale: 1,
@@ -89,8 +95,8 @@ class GuideBubble extends StatelessWidget {
                   child: Text(
                     text,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 16,
+                    style: TextStyle(
+                      fontSize: isTablet ? 19 : 16,
                       color: Colors.black87,
                     ),
                   ),

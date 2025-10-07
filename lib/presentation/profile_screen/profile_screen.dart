@@ -21,7 +21,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
     var screenWidth = mediaQueryData.size.width;
-    var screenheight = mediaQueryData.size.height;
+    var screenHeight = mediaQueryData.size.height;
     var isSmallPhone = screenWidth < 360;
     var isTablet = screenWidth >= 600;
 

@@ -47,7 +47,7 @@ class MainScreen extends GetView<MainController> {
                   return UserCardWidget(
                     user: user,
                     onMessageTap: () async {
-                      await dialogSearchByCountry(context);
+                      //await dialogSearchByCountry(context);
                     },
                     onFavoriteTap: () => debugPrint("Favorite ${user.fullName}"),
                    /* onTapFilter: () async {
@@ -88,12 +88,11 @@ class MainScreen extends GetView<MainController> {
     );
   }
 
+  /*
   dialogSearchByCountry(BuildContext context) async {
     var screenWidth = MediaQuery.of(context).size.width;
     var isSmallPhone = screenWidth < 360;
     var isTablet = screenWidth >= 600;
-
-    //controller.searchVilleController.clear();
 
     await Dialogs.customModalBottomSheet(
         context,
@@ -102,14 +101,6 @@ class MainScreen extends GetView<MainController> {
           padding: EdgeInsets.symmetric(horizontal: 10.fSize, vertical: TSizes.spaceBtwItems.fSize),
           child: ListBody(
             children: <Widget>[
-           /*   Center(
-                child: InkWell(
-                    onTap: (){
-                      Navigator.pop(context);
-                    },
-                    child: Icon(Icons.keyboard_arrow_down_rounded, color: TColors.textSecondary, size: 40.adaptSize,)
-                ),
-              ), */
               SizedBox(height: TSizes.spaceBtwSections.adaptSize),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.adaptSize),
@@ -155,4 +146,5 @@ class MainScreen extends GetView<MainController> {
         )
     );
   }
+  */
 }

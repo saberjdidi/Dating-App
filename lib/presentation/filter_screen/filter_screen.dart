@@ -10,6 +10,7 @@ import 'package:dating_app_bilhalal/widgets/account/interest_widget.dart';
 import 'package:dating_app_bilhalal/widgets/custom_drop_down.dart';
 import 'package:dating_app_bilhalal/widgets/custom_text_form_field.dart';
 import 'package:dating_app_bilhalal/widgets/form_divider_widget.dart';
+import 'package:dating_app_bilhalal/widgets/home/animated_gradient_progress.dart';
 import 'package:dating_app_bilhalal/widgets/home/pays_widget.dart';
 import 'package:dating_app_bilhalal/widgets/home/user_card_widget.dart';
 import 'package:dating_app_bilhalal/widgets/multi_select_dopdown.dart';
@@ -28,34 +29,55 @@ class FilterScreen extends StatelessWidget {
 
     return Scaffold(
       //appBar: AppBar(title: const Text("Dating App")),
-      body: Obx(() {
-        if (controller.users.isEmpty) {
-          return const Center(child: CircularProgressIndicator());
-        }
+      body: Stack(
+        children: [
+          Obx(() {
+            if (controller.users.isEmpty) {
+              return const Center(child: CircularProgressIndicator());
+            }
 
-        return CardSwiper(
-          cardsCount: controller.users.length,
-          numberOfCardsDisplayed: 1,
-          isLoop: true,
-          padding: EdgeInsets.zero,
-          //maxAngle: 30,
-          cardBuilder: (context, index, percentX, percentY) {
-            final user = controller.users[index];
-            return UserCardWidget(
-              user: user,
-              onMessageTap: () async {
-                debugPrint("message ${user.fullName}");
+            return CardSwiper(
+              controller: controller.swiperController,
+              cardsCount: controller.users.length,
+              numberOfCardsDisplayed: 1,
+              isLoop: true,
+              padding: EdgeInsets.zero,
+              //Auto Swiper with timer
+              onSwipe: (previousIndex, currentIndex, direction) {
+                // ✅ Lorsqu’on swipe manuellement, on relance le timer
+                controller.onSwipe();
+                return true;
               },
-              onFavoriteTap: () async {
+              //maxAngle: 30,
+              cardBuilder: (context, index, percentX, percentY) {
+                final user = controller.users[index];
+                return UserCardWidget(
+                  user: user,
+                  onMessageTap: () async {
+                    debugPrint("message ${user.fullName}");
+                  },
+                  onFavoriteTap: () async {
 
+                  },
+                /*  onTapFilter: () async {
+                    await dialogSearch(context);
+                  }, */
+                );
               },
-            /*  onTapFilter: () async {
-                await dialogSearch(context);
-              }, */
             );
-          },
-        );
-      }),
+          }),
+
+          // ✅ Barre de progression animée
+          Positioned(
+            top: MediaQuery.of(context).padding.top + 10,
+            left: 20,
+            right: 20,
+            child: Obx(() => AnimatedGradientProgressWidget(
+              progress: controller.progress.value,
+            )),
+          ),
+        ],
+      ),
     );
   }
 
