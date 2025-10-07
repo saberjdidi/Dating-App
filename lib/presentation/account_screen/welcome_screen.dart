@@ -37,7 +37,7 @@ class WelcomeScreen extends GetWidget<WelcomeController> {
                 Center(child: TitleWidget(title: "مرحباً بكم في", textAlign: TextAlign.center,)),
                 GradientText(
                   text: "بالحلال",
-                  fontSize: 30.adaptSize,
+                  fontSize: 32.adaptSize,
                   textAlign: TextAlign.center,
                   gradient: const LinearGradient(
                     colors: [TColors.yellowAppLight, TColors.yellowAppDark], // green gradient

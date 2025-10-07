@@ -116,7 +116,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: isTablet ? 17.adaptSize : 15.adaptSize,
+                                    fontSize: isTablet ? 17.adaptSize : 16.adaptSize,
                                   ),
                                 ),
                               ],
@@ -140,7 +140,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: isTablet ? 17.adaptSize : 15.adaptSize,
+                                    fontSize: isTablet ? 17.adaptSize : 16.adaptSize,
                                   ),
                                 ),
                               ],

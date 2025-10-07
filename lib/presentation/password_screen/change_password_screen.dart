@@ -79,13 +79,13 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
                               textInputAction: TextInputAction.done,
                               textInputType: TextInputType.visiblePassword,
                               prefixConstraints: BoxConstraints(maxHeight: 60.v),
-                              suffix: InkWell(onTap: () {controller.isShowPassword.value = !controller.isShowPassword.value;},
+                             /* suffix: InkWell(onTap: () {controller.isShowPassword.value = !controller.isShowPassword.value;},
                                   child: Container(margin: EdgeInsets.fromLTRB(30.hw, 20.v, 20.hw, 20.v),
                                       child: CustomImageView(
                                           imagePath: ImageConstant.imgEye,
                                           height: 20.adaptSize,
                                           width: 20.adaptSize)
-                                  )),
+                                  )), */
                               suffixConstraints: BoxConstraints(maxHeight: 60.v),
                               validator: (value) => Validator.validateEmptyText("Confirm Password".tr, value),
                               obscureText: controller.isShowPassword.value,

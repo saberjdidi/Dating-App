@@ -14,12 +14,20 @@ class GuideController extends GetxController {
   var currentGuidePage = 0.obs;
   final CarouselController carouselController = CarouselController();
 
-  final Map<int, List<String>> pageGuides = {
+  final Map<int, List<String>> pageGuidesFr = {
     0: ["Page d'accueil", "Découvrez les fonctionnalités ici", "Swipe à gauche et à droite pour voir tous les utilisateurs"],
     1: ["Discussion", "Gérez une discussion avec vos amis", "Partagez votre connaissance"],
     2: ["Filtre", "Rechercher utilisateurs par pays", "Utilisez les filtres avancés"],
     3: ["Favoris", "Voir vos utilisateurs préférés", "Gérez vos favoris"],
     4: ["Profil", "Paramétrez votre compte", "Modifiez vos informations personnelles"],
+  };
+  // tes guides
+  final Map<int, List<String>> pageGuides = {
+    0: ["مرحبا بك 👋", "هنا يمكنك البحث عن العروض", "قم بالتمرير للأعلى و الأسفل لرؤية المزيد من الملفات الشخصية", "يمكنك البحث باستخدام العديد من الميزات", "انقر على الصورة لرؤية تفاصيل الملف الشخصي"],
+    1: ["هنا يمكنك الدردشة 💬", "تحدث مع المستخدمين الآخرين بسهولة", "يمكنك إجراء مكالمة هاتفية أو من خلال الكاميرا"],
+    2: ["الصفحة الرئيسية 🏠", "تصفح جميع الأقسام والعروض", "قم بالتمرير على اليمين والشمال لرؤية المزيد من الملفات الشخصية", "يمكنك البحث حسب البلد"],
+    3: ["صفحة المفضلات ❤️", "يمكنك مشاهدة العناصر المحفوظة هنا", "يمكنك مشاهدة الصور والفيديوهات المحفوظة هنا"],
+    4: ["الملف الشخصي 👤", "قم بتحديث معلوماتك الشخصية هنا", "يمكنك تغيير المظهر"],
   };
 
   @override
@@ -146,48 +154,3 @@ class GuideController extends GetxController {
     }
   } */
 }
-
-/*
-class GuideController extends GetxController {
-  static GuideController get instance => Get.find();
-  final storage = GetStorage();
-  var showGuide = false.obs;
-  var currentStep = 0.obs;
-
-  final Map<int, List<String>> pageGuides = {
-    0: ["Page d'accueil", "Découvrez les fonctionnalités ici", "Swipe à gauche et à droite pour voir tous les utilisateurs"],
-    1: ["Discussion", "Gérez une discussion avec vos amis", "partagez votre connaissance avec vos amis"],
-    2: ["Filter", "Rechercher utilisateurs par pays",  "Swipe en haut et en bas pour voir les utilisateurs"],
-    3: ["Votre Favoris", "Modifiez vos informations personnelles", "voir les users et media on favoris"],
-    4: ["Settings", "Paramétrer votre compte", "Modifiez vos informations personnelles"],
-  };
-
-  @override
-  void onInit() {
-    super.onInit();
-    final hasSeenGuide = storage.read('hasSeenGuide') ?? false;
-    if (!hasSeenGuide) {
-      showGuide.value = true;
-    }
-  }
-
-  void markGuideAsSeen() {
-    storage.write('hasSeenGuide', true);
-    showGuide.value = false;
-  }
-
-  void resetGuide() {
-    storage.write('hasSeenGuide', false);
-    showGuide.value = true;
-    currentStep.value = 0;
-  }
-
-  void nextStep(int totalSteps) {
-    if (currentStep.value < totalSteps - 1) {
-      currentStep.value++;
-    } else {
-      markGuideAsSeen();
-    }
-  }
-}
-*/

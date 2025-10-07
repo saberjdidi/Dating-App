@@ -115,7 +115,7 @@ class ChatUserProfileScreen extends GetView<UserChatProfileController> {
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                         color: Colors.black,
-                                        fontSize: isTablet ? 17.adaptSize : 15.adaptSize,
+                                        fontSize: isTablet ? 17.adaptSize : 16.adaptSize,
                                       ),
                                     ),
                                   ],
@@ -138,7 +138,7 @@ class ChatUserProfileScreen extends GetView<UserChatProfileController> {
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                         color: Colors.black,
-                                        fontSize: isTablet ? 17.adaptSize : 15.adaptSize,
+                                        fontSize: isTablet ? 17.adaptSize : 16.adaptSize,
                                       ),
                                     ),
                                   ],

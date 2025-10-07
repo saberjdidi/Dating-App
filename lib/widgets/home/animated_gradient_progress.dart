@@ -1,3 +1,4 @@
+import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:flutter/material.dart';
 
 class AnimatedGradientProgressWidget extends StatefulWidget {
@@ -54,8 +55,8 @@ class _AnimatedGradientProgressWidgetState extends State<AnimatedGradientProgres
                       begin: Alignment(-1.0 + _controller.value * 2, 0),
                       end: Alignment(1.0 + _controller.value * 2, 0),
                       colors: const [
-                        Color(0xFFFF6F61),
-                        Color(0xFFFF8E53),
+                        TColors.yellowAppLight,
+                        TColors.yellowAppDark,
                         Color(0xFFFF2D55),
                       ],
                     ).createShader(rect);
@@ -65,8 +66,8 @@ class _AnimatedGradientProgressWidgetState extends State<AnimatedGradientProgres
                     decoration: BoxDecoration(
                       gradient: const LinearGradient(
                         colors: [
-                          Color(0xFFFF6F61),
-                          Color(0xFFFF8E53),
+                          TColors.yellowAppLight,
+                          TColors.yellowAppDark,
                           Color(0xFFFF2D55),
                         ],
                       ),
