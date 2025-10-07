@@ -45,7 +45,7 @@ class TColors {
 
 
   // Border colors
-  static const Color borderPrimary = Color(0xFFD9D9D9);
+  static const Color whitePrimary = Color(0xFFD9D9D9);
   static const Color borderSecondary = Color(0xFFE6E6E6);
 
   // Error and validation colors

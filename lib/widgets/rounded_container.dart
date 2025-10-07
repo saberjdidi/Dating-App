@@ -11,7 +11,7 @@ class TRoundedContainer extends StatelessWidget {
     this.isBorderRadiusTop = false,
     this.child,
     this.showBorder = false,
-    this.borderColor = TColors.borderPrimary,
+    this.borderColor = TColors.whitePrimary,
     this.withBorder = 1.0,
     this.backgroundColor = TColors.white,
     this.margin,

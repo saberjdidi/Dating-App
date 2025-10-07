@@ -76,7 +76,8 @@ class SignUpScreen extends GetView<SignUpController> {
 
              SizedBox(height: 20.v),
             TitleWidget(title: "اشتراک",
-              color: _appTheme =='light' ? TColors.black : TColors.white,
+              color: _appTheme =='light' ? TColors.black : TColors.yellowAppDark,
+              fontSizeDelta: 2,
               textAlign: TextAlign.center,),
 
             SizedBox(height: 20.v),
@@ -87,7 +88,7 @@ class SignUpScreen extends GetView<SignUpController> {
               color1: TColors.yellowAppDark,
               color2: TColors.yellowAppLight,
               borderRadius: 10,
-              colorText: TColors.white,
+              colorText: _appTheme =='light' ? TColors.white : TColors.black,
               textAlign: TextAlign.center,
               fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
               height: isSmallPhone ? 80.v : 70.v,

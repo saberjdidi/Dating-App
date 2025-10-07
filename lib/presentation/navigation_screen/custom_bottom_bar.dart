@@ -64,7 +64,7 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
       return Container(
           height: 90.v,
           decoration: BoxDecoration(
-            color: isDark ? TColors.black : TColors.white,
+            color: isDark ? TColors.dark : TColors.white,
             //color: theme.colorScheme.onErrorContainer,
             borderRadius: BorderRadius.vertical(
               top: Radius.circular(16.hw),

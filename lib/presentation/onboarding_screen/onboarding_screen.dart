@@ -36,7 +36,7 @@ class OnBoardingScreen extends StatelessWidget {
               itemCount: onBoardingList.length,
               options: CarouselOptions(
                 height: screenHeight * 0.7,
-                viewportFraction: isTablet ? 0.6 : 0.7, // 80% image centrale + 10% gauche/droite
+                viewportFraction: isTablet ? 0.6 : 0.65, // 80% image centrale + 10% gauche/droite
                 enlargeCenterPage: true,
                 autoPlay: true,
                 onPageChanged: (index, reason) {
@@ -238,7 +238,7 @@ class OnBoardingScreen extends StatelessWidget {
       ), */
 
       bottomNavigationBar: SizedBox(
-        height: screenHeight * 0.17,
+        height: screenHeight * 0.19,
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -258,7 +258,7 @@ class OnBoardingScreen extends StatelessWidget {
                   color1: TColors.yellowAppDark,
                   color2: TColors.yellowAppLight,
                   borderRadius: 10,
-                  colorText: TColors.white,
+                  colorText: _appTheme =='light' ? TColors.white : TColors.black,
                   fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
                   height: isSmallPhone ? 80.v : 70.v,
                   width: screenWidth * 0.8,
@@ -281,7 +281,7 @@ class OnBoardingScreen extends StatelessWidget {
                             child: Text("هل لديك حساب سابق؟ ",
                                 style:  isTablet
                                     ? Theme.of(context).textTheme.titleMedium!.apply(color: _appTheme =='light' ?  TColors.gray700 : TColors.white)
-                                    : CustomTextStyles.bodyMediumTextFormFieldGrey)
+                                    : _appTheme =='light' ?  CustomTextStyles.bodyMediumTextFormFieldGrey : CustomTextStyles.bodyMediumTextFormFieldWhite)
                         ),
                         GestureDetector(
                             onTap: () async {

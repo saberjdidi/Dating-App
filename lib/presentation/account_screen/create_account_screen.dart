@@ -185,7 +185,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               color1: TColors.yellowAppDark,
               color2: TColors.yellowAppLight,
               borderRadius: 10,
-              colorText: TColors.white,
+              colorText: _appTheme =='light' ? TColors.white : TColors.black,
               fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
               height: isSmallPhone ? 80.v : 70.v,
               width: screenWidth * 0.8,
@@ -221,7 +221,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             Align(
                 alignment: Alignment.topRight,
                 child: TitleWidget(title: "التفاصيل الأساسية".tr,
-                color: _appTheme =='light' ? TColors.black : TColors.white,)
+                color: _appTheme =='light' ? TColors.black : TColors.yellowAppDark,)
             ),
             Align(
                 alignment: Alignment.topRight,
@@ -229,18 +229,6 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                     color:  _appTheme =='light' ? TColors.gray700 : TColors.white)
             ),
             SizedBox(height: TSizes.spaceBtwSections.v),
-            /*  CustomTextFormField(
-              enabled: true,
-              controller: controller.emailController,
-              hintText: "lbl_email".tr,
-              textInputType: TextInputType.text,
-              prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
-                  child: Icon(Iconsax.user_octagon)
-              ),
-              prefixConstraints: BoxConstraints(maxHeight: 60.v),
-              contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, bottom: 21.v),
-            ),
-            const SizedBox(height: TSizes.spaceBtwSections,), */
             CustomTextFormField(
               controller: controller.fullNameController,
               hintText: "${'الاسم الكامل'.tr} *",
@@ -267,6 +255,9 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                 }
                 return null;
               },
+              fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
+              hintStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSemiBoldBlack : CustomTextStyles.titleMediumSemiBoldWhite,
+              textStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
             ),
           /// --- Compteur sous le champ
             Align(
@@ -303,6 +294,9 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
               //validator: (value) => Validator.validateEmptyText('${'lbl_firstName'.tr}', value),
               validator: (value) => value == null || value.isEmpty ? "البایو مطلوب" : null,
+              fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
+              hintStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSemiBoldBlack : CustomTextStyles.titleMediumSemiBoldWhite,
+              textStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
             ),
             /// --- Compteur sous le champ
             Align(
@@ -358,6 +352,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                   TRoundedContainer(
                       showBorder: true,
                       borderColor: TColors.greyDating,
+                      backgroundColor: _appTheme =='light' ? TColors.white : TColors.dark,
                       padding: EdgeInsets.symmetric(horizontal: 35.v, vertical: 13.v),
                       child: Row(
                         children: [
@@ -375,7 +370,9 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                               return Colors.grey; // Cercle inactif gris
                             }),
                           ),
-                          SubTitleWidget(subtitle: 'امراة', color: TColors.black, fontSizeDelta: 2, fontWeightDelta: 2),
+                          SubTitleWidget(subtitle: 'امراة',
+                              color: _appTheme =='light' ? TColors.black : TColors.white,
+                              fontSizeDelta: 2, fontWeightDelta: 2),
                           //TitleWidget(title: 'امراة',),
                         ],
                       )
@@ -384,6 +381,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                   TRoundedContainer(
                       showBorder: true,
                       borderColor: TColors.greyDating,
+                      backgroundColor: _appTheme =='light' ? TColors.white : TColors.dark,
                       padding: EdgeInsets.symmetric(horizontal: 35.v, vertical: 13.v),
                       child: Row(
                         children: [
@@ -401,7 +399,9 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                               return Colors.grey;
                             }),
                           ),
-                          SubTitleWidget(subtitle: 'رجل', color: TColors.black, fontSizeDelta: 2, fontWeightDelta: 2),
+                          SubTitleWidget(subtitle: 'رجل',
+                              color: _appTheme =='light' ? TColors.black : TColors.white,
+                              fontSizeDelta: 2, fontWeightDelta: 2),
                           //TitleWidget(title: 'رجل',),
                         ],
                       )
@@ -591,7 +591,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             Align(
                 alignment: Alignment.topRight,
                 child: TitleWidget(title: "تفاصيل إضافية".tr,
-                  color:  _appTheme =='light' ? TColors.black : TColors.white,)
+                  color:  _appTheme =='light' ? TColors.black : TColors.yellowAppDark,)
             ),
             Align(
                 alignment: Alignment.topRight,
@@ -600,9 +600,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             ),
             SizedBox(height: TSizes.spaceBtwSections.v),
             CustomDropDown(
-              fillColor: TColors.white, //appTheme.gray50
               //textStyle: TextStyle(color: appTheme.black),
-              hintStyle: CustomTextStyles.bodyMediumTextFormField,
               //prefix: Icon(Iconsax.activity, color: appTheme.black, size: 27.adaptSize),
               hintText: "${'الحالة الاجتماعية'.tr} *",
               items: ListMaritalStatus.value,
@@ -619,17 +617,18 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                 return null;
               },
               focusNode: controller.maritalStatusFocus,
-              themeColor: appTheme.gray50,
               borderRadius: 15.hw,
               icon: Icon(Iconsax.arrow_down_1),
               contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
+              fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
+              hintStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
+              textStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
+              themeColor:_appTheme =='light' ?  appTheme.gray50 : TColors.darkerGrey,
             ),
             SizedBox(height: TSizes.spaceBtwItems.v),
 
             CustomDropDown(
-              fillColor: TColors.white, //appTheme.gray50
               //textStyle: TextStyle(color: appTheme.black),
-              hintStyle: CustomTextStyles.bodyMediumTextFormField,
               //prefix: Icon(Iconsax.activity, color: appTheme.black, size: 27.adaptSize),
               hintText: "${'نوع الزواج'.tr} *",
               items: ListLookingFor.value,
@@ -645,11 +644,14 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                 }
                 return null;
               },
-              themeColor: appTheme.gray50,
               focusNode: controller.lookingForFocus,
               icon: Icon(Iconsax.arrow_down_1),
               borderRadius: 15.hw,
               contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
+              fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
+              hintStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
+              textStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
+              themeColor:_appTheme =='light' ?  appTheme.gray50 : TColors.darkerGrey,
             ),
             SizedBox(height: TSizes.spaceBtwItems.v),
 
@@ -671,6 +673,9 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               prefixConstraints: BoxConstraints(maxHeight: 60.v),
               contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
               validator: (value) => Validator.validateEmptyText('${'Job'.tr}', value),
+              fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
+              hintStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSemiBoldBlack : CustomTextStyles.titleMediumSemiBoldWhite,
+              textStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
             ),
             Align(
               alignment: Alignment.topLeft,
@@ -689,8 +694,6 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             SizedBox(height: TSizes.spaceBtwItems.v),
 
             CustomDropDownCountry(
-              fillColor: TColors.white,
-              hintStyle: CustomTextStyles.bodyMediumTextFormField,
               hintText: "${'دولة'.tr} *",
               items: PaysList.value,
               selectedValue: controller.selectedPays.value,
@@ -705,11 +708,14 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                 }
                 return null;
               },
-              themeColor: appTheme.gray50,
               focusNode: controller.paysFocus,
               icon: Icon(Iconsax.arrow_down_1),
               borderRadius: 15.hw,
               contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
+              fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
+              hintStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
+              textStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
+              themeColor:_appTheme =='light' ?  appTheme.gray50 : TColors.darkerGrey,
               //alignment: Alignment.topLeft
             ),
 
@@ -803,7 +809,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             Align(
                 alignment: Alignment.topRight,
                 child: TitleWidget(title: "أضف ميزة".tr,
-                  color:  _appTheme =='light' ? TColors.black : TColors.white,
+                  color:  _appTheme =='light' ? TColors.black : TColors.yellowAppDark,
                   textAlign: TextAlign.end,)
             ),
             Align(
@@ -870,7 +876,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
           Align(
               alignment: Alignment.topRight,
               child: TitleWidget(title: "أضف صورة الملف الشخصي/الفيديو".tr,
-                  color:  _appTheme =='light' ? TColors.black : TColors.white,
+                  color:  _appTheme =='light' ? TColors.black : TColors.yellowAppDark,
                 textAlign: TextAlign.end,
               )
           ),

@@ -53,7 +53,7 @@ class OTPScreen extends GetView<OTPController> {
               ),
               SizedBox(height: TSizes.spaceBtwItems),
               Center(child: TitleWidget(title: "التحقق من حسابك",
-                color:  _appTheme =='light' ? TColors.black : TColors.white,
+                color:  _appTheme =='light' ? TColors.black : TColors.yellowAppDark,
                 textAlign: TextAlign.center,)),
               Directionality(
                 textDirection: TextDirection.rtl,
@@ -92,7 +92,7 @@ class OTPScreen extends GetView<OTPController> {
                   },
                   currentCode: controller.otpCode.value,
                   decoration: UnderlineDecoration(
-                    textStyle: TextStyle(fontSize: 20,
+                    textStyle: TextStyle(fontSize: 30,
                         color: _appTheme =='light' ? TColors.buttonSecondary : TColors.white),
                     colorBuilder: PinListenColorBuilder(
                         TColors.yellowAppDark, TColors.buttonSecondary), // ligne grise
@@ -142,8 +142,8 @@ class OTPScreen extends GetView<OTPController> {
                                     //style: CustomTextStyles.titleMediumBlueVPT
                                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
                                       color: _appTheme =='light' ? TColors.black : TColors.white,
-                                      fontSize: 16.fSize,
-                                      fontWeight: FontWeight.w600,
+                                      fontSize: 18.fSize,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   )
                               )
@@ -153,7 +153,7 @@ class OTPScreen extends GetView<OTPController> {
                   )
                 ],
               ),
-              SizedBox(height: 20.v),
+              SizedBox(height: 50.v),
               Center(
                 child: CustomButtonContainer(
                   text: "يكمل",
@@ -172,25 +172,28 @@ class OTPScreen extends GetView<OTPController> {
               ),
               SizedBox(height: 15.v,),
               //if(controller.levelClock.value == 0)
-                Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: CustomOutlinedButton(
-                    buttonTextStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormFieldBold : CustomTextStyles.titleLargeWhite,
-                    buttonStyle: _appTheme =='light' ? CustomButtonStyles.outlineBlack : CustomButtonStyles.outlineWhite,
-                    text: "إعادة إرسال OTP",
-                    margin: EdgeInsets.only(top: 6.hw),
-                    borderRadius: 100.hw,
-                    height: isSmallPhone ? 80.v : 70.v,
-                    width: Get.width,
-                    onPressed: (){
-                      //?  use this code to get sms signature for your app
-                      //final String signature = await SmsAutoFill().getAppSignature;
-                      //print("Signature: $signature");
+                Visibility(
+                  visible: false,
+                  child: Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: CustomOutlinedButton(
+                      buttonTextStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormFieldBold : CustomTextStyles.titleLargeWhite,
+                      buttonStyle: _appTheme =='light' ? CustomButtonStyles.outlineBlack : CustomButtonStyles.outlineWhite,
+                      text: "إعادة إرسال OTP",
+                      margin: EdgeInsets.only(top: 6.hw),
+                      borderRadius: 100.hw,
+                      height: isSmallPhone ? 80.v : 70.v,
+                      width: Get.width,
+                      onPressed: (){
+                        //?  use this code to get sms signature for your app
+                        //final String signature = await SmsAutoFill().getAppSignature;
+                        //print("Signature: $signature");
 
-                      controller.animationController?.reset();
-                      controller.animationController?.forward();
-                      //_animationController!.forward();
-                    },
+                        controller.animationController?.reset();
+                        controller.animationController?.forward();
+                        //_animationController!.forward();
+                      },
+                    ),
                   ),
                 ),
             ],

@@ -14,6 +14,7 @@ class OnBoardingDotNavigation extends StatelessWidget {
 
     final controller = OnBoardingController.instance;
     final dark = THelperFunctions.isDarkMode(context);
+    var _appTheme = PrefUtils.getTheme();
 
     return Align(
       //bottom: TDeviceUtils.getBottomNavigationBarHeight(),
@@ -25,7 +26,7 @@ class OnBoardingDotNavigation extends StatelessWidget {
           spacing: 6,
           activeDotColor: TColors.yellowAppDark,
           //activeDotColor: theme.colorScheme.primary,
-          dotColor: TColors.greyDating,
+          dotColor: _appTheme =='light' ? TColors.greyDating : TColors.darkGrey,
           dotHeight: 8.adaptSize,
           dotWidth: 8.adaptSize,
           offset: 8.adaptSize

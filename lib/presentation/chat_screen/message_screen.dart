@@ -273,9 +273,9 @@ class MessageScreen extends GetView<MessageController> {
                     size: 60.adaptSize,
                     minTapSize: 60.adaptSize,
                     effectiveSize: 60.adaptSize,
-                    backgroundColor: TColors.greyDating,
+                    backgroundColor: _appTheme =='light' ? TColors.greyDating : TColors.blackGrey,
                     child: IconButton(
-                        icon: Icon(Icons.add, color: TColors.buttonSecondary, size: 30.adaptSize,),
+                        icon: Icon(Icons.add, color: _appTheme =='light' ? TColors.buttonSecondary : TColors.white, size: 30.adaptSize,),
                         onPressed: () {
                       controller.showAttachmentOptions(context);
                     }),
@@ -316,8 +316,9 @@ class MessageScreen extends GetView<MessageController> {
                 SizedBox(width: screenWidth * 0.02),
       
                 TRoundedContainer(
-                  borderColor: TColors.greyDating,
-                 backgroundColor: TColors.greyDating,
+                  showBorder: true,
+                  borderColor: _appTheme =='light' ? TColors.greyDating : TColors.white,
+                 backgroundColor: _appTheme =='light' ? TColors.greyDating : TColors.dark,
                  radius: 35.adaptSize,
                  padding: EdgeInsets.symmetric(horizontal: 2.hw),
                  child: Row(
@@ -346,9 +347,12 @@ class MessageScreen extends GetView<MessageController> {
                              // Déclenche la reconstruction pour changer la direction
                              controller.update();
                            }, */
+                           style: TextStyle(color: _appTheme =='light' ? TColors.black : TColors.white),
+                           cursorColor: _appTheme =='light' ? TColors.black : TColors.white,
                            decoration: InputDecoration(
                              hintText: "اكتب رسالة",
                              border: InputBorder.none,
+                             hintStyle: TextStyle(color: _appTheme =='light' ? TColors.black : TColors.white)
                            ),
                          ),
                        )),
@@ -536,7 +540,7 @@ buildDialogSettings(BuildContext context){
     Dialog(
       insetPadding: const EdgeInsets.all(16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      backgroundColor: Colors.white,
+      backgroundColor: _appTheme =='light' ? Colors.white : TColors.darkerGrey,
 
       child: SizedBox(
         height: 420, // fixe la hauteur de ton popup
@@ -616,7 +620,7 @@ buildDialogSettings(BuildContext context){
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Icon(Iconsax.user_remove),
+                      Icon(Iconsax.user_remove, color: _appTheme =='light' ? TColors.gray700 : TColors.white,),
                       SizedBox(width: 10.hw),
                       SubTitleWidget(
                           subtitle: 'حظر المستخدم',

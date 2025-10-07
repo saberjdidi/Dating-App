@@ -87,9 +87,11 @@ class CustomTextFormField extends StatelessWidget {
   final Function()? onTap;
   final Function()? onEditingComplete;
 
+
+  var _appTheme = PrefUtils.getTheme();
+
   @override
   Widget build(BuildContext context) {
-    //var _appTheme = PrefUtils.getTheme();
 
     return alignment != null
         ? Align(
@@ -117,7 +119,7 @@ class CustomTextFormField extends StatelessWidget {
           onTap: onTap,
           onEditingComplete: onEditingComplete,
           maxLength: maxLength,
-          cursorColor: TColors.black,
+          cursorColor: _appTheme =='light' ? TColors.black : TColors.white,
         ),
       );
   InputDecoration get decoration => InputDecoration(
@@ -145,7 +147,7 @@ class CustomTextFormField extends StatelessWidget {
         enabledBorder: borderDecoration ??
             OutlineInputBorder(
               borderRadius: BorderRadius.circular(15.hw),
-              borderSide: BorderSide(color: PrefUtils.getTheme() =='light' ? Color(0x90BBB7B7) : TColors.yellowAppLight, width: 1)
+              borderSide: BorderSide(color: PrefUtils.getTheme() =='light' ? Color(0x90BBB7B7) : TColors.white, width: 1)
               //borderSide: BorderSide.none,
             ),
         focusedBorder: borderDecoration ??

@@ -70,7 +70,7 @@ class ProfileScreen extends StatelessWidget {
                           children: [
                             //TitleWidget(title: "ملفي الشخصي", fontWeightDelta: 1),
                             SubTitleWidget(subtitle: "ملفي الشخصي", fontWeightDelta: 2, fontSizeDelta: 2,
-                              color: isDark ? TColors.borderPrimary : TColors.black,),
+                              color: isDark ? TColors.whitePrimary : TColors.black,),
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             CustomImageView(
                               imagePath: ImageConstant.profile8,
@@ -111,7 +111,7 @@ class ProfileScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             SubTitleWidget(subtitle: "إعدادات الاتصال", fontWeightDelta: 2, fontSizeDelta: 2,
-                              color: isDark ? TColors.borderPrimary : TColors.black),
+                              color: isDark ? TColors.whitePrimary : TColors.black),
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             CustomImageView(
                               imagePath: ImageConstant.imgSettingsCalling,
@@ -150,7 +150,7 @@ class ProfileScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             SubTitleWidget(subtitle: "تغيير كلمة المرور", fontWeightDelta: 2, fontSizeDelta: 2,
-                              color: isDark ? TColors.borderPrimary : TColors.black),
+                              color: isDark ? TColors.whitePrimary : TColors.black),
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             CustomImageView(
                               imagePath: ImageConstant.imgPassword,
@@ -197,7 +197,7 @@ class ProfileScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             SubTitleWidget(subtitle: "الاشتراك", fontWeightDelta: 2, fontSizeDelta: 2,
-                              color: isDark ? TColors.borderPrimary : TColors.black),
+                              color: isDark ? TColors.whitePrimary : TColors.black),
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             CustomImageView(
                               imagePath: ImageConstant.imgSubscription,
@@ -238,7 +238,7 @@ class ProfileScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             SubTitleWidget(subtitle: "شروط الاستخدام", fontWeightDelta: 2, fontSizeDelta: 2,
-                              color: isDark ? TColors.borderPrimary : TColors.black),
+                              color: isDark ? TColors.whitePrimary : TColors.black),
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             CustomImageView(
                               imagePath: ImageConstant.imgTerms,
@@ -279,7 +279,7 @@ class ProfileScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             SubTitleWidget(subtitle: "سياسة الخصوصية", fontWeightDelta: 2, fontSizeDelta: 2,
-                              color: isDark ? TColors.borderPrimary : TColors.black),
+                              color: isDark ? TColors.whitePrimary : TColors.black),
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             CustomImageView(
                               imagePath: ImageConstant.imgPrivacyPolicy,
@@ -322,7 +322,7 @@ class ProfileScreen extends StatelessWidget {
                               subtitle: isDark ? "المظهر الداكن" : "المظهر الفاتح",
                               fontWeightDelta: 2,
                               fontSizeDelta: 2,
-                              color: isDark ? TColors.borderPrimary : TColors.black
+                              color: isDark ? TColors.whitePrimary : TColors.black
                             ),
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             Icon(
@@ -406,7 +406,7 @@ class ProfileScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             SubTitleWidget(subtitle: "إعادة عرض الدليل", fontWeightDelta: 2, fontSizeDelta: 2,
-                              color: isDark ? TColors.borderPrimary : TColors.black),
+                              color: isDark ? TColors.whitePrimary : TColors.black),
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             Icon(Icons.view_timeline_outlined,
                               color: isDark ? Colors.amber : Colors.blueGrey,
@@ -448,7 +448,7 @@ class ProfileScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             SubTitleWidget(subtitle: "تسجيل الخروج", fontWeightDelta: 2, fontSizeDelta: 2,
-                              color: isDark ? TColors.borderPrimary : TColors.black),
+                              color: isDark ? TColors.whitePrimary : TColors.black),
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             CustomImageView(
                               imagePath: ImageConstant.imgLogout,

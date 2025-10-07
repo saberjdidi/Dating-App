@@ -50,7 +50,7 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
                 height: isTablet ? 60.adaptSize : 55.adaptSize,
                 radius: BorderRadius.circular(isTablet ? 60.adaptSize : 55.adaptSize),
               )
-              :
+              : PrefUtils.getTheme() == "light" ?
               CustomImageView(
                 imagePath: ImageConstant.imgBack,
                 onTap: (){
@@ -59,8 +59,11 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
                 //width: 30.adaptSize,
                 //height: 30.adaptSize,
                 //radius: BorderRadius.circular(30.adaptSize),
-              ),
-              //IconButton(onPressed: (){Navigator.of(context).pop();}, icon: const Icon(Iconsax.arrow_right_1))
+              )
+              : IconButton(
+              onPressed: (){Navigator.of(context).pop();},
+              icon: const Icon(Iconsax.arrow_right_1, color: TColors.white,)
+              )
         ]
             : actions
        : null,
