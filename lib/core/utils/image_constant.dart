@@ -99,6 +99,9 @@ class ImageConstant {
   static String iconSkinColor = '$iconPath/icon_skin_color.svg';
   static String iconHeight = '$iconPath/icon_height.svg';
   static String iconSalary = '$iconPath/icon_salary.svg';
+  static String iconLove = '$iconPath/icon_love.svg';
+  static String iconChat = '$iconPath/icon_chat.svg';
+  static String iconClose = '$iconPath/icon_close.svg';
 
   ///Images Button
   static String imgSend = '$imagePath/img_send.png';

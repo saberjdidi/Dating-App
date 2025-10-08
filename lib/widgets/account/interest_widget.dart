@@ -20,6 +20,8 @@ class InterestWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var _appTheme = PrefUtils.getTheme();
+
     return GestureDetector(
       onTap: onTap,
       child: TRoundedContainer(
@@ -34,7 +36,7 @@ class InterestWidget extends StatelessWidget {
               ? activeColor ? TColors.yellowAppLight : TColors.greyDating
               : TColors.greyDating,
           radius: 15,
-          padding: EdgeInsets.symmetric(vertical: 20.v, horizontal: 8.hw),
+          padding: EdgeInsets.symmetric(vertical: 10.v, horizontal: 8.hw),
           margin: EdgeInsets.symmetric(vertical: 10.adaptSize, horizontal: 8),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -42,8 +44,8 @@ class InterestWidget extends StatelessWidget {
             children: [
               SizedBox(width: 3.adaptSize,),
               Icon(iconPath, size: 30.adaptSize, color: isSelected
-                  ?  activeColor ? Colors.white : TColors.black
-                  : Colors.black),
+                  ?  activeColor ? TColors.black54 : (_appTheme =='light' ? TColors.black : TColors.darkerGrey)
+                  : _appTheme =='light' ? TColors.black : TColors.darkerGrey),
             /*  CustomImageView(
                 imagePath: iconPath,
                 height: 35.adaptSize,
@@ -56,8 +58,8 @@ class InterestWidget extends StatelessWidget {
                 text,
                 style: TextStyle(
                     color: isSelected
-                        ? activeColor ? Colors.white : TColors.black
-                        : Colors.black,
+                        ? activeColor ? TColors.black54 : (_appTheme =='light' ? TColors.black : TColors.darkerGrey)
+                        : _appTheme =='light' ? TColors.black : TColors.darkerGrey,
                     fontWeight: FontWeight.bold,
                     fontSize: 22.adaptSize
                 ),

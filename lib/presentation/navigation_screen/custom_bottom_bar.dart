@@ -2,6 +2,7 @@ import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/presentation/main_screen/controller/main_controller.dart';
 import 'package:dating_app_bilhalal/presentation/navigation_screen/controller/bottom_bar_controller.dart';
 import 'package:dating_app_bilhalal/presentation/settings_screen/controller/theme_controller.dart';
+import 'package:dating_app_bilhalal/widgets/gradient_text.dart';
 import 'package:flutter/material.dart';
 
 class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
@@ -117,7 +118,21 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
                         color: TColors.yellowAppDark,
                         //color: theme.colorScheme.primary,
                       ),
-                      Text(
+                      GradientText(
+                        text: isMain
+                            ? selectedCountry
+                            : controller.bottomMenuList[index].title!,
+                        fontSize: isTablet ? 20.adaptSize : isSmallPhone ? 15.adaptSize : 16.adaptSize,
+                        fontWeight: FontWeight.bold,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        gradient: const LinearGradient(
+                          colors: [TColors.yellowAppDark, Color(0xFFF4AB03)], // green gradient
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                        ),
+                      ),
+                     /* Text(
                         isMain
                             ? selectedCountry
                             : controller.bottomMenuList[index].title!,
@@ -127,7 +142,7 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
                             color: TColors.yellowAppDark,
                             fontSize: isTablet ? 20.adaptSize : isSmallPhone ? 15.adaptSize : 16.adaptSize
                         ),
-                      )
+                      ) */
                     ],
                   ),
                   label: '',

@@ -11,6 +11,7 @@ import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
 import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
    ProfileDetailsScreen({super.key});
@@ -224,7 +225,50 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                CustomImageView(
+                                CircleIconButton(
+                                  size: isSmallPhone ? 80.hw : 75.hw,
+                                  minTapSize: isSmallPhone ? 80.hw : 75.hw,
+                                  effectiveSize: isSmallPhone ? 80.hw : 75.hw,
+                                  backgroundColor: _appTheme =='light' ? TColors.greyDating.withOpacity(0.5) : TColors.dark,
+                                  showBorder: true,
+                                  borderColor: _appTheme =='light' ? TColors.white : TColors.buttonSecondary,
+                                  child: CustomImageView(
+                                    imagePath: ImageConstant.iconLove,
+                                    //height: 35.hw,
+                                    //width: 35.hw,
+                                    fit: BoxFit.cover,
+                                    color: Color(0xECA90606),
+                                  ),
+                                ),
+                                CircleIconButton(
+                                  size: isSmallPhone ? 110.hw : 100.hw,
+                                  minTapSize: isSmallPhone ? 110.hw : 100.hw,
+                                  effectiveSize: isSmallPhone ? 110.hw : 100.hw,
+                                  backgroundColor: TColors.greyDating.withOpacity(0.5),
+                                  showBorder: true,
+                                  borderColor: TColors.yellowAppDark,
+                                  child: CustomImageView(
+                                    imagePath: ImageConstant.iconChat,
+                                    //height: 50.hw,
+                                    //width: 50.hw,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                CircleIconButton(
+                                  size: isSmallPhone ? 80.hw : 75.hw,
+                                  minTapSize: isSmallPhone ? 80.hw : 75.hw,
+                                  effectiveSize: isSmallPhone ? 80.hw : 75.hw,
+                                  backgroundColor: _appTheme =='light' ? TColors.greyDating.withOpacity(0.5) : TColors.dark,
+                                  showBorder: true,
+                                  borderColor: _appTheme =='light' ? TColors.white : TColors.buttonSecondary,
+                                  child: CustomImageView(
+                                    imagePath: ImageConstant.iconClose,
+                                    //height: 30.hw,
+                                    //width: 30.hw,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                               /* CustomImageView(
                                   imagePath: ImageConstant.profileLove,
                                   //height: Get.height,
                                   //width: Get.width,
@@ -241,7 +285,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                                   //height: Get.height,
                                   //width: Get.width,
                                   fit: BoxFit.cover,
-                                ),
+                                ), */
                               ],
                             )
                           ],
