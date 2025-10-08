@@ -84,7 +84,7 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
                               color1: TColors.yellowAppDark,
                               color2: TColors.yellowAppLight,
                               borderRadius: 10,
-                              colorText: _appTheme =='light' ? TColors.white : TColors.black,
+                              colorText: TColors.black,
                               fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
                               height: isSmallPhone ? 80.v : 70.v,
                               width: Get.width,

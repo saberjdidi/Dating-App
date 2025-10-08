@@ -5,9 +5,9 @@ class ImageConstant {
   static String iconPath = 'assets/icons';
 
   //Dating App
-  static String logo = '$imagePath/logo-splash.png'; //'$imagePath/logo.png';
+  static String logo = '$imagePath/new_logo.png';  //'$imagePath/logo-splash.png'; //'$imagePath/logo.png';
   //static String logoSplash = '$imagePath/logo-splash.png';
-  static String logoHeader = '$imagePath/new-logo-header.png'; //'$imagePath/new-logo.svg';
+  static String logoHeader = '$imagePath/new_logo.png'; //'$imagePath/new-logo-header.png';
   //static String logoHeaderSVG = '$imagePath/logo_header.svg';
   //static String logoHeaderPNG = '$imagePath/logo-header.png';
   static String successOTPImage = '$imagePath/success_otp.png';
