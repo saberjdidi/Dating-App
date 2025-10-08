@@ -2,6 +2,7 @@ import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/presentation/main_screen/controller/main_controller.dart';
 import 'package:dating_app_bilhalal/presentation/navigation_screen/controller/bottom_bar_controller.dart';
 import 'package:dating_app_bilhalal/presentation/settings_screen/controller/theme_controller.dart';
+import 'package:dating_app_bilhalal/widgets/gradient_svg_icon.dart';
 import 'package:dating_app_bilhalal/widgets/gradient_text.dart';
 import 'package:flutter/material.dart';
 
@@ -111,12 +112,14 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CustomImageView(
-                        imagePath: controller.bottomMenuList[index].activeIcon,
-                        height: 35.adaptSize,
-                        width: 35.adaptSize,
-                        color: TColors.yellowAppDark,
-                        //color: theme.colorScheme.primary,
+                      GradientSvgIcon(
+                        assetPath: controller.bottomMenuList[index].activeIcon,
+                        size: 35.adaptSize,
+                        gradient: const LinearGradient(
+                          colors: [TColors.yellowAppDark, Color(0xFFF4AB03)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
                       ),
                       GradientText(
                         text: isMain
@@ -132,7 +135,15 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
                           end: Alignment.centerRight,
                         ),
                       ),
-                     /* Text(
+                     /*
+                      CustomImageView(
+                        imagePath: controller.bottomMenuList[index].activeIcon,
+                        height: 35.adaptSize,
+                        width: 35.adaptSize,
+                        color: TColors.yellowAppDark,
+                        //color: theme.colorScheme.primary,
+                      ),
+                      Text(
                         isMain
                             ? selectedCountry
                             : controller.bottomMenuList[index].title!,
