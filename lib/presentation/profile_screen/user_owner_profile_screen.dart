@@ -12,7 +12,9 @@ import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
 class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
-  const UserOwnerProfileScreen({super.key});
+   UserOwnerProfileScreen({super.key});
+
+   var _appTheme = PrefUtils.getTheme();
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +46,12 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                   top: 20,
                   right: 20,
                   child: CircleIconButton(
-                      size: 60.adaptSize,
-                      effectiveSize: 60.adaptSize,
-                      minTapSize: 60.adaptSize,
+                      size: 60.hw,
+                      effectiveSize: 60.hw,
+                      minTapSize: 60.hw,
                       backgroundColor: TColors.greyDating.withOpacity(0.5),
                       child: IconButton(
-                        icon: Icon(Icons.arrow_forward_outlined, color: TColors.white, size: isSmallPhone ? 35.adaptSize : 40.adaptSize),
+                        icon: Icon(Icons.arrow_forward_outlined, color: TColors.white, size: isSmallPhone ? 35.hw : 40.hw),
                         onPressed: (){
                           Navigator.pop(context);
                         },
@@ -78,6 +80,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: TRoundedContainer(
+                      backgroundColor: _appTheme =='light' ? TColors.white : TColors.dark,
                       width: double.infinity,
                       height: screenheight * 0.6,
                       radius: 50.adaptSize,
@@ -97,15 +100,16 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(''),
-                                    TitleWidget(title: 'نورا خالد', fontWeightDelta: 3, fontSizeDelta: 2,),
+                                    TitleWidget(title: 'نورا خالد', fontWeightDelta: 3, fontSizeDelta: 2,
+                                        color: _appTheme =='light' ? TColors.black : TColors.white),
 
                                     CircleIconButton(
-                                        size: 60.adaptSize,
-                                        effectiveSize: 60.adaptSize,
-                                        minTapSize: 60.adaptSize,
+                                        size: 60.hw,
+                                        effectiveSize: 60.hw,
+                                        minTapSize: 60.hw,
                                         backgroundColor: TColors.greyDating.withOpacity(0.5),
                                         child: IconButton(
-                                          icon: Icon(Iconsax.share, color: TColors.textSecondary, size: 40.adaptSize,),
+                                          icon: Icon(Iconsax.share, color: _appTheme =='light' ? TColors.textSecondary : TColors.white, size: 40.hw,),
                                           onPressed: (){
                                             Navigator.pop(context);
                                           },
@@ -133,6 +137,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                   children: [
                                     CustomImageView(
                                       imagePath: ImageConstant.iconJob,
+                                      color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
                                       //height: 200.adaptSize,
                                       //width: 200.adaptSize,
                                       fit: BoxFit.cover,
@@ -144,7 +149,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
-                                        color: Colors.black,
+                                        color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
                                         fontSize: isTablet ? 17.adaptSize : 16.adaptSize,
                                       ),
                                     ),
@@ -156,6 +161,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                   children: [
                                     CustomImageView(
                                       imagePath: ImageConstant.iconLocation,
+                                      color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
                                       //height: 200.adaptSize,
                                       //width: 200.adaptSize,
                                       fit: BoxFit.cover,
@@ -167,7 +173,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
-                                        color: Colors.black,
+                                        color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
                                         fontSize: isTablet ? 17.adaptSize : 16.adaptSize,
                                       ),
                                     ),
@@ -179,7 +185,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                   color1: TColors.yellowAppDark,
                                   color2: TColors.yellowAppLight,
                                   borderRadius: 30,
-                                  colorText: TColors.white,
+                                  colorText: _appTheme =='light' ? TColors.white : TColors.black,
                                   fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
                                   height: isSmallPhone ? 80.v : 70.v,
                                   width: Get.width * 0.5,
@@ -200,13 +206,13 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    TitleWidget(title: "الصور / الفيديوات", color: TColors.black, fontWeightDelta: 1, fontSizeDelta: 1),
+                                    TitleWidget(title: "الصور / الفيديوات", color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 1, fontSizeDelta: 1),
                                     CustomButtonContainer(
                                       text:"حذف",
                                       color1: TColors.yellowAppDark,
                                       color2: TColors.yellowAppLight,
                                       borderRadius: 30,
-                                      colorText: TColors.white,
+                                      colorText: _appTheme =='light' ? TColors.white : TColors.black,
                                       fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
                                       height: isSmallPhone ? 80.v : isTablet ? 70.v : 65.v,
                                       width: 120.adaptSize,
@@ -225,7 +231,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                   ],
                                   onTabChanged: controller.onTabChanged,
                                   activeColor: TColors.yellowAppDark,
-                                  inactiveColor: TColors.black,
+                                  inactiveColor: _appTheme =='light' ? TColors.black : TColors.white,
                                 ),
                                 SizedBox(height: 5.v),
                                 GridLayout(

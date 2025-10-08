@@ -13,7 +13,9 @@ import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
 class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
-  const ProfileDetailsScreen({super.key});
+   ProfileDetailsScreen({super.key});
+
+  var _appTheme = PrefUtils.getTheme();
 
   @override
   Widget build(BuildContext context) {
@@ -45,12 +47,12 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                 top: 20,
                 left: 20,
                 child:  CircleIconButton(
-                  size: isSmallPhone ? 70.adaptSize : 60.adaptSize,
-                  effectiveSize: isSmallPhone ? 70.adaptSize : 60.adaptSize,
-                  minTapSize: 60.adaptSize,
+                  size: isSmallPhone ? 70.hw : isTablet ? 65.hw : 60.hw,
+                  effectiveSize: isSmallPhone ? 70.hw : 60.hw,
+                  minTapSize: 60.hw,
                   backgroundColor: TColors.greyDating.withOpacity(0.5),
                   child: IconButton(
-                    icon: Icon(Icons.share_outlined, color: TColors.white, size: 40.adaptSize,),
+                    icon: Icon(Icons.share_outlined, color: TColors.white, size: 40.hw,),
                     onPressed: (){
                       Navigator.pop(context);
                     },
@@ -63,12 +65,12 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                 top: 20,
                 right: 20,
                 child: CircleIconButton(
-                  size: isSmallPhone ? 70.adaptSize : 60.adaptSize,
-                  effectiveSize: isSmallPhone ? 70.adaptSize : 60.adaptSize,
-                  minTapSize: 60.adaptSize,
+                  size: isSmallPhone ? 70.hw : 60.hw,
+                  effectiveSize: isSmallPhone ? 70.hw : 60.hw,
+                  minTapSize: 60.hw,
                   backgroundColor: TColors.greyDating.withOpacity(0.5),
                   child: IconButton(
-                    icon: Icon(Icons.arrow_forward_outlined, color: TColors.white, size: 40.adaptSize,),
+                    icon: Icon(Icons.arrow_forward_outlined, color: TColors.white, size: 40.hw,),
                     onPressed: (){
                       Navigator.pop(context);
                     },
@@ -81,6 +83,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: TRoundedContainer(
+                  backgroundColor: _appTheme =='light' ? TColors.white : TColors.dark,
                   width: double.infinity,
                   height: screenHeight * 0.6,
                   radius: 50.adaptSize,
@@ -96,7 +99,8 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            TitleWidget(title: '${controller.userModel.fullName}، ${controller.userModel.age} عاما'),
+                            TitleWidget(title: '${controller.userModel.fullName}، ${controller.userModel.age} عاما',
+                            color: _appTheme =='light' ? TColors.black : TColors.white),
                             SizedBox(height: 6.v),
                             // job - allow up to 2 lines then ellipsis
                             Row(
@@ -104,6 +108,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                               children: [
                                 CustomImageView(
                                   imagePath: ImageConstant.iconJob,
+                                  color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
                                   //height: 200.adaptSize,
                                   //width: 200.adaptSize,
                                   fit: BoxFit.cover,
@@ -115,7 +120,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                    color: Colors.black,
+                                    color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
                                     fontSize: isTablet ? 17.adaptSize : 16.adaptSize,
                                   ),
                                 ),
@@ -128,6 +133,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                               children: [
                                 CustomImageView(
                                   imagePath: ImageConstant.iconLocation,
+                                  color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
                                   //height: 200.adaptSize,
                                   //width: 200.adaptSize,
                                   fit: BoxFit.cover,
@@ -139,7 +145,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                    color: Colors.black,
+                                    color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
                                     fontSize: isTablet ? 17.adaptSize : 16.adaptSize,
                                   ),
                                 ),
@@ -156,12 +162,12 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                             ),
 
                             SizedBox(height: 10.v),
-                            SubTitleWidget(subtitle: "بایو:", color: TColors.black, fontWeightDelta: 4, fontSizeDelta: 5,),
+                            SubTitleWidget(subtitle: "بایو:", color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 4, fontSizeDelta: 5,),
                             SubTitleWidget(subtitle: "اسمي جيسيكا باركر، وأستمتع بلقاء أشخاص جدد وإيجاد طرق لمساعدتهم على خوض تجربة إيجابية. أستمتع بالقراءة....اقرأ المزيد",
-                              color: TColors.black, textAlign: TextAlign.right,),
+                              color: _appTheme =='light' ? TColors.black : TColors.white, textAlign: TextAlign.right,),
 
                             SizedBox(height: 20.v),
-                            SubTitleWidget(subtitle: "الاهتمامات", color: TColors.black, fontWeightDelta: 4, fontSizeDelta: 5,),
+                            SubTitleWidget(subtitle: "الاهتمامات", color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 4, fontSizeDelta: 5,),
                             GridView.count(
                                 crossAxisCount: isTablet ? 3 : 2, // ✅ Deux colonnes fixes
                                 mainAxisSpacing: 2,
@@ -181,7 +187,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                             ),
 
                             SizedBox(height: 20.v),
-                            SubTitleWidget(subtitle: "معرض", color: TColors.black, fontWeightDelta: 4, fontSizeDelta: 5,),
+                            SubTitleWidget(subtitle: "معرض", color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 4, fontSizeDelta: 5,),
                             GridLayout(
                               itemCount: controller.userModel.images!.length, // +1 pour l'upload
                               mainAxisExtent: isTablet ? 220.adaptSize : 180.adaptSize,

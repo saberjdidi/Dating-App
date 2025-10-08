@@ -12,7 +12,9 @@ import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
 class ChatUserProfileScreen extends GetView<UserChatProfileController> {
-  const ChatUserProfileScreen({super.key});
+   ChatUserProfileScreen({super.key});
+
+  var _appTheme = PrefUtils.getTheme();
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +46,12 @@ class ChatUserProfileScreen extends GetView<UserChatProfileController> {
                     top: 20,
                     left: 20,
                     child:  CircleIconButton(
-                      size: isSmallPhone ? 70.adaptSize : 60.adaptSize,
-                      minTapSize: isSmallPhone ? 70.adaptSize : 60.adaptSize,
-                      effectiveSize: isSmallPhone ? 70.adaptSize : 60.adaptSize,
+                      size: isSmallPhone ? 70.hw : 60.hw,
+                      minTapSize: isSmallPhone ? 70.hw : 60.hw,
+                      effectiveSize: isSmallPhone ? 70.hw : 60.hw,
                       backgroundColor: TColors.greyDating.withOpacity(0.5),
                       child: IconButton(
-                        icon: Icon(Iconsax.share, color: TColors.white, size: 30.adaptSize,),
+                        icon: Icon(Iconsax.share, color: TColors.white, size: 30.hw,),
                         onPressed: (){
                           Navigator.pop(context);
                         },
@@ -62,12 +64,12 @@ class ChatUserProfileScreen extends GetView<UserChatProfileController> {
                     top: 20,
                     right: 20,
                     child: CircleIconButton(
-                      size: isSmallPhone ? 70.adaptSize : 60.adaptSize,
-                      minTapSize: isSmallPhone ? 70.adaptSize : 60.adaptSize,
-                      effectiveSize: isSmallPhone ? 70.adaptSize : 60.adaptSize,
+                      size: isSmallPhone ? 70.hw : 60.hw,
+                      minTapSize: isSmallPhone ? 70.hw : 60.hw,
+                      effectiveSize: isSmallPhone ? 70.hw : 60.hw,
                       backgroundColor: TColors.greyDating.withOpacity(0.5),
                       child: IconButton(
-                        icon: Icon(Icons.arrow_forward_outlined, color: TColors.white, size: 30.adaptSize,),
+                        icon: Icon(Icons.arrow_forward_outlined, color: TColors.white, size: 30.hw,),
                         onPressed: (){
                           Navigator.pop(context);
                         },
@@ -80,6 +82,7 @@ class ChatUserProfileScreen extends GetView<UserChatProfileController> {
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: TRoundedContainer(
+                      backgroundColor: _appTheme =='light' ? TColors.white : TColors.dark,
                       width: double.infinity,
                       height: screenHeight * 0.6,
                       radius: 50.adaptSize,
@@ -95,7 +98,7 @@ class ChatUserProfileScreen extends GetView<UserChatProfileController> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                TitleWidget(title: 'نورا خالد'),
+                                TitleWidget(title: 'نورا خالد', color: _appTheme =='light' ? TColors.black : TColors.white),
                                 SizedBox(height: 6.v),
                                 // bio - allow up to 2 lines then ellipsis
                                 Row(
@@ -103,6 +106,7 @@ class ChatUserProfileScreen extends GetView<UserChatProfileController> {
                                   children: [
                                     CustomImageView(
                                       imagePath: ImageConstant.iconJob,
+                                      color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
                                       //height: 200.adaptSize,
                                       //width: 200.adaptSize,
                                       fit: BoxFit.cover,
@@ -114,7 +118,7 @@ class ChatUserProfileScreen extends GetView<UserChatProfileController> {
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
-                                        color: Colors.black,
+                                        color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
                                         fontSize: isTablet ? 17.adaptSize : 16.adaptSize,
                                       ),
                                     ),
@@ -126,6 +130,7 @@ class ChatUserProfileScreen extends GetView<UserChatProfileController> {
                                   children: [
                                     CustomImageView(
                                       imagePath: ImageConstant.iconLocation,
+                                      color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
                                       //height: 200.adaptSize,
                                       //width: 200.adaptSize,
                                       fit: BoxFit.cover,
@@ -137,13 +142,13 @@ class ChatUserProfileScreen extends GetView<UserChatProfileController> {
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
-                                        color: Colors.black,
+                                        color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
                                         fontSize: isTablet ? 17.adaptSize : 16.adaptSize,
                                       ),
                                     ),
                                   ],
                                 ),
-                                SizedBox(width: 10.adaptSize),
+                                SizedBox(width: 10.v),
                                 UserStatsWidget(
                                   height: "172 cm",
                                   weight: "60 kg",
@@ -153,7 +158,8 @@ class ChatUserProfileScreen extends GetView<UserChatProfileController> {
                                 ),
 
                                 SizedBox(height: TSizes.spaceBtwSections.v),
-                                SubTitleWidget(subtitle: "الوسائط المشتركة", color: TColors.black, fontWeightDelta: 4, fontSizeDelta: 5,),
+                                SubTitleWidget(subtitle: "الوسائط المشتركة", color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 4, fontSizeDelta: 5,),
+                                SizedBox(width: 10.v),
                                 TabbedPageWidget(
                                   tabs: [
                                     TabItem("الکل"),
@@ -162,7 +168,7 @@ class ChatUserProfileScreen extends GetView<UserChatProfileController> {
                                   ],
                                   onTabChanged: controller.onTabChanged,
                                   activeColor: TColors.yellowAppDark,
-                                  inactiveColor: TColors.black,
+                                  inactiveColor: _appTheme =='light' ? TColors.black : TColors.white,
                                 ),
                                 SizedBox(height: 5.v),
                                 GridLayout(

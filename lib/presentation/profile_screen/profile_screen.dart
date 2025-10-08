@@ -313,7 +313,7 @@ class ProfileScreen extends StatelessWidget {
                           onChanged: (value){
                             ThemeController.instance.toggleTheme();
                           },
-                          activeColor: TColors.yellowAppDark,
+                          activeColor: TColors.white,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -327,7 +327,8 @@ class ProfileScreen extends StatelessWidget {
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             Icon(
                               isDark ? Icons.dark_mode : Icons.light_mode,
-                              color: isDark ? Colors.amber : Colors.blueGrey,
+                              color: TColors.buttonSecondary,
+                              //color: isDark ? Colors.amber : Colors.blueGrey,
                               size: 40.adaptSize,
                             ),
                           ],
@@ -409,7 +410,7 @@ class ProfileScreen extends StatelessWidget {
                               color: isDark ? TColors.whitePrimary : TColors.black),
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             Icon(Icons.view_timeline_outlined,
-                              color: isDark ? Colors.amber : Colors.blueGrey,
+                              color: TColors.buttonSecondary,
                               size: 40.adaptSize,
                             ),
                           ],

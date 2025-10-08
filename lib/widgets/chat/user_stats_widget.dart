@@ -1,6 +1,5 @@
-import 'package:dating_app_bilhalal/core/utils/image_constant.dart';
+import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/widgets/account/choice-chip.dart';
-import 'package:dating_app_bilhalal/widgets/custom_image_view.dart';
 import 'package:flutter/material.dart';
 
 class UserStatsWidget extends StatelessWidget {
@@ -12,7 +11,7 @@ class UserStatsWidget extends StatelessWidget {
   final double iconSize;
   final TextStyle? textStyle;
 
-  const UserStatsWidget({
+   UserStatsWidget({
     Key? key,
     required this.height,
     required this.weight,
@@ -22,6 +21,8 @@ class UserStatsWidget extends StatelessWidget {
     this.iconSize = 26,
     this.textStyle,
   }) : super(key: key);
+
+  var _appTheme = PrefUtils.getTheme();
 
   Widget _buildDivider(Color color, double height) {
     return Container(
@@ -43,6 +44,7 @@ class UserStatsWidget extends StatelessWidget {
         children: [
           CustomImageView(
             imagePath: imagePath,
+            color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
             height: isSmallScreen ? iconSize * 0.8 : iconSize,
             width: isSmallScreen ? iconSize * 0.8 : iconSize,
             fit: BoxFit.cover,
@@ -66,7 +68,7 @@ class UserStatsWidget extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               style: textStyle ??
                   TextStyle(
-                    color: Colors.grey,
+                    color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
                     fontSize: isSmallScreen ? 12 : 14,
                     fontWeight: FontWeight.w500,
                   ),
