@@ -16,10 +16,10 @@ class FilterController extends GetxController {
 
   TextEditingController maritalStatusController = TextEditingController();
   TextEditingController lookingForController = TextEditingController();
-  TextEditingController jobController = TextEditingController();
+  //TextEditingController jobController = TextEditingController();
   TextEditingController paysController = TextEditingController();
 
-  RxInt sexValue = 0.obs;
+  //RxInt sexValue = 0.obs;
   //RxDouble currentAgeValue = 20.toDouble().obs; //choice one age
   var currentRangeAgeValues = const RangeValues(20, 40).obs; // choice range of ages
   //RxDouble currentWeightValue = 50.toDouble().obs;

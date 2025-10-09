@@ -43,8 +43,8 @@ class ImageConstant {
   static String imgOnBoarding4 = '$imagePath/onboarding4.jpeg';
 
   //Card Swiper
-  static String imgMessage = '$imagePath/img_message.png'; //'$imagePath/message_img.svg';
-  static String imgFavoris = '$imagePath/img_favoris.png'; //'$imagePath/favoris_img.svg';
+  static String imgMessage = '$imagePath/img_message.png';
+  static String imgFavoris = '$imagePath/img_favoris.png';
   static String imgClose = '$imagePath/img_close.svg';
   static String imgLove = '$imagePath/img_love.gif';
   static String imgLoves = '$imagePath/img_loves.gif';

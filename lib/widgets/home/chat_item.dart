@@ -23,7 +23,7 @@ class ChatItem extends StatelessWidget {
       child: Slidable(
         key: const ValueKey(0),
         // The start action pane is the one at the left or the top side.
-        startActionPane: ActionPane(
+       /* startActionPane: ActionPane(
           // A motion is a widget used to control how the pane animates.
           motion: const ScrollMotion(),
 
@@ -39,13 +39,13 @@ class ChatItem extends StatelessWidget {
               label: 'Details',
             ),
           ],
-        ),
+        ), */
         endActionPane: ActionPane(
           motion: ScrollMotion(),
           children: [
             SlidableAction(
               // An action can be bigger than the others.
-              flex: 2,
+              flex: 1,
               onPressed: (context) {
               },
               backgroundColor: TColors.redAppLight,
@@ -54,13 +54,26 @@ class ChatItem extends StatelessWidget {
               label: '',
               borderRadius: BorderRadius.circular(10.adaptSize),
             ),
+            SlidableAction(
+              // An action can be bigger than the others.
+              flex: 1,
+              onPressed: (context) {
+              },
+              backgroundColor: Color(0xFFF4AB03),
+              foregroundColor: Colors.white,
+              icon: Iconsax.archive_11,
+              label: '',
+              borderRadius: BorderRadius.circular(10.adaptSize),
+            ),
           ],
         ),
         child: TRoundedContainer(
-          borderColor: TColors.greyDating,
+          borderColor: TColors.buttonSecondary,
+          backgroundColor: TColors.greyContainerChat,
+          withBorder: 0.7,
           showBorder: true,
-          padding: EdgeInsets.symmetric(horizontal: TSizes.spaceBtwItems.hw, vertical: TSizes.spaceBtwItems.v),
-          margin: EdgeInsets.symmetric(vertical: 10.v, horizontal: 10.hw),
+          padding: EdgeInsets.symmetric(horizontal: TSizes.spaceBtwItems.hw, vertical: 8.v),
+          margin: EdgeInsets.symmetric(vertical: 5.v, horizontal: 10.hw),
           child: Row(
             children: [
               Stack(
@@ -77,8 +90,8 @@ class ChatItem extends StatelessWidget {
                   ),
                   if (chat.isConnect)
                     Positioned(
-                      right: 0,
-                      top: 0,
+                      right: 2,
+                      top: 2,
                       child: CircleAvatar(
                         radius: 6,
                         backgroundColor: Colors.green,

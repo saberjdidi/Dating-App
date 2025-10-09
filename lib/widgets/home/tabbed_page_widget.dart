@@ -81,12 +81,46 @@ class TabbedPageWidget extends StatelessWidget {
                   //const SizedBox(height: 4),
                   // Ligne seulement si actif
                   if (isActive)
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      margin: const EdgeInsets.only(top: 3),
+                      height: 2,
+                      width: isActive ? 60 : 0, // largeur animée
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            TColors.yellowAppDark,
+                            Color(0xFFF4AB03),
+                          ],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(2)),
+                      ),
+                    )
+                   /* Container(
+                      margin: const EdgeInsets.only(top: 3),
+                      height: 2,
+                      width: tabs[index].title.length > 10 ? 80 : 40,
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            TColors.yellowAppDark,
+                            Color(0xFFF4AB03),
+                          ],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(2)),
+                      ),
+                    ), */
+                 /* if (isActive)
                     Container(
                       margin: const EdgeInsets.only(top: 3),
                       height: 2,
                       //width: tabs[index].title.length  > 10 ? 80 : 40,
                       color: activeColor,
-                    ),
+                    ), */
                 ],
               ),
             ),

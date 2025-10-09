@@ -260,6 +260,7 @@ class SearchDating {
                   FormDividerWidget(dividerText: "جنسك", thikness: 2),
                   SizedBox(height: TSizes.spaceBtwItems.v),
 
+                  /*
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10.hw),
                     child: Row(
@@ -313,7 +314,6 @@ class SearchDating {
                                   }),
                                 ),
                                 SubTitleWidget(subtitle: 'رجل', color: _appTheme =='light' ? TColors.black : TColors.white, fontSizeDelta: 2, fontWeightDelta: 2,),
-                                //TitleWidget(title: 'رجل',),
                               ],
                             )
                         ),
@@ -321,6 +321,7 @@ class SearchDating {
                     ),
                   ),
                   SizedBox(height: TSizes.spaceBtwItems.v),
+                  */
 
                   CustomDropDown(
                     //textStyle: TextStyle(color: appTheme.black),
@@ -371,7 +372,7 @@ class SearchDating {
                   ),
                   SizedBox(height: TSizes.spaceBtwItems.v),
 
-                  CustomTextFormField(
+                /*  CustomTextFormField(
                     controller: controller.jobController,
                     hintText: "${'الوظيفة'.tr} *",
                     maxLines: 2,
@@ -383,7 +384,7 @@ class SearchDating {
                     hintStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSemiBoldBlack : CustomTextStyles.titleMediumSemiBoldWhite,
                     textStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
                   ),
-                  SizedBox(height: TSizes.spaceBtwItems.v),
+                  SizedBox(height: TSizes.spaceBtwItems.v), */
 
                   CustomDropDown(
                     hintText: "${'دولة'.tr} *",

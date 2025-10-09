@@ -1,6 +1,7 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/data/models/UserModel.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
+import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 
@@ -113,15 +114,15 @@ class UserCardWidget extends StatelessWidget {
                       children: [
                         CustomImageView(
                           imagePath: ImageConstant.imgMessage,
-                          height: 60.adaptSize,
-                          width: 60.adaptSize,
+                          height: 60.hw,
+                          width: 60.hw,
                           fit: BoxFit.cover,
                           onTap: onMessageTap,
                         ),
                         CustomImageView(
                           imagePath: ImageConstant.imgFavoris,
-                          height: 60.adaptSize,
-                          width: 60.adaptSize,
+                          height: 60.hw,
+                          width: 60.hw,
                           fit: BoxFit.cover,
                           onTap: onFavoriteTap,
                         ),

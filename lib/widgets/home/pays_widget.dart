@@ -42,8 +42,8 @@ class PaysWidget extends StatelessWidget {
                     if (imagePath != ImageConstant.logo)
                       CustomImageView(
                         imagePath: imagePath,
-                        height: 20.adaptSize,
-                        width: 20.adaptSize,
+                        height: 25.adaptSize,
+                        width: 25.adaptSize,
                         fit: BoxFit.fill,
                       ),
                     SizedBox(width: 5.adaptSize),

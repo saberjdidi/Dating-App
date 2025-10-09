@@ -93,7 +93,7 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
                         imagePath: controller.bottomMenuList[index].icon,
                         height: 30.adaptSize,
                         width: 30.adaptSize,
-                        color: isDark ? TColors.white : TColors.grey300,
+                        color: isDark ? TColors.white : TColors.greyDatingDark,
                       ),
                       Text(
                         isMain
@@ -102,7 +102,7 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
                         //bottomMenuList[index].title!,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                            color: isDark ? TColors.white : TColors.greyDating,
+                            color: isDark ? TColors.white : TColors.greyDatingDark,
                             fontSize:  isTablet ? 20.adaptSize : isSmallPhone ? 15.adaptSize : 16.adaptSize
                         ),
                       )

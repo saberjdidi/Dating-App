@@ -38,14 +38,14 @@ class ChatScreen extends StatelessWidget {
               SizedBox(height: TSizes.spaceBtwItems.v),
               CustomSearchView(
                 width: mediaQueryData.size.width * 0.9,
-                fillColor: TColors.white,
+                fillColor: TColors.greyContainerChat,
                 controller: controller.searchController,
                 focusNode: _focusNode,
                 hintText: "بحث".tr,
                 onChanged: controller.onSearchChanged,
                 autofocus: false,
                 borderDecoration: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.hw),
+                    borderRadius: BorderRadius.circular(25.hw),
                     borderSide: BorderSide(color: TColors.greyDating, width: 1)
                 ),
               ),

@@ -7,6 +7,8 @@ class TColors {
   static const Color blueDating = Color(0xFF0E66FE);
   static const Color greenAccept = Color(0xFF32BD00);
   static const Color greyDating = Color(0xFFE6E6E6);
+  static const Color greyDatingDark = Color(0xFF9CA3AF);
+  static const Color greyContainerChat = Color(0xFFE8E8E8);
   static const Color redAppLight = Color(0xFFF40303);
   static const Color redAppDark = Color(0xFF8E0202);
   static const Color redSubscriptionCard = Color(0xFFFEFCE8);

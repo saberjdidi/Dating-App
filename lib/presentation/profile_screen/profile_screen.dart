@@ -50,8 +50,8 @@ class ProfileScreen extends StatelessWidget {
                     backgroundColor: isDark ? TColors.dark : TColors.white,
                     borderColor: isDark ? TColors.white : TColors.grey400,
                     radius: 20.adaptSize,
-                    margin: EdgeInsets.all(10.adaptSize),
-                    padding: EdgeInsets.all(15.adaptSize),
+                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 7.adaptSize),
+                    padding: EdgeInsets.all(10.adaptSize),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -94,8 +94,8 @@ class ProfileScreen extends StatelessWidget {
                     backgroundColor: isDark ? TColors.dark : TColors.white,
                     borderColor: isDark ? TColors.white : TColors.grey400,
                     radius: 20.adaptSize,
-                    margin: EdgeInsets.all(10.adaptSize),
-                    padding: EdgeInsets.all(15.adaptSize),
+                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 7.adaptSize),
+                    padding: EdgeInsets.all(10.adaptSize),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -135,8 +135,8 @@ class ProfileScreen extends StatelessWidget {
                     backgroundColor: isDark ? TColors.dark : TColors.white,
                     borderColor: isDark ? TColors.white : TColors.grey400,
                     radius: 20.adaptSize,
-                    margin: EdgeInsets.all(10.adaptSize),
-                    padding: EdgeInsets.all(15.adaptSize),
+                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 7.adaptSize),
+                    padding: EdgeInsets.all(10.adaptSize),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -180,8 +180,8 @@ class ProfileScreen extends StatelessWidget {
                     backgroundColor: isDark ? TColors.dark : TColors.white,
                     borderColor: isDark ? TColors.white : TColors.grey400,
                     radius: 20.adaptSize,
-                    margin: EdgeInsets.all(10.adaptSize),
-                    padding: EdgeInsets.all(15.adaptSize),
+                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 7.adaptSize),
+                    padding: EdgeInsets.all(10.adaptSize),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -221,8 +221,8 @@ class ProfileScreen extends StatelessWidget {
                     backgroundColor: isDark ? TColors.dark : TColors.white,
                     borderColor: isDark ? TColors.white : TColors.grey400,
                     radius: 20.adaptSize,
-                    margin: EdgeInsets.all(10.adaptSize),
-                    padding: EdgeInsets.all(15.adaptSize),
+                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 7.adaptSize),
+                    padding: EdgeInsets.all(10.adaptSize),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -262,8 +262,8 @@ class ProfileScreen extends StatelessWidget {
                     backgroundColor: isDark ? TColors.dark : TColors.white,
                     borderColor: isDark ? TColors.white : TColors.grey400,
                     radius: 20.adaptSize,
-                    margin: EdgeInsets.all(10.adaptSize),
-                    padding: EdgeInsets.all(15.adaptSize),
+                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 7.adaptSize),
+                    padding: EdgeInsets.all(10.adaptSize),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -303,8 +303,8 @@ class ProfileScreen extends StatelessWidget {
                     backgroundColor: isDark ? TColors.dark : TColors.white,
                     borderColor: isDark ? TColors.white : TColors.grey400,
                     radius: 20.adaptSize,
-                    margin: EdgeInsets.all(10.adaptSize),
-                    padding: EdgeInsets.all(15.adaptSize),
+                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 7.adaptSize),
+                    padding: EdgeInsets.all(10.adaptSize),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -389,8 +389,8 @@ class ProfileScreen extends StatelessWidget {
                     backgroundColor: isDark ? TColors.dark : TColors.white,
                     borderColor: isDark ? TColors.white : TColors.grey400,
                     radius: 20.adaptSize,
-                    margin: EdgeInsets.all(10.adaptSize),
-                    padding: EdgeInsets.all(15.adaptSize),
+                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 7.adaptSize),
+                    padding: EdgeInsets.all(10.adaptSize),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -431,8 +431,8 @@ class ProfileScreen extends StatelessWidget {
                     backgroundColor: isDark ? TColors.dark : TColors.white,
                     borderColor: isDark ? TColors.white : TColors.grey400,
                     radius: 20.adaptSize,
-                    margin: EdgeInsets.all(10.adaptSize),
-                    padding: EdgeInsets.all(15.adaptSize),
+                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 7.adaptSize),
+                    padding: EdgeInsets.all(10.adaptSize),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
