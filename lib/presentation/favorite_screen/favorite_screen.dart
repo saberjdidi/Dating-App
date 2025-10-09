@@ -57,14 +57,18 @@ class FavoriteScreen extends StatelessWidget {
 
               SizedBox(height: TSizes.spaceBtwSections.v),
               // TabbedPage générique
-              TabbedPageWidget(
-                tabs: [
-                  TabItem("الحسابات المفضلة"),
-                  TabItem("الصور و الفيديوات المفضلة")
-                ],
-                onTabChanged: controller.onTabChanged,
-                activeColor: TColors.yellowAppDark,
-                inactiveColor: _appTheme =='light' ? TColors.black : TColors.white,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 5.hw),
+                child: TabbedPageWidget(
+                  tabs: [
+                    TabItem("الحسابات المفضلة"),
+                    TabItem("ملفي المفضل"),
+                    TabItem("الصور المفضلة")
+                  ],
+                  onTabChanged: controller.onTabChanged,
+                  activeColor: TColors.yellowAppDark,
+                  inactiveColor: _appTheme =='light' ? TColors.black : TColors.white,
+                ),
               ),
               SizedBox(height: 5.v),
 
@@ -82,8 +86,21 @@ class FavoriteScreen extends StatelessWidget {
                   )
                 ),
 
-              //Favorite Images & Videos
               if(controller.selectedTab.value == 1)
+                Expanded(
+                    child: FavoriteListView(
+                      items: controller.filteredFavorisUsers,
+                      onItemTap: (chat) {
+                        // Navigation vers le chat détaillé
+                        Get.toNamed(Routes.messageScreen, arguments: {
+                          "ChatDiscussion" : chat
+                        });
+                      },
+                    )
+                ),
+
+              //Favorite Images & Videos
+              if(controller.selectedTab.value == 2)
                 Expanded(
                   child: MasonryGridView.builder(
                     itemCount: controller.ListImages.value.length,
