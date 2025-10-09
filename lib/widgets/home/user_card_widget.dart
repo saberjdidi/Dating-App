@@ -22,23 +22,24 @@ class UserCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
     var screenWidth = mediaQueryData.size.width;
-    var screenheight = mediaQueryData.size.height;
+    var screenHeight = mediaQueryData.size.height;
+    var isSmallPhone = screenWidth < 360;
+    var isTablet = screenWidth >= 600;
     // small helpers for consistent sizing
     const double iconSize = 28;
     const double bottomPadding = 12;
     const double horizontalPadding = 12;
 
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
-      clipBehavior: Clip.hardEdge,
+    return ClipRRect(
+      borderRadius: BorderRadius.zero, // ✅ enlève coins arrondis du Card
       child: Stack(
         children: [
           // background image (fills)
           Positioned.fill(
             child: CustomImageView(
               imagePath: user.imageProfile,
-              //height: 200.adaptSize,
-              //width: 200.adaptSize,
+              //height: screenHeight,
+              //width: screenWidth,
               fit: BoxFit.cover,
               onTap: (){
                 //Navigator.of(context).push(MaterialPageRoute(builder: (context) => AnnonceDetailsScreen(model: model)));
@@ -82,7 +83,7 @@ class UserCardWidget extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: Container(
               width: double.infinity,
-              height: screenheight * 0.15,
+              height: screenHeight * 0.15,
               padding: const EdgeInsets.symmetric(
                 horizontal: horizontalPadding,
                 vertical: bottomPadding,
@@ -161,13 +162,13 @@ class UserCardWidget extends StatelessWidget {
                       children: [
                         // fullname and age - single line, ellipsis if too long
                         Text(
-                          '${user.fullName}، ${user.age} عاما',
+                          '${user.fullName}، ${user.age}',
                           textAlign: TextAlign.right,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 30.adaptSize,
+                            fontSize: isTablet ? 30.adaptSize : 26.adaptSize,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
