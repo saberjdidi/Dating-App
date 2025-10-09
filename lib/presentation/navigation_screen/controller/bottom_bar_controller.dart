@@ -74,6 +74,7 @@ class BottomBarController extends GetxController {
 
   void openSearchDialog() {
 
+    mainController.selectedCountries.clear();
     Future.delayed(Duration.zero, () {
       SearchDating.openDialogFilterByPays(mainController); // 👈 appelé uniquement quand onglet "main"
     });

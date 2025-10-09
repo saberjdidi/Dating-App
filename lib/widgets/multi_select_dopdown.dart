@@ -66,6 +66,7 @@ class MultiSelectDropdown extends StatelessWidget {
   final Color? fillColor;
   final Color? themeColor;
   final TextStyle? hintStyle;
+  final TextStyle? textStyle;
   final EdgeInsets? contentPadding;
 
   const MultiSelectDropdown({
@@ -77,6 +78,7 @@ class MultiSelectDropdown extends StatelessWidget {
     this.fillColor,
     this.themeColor,
     this.hintStyle,
+    this.textStyle,
     this.contentPadding,
   });
 
@@ -103,7 +105,7 @@ class MultiSelectDropdown extends StatelessWidget {
       child: DropdownButtonHideUnderline(
         child: DropdownButton2(
           isExpanded: true,
-          hint: Text(hint, style: const TextStyle(fontSize: 16)),
+          hint: Text(hint, style: textStyle ?? const TextStyle(fontSize: 16)),
           iconStyleData: IconStyleData(
             icon: Icon(Iconsax.arrow_down_1, color: Colors.grey.shade700),
             //iconSize: 22, // taille personnalisée

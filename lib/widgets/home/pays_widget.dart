@@ -18,9 +18,12 @@ class PaysWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var _appTheme = PrefUtils.getTheme();
+
     return GestureDetector(
       onTap: onTap,
       child: TRoundedContainer(
+        backgroundColor: _appTheme =='light' ? TColors.white : TColors.dark,
         width: Get.width * 0.4,
         child: Directionality(
           textDirection: TextDirection.rtl,
@@ -49,7 +52,7 @@ class PaysWidget extends StatelessWidget {
                         text,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          color: Colors.black,
+                          color: _appTheme =='light' ? TColors.black : TColors.white,
                           fontWeight: FontWeight.w600,
                           fontSize: 20.adaptSize,
                         ),
@@ -66,7 +69,7 @@ class PaysWidget extends StatelessWidget {
                 //margin: EdgeInsets.only(left: 10),
                 decoration: BoxDecoration(
                   color: isSelected ? Colors.grey : Colors.transparent,
-                  border: Border.all(color: Colors.blueGrey, width: 1),
+                  border: Border.all(color: _appTheme =='light' ? Colors.blueGrey : TColors.white, width: 1),
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: isSelected

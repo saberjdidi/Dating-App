@@ -1,21 +1,7 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
-import 'package:dating_app_bilhalal/core/utils/popups/full_screen_loader.dart';
-import 'package:dating_app_bilhalal/core/utils/validators/validation.dart';
-import 'package:dating_app_bilhalal/data/datasources/dropdown_local_data_source.dart';
-import 'package:dating_app_bilhalal/data/models/country_model.dart';
-import 'package:dating_app_bilhalal/data/models/interest_model.dart';
 import 'package:dating_app_bilhalal/presentation/filter_screen/controller/filter_controller.dart';
-import 'package:dating_app_bilhalal/widgets/account/choice-chip.dart';
-import 'package:dating_app_bilhalal/widgets/account/interest_widget.dart';
-import 'package:dating_app_bilhalal/widgets/custom_drop_down.dart';
-import 'package:dating_app_bilhalal/widgets/custom_text_form_field.dart';
-import 'package:dating_app_bilhalal/widgets/form_divider_widget.dart';
 import 'package:dating_app_bilhalal/widgets/home/animated_gradient_progress.dart';
-import 'package:dating_app_bilhalal/widgets/home/pays_widget.dart';
 import 'package:dating_app_bilhalal/widgets/home/user_card_widget.dart';
-import 'package:dating_app_bilhalal/widgets/multi_select_dopdown.dart';
-import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
-import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 
@@ -80,7 +66,7 @@ class FilterScreen extends StatelessWidget {
       ),
     );
   }
-
+  /*
   dialogSearch(BuildContext context) async {
     var screenWidth = MediaQuery.of(context).size.width;
     var isSmallPhone = screenWidth < 360;
@@ -97,14 +83,6 @@ class FilterScreen extends StatelessWidget {
             textDirection: TextDirection.rtl,
             child: ListBody(
               children: <Widget>[
-                /*   Center(
-                  child: InkWell(
-                      onTap: (){
-                        Navigator.pop(context);
-                      },
-                      child: Icon(Icons.keyboard_arrow_down_rounded, color: TColors.textSecondary, size: 40.adaptSize,)
-                  ),
-                ), */
                 SizedBox(height: TSizes.spaceBtwSections.adaptSize),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.adaptSize),
@@ -408,12 +386,6 @@ class FilterScreen extends StatelessWidget {
                 ),
 
                 SizedBox(height: TSizes.spaceBtwItems.v),
-               /* MultiSelectDropdown(
-                  hint: "Sélectionner Interests",
-                  items: interestsList,
-                  selectedItems: controller.selectedInterests,
-                  onChanged: controller.toggleInterest,
-                ), */
                 MultiSelectDropdown(
                   hint: "حدد الهوايات",
                   items: interestsList,
@@ -424,23 +396,6 @@ class FilterScreen extends StatelessWidget {
                   hintStyle: CustomTextStyles.bodyMediumTextFormField,
                   contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                 ),
-               /* GridView.count(
-                    crossAxisCount: isTablet ? 3 : 2, // ✅ Deux colonnes fixes
-                    mainAxisSpacing: 2,
-                    crossAxisSpacing: 3,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(), // Empêche le scroll dans un Column
-                    childAspectRatio: 2, // ✅ contrôle la largeur/hauteur
-                    children: controller.selectedInterests.map((interest) {
-                      return InterestWidget(
-                        text: interest.name,
-                        iconPath: interest.icon,
-                        isSelected: true,
-                        activeColor: false,
-                        onTap: () => controller.toggleInterest(interest, context),
-                      );
-                    }).toList()
-                ), */
                 Wrap(
                   spacing: 8,
                   runSpacing: 8,
@@ -478,5 +433,5 @@ class FilterScreen extends StatelessWidget {
           ))
         )
     );
-  }
+  }  */
 }

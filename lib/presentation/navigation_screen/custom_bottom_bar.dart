@@ -159,11 +159,26 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
                   label: '',
                 );
               }),
+              //use function in onTap when render main "الکل"
               onTap: (index) {
+                final bottomType = controller.bottomMenuList[index].type;
+
+                // 🔹 Si on quitte l’onglet "main"
+                if (bottomType != BottomBarEnum.main) {
+                  final mainController = Get.find<MainController>();
+                  mainController.selectedCountries.clear();      // vider la sélection
+                  mainController.selectedCountries.add("الکل"); // remettre "الکل"
+                  controller.updateCountryTitle();              // mettre à jour le texte
+                }
+
+                controller.changeTabIndex(index);
+                onChanged?.call(bottomType);
+              },
+            /*  onTap: (index) {
                 //selectedIndex.value = index;
                 controller.changeTabIndex(index);
                 onChanged?.call(controller.bottomMenuList[index].type);
-              },
+              }, */
             ),
           )
       );

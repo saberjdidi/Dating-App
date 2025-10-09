@@ -23,6 +23,7 @@ class SearchDating {
     var screenWidth = Get.width;
     var isSmallPhone = screenWidth < 360;
     var isTablet = screenWidth >= 600;
+    var _appTheme = PrefUtils.getTheme();
 
     await Dialogs.customModalBottomSheet(
         Get.context!,
@@ -37,18 +38,22 @@ class SearchDating {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.adaptSize),
                     child: TitleWidget(title: "فلتر".tr,
+                        color: _appTheme =='light' ? TColors.black : TColors.white,
                         textAlign: TextAlign.right),
                   ),
                   SizedBox(height: TSizes.spaceBtwItems.adaptSize),
-                  FormDividerWidget(dividerText: "عمر", thikness: 2, color: TColors.black),
+                  FormDividerWidget(dividerText: "عمر", thikness: 2),
                   SizedBox(height: TSizes.spaceBtwItems.v),
 
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       // ✅ Afficher l’âge sous le slider
-                      Text("${controller.currentAgeValue.value.round()}",
-                        style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.bold),
+                      Text(
+                        "${controller.currentRangeAgeValues.value.start.round()} ${'سنة'} - ${controller.currentRangeAgeValues.value.end.round()} ${'سنة'}",
+                        //"${controller.currentAgeValue.value.round()}",
+                        style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.bold,
+                            color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                       ),
                       // Slider avec gradient, label toujours visible, hauteur augmentée
                       ShaderMask(
@@ -69,7 +74,23 @@ class SearchDating {
                             ),
                             showValueIndicator: ShowValueIndicator.always, // ✅ Toujours afficher label
                           ),
-                          child: Slider(
+                          child: RangeSlider(
+                            values: controller.currentRangeAgeValues.value,
+                            min: 15,
+                            max: 70,
+                            divisions: 70,
+                            labels: RangeLabels(
+                              controller.currentRangeAgeValues.value.start.round().toString(),
+                              controller.currentRangeAgeValues.value.end.round().toString(),
+                            ),
+                            onChanged: (RangeValues values) {
+                              controller.currentRangeAgeValues.value = values;
+                              debugPrint("range ages : ${controller.currentRangeAgeValues.value}");
+                            },
+                            activeColor: Colors.white, // ✅ Gradient appliqué via ShaderMask
+                            inactiveColor: Colors.white.withOpacity(0.3),
+                          ),
+                        /*  child: Slider(
                             value: controller.currentAgeValue.value,
                             min: 0,
                             max: 100,
@@ -80,21 +101,24 @@ class SearchDating {
                             },
                             activeColor: Colors.white, // ✅ Couleur appliquée par gradient
                             inactiveColor: Colors.white.withOpacity(0.3),
-                          ),
+                          ), */
                         ),
                       ),
                     ],
                   ),
 
                   SizedBox(height: TSizes.spaceBtwItems.v),
-                  FormDividerWidget(dividerText: "الوزن", thikness: 2, color: TColors.black),
+                  FormDividerWidget(dividerText: "الوزن", thikness: 2),
                   SizedBox(height: TSizes.spaceBtwItems.v),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       // ✅ Afficher l’âge sous le slider
-                      Text("${controller.currentWeightValue.value.round()} KG",
-                        style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.bold),
+                      Text(
+                        "${controller.currentRangeWeightValues.value.start.round()} ${'كلغ'} - ${controller.currentRangeWeightValues.value.end.round()} ${'كلغ'}",
+                        //"${controller.currentWeightValue.value.round()} KG",
+                        style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.bold,
+                            color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                       ),
                       // Slider avec gradient, label toujours visible, hauteur augmentée
                       ShaderMask(
@@ -115,7 +139,23 @@ class SearchDating {
                             ),
                             showValueIndicator: ShowValueIndicator.always, // ✅ Toujours afficher label
                           ),
-                          child: Slider(
+                          child: RangeSlider(
+                            values: controller.currentRangeWeightValues.value,
+                            min: 15,
+                            max: 200,
+                            divisions: 200,
+                            labels: RangeLabels(
+                              controller.currentRangeWeightValues.value.start.round().toString(),
+                              controller.currentRangeWeightValues.value.end.round().toString(),
+                            ),
+                            onChanged: (RangeValues values) {
+                              controller.currentRangeWeightValues.value = values;
+                              debugPrint("range weight : ${controller.currentRangeWeightValues.value}");
+                            },
+                            activeColor: Colors.white, // ✅ Gradient appliqué via ShaderMask
+                            inactiveColor: Colors.white.withOpacity(0.3),
+                          ),
+                         /* child: Slider(
                             value: controller.currentWeightValue.value,
                             min: 0,
                             max: 140,
@@ -126,22 +166,25 @@ class SearchDating {
                             },
                             activeColor: Colors.white, // ✅ Couleur appliquée par gradient
                             inactiveColor: Colors.white.withOpacity(0.3),
-                          ),
+                          ), */
                         ),
                       ),
                     ],
                   ),
 
                   SizedBox(height: TSizes.spaceBtwItems.v),
-                  FormDividerWidget(dividerText: "الطول", thikness: 2, color: TColors.black),
+                  FormDividerWidget(dividerText: "الطول", thikness: 2),
                   SizedBox(height: TSizes.spaceBtwItems.v),
 
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       // ✅ Afficher l’âge sous le slider
-                      Text("${controller.currentHeightValue.value.round()} CM",
-                        style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.bold),
+                      Text(
+                        "${controller.currentRangeHeightValues.value.start.round()} ${'صم'} - ${controller.currentRangeHeightValues.value.end.round()} ${'صم'}",
+                        //"${controller.currentHeightValue.value.round()} CM",
+                        style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.bold,
+                            color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                       ),
                       // Slider avec gradient, label toujours visible, hauteur augmentée
                       ShaderMask(
@@ -162,7 +205,23 @@ class SearchDating {
                             ),
                             showValueIndicator: ShowValueIndicator.always, // ✅ Toujours afficher label
                           ),
-                          child: Slider(
+                          child: RangeSlider(
+                            values: controller.currentRangeHeightValues.value,
+                            min: 80,
+                            max: 240,
+                            divisions: 240,
+                            labels: RangeLabels(
+                              controller.currentRangeHeightValues.value.start.round().toString(),
+                              controller.currentRangeHeightValues.value.end.round().toString(),
+                            ),
+                            onChanged: (RangeValues values) {
+                              controller.currentRangeHeightValues.value = values;
+                              debugPrint("range Height : ${controller.currentRangeHeightValues.value}");
+                            },
+                            activeColor: Colors.white, // ✅ Gradient appliqué via ShaderMask
+                            inactiveColor: Colors.white.withOpacity(0.3),
+                          ),
+                         /* child: Slider(
                             value: controller.currentHeightValue.value,
                             min: 100,
                             max: 220,
@@ -173,14 +232,14 @@ class SearchDating {
                             },
                             activeColor: Colors.white, // ✅ Couleur appliquée par gradient
                             inactiveColor: Colors.white.withOpacity(0.3),
-                          ),
+                          ), */
                         ),
                       ),
                     ],
                   ),
 
                   SizedBox(height: TSizes.spaceBtwItems.v),
-                  FormDividerWidget(dividerText: "لون البشرة", thikness: 2, color: TColors.black),
+                  FormDividerWidget(dividerText: "لون البشرة", thikness: 2),
                   SizedBox(height: TSizes.spaceBtwItems.v),
 
                   Wrap(
@@ -198,7 +257,7 @@ class SearchDating {
                   ),
 
                   SizedBox(height: TSizes.spaceBtwItems.v),
-                  FormDividerWidget(dividerText: "جنسك", thikness: 2, color: TColors.black),
+                  FormDividerWidget(dividerText: "جنسك", thikness: 2),
                   SizedBox(height: TSizes.spaceBtwItems.v),
 
                   Padding(
@@ -209,6 +268,7 @@ class SearchDating {
                         TRoundedContainer(
                             showBorder: true,
                             borderColor: TColors.greyDating,
+                            backgroundColor: _appTheme =='light' ? TColors.white : TColors.dark,
                             padding: EdgeInsets.symmetric(horizontal: 35.v, vertical: 13.v),
                             child: Row(
                               children: [
@@ -226,7 +286,7 @@ class SearchDating {
                                     return Colors.grey; // Cercle inactif gris
                                   }),
                                 ),
-                                SubTitleWidget(subtitle: 'امراة', color: TColors.black, fontSizeDelta: 2, fontWeightDelta: 2),
+                                SubTitleWidget(subtitle: 'امراة', color: _appTheme =='light' ? TColors.black : TColors.white, fontSizeDelta: 2, fontWeightDelta: 2),
                               ],
                             )
                         ),
@@ -234,6 +294,7 @@ class SearchDating {
                         TRoundedContainer(
                             showBorder: true,
                             borderColor: TColors.greyDating,
+                            backgroundColor: _appTheme =='light' ? TColors.white : TColors.dark,
                             padding: EdgeInsets.symmetric(horizontal: 35.v, vertical: 13.v),
                             child: Row(
                               children: [
@@ -251,7 +312,7 @@ class SearchDating {
                                     return Colors.grey;
                                   }),
                                 ),
-                                SubTitleWidget(subtitle: 'رجل', color: TColors.black, fontSizeDelta: 2, fontWeightDelta: 2,),
+                                SubTitleWidget(subtitle: 'رجل', color: _appTheme =='light' ? TColors.black : TColors.white, fontSizeDelta: 2, fontWeightDelta: 2,),
                                 //TitleWidget(title: 'رجل',),
                               ],
                             )
@@ -262,9 +323,7 @@ class SearchDating {
                   SizedBox(height: TSizes.spaceBtwItems.v),
 
                   CustomDropDown(
-                    fillColor: TColors.white, //appTheme.gray50
                     //textStyle: TextStyle(color: appTheme.black),
-                    hintStyle: CustomTextStyles.bodyMediumTextFormField,
                     hintText: "${'الحالة الاجتماعية'.tr} *",
                     items: ListMaritalStatus.value,
                     onChanged: (value) async {
@@ -278,17 +337,17 @@ class SearchDating {
                       }
                       return null;
                     },
-                    themeColor: appTheme.gray50,
                     icon: Icon(Iconsax.arrow_down_1),
                     borderRadius: 15.hw,
                     contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
+                    fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
+                    hintStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
+                    textStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
+                    themeColor:_appTheme =='light' ?  appTheme.gray50 : TColors.darkerGrey,
                   ),
                   SizedBox(height: TSizes.spaceBtwItems.v),
 
                   CustomDropDown(
-                    fillColor: TColors.white, //appTheme.gray50
-                    //textStyle: TextStyle(color: appTheme.black),
-                    hintStyle: CustomTextStyles.bodyMediumTextFormField,
                     hintText: "${'نوع الزواج'.tr} *",
                     items: ListLookingFor.value,
                     onChanged: (value) async {
@@ -302,10 +361,13 @@ class SearchDating {
                       }
                       return null;
                     },
-                    themeColor: appTheme.gray50,
                     icon: Icon(Iconsax.arrow_down_1),
                     borderRadius: 15.hw,
                     contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
+                    fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
+                    hintStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
+                    textStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
+                    themeColor:_appTheme =='light' ?  appTheme.gray50 : TColors.darkerGrey,
                   ),
                   SizedBox(height: TSizes.spaceBtwItems.v),
 
@@ -317,12 +379,13 @@ class SearchDating {
                     prefixConstraints: BoxConstraints(maxHeight: 60.v),
                     contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
                     validator: (value) => Validator.validateEmptyText('${'Job'.tr}', value),
+                    fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
+                    hintStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSemiBoldBlack : CustomTextStyles.titleMediumSemiBoldWhite,
+                    textStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
                   ),
                   SizedBox(height: TSizes.spaceBtwItems.v),
 
                   CustomDropDown(
-                    fillColor: TColors.white,
-                    hintStyle: CustomTextStyles.bodyMediumTextFormField,
                     hintText: "${'دولة'.tr} *",
                     items: ListPays.value,
                     onChanged: (value) async {
@@ -335,10 +398,13 @@ class SearchDating {
                       }
                       return null;
                     },
-                    themeColor: appTheme.gray50,
                     icon: Icon(Iconsax.arrow_down_1),
                     borderRadius: 15.hw,
                     contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
+                    fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
+                    hintStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
+                    textStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
+                    themeColor:_appTheme =='light' ?  appTheme.gray50 : TColors.darkerGrey,
                   ),
 
                   SizedBox(height: TSizes.spaceBtwItems.v),
@@ -347,10 +413,11 @@ class SearchDating {
                     items: interestsList,
                     controller: controller,
                     borderRadius: 15,
-                    fillColor: Colors.white,
-                    themeColor: appTheme.gray50, //appTheme.gray50
-                    hintStyle: CustomTextStyles.bodyMediumTextFormField,
                     contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: isSmallPhone ? 8 : 14),
+                    fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
+                    hintStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
+                    textStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
+                    themeColor:_appTheme =='light' ?  appTheme.gray50 : TColors.darkerGrey,
                   ),
                   /* GridView.count(
                     crossAxisCount: isTablet ? 3 : 2, // ✅ Deux colonnes fixes
@@ -379,6 +446,7 @@ class SearchDating {
                         isSelected: true,
                         activeColor: false,
                         onTap: () => controller.toggleInterest(interest, Get.context!),
+                        verticalPadding: 20.v,
                       );
                     }).toList(),
                   ),
@@ -414,6 +482,7 @@ class SearchDating {
     var screenWidth = Get.width;
     var isSmallPhone = screenWidth < 360;
     var isTablet = screenWidth >= 600;
+    var _appTheme = PrefUtils.getTheme();
 
     await Dialogs.customModalBottomSheet(
         //await Dialogs.customModalBottomSheetMethod2(
@@ -435,6 +504,7 @@ class SearchDating {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.adaptSize),
                   child: TitleWidget(title: "اختر الدولة".tr,
+                      color: _appTheme =='light' ? TColors.black : TColors.white,
                       textAlign: TextAlign.right),
                 ),
                 SizedBox(height: TSizes.spaceBtwSections.adaptSize),

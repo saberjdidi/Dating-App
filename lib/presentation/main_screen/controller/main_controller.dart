@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/popups/search_dating.dart';
 import 'package:dating_app_bilhalal/data/models/UserModel.dart';
+import 'package:dating_app_bilhalal/data/models/country_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 
@@ -61,11 +62,40 @@ class MainController extends GetxController {
     ];
   }
 
-   toggleCountry(String countryName) {
+  /* toggleCountry(String countryName) {
     if (selectedCountries.contains(countryName)) {
       selectedCountries.remove(countryName);
     } else {
       selectedCountries.add(countryName);
+    }
+  } */
+  /// Sélectionne / désélectionne un pays
+  void toggleCountry(String countryName) {
+    // Si on clique sur "الکل"
+    if (countryName == "الکل") {
+      if (selectedCountries.contains("الکل")) {
+        // Si "الکل" est déjà sélectionné → tout désélectionner
+        selectedCountries.clear();
+      } else {
+        // Si on sélectionne "الکل" → tout sélectionner
+        selectedCountries.assignAll(countriesList.map((c) => c.name).toList());
+      }
+    } else {
+      // Si on clique sur un autre pays
+      if (selectedCountries.contains(countryName)) {
+        // On désélectionne ce pays
+        selectedCountries.remove(countryName);
+        // Si "الکل" était sélectionné → on le retire
+        selectedCountries.remove("الکل");
+      } else {
+        // On ajoute le pays
+        selectedCountries.add(countryName);
+        // Si tous les pays sont sélectionnés → on coche "الکل"
+        if (selectedCountries.length == countriesList.length - 1 &&
+            !selectedCountries.contains("الکل")) {
+          selectedCountries.add("الکل");
+        }
+      }
     }
   }
 

@@ -8,6 +8,7 @@ class InterestWidget extends StatelessWidget {
   final bool isSelected;
   final bool activeColor;
   final VoidCallback onTap;
+  final double verticalPadding;
 
   const InterestWidget({
     super.key,
@@ -16,6 +17,7 @@ class InterestWidget extends StatelessWidget {
     required this.isSelected,
     this.activeColor = true,
     required this.onTap,
+    this.verticalPadding = 10,
   });
 
   @override
@@ -36,7 +38,7 @@ class InterestWidget extends StatelessWidget {
               ? activeColor ? TColors.yellowAppLight : TColors.greyDating
               : TColors.greyDating,
           radius: 15,
-          padding: EdgeInsets.symmetric(vertical: 10.v, horizontal: 8.hw),
+          padding: EdgeInsets.symmetric(vertical: verticalPadding, horizontal: 8.hw),
           margin: EdgeInsets.symmetric(vertical: 10.adaptSize, horizontal: 8),
           child: Row(
             mainAxisSize: MainAxisSize.min,

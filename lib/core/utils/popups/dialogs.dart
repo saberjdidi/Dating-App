@@ -153,6 +153,7 @@ class Dialogs {
        context: context,
        isScrollControlled: true,
        isDismissible: true,
+       backgroundColor: _appTheme =='light' ? TColors.white : TColors.dark,
        //constraints: BoxConstraints.expand(),
        shape: RoundedRectangleBorder(
            borderRadius: BorderRadius.vertical(
