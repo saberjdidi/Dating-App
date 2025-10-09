@@ -30,7 +30,7 @@ class NavigationScreen extends GetWidget<NavigationController> {
               children: [
                 Navigator(
                     key: Get.nestedKey(1),
-                    initialRoute: Routes.filterScreen,
+                    initialRoute: Routes.mainScreen,
                     onGenerateRoute: (routeSetting) => GetPageRoute(
                         page: () => getCurrentPage(routeSetting.name!),
                         transition: Transition.noTransition)

@@ -47,14 +47,14 @@ class BottomBarController extends GetxController {
   ];
 
   // index bottom bar
-  RxInt selectedIndex = 0.obs;
+  RxInt selectedIndex = 2.obs;
 
   // title exemple (ton usage existant)
   RxString selectedCountryTitle = "الکل".obs;
 
 
 
-  void changeTabIndex(int index) {
+   changeTabIndex(int index) async {
     selectedIndex.value = index;
     if (index == 2) { // si onglet "main" sélectionné
       openSearchDialog();

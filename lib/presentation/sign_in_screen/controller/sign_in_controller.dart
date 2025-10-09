@@ -5,6 +5,7 @@ import 'package:dating_app_bilhalal/core/utils/message_snackbar.dart';
 import 'package:dating_app_bilhalal/core/utils/network_manager.dart';
 import 'package:dating_app_bilhalal/core/utils/popups/full_screen_loader.dart';
 import 'package:dating_app_bilhalal/data/repositories/authentication_repository.dart';
+import 'package:dating_app_bilhalal/presentation/navigation_screen/controller/bottom_bar_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -73,6 +74,8 @@ class SignInController extends GetxController {
 
       await PrefUtils.setEmail(emailController.text.trim());
 
+      //set Tab index of the main screen
+     await BottomBarController.instance.changeTabIndex(2);
       //Redirect
       Get.offAllNamed(Routes.navigationScreen);
       //Show success message
@@ -102,7 +105,10 @@ class SignInController extends GetxController {
 
     await PrefUtils.setEmail(emailController.text.trim());
 
+   //set Tab index of the main screen and open dialog search
+   await BottomBarController.instance.changeTabIndex(2);
    Get.offAllNamed(Routes.navigationScreen);
+   MessageSnackBar.successSnackBar(title: 'Successfully', message: 'Login with ${emailController.text.trim()}');
    ///Using http
    /*
       await apiClient.loginDeviceAuth(
