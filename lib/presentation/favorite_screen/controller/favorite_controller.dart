@@ -21,7 +21,7 @@ class FavoriteController extends GetxController {
           imageProfile: ImageConstant.imgOnBoarding1,
           fullName: 'نورا خالد',
           age: 25,
-          bio: '🌍📸 نموذج احترافي',
+          bio: 'نموذج احترافي',
           isFavoris: true,
           interests: ["التسوق", "فوتوغرافيا", "اليوغا"],
           images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]

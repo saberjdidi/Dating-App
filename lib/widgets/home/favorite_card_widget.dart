@@ -94,22 +94,36 @@ class FavoriteCardWidget extends StatelessWidget {
                         ),
                         const SizedBox(height: 6),
                         // bio - allow up to 2 lines then ellipsis
-                        Text(
-                          user.bio,
-                          textAlign: TextAlign.right,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Colors.white70,
-                            fontSize: 14.adaptSize,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CustomImageView(
+                              imagePath: ImageConstant.iconJob,
+                              color: Colors.white70,
+                              //height: 200.adaptSize,
+                              //width: 200.adaptSize,
+                              fit: BoxFit.cover,
+                            ),
+                            SizedBox(width: 5.adaptSize),
+                            Text(
+                              user.bio,
+                              textAlign: TextAlign.right,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.white70,
+                                fontSize: 15.adaptSize,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
 
                     SizedBox(width: screenWidth * 0.06),
                     SizedBox(
-                      width: screenWidth * 0.2,
+                      width: screenWidth * 0.25,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,

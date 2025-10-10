@@ -91,7 +91,7 @@ class UserCardWidget extends StatelessWidget {
                 vertical: bottomPadding,
               ),
               // Use a subtle gradient that goes from transparent -> dark
-              decoration: BoxDecoration(
+             /* decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
@@ -100,7 +100,7 @@ class UserCardWidget extends StatelessWidget {
                     Colors.black.withOpacity(1),
                   ],
                 ),
-              ),
+              ), */
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -165,29 +165,53 @@ class UserCardWidget extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         // fullname and age - single line, ellipsis if too long
-                        Text(
-                          '${user.fullName}، ${user.age}',
-                          textAlign: TextAlign.right,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: isTablet ? 30.adaptSize : 26.adaptSize,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              '${user.fullName}، ${user.age}',
+                              textAlign: TextAlign.right,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: isTablet ? 30.adaptSize : 26.adaptSize,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(width: 5.adaptSize),
+                            CircleAvatar(radius: 6, backgroundColor: Colors.green)
+                          ],
                         ),
+
                         const SizedBox(height: 6),
                         // bio - allow up to 2 lines then ellipsis
-                        Text(
-                          user.bio,
-                          textAlign: TextAlign.right,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            color: Colors.white70,
-                            fontSize: 14,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              user.bio,
+                              textAlign: TextAlign.right,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                color: Colors.white70,
+                                fontSize: 14,
+                              ),
+                            ),
+                            SizedBox(width: 10.adaptSize),
+                            CustomImageView(
+                              imagePath: ImageConstant.iconJob,
+                              color: Colors.white70,
+                              //height: 200.adaptSize,
+                              //width: 200.adaptSize,
+                              fit: BoxFit.cover,
+                            ),
+                          ],
                         ),
+
                       ],
                     ),
                   ),

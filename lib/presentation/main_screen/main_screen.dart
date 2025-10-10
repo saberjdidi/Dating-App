@@ -38,7 +38,10 @@ class MainScreen extends GetView<MainController> {
                 padding: EdgeInsets.zero,
                 onSwipe: (previousIndex, currentIndex, direction) {
                   // ✅ Lorsqu’on swipe manuellement, on relance le timer
-                  controller.onSwipe();
+                  if (direction != null) {
+                    controller.onSwipe(direction);
+                  }
+                 // controller.onSwipe();
                   return true;
                 },
                 //maxAngle: 30,

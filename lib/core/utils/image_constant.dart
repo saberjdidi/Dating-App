@@ -97,6 +97,8 @@ class ImageConstant {
   static String iconLove = '$iconPath/icon_love.svg';
   static String iconChat = '$iconPath/icon_chat.svg';
   static String iconClose = '$iconPath/icon_close.svg';
+  static String iconCall = '$iconPath/icon_call.png';
+  static String iconCam = '$iconPath/icon_cam.png';
 
   ///Images Button
   static String imgSend = '$imagePath/img_send.png';

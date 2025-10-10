@@ -13,6 +13,8 @@ class MainController extends GetxController {
   final RxList<UserModel> users = <UserModel>[].obs;
   var selectedCountries = <String>[].obs;
 
+  var currentIndex = 0.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -36,7 +38,7 @@ class MainController extends GetxController {
         imageProfile: ImageConstant.imgOnBoarding1,
         fullName: 'نورا خالد',
         age: 25,
-        bio: '🌍📸 نموذج احترافي',
+        bio: 'نموذج احترافي',
         isFavoris: true,
         interests: ["التسوق", "فوتوغرافيا", "اليوغا"],
         images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
@@ -57,6 +59,15 @@ class MainController extends GetxController {
         bio: 'شخص إعلامي',
           isFavoris: false,
         interests: ["ركض", "السفر", "قراءة", "طبخ", "سباحة"],
+        images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
+      ),
+      UserModel(
+        imageProfile: ImageConstant.imgOnBoarding4,
+        fullName: 'إسراء الجديدي',
+        age: 22,
+        bio: 'شخص إعلامي',
+        isFavoris: true,
+        interests: ["السفر", "قراءة", "طبخ", "سباحة"],
         images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
       ),
     ];
@@ -113,7 +124,55 @@ class MainController extends GetxController {
       debugPrint('selectedCountryTitle : ${selectedCountryTitle.value}');
   }
 
-  ///LinearProgressIndicator Start
+  /// 👉 Swipe à droite (next user)
+  void goToNextUser() {
+    if (users.isEmpty) return;
+    currentIndex.value = (currentIndex.value + 1) % users.length;
+    swiperController.swipe(CardSwiperDirection.right);
+  }
+
+  /// 👆 Swipe à gauche (previous user)
+  void goToPreviousUser() {
+    if (users.isEmpty) return;
+    currentIndex.value =
+        (currentIndex.value - 1 + users.length) % users.length;
+    swiperController.swipe(CardSwiperDirection.left);
+  }
+  /// 👉 Swipe vers le bas (next user)
+ /* void nextUser() {
+    if (currentIndex.value < users.length - 1) {
+      currentIndex.value++;
+      swiperController.swipe(CardSwiperDirection.right);
+    } else {
+      currentIndex.value = 0;
+    }
+    onSwipe();
+  }
+
+  /// 👆 Swipe vers le haut (previous user)
+  void previousUser() {
+    if (currentIndex.value > 0) {
+      currentIndex.value--;
+      swiperController.swipe(CardSwiperDirection.left);
+    } else {
+      currentIndex.value = users.length - 1;
+    }
+    onSwipe();
+  } */
+
+  void onSwipe(CardSwiperDirection direction) {
+    if (direction == CardSwiperDirection.right) {
+      goToNextUser();
+    } else if (direction == CardSwiperDirection.left) {
+      goToPreviousUser();
+    }
+
+    //auto swipe
+    stopAutoSwipe();
+    startAutoSwipe();
+  }
+
+  ///LinearProgressIndicator Start 🔁 Gestion auto-swipe + progress
   final CardSwiperController swiperController = CardSwiperController();
   final RxDouble progress = 0.0.obs;
   //Timer? autoSwipeTimer;
@@ -153,10 +212,10 @@ class MainController extends GetxController {
   }
 
   /// 🔁 Appelé après chaque swipe (manuel ou auto)
-  void onSwipe() {
+ /* void onSwipe() {
     stopAutoSwipe();
     startAutoSwipe();
-  }
+  } */
 
   @override
   void onClose() {

@@ -64,22 +64,39 @@ class MessageScreen extends GetView<MessageController> {
                     //Navigator.pop(context);
                   },
                 ),
-                /*
-                CircleIconButton(
-                    size: isSmallPhone ? 52.adaptSize : 45.adaptSize,
-                    effectiveSize: isSmallPhone ? 52.adaptSize : 45.adaptSize,
-                    minTapSize: isSmallPhone ? 50.adaptSize : 40.adaptSize,
-                    backgroundColor: TColors.greyDating.withOpacity(0.6),
-                    child: IconButton(
-                      icon: Icon(Icons.more_vert, color: TColors.black.withOpacity(0.7), size: 27.adaptSize,),
-                      onPressed: (){
-                        Get.toNamed(Routes.settingsScreen);
-                        //Navigator.pop(context);
-                      },
-                    )
-                ),
-                 */
                 SizedBox(width: 1.hw,),
+                CustomImageView(
+                  imagePath: ImageConstant.iconCam,
+                  //color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
+                  height: 45.hw,
+                  width: 45.hw,
+                  fit: BoxFit.cover,
+                  onTap: (){
+                    if (!settingsController.isCallVideo.value) {
+                      Get.snackbar("Appel interdit", "L'utilisateur n'autorise pas les appels vidéo");
+                      return;
+                    }
+                    Get.toNamed(Routes.callVideoScreen);
+                    //Navigator.pop(context);
+                  },
+                ),
+                SizedBox(width: 2.hw,),
+                CustomImageView(
+                  imagePath: ImageConstant.iconCall,
+                  //color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
+                  height: 45.hw,
+                  width: 45.hw,
+                  fit: BoxFit.cover,
+                  onTap: (){
+                    if (!settingsController.isCallVoice.value) {
+                      Get.snackbar("Appel interdit", "L'utilisateur n'autorise pas les appels vocaux");
+                      return;
+                    } else {
+                      Get.toNamed(Routes.callScreen);
+                    }
+                  },
+                ),
+               /*
                 CircleIconButton(
                   size: isSmallPhone ? 50.hw : 40.hw,
                   effectiveSize: isSmallPhone ? 50.hw : 40.hw,
@@ -97,8 +114,7 @@ class MessageScreen extends GetView<MessageController> {
                     },
                   ),
                 ),
-                SizedBox(width: 2.hw,),
-                CircleIconButton(
+               CircleIconButton(
                   size: isSmallPhone ? 50.hw : 40.hw,
                   effectiveSize: isSmallPhone ? 50.hw : 40.hw,
                   minTapSize: isSmallPhone ? 50.hw : 40.hw,
@@ -114,7 +130,7 @@ class MessageScreen extends GetView<MessageController> {
                       }
                     },
                   ),
-                ),
+                ), */
               ],
             ),
           ),
