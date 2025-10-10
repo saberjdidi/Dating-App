@@ -1,5 +1,4 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
-import 'package:dating_app_bilhalal/core/utils/validators/validation.dart';
 import 'package:dating_app_bilhalal/data/datasources/dropdown_local_data_source.dart';
 import 'package:dating_app_bilhalal/data/models/country_model.dart';
 import 'package:dating_app_bilhalal/data/models/interest_model.dart';
@@ -9,12 +8,9 @@ import 'package:dating_app_bilhalal/presentation/navigation_screen/controller/bo
 import 'package:dating_app_bilhalal/widgets/account/choice-chip.dart';
 import 'package:dating_app_bilhalal/widgets/account/interest_widget.dart';
 import 'package:dating_app_bilhalal/widgets/custom_drop_down.dart';
-import 'package:dating_app_bilhalal/widgets/custom_text_form_field.dart';
 import 'package:dating_app_bilhalal/widgets/form_divider_widget.dart';
 import 'package:dating_app_bilhalal/widgets/home/pays_widget.dart';
 import 'package:dating_app_bilhalal/widgets/multi_select_dopdown.dart';
-import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
-import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -340,7 +336,7 @@ class SearchDating {
                     },
                     icon: Icon(Iconsax.arrow_down_1),
                     borderRadius: 15.hw,
-                    contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
+                    contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
                     fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
                     hintStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
                     textStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
@@ -364,7 +360,7 @@ class SearchDating {
                     },
                     icon: Icon(Iconsax.arrow_down_1),
                     borderRadius: 15.hw,
-                    contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
+                    contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
                     fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
                     hintStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
                     textStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
@@ -378,7 +374,7 @@ class SearchDating {
                     maxLines: 2,
                     textInputType: TextInputType.text,
                     prefixConstraints: BoxConstraints(maxHeight: 60.v),
-                    contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
+                    contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
                     validator: (value) => Validator.validateEmptyText('${'Job'.tr}', value),
                     fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
                     hintStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSemiBoldBlack : CustomTextStyles.titleMediumSemiBoldWhite,
@@ -401,7 +397,7 @@ class SearchDating {
                     },
                     icon: Icon(Iconsax.arrow_down_1),
                     borderRadius: 15.hw,
-                    contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
+                    contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
                     fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
                     hintStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
                     textStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
@@ -414,7 +410,7 @@ class SearchDating {
                     items: interestsList,
                     controller: controller,
                     borderRadius: 15,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: isSmallPhone ? 8 : 14),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: isSmallPhone ? 8 : 12),
                     fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
                     hintStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
                     textStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,

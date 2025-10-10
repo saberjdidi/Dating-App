@@ -90,7 +90,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             onEditingComplete: () => FocusScope.of(context).requestFocus(controller.bioFocus),
                             textInputType: TextInputType.text,
                             prefixConstraints: BoxConstraints(maxHeight: 60.v),
-                            contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
+                            contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return "الاسم الكامل مطلوب";
@@ -136,7 +136,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             maxLines: 2,
                             textInputType: TextInputType.text,
                             prefixConstraints: BoxConstraints(maxHeight: 60.v),
-                            contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
+                            contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
                             validator: (value) => value == null || value.isEmpty ? "البایو مطلوب" : null,
                             fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
                             hintStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSemiBoldBlack : CustomTextStyles.titleMediumSemiBoldWhite,
@@ -389,7 +389,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             focusNode: controller.maritalStatusFocus,
                             icon: Icon(Iconsax.arrow_down_1),
                             borderRadius: 15.hw,
-                            contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
+                            contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
                             fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
                             hintStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
                             textStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
@@ -416,7 +416,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             focusNode: controller.lookingForFocus,
                             icon: Icon(Iconsax.arrow_down_1),
                             borderRadius: 15.hw,
-                            contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
+                            contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
                             fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
                             hintStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
                             textStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
@@ -437,7 +437,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             maxLines: 3,
                             textInputType: TextInputType.text,
                             prefixConstraints: BoxConstraints(maxHeight: 60.v),
-                            contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
+                            contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
                             validator: (value) => Validator.validateEmptyText('${'Job'.tr}', value),
                             fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
                             hintStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSemiBoldBlack : CustomTextStyles.titleMediumSemiBoldWhite,
@@ -477,7 +477,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             focusNode: controller.paysFocus,
                             icon: Icon(Iconsax.arrow_down_1),
                             borderRadius: 15.hw,
-                            contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
+                            contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
                             fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
                             hintStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
                             textStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
@@ -612,6 +612,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                                     iconPath: interest.icon,
                                     isSelected: isSelected,
                                     onTap: () => controller.toggleInterest(interest.name, context),
+                                    verticalPadding: 20.v,
                                   ),
                                 );
                               }).toList()

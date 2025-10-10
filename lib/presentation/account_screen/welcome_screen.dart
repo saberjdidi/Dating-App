@@ -40,7 +40,7 @@ class WelcomeScreen extends GetWidget<WelcomeController> {
                   fontSize: 32.adaptSize,
                   textAlign: TextAlign.center,
                   gradient: const LinearGradient(
-                    colors: [TColors.yellowAppLight, TColors.yellowAppDark], // green gradient
+                    colors: [TColors.yellowAppDark, Color(0xFFF4AB03)], // green gradient
                     begin: Alignment.centerLeft,
                     end: Alignment.centerRight,
                   ),

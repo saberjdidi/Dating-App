@@ -69,7 +69,7 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
                               hintText: "بريد إلكتروني".tr,
                               textInputType: TextInputType.emailAddress,
                               prefixConstraints: BoxConstraints(maxHeight: 60.v),
-                              contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
+                              contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
                               validator: Validator.validateEmail,
                               fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
                               hintStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSemiBoldBlack : CustomTextStyles.titleMediumSemiBoldWhite,

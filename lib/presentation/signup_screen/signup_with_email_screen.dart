@@ -136,7 +136,7 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
                       width: 20.adaptSize)
               ), */
               prefixConstraints: BoxConstraints(maxHeight: 60.v),
-              contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
+              contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
               validator: Validator.validateEmail,
               fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
               hintStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSemiBoldBlack : CustomTextStyles.titleMediumSemiBoldWhite,
@@ -170,7 +170,7 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
               suffixConstraints: BoxConstraints(maxHeight: 60.v),
               validator: (value) => Validator.validateEmptyText("lbl_password".tr, value),
               obscureText: controller.isShowPassword.value,
-              contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
+              contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
               fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
               hintStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSemiBoldBlack : CustomTextStyles.titleMediumSemiBoldWhite,
               textStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
@@ -203,7 +203,7 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
               suffixConstraints: BoxConstraints(maxHeight: 60.v),
               validator: (value) => Validator.validateEmptyText("lbl_password".tr, value),
               obscureText: controller.isShowPassword.value,
-              contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
+              contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
               fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
               hintStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSemiBoldBlack : CustomTextStyles.titleMediumSemiBoldWhite,
               textStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,

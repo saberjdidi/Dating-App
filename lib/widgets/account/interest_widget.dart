@@ -46,7 +46,7 @@ class InterestWidget extends StatelessWidget {
             children: [
               SizedBox(width: 3.adaptSize,),
               Icon(iconPath, size: 30.adaptSize, color: isSelected
-                  ?  activeColor ? TColors.black54 : (_appTheme =='light' ? TColors.black : TColors.darkerGrey)
+                  ?  activeColor ? TColors.black : (_appTheme =='light' ? TColors.black : TColors.darkerGrey)
                   : _appTheme =='light' ? TColors.black : TColors.darkerGrey),
             /*  CustomImageView(
                 imagePath: iconPath,
@@ -60,7 +60,7 @@ class InterestWidget extends StatelessWidget {
                 text,
                 style: TextStyle(
                     color: isSelected
-                        ? activeColor ? TColors.black54 : (_appTheme =='light' ? TColors.black : TColors.darkerGrey)
+                        ? activeColor ? TColors.black : (_appTheme =='light' ? TColors.black : TColors.darkerGrey)
                         : _appTheme =='light' ? TColors.black : TColors.darkerGrey,
                     fontWeight: FontWeight.bold,
                     fontSize: 22.adaptSize
