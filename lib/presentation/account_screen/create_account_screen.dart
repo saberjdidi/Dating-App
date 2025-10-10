@@ -421,7 +421,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // ✅ Afficher l’âge sous le slider
-                Text("${controller.currentAgeValue.value.round()}",
+                Text("${controller.currentAgeValue.value.round()} سنة",
                   style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.bold,
                   color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                 ),
@@ -468,12 +468,9 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // ✅ Afficher l’âge sous le slider
-                Directionality(
-                  textDirection: TextDirection.ltr,
-                  child: Text("${controller.currentWeightValue.value.round()} KG",
-                    style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.bold,
-                        color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
-                  ),
+                Text(" ${controller.currentWeightValue.value.round()} كغ ",
+                  style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.bold,
+                      color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                 ),
                 // Slider avec gradient, label toujours visible, hauteur augmentée
                 ShaderMask(
@@ -518,12 +515,9 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // ✅ Afficher l’âge sous le slider
-                Directionality(
-                  textDirection: TextDirection.ltr,
-                  child: Text("${controller.currentHeightValue.value.round()} CM",
-                    style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.bold,
-                        color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
-                  ),
+                Text("${controller.currentHeightValue.value.round()} سم",
+                  style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.bold,
+                      color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                 ),
                 // Slider avec gradient, label toujours visible, hauteur augmentée
                 ShaderMask(

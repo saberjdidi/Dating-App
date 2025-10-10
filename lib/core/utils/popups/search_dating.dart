@@ -111,7 +111,7 @@ class SearchDating {
                     children: [
                       // ✅ Afficher l’âge sous le slider
                       Text(
-                        "${controller.currentRangeWeightValues.value.start.round()} ${'كلغ'} - ${controller.currentRangeWeightValues.value.end.round()} ${'كلغ'}",
+                        "${controller.currentRangeWeightValues.value.start.round()} ${'كغ'} - ${controller.currentRangeWeightValues.value.end.round()} ${'كغ'}",
                         //"${controller.currentWeightValue.value.round()} KG",
                         style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.bold,
                             color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
@@ -177,7 +177,7 @@ class SearchDating {
                     children: [
                       // ✅ Afficher l’âge sous le slider
                       Text(
-                        "${controller.currentRangeHeightValues.value.start.round()} ${'صم'} - ${controller.currentRangeHeightValues.value.end.round()} ${'صم'}",
+                        "${controller.currentRangeHeightValues.value.start.round()} ${'سم'} - ${controller.currentRangeHeightValues.value.end.round()} ${'سم'}",
                         //"${controller.currentHeightValue.value.round()} CM",
                         style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.bold,
                             color: _appTheme =='light' ? TColors.black : TColors.lightGrey),

@@ -12,7 +12,9 @@ Rx<List<SelectionPopupModel>> ListMaritalStatus = Rx(
 
 Rx<List<SelectionPopupModel>> ListLookingFor = Rx(
     [
-      SelectionPopupModel(id:1,title:"زواج معلن"),
+      SelectionPopupModel(id:1,title:"زواج معلن دائم"),
+      SelectionPopupModel(id:2,title:"زواج سري دائم"),
+      SelectionPopupModel(id:3,title:"آخر"),
      /* SelectionPopupModel(id:1,title:"مواعدة"),
       SelectionPopupModel(id:2,title:"زواج"),
       SelectionPopupModel(id:3,title:"معيشة"),

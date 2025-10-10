@@ -153,7 +153,6 @@ class SignInScreen extends GetView<SignInController> {
               onTap: () => FocusScope.of(context).requestFocus(controller.passwordFocus),
               onEditingComplete: () => FocusScope.of(context).requestFocus(controller.passwordFocus),
               hintText: "كلمة المرور".tr,
-
               textInputAction: TextInputAction.done,
               textInputType: TextInputType.visiblePassword,
               /* prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),

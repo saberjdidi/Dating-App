@@ -120,9 +120,11 @@ class CustomTextFormField extends StatelessWidget {
           onEditingComplete: onEditingComplete,
           maxLength: maxLength,
           cursorColor: _appTheme =='light' ? TColors.black : TColors.white,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
         ),
       );
   InputDecoration get decoration => InputDecoration(
+    errorMaxLines: 2,
     border: borderDecoration ??
         OutlineInputBorder(
           borderRadius: BorderRadius.circular(15.hw),
@@ -134,7 +136,13 @@ class CustomTextFormField extends StatelessWidget {
         hintStyle: hintStyle ?? CustomTextStyles.titleLargeGray400,
         //hintStyle: hintStyle ?? CustomTextStyles.titleSmallGray400,
         labelStyle: hintStyle ?? CustomTextStyles.titleMediumSemiBoldBlack,
-        errorStyle: hintStyle ?? CustomTextStyles.bodyMediumOnError,
+        errorStyle: TextStyle(
+          color: Colors.red,
+          fontSize: 16.fSize,
+          height: 1.2, // espace entre lignes
+          overflow: TextOverflow.visible, // pas de troncature
+        ),
+        //errorStyle: hintStyle ?? CustomTextStyles.bodyMediumOnError,
         counterStyle: CustomTextStyles.titleMedium16YellowDark,
         prefixIcon: prefix,
         prefixIconConstraints: prefixConstraints,

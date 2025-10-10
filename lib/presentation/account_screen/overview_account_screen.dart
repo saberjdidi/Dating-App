@@ -167,7 +167,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               // ✅ Afficher l’âge sous le slider
-                              Text("${controller.currentAgeValue.value.round()}",
+                              Text("${controller.currentAgeValue.value.round()} سنة",
                                 style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.bold,
                                     color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                               ),
@@ -214,7 +214,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               // ✅ Afficher l’âge sous le slider
-                              Text("${controller.currentWeightValue.value.round()} KG",
+                              Text("${controller.currentWeightValue.value.round()} كغ",
                                 style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.bold,
                                     color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                               ),
@@ -262,7 +262,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               // ✅ Afficher l’âge sous le slider
-                              Text("${controller.currentHeightValue.value.round()} CM",
+                              Text("${controller.currentHeightValue.value.round()} سم",
                                 style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.bold,
                                     color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                               ),
