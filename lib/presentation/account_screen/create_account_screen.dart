@@ -245,16 +245,6 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               ), */
               prefixConstraints: BoxConstraints(maxHeight: 60.v),
               contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
-              //validator: (value) => Validator.validateEmptyText('${'lbl_lastName'.tr}', value),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return "الاسم الكامل مطلوب";
-                }
-                if (value.length > 100) {
-                  return "الاسم الكامل لا يمكن أن يتجاوز 100 حرف.";
-                }
-                return null;
-              },
               fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
               hintStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSemiBoldBlack : CustomTextStyles.titleMediumSemiBoldWhite,
               textStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
@@ -292,8 +282,6 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               ), */
               prefixConstraints: BoxConstraints(maxHeight: 60.v),
               contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
-              //validator: (value) => Validator.validateEmptyText('${'lbl_firstName'.tr}', value),
-              validator: (value) => value == null || value.isEmpty ? "البایو مطلوب" : null,
               fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
               hintStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSemiBoldBlack : CustomTextStyles.titleMediumSemiBoldWhite,
               textStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
@@ -610,12 +598,6 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                               controller.maritalStatusController.text = value.title;
                               debugPrint('marital status : ${controller.maritalStatusController.text}');
                  }, */
-              validator: (value) {
-                if (value == null) {
-                  return "${'lbl_region'.tr} ${"lbl_is_required".tr}";
-                }
-                return null;
-              },
               focusNode: controller.maritalStatusFocus,
               borderRadius: 15.hw,
               icon: Icon(Iconsax.arrow_down_1),
@@ -638,12 +620,6 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                 controller.lookingForController.text = value.title;
                 debugPrint('looking for : ${controller.lookingForController.text}');
               }, */
-              validator: (value) {
-                if (value == null) {
-                  return "${'lbl_region'.tr} ${"lbl_is_required".tr}";
-                }
-                return null;
-              },
               focusNode: controller.lookingForFocus,
               icon: Icon(Iconsax.arrow_down_1),
               borderRadius: 15.hw,
@@ -672,7 +648,6 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               ), */
               prefixConstraints: BoxConstraints(maxHeight: 60.v),
               contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
-              validator: (value) => Validator.validateEmptyText('${'Job'.tr}', value),
               fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
               hintStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSemiBoldBlack : CustomTextStyles.titleMediumSemiBoldWhite,
               textStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
@@ -702,12 +677,6 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                 controller.paysController.text = value.title;
                 debugPrint('pays : ${controller.paysController.text}');
               }, */
-              validator: (value) {
-                if (value == null) {
-                  return "الدولة مطلوبة";
-                }
-                return null;
-              },
               focusNode: controller.paysFocus,
               icon: Icon(Iconsax.arrow_down_1),
               borderRadius: 15.hw,

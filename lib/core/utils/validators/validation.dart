@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 class Validator {
   static String? validateEmptyText(String? fieldName, String? value) {
     if (value == null || value.isEmpty) {
-      return '$fieldName ${"lbl_is_required".tr}';
+      return '$fieldName ${"إجباري"}';
+      //return '$fieldName ${"lbl_is_required".tr}';
     }
     return null;
   }
@@ -17,14 +18,15 @@ class Validator {
 
   static String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
-      return '${'lbl_email'.tr} ${"lbl_is_required".tr}';
+      return '${'البريد الإلكتروني'} إجباري';
+      //return '${'lbl_email'.tr} ${"lbl_is_required".tr}';
     }
 
     // Regular expression for email validation
     final emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
 
     if (!emailRegExp.hasMatch(value)) {
-      return "Invalid Email";
+      return "البريد إلكتروني غير صالح";
     }
 
     return null;
@@ -32,10 +34,32 @@ class Validator {
 
   static String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Password ${"lbl_is_required".tr}';
+      return 'كلمة المرور إجباري';
+      //return 'Password ${"lbl_is_required".tr}';
     }
 
     // Check for minimum password length
+    if (value.length < 8) {
+      return "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل.";
+    }
+
+    // Check for uppercase letters
+   /* if (!value.contains(RegExp(r'[A-Z]'))) {
+      return "Le mot de passe doit contenir au moins une lettre majuscule.";
+    } */
+
+    // Check for numbers
+    if (!value.contains(RegExp(r'[0-9]'))) {
+      return "يجب أن تحتوي كلمة المرور على رقم واحد على الأقل.";
+    }
+
+    // Check for special characters
+    if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+      return "يجب أن تحتوي كلمة المرور على حرف خاص واحد على الأقل.";
+    }
+
+    ///English
+    /*
     if (value.length < 8) {
       return "Le mot de passe doit comporter au moins 8 caractères.";
     }
@@ -54,6 +78,7 @@ class Validator {
     if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
       return "Le mot de passe doit contenir au moins un caractère spécial.";
     }
+     */
 
     return null;
   }

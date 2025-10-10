@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:dating_app_bilhalal/core/app_export.dart';
+import 'package:dating_app_bilhalal/core/utils/network_manager.dart';
 import 'package:dating_app_bilhalal/core/utils/permissions_helper.dart';
+import 'package:dating_app_bilhalal/core/utils/popups/full_screen_loader.dart';
 import 'package:dating_app_bilhalal/data/models/country_model.dart';
 import 'package:dating_app_bilhalal/data/models/interest_model.dart';
 import 'package:dating_app_bilhalal/data/models/selection_popup_model.dart';
@@ -207,6 +209,53 @@ class CreateAccountController extends GetxController {
 
 
   saveBtn() async {
+    if(formOverviewAccountKey.currentState!.validate()){
+      try {
+        debugPrint('We are processing your information');
+        //Start Loading
+        //FullScreenLoader.openLoadingDialog('We are processing your information...', ImageConstant.lottieTrophy);
+
+        //Check internet connection
+        final isConnected = await NetworkManager.instance.isConnected();
+        if(!isConnected) {
+          //Remove Loader
+          //FullScreenLoader.stopLoading();
+          return;
+        }
+
+        /* final isValid = formSignUpKey.currentState!.validate();
+      if (!isValid) {
+        return;
+      }
+      formSignUpKey.currentState!.save(); */
+        if(!formOverviewAccountKey.currentState!.validate()) {
+          //Remove Loader
+          //FullScreenLoader.stopLoading();
+          return;
+        }
+
+        //Register user in the Firebase authentication & save user data in the Firebase
+        // await AuthenticationRepository.instance.registerWithEmailAndPassword(emailController.text.trim(), passwordController.text.trim());
+
+        //Remove Loader
+        //FullScreenLoader.stopLoading();
+
+        Get.offAllNamed(Routes.successAccountScreen);
+
+        //Show success message
+        MessageSnackBar.successSnackBar(title: 'Successfully', message: 'Your account has been created!');
+
+      }
+      catch (exception) {
+        debugPrint('Exception : ${exception.toString()}');
+        //FullScreenLoader.stopLoading();
+
+        //Show some generic error to the user
+        MessageSnackBar.errorSnackBar(title: 'Oh Snap!', message: exception.toString());
+      } finally {
+        //isDataProcessing.value = false;
+      }
+    }
     /*
     debugPrint('-----------------saveBtn');
     //if(formSignUpKey.currentState!.validate()){}

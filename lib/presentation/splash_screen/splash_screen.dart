@@ -27,7 +27,7 @@ class SplashScreen extends GetWidget<SplashController> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset(
-              ImageConstant.logoHeader,
+              ImageConstant.logo,
               height: 220.adaptSize,
               width: 220.adaptSize,),
             GradientText(

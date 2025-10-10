@@ -1,6 +1,7 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/data/models/UserModel.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
+import 'package:dating_app_bilhalal/widgets/gradient_svg_icon.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
@@ -112,42 +113,44 @@ class UserCardWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        CustomImageView(
-                          imagePath: ImageConstant.imgMessage,
-                          height: 60.hw,
-                          width: 60.hw,
-                          fit: BoxFit.cover,
+                        GestureDetector(
+                          onTap: onMessageTap,
+                          child: GradientSvgIcon(
+                            assetPath: ImageConstant.iconChat,
+                            size: 55.adaptSize,
+                            gradient: const LinearGradient(
+                              colors: [Color(0xFFFFFC00), Color(0xFFFFFC00)],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: onFavoriteTap,
+                          child: GradientSvgIcon(
+                            assetPath: ImageConstant.iconLove,
+                            size: 48.adaptSize,
+                            gradient: const LinearGradient(
+                              colors: [Color(0xFFF40303), Color(0xFF8E0202)],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                          ),
+                        ),
+                      /*  CustomImageView(
+                          imagePath: ImageConstant.iconChat,
+                          height: 45.hw,
+                          width: 45.hw,
+                          //fit: BoxFit.cover,
                           onTap: onMessageTap,
                         ),
                         CustomImageView(
-                          imagePath: ImageConstant.imgFavoris,
-                          height: 60.hw,
-                          width: 60.hw,
-                          fit: BoxFit.cover,
+                          imagePath: ImageConstant.iconLove,
+                          height: 45.hw,
+                          width: 45.hw,
+                          //fit: BoxFit.cover,
+                          color: Color(0xECA90606),
                           onTap: onFavoriteTap,
-                        ),
-                       /* SizedBox(
-                          width: iconSize + 8,
-                          height: iconSize + 8,
-                          child: IconButton(
-                            padding: EdgeInsets.zero,
-                            constraints: const BoxConstraints(),
-                            icon: const Icon(Icons.message, color: Colors.white),
-                            iconSize: iconSize,
-                            onPressed: onMessageTap,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        SizedBox(
-                          width: iconSize + 8,
-                          height: iconSize + 8,
-                          child: IconButton(
-                            padding: EdgeInsets.zero,
-                            constraints: const BoxConstraints(),
-                            icon: const Icon(Icons.favorite_border, color: Colors.white),
-                            iconSize: iconSize,
-                            onPressed: onFavoriteTap,
-                          ),
                         ), */
                       ],
                     ),

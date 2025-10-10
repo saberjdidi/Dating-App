@@ -5,11 +5,8 @@ class ImageConstant {
   static String iconPath = 'assets/icons';
 
   //Dating App
-  static String logo = '$imagePath/new_logo.png';  //'$imagePath/logo-splash.png'; //'$imagePath/logo.png';
-  //static String logoSplash = '$imagePath/logo-splash.png';
-  static String logoHeader = '$imagePath/new_logo.png'; //'$imagePath/new-logo-header.png';
-  //static String logoHeaderSVG = '$imagePath/logo_header.svg';
-  //static String logoHeaderPNG = '$imagePath/logo-header.png';
+  static String logo = '$imagePath/logo.png';  //'$imagePath/logo-splash.png'; //'$imagePath/logo.png';
+  //static String logoHeader = '$imagePath/logo.png'; //'$imagePath/new-logo-header.png';
   static String successOTPImage = '$imagePath/success_otp.png';
   static String imgPasswordSuccess = '$imagePath/img_password_success.svg';
 
@@ -43,8 +40,6 @@ class ImageConstant {
   static String imgOnBoarding4 = '$imagePath/onboarding4.jpeg';
 
   //Card Swiper
-  static String imgMessage = '$imagePath/img_message.png';
-  static String imgFavoris = '$imagePath/img_favoris.png';
   static String imgClose = '$imagePath/img_close.svg';
   static String imgLove = '$imagePath/img_love.gif';
   static String imgLoves = '$imagePath/img_loves.gif';

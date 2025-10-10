@@ -45,7 +45,7 @@ class OTPScreen extends GetView<OTPController> {
               Align(
                 alignment: Alignment.center,
                 child: CustomImageView(
-                  imagePath: ImageConstant.logoHeader,
+                  imagePath: ImageConstant.logo,
                   height: 180.adaptSize,
                   width: 180.adaptSize,
                   fit: BoxFit.fill,

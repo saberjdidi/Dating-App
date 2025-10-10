@@ -1,6 +1,7 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/data/models/UserModel.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
+import 'package:dating_app_bilhalal/widgets/gradient_svg_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 
@@ -110,11 +111,35 @@ class FavoriteCardWidget extends StatelessWidget {
                     SizedBox(
                       width: screenWidth * 0.2,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          CustomImageView(
+                          GestureDetector(
+                            onTap: onFavoriteTap,
+                            child: GradientSvgIcon(
+                              assetPath: ImageConstant.iconLove,
+                              size: 45.adaptSize,
+                              gradient: const LinearGradient(
+                                colors: [Color(0xFFF40303), Color(0xFF8E0202)],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: onMessageTap,
+                            child: GradientSvgIcon(
+                              assetPath: ImageConstant.iconChat,
+                              size: 50.adaptSize,
+                              gradient: const LinearGradient(
+                                colors: [Color(0xFFFFFC00), Color(0xFFFFFC00)],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                            ),
+                          ),
+                        /*  CustomImageView(
                             imagePath: ImageConstant.imgFavoris,
                             height: 40.adaptSize,
                             width: 40.adaptSize,
@@ -127,7 +152,7 @@ class FavoriteCardWidget extends StatelessWidget {
                             width: 40.adaptSize,
                             fit: BoxFit.cover,
                             onTap: onMessageTap,
-                          ),
+                          ), */
                         ],
                       ),
                     ),

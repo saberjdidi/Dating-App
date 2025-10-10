@@ -137,7 +137,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             textInputType: TextInputType.text,
                             prefixConstraints: BoxConstraints(maxHeight: 60.v),
                             contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
-                            validator: (value) => value == null || value.isEmpty ? "البایو مطلوب" : null,
+                            validator: (value) => (value == null || value.isEmpty) ? "البایو مطلوب" : null,
                             fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
                             hintStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSemiBoldBlack : CustomTextStyles.titleMediumSemiBoldWhite,
                             textStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
@@ -382,7 +382,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             }, */
                             validator: (value) {
                               if (value == null) {
-                                return "${'lbl_region'.tr} ${"lbl_is_required".tr}";
+                                return "الحالة الاجتماعية إجباري";
                               }
                               return null;
                             },
@@ -409,7 +409,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             }, */
                             validator: (value) {
                               if (value == null) {
-                                return "${'lbl_region'.tr} ${"lbl_is_required".tr}";
+                                return "نوع الزواج إجباري";
                               }
                               return null;
                             },
@@ -438,7 +438,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             textInputType: TextInputType.text,
                             prefixConstraints: BoxConstraints(maxHeight: 60.v),
                             contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
-                            validator: (value) => Validator.validateEmptyText('${'Job'.tr}', value),
+                            validator: (value) => Validator.validateEmptyText('${'الوظيفة'.tr}', value),
                             fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
                             hintStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSemiBoldBlack : CustomTextStyles.titleMediumSemiBoldWhite,
                             textStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
@@ -713,8 +713,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                 height: isSmallPhone ? 80.v : 70.v,
                 width: screenWidth * 0.7,
                 onPressed: () async {
-                  Get.offAllNamed(Routes.successAccountScreen);
-                  //controller.saveBtn();
+                  controller.saveBtn();
                 },
               ),
             ),

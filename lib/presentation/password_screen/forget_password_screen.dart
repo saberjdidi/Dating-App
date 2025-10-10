@@ -42,7 +42,7 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
                           Align(
                             alignment: Alignment.center,
                             child: CustomImageView(
-                              imagePath: ImageConstant.logoHeader,
+                              imagePath: ImageConstant.logo,
                               height: 200.adaptSize,
                               width: 200.adaptSize,
                               fit: BoxFit.fill,

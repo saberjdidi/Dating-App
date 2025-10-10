@@ -51,7 +51,7 @@ class SignInScreen extends GetView<SignInController> {
                             Align(
                               alignment: Alignment.center,
                               child: CustomImageView(
-                                imagePath: ImageConstant.logoHeader,
+                                imagePath: ImageConstant.logo,
                                 height: 200.adaptSize,
                                 width: 200.adaptSize,
                                 fit: BoxFit.fill,
@@ -168,7 +168,7 @@ class SignInScreen extends GetView<SignInController> {
                             width: 20.adaptSize)
                     )), */
               suffixConstraints: BoxConstraints(maxHeight: 60.v),
-              validator: (value) => Validator.validateEmptyText("lbl_password".tr, value),
+              validator: (value) => Validator.validatePassword(value),
               obscureText: controller.isShowPassword.value,
               contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
               fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
@@ -177,39 +177,44 @@ class SignInScreen extends GetView<SignInController> {
             ),
           ),
           const SizedBox(height: TSizes.spaceBtwSections,),
-          GestureDetector(
-              onTap: () {
-                onTapTxtSignUp();
-              },
-              child: Padding(padding: EdgeInsets.only(left: 8.hw),
-                  child: Text("او قم بالتسجيل معنا؟",
-                    //style: CustomTextStyles.titleMediumBlueVPT
-                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: _appTheme =='light' ? TColors.blackGrey : TColors.white,
-                      fontSize: 16.fSize,
-                      fontWeight: FontWeight.w500,
-                      decoration: TextDecoration.underline,
-                      decorationColor: _appTheme =='light' ? TColors.black54 : TColors.white,
-                    ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector (
+                  onTap: () {
+                    onTapTxtForgotThePassword();
+                  },
+                  child: Padding(padding: EdgeInsets.only(left: 8.hw),
+                      child: Text("نسيت كلمة المرور؟",
+                        //style: CustomTextStyles.titleMediumBlueVPT
+                        style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          color: _appTheme =='light' ? TColors.blackGrey : TColors.white,
+                          fontSize: 16.fSize,
+                          fontWeight: FontWeight.w500,
+                          decoration: TextDecoration.underline,
+                          decorationColor: _appTheme =='light' ? TColors.black54 : TColors.white,
+                        ),
+                      )
                   )
-              )
-          ),
-          GestureDetector(
-              onTap: () {
-                onTapTxtForgotThePassword();
-              },
-              child: Padding(padding: EdgeInsets.only(left: 8.hw),
-                  child: Text("نسيت كلمة المرور؟",
-                    //style: CustomTextStyles.titleMediumBlueVPT
-                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: _appTheme =='light' ? TColors.blackGrey : TColors.white,
-                      fontSize: 16.fSize,
-                      fontWeight: FontWeight.w500,
-                      decoration: TextDecoration.underline,
-                      decorationColor: _appTheme =='light' ? TColors.black54 : TColors.white,
-                    ),
+              ),
+              GestureDetector(
+                  onTap: () {
+                    onTapTxtSignUp();
+                  },
+                  child: Padding(padding: EdgeInsets.only(left: 8.hw),
+                      child: Text("إنشاء حساب؟",
+                        //style: CustomTextStyles.titleMediumBlueVPT
+                        style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          color: _appTheme =='light' ? TColors.blackGrey : TColors.white,
+                          fontSize: 16.fSize,
+                          fontWeight: FontWeight.w500,
+                          decoration: TextDecoration.underline,
+                          decorationColor: _appTheme =='light' ? TColors.black54 : TColors.white,
+                        ),
+                      )
                   )
-              )
+              ),
+            ],
           ),
           SizedBox(height: 24.v),
           Align(

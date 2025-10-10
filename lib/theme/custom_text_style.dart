@@ -117,7 +117,7 @@ class CustomTextStyles {
 
   static get titleMediumSourceSansPro =>
       theme.textTheme.titleMedium!.sourceSansPro.copyWith(
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w400,
       );
 
   static get bodyMediumOnError => theme.textTheme.bodyMedium!.copyWith(

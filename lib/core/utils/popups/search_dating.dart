@@ -253,10 +253,11 @@ class SearchDating {
                   ),
 
                   SizedBox(height: TSizes.spaceBtwItems.v),
-                  FormDividerWidget(dividerText: "جنسك", thikness: 2),
+
+                  /*  FormDividerWidget(dividerText: "جنسك", thikness: 2),
                   SizedBox(height: TSizes.spaceBtwItems.v),
 
-                  /*
+
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10.hw),
                     child: Row(

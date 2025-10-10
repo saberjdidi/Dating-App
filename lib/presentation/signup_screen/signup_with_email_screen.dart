@@ -51,7 +51,7 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
                             Align(
                               alignment: Alignment.center,
                               child: CustomImageView(
-                                imagePath: ImageConstant.logoHeader,
+                                imagePath: ImageConstant.logo,
                                 height: 200.adaptSize,
                                 width: 200.adaptSize,
                                 fit: BoxFit.fill,
@@ -168,7 +168,7 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
                           width: 20.adaptSize)
                   )), */
               suffixConstraints: BoxConstraints(maxHeight: 60.v),
-              validator: (value) => Validator.validateEmptyText("lbl_password".tr, value),
+              validator: (value) => Validator.validatePassword(value),
               obscureText: controller.isShowPassword.value,
               contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
               fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
@@ -201,7 +201,7 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
                           width: 20.adaptSize)
                   )), */
               suffixConstraints: BoxConstraints(maxHeight: 60.v),
-              validator: (value) => Validator.validateEmptyText("lbl_password".tr, value),
+              validator: (value) => Validator.validatePassword(value),
               obscureText: controller.isShowPassword.value,
               contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
               fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
