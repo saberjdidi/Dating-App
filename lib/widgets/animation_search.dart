@@ -1,5 +1,5 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
-import 'package:dating_app_bilhalal/widgets/gradient_text.dart';
+import 'package:dating_app_bilhalal/widgets/gradient/gradient_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';

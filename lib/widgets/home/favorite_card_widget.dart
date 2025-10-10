@@ -1,7 +1,7 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/data/models/UserModel.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
-import 'package:dating_app_bilhalal/widgets/gradient_svg_icon.dart';
+import 'package:dating_app_bilhalal/widgets/gradient/gradient_svg_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 
@@ -82,7 +82,7 @@ class FavoriteCardWidget extends StatelessWidget {
                       children: [
                         // fullname and age - single line, ellipsis if too long
                         Text(
-                          '${user.fullName}، ${user.age} عاما',
+                          '${user.fullName}، ${user.age}',
                           textAlign: TextAlign.right,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -119,7 +119,7 @@ class FavoriteCardWidget extends StatelessWidget {
                             onTap: onFavoriteTap,
                             child: GradientSvgIcon(
                               assetPath: ImageConstant.iconLove,
-                              size: 45.adaptSize,
+                              size: 38.adaptSize,
                               gradient: const LinearGradient(
                                 colors: [Color(0xFFF40303), Color(0xFF8E0202)],
                                 begin: Alignment.topLeft,
@@ -131,7 +131,7 @@ class FavoriteCardWidget extends StatelessWidget {
                             onTap: onMessageTap,
                             child: GradientSvgIcon(
                               assetPath: ImageConstant.iconChat,
-                              size: 50.adaptSize,
+                              size: 45.adaptSize,
                               gradient: const LinearGradient(
                                 colors: [Color(0xFFFFFC00), Color(0xFFFFFC00)],
                                 begin: Alignment.topLeft,

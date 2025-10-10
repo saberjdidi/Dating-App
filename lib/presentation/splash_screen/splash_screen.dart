@@ -1,7 +1,7 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/presentation/splash_screen/controller/splash_controller.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
-import 'package:dating_app_bilhalal/widgets/gradient_text.dart';
+import 'package:dating_app_bilhalal/widgets/gradient/gradient_text.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends GetWidget<SplashController> {
@@ -17,9 +17,18 @@ class SplashScreen extends GetWidget<SplashController> {
     final isTablet = shortestSide < 1000;
 
     return Container(
-      decoration: BoxDecoration(
-        color: _appTheme =='light' ? TColors.white : TColors.dark
-      ),
+      decoration: _appTheme =='light' ? BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            TColors.white,
+            Color(0xFFE8E8E4),
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+        borderRadius: BorderRadius.all(Radius.circular(2)),
+      )
+          : BoxDecoration(color: TColors.dark),
       child: Center(
         //child: Image.asset(ImageConstant.logo),
         child: Column(

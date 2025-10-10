@@ -43,7 +43,28 @@ class ChatItem extends StatelessWidget {
         endActionPane: ActionPane(
           motion: ScrollMotion(),
           children: [
-            SlidableAction(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                TRoundedContainer(
+                  width: 50.hw,
+                  height: 50.hw,
+                  radius: 10.hw,
+                  backgroundColor: TColors.redAppLight,
+                  child: Icon(Iconsax.trash, size: 25.hw, color: TColors.light,),
+                ),
+                SizedBox(width: 10.hw,),
+                TRoundedContainer(
+                  width: 50.hw,
+                  height: 50.hw,
+                  radius: 10.hw,
+                  backgroundColor: Color(0xFFF4AB03),
+                  child: Icon(Iconsax.archive_11, size: 25.hw, color: TColors.light),
+                ),
+              ],
+            ),
+           /* SlidableAction(
               // An action can be bigger than the others.
               flex: 1,
               onPressed: (context) {
@@ -64,7 +85,7 @@ class ChatItem extends StatelessWidget {
               icon: Iconsax.archive_11,
               label: '',
               borderRadius: BorderRadius.circular(10.adaptSize),
-            ),
+            ), */
           ],
         ),
         child: TRoundedContainer(

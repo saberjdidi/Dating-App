@@ -2,8 +2,8 @@ import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/presentation/main_screen/controller/main_controller.dart';
 import 'package:dating_app_bilhalal/presentation/navigation_screen/controller/bottom_bar_controller.dart';
 import 'package:dating_app_bilhalal/presentation/settings_screen/controller/theme_controller.dart';
-import 'package:dating_app_bilhalal/widgets/gradient_svg_icon.dart';
-import 'package:dating_app_bilhalal/widgets/gradient_text.dart';
+import 'package:dating_app_bilhalal/widgets/gradient/gradient_svg_icon.dart';
+import 'package:dating_app_bilhalal/widgets/gradient/gradient_text.dart';
 import 'package:flutter/material.dart';
 
 class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget

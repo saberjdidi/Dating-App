@@ -1,6 +1,6 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/presentation/account_screen/controller/welcome_controller.dart';
-import 'package:dating_app_bilhalal/widgets/gradient_text.dart';
+import 'package:dating_app_bilhalal/widgets/gradient/gradient_text.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
