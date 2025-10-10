@@ -412,3 +412,6 @@ activer le fournisseur Apple dans Firebase
 
 NB: swipe user card automatic after 10 secondes 
 support email screen : upload juste one file
+
+
+## immersive mode => for Android device
