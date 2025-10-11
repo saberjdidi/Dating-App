@@ -595,8 +595,22 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             ),
                           ),
                           SizedBox(height: 10.v),
-
-                          GridView.count(
+                          Wrap(
+                              spacing: 8, // Espace horizontal entre les items
+                              runSpacing: 8, // Espace vertical entre les lignes
+                              alignment: WrapAlignment.start,
+                              children: interestsList.map((interest) {
+                                final isSelected = controller.selectedInterests.contains(interest.name);
+                                return InterestWidget(
+                                  text: interest.name,
+                                  iconPath: interest.icon,
+                                  isSelected: isSelected,
+                                  onTap: () => controller.toggleInterest(interest.name, context),
+                                  verticalPadding: 20.v,
+                                );
+                              }).toList()
+                          ),
+                        /*  GridView.count(
                               crossAxisCount: isTablet ? 3 : 2, // ✅ Deux colonnes fixes
                               mainAxisSpacing: 2,
                               crossAxisSpacing: 3,
@@ -616,7 +630,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                                   ),
                                 );
                               }).toList()
-                          ),
+                          ), */
 
                           SizedBox(height: TSizes.spaceBtwItems.v),
 

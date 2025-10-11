@@ -79,6 +79,207 @@ class UserCardWidget extends StatelessWidget {
                 ),
               )
           ), */
+         // 🔥 Dégradé progressif noir transparent vers noir
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              width: double.infinity,
+              height: screenHeight * 0.3, // effet plus grand
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.transparent,       // Haut → totalement transparent
+                    Colors.black.withOpacity(0.3),
+                    Colors.black.withOpacity(0.6),
+                    Colors.black.withOpacity(0.8), // Bas → plus opaque
+                  ],
+                  stops: const [0.0, 0.4, 0.7, 1.0],
+                )
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        // Left side: fixed-size vertical icon column
+                        SizedBox(
+                          width: screenWidth * 0.3,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              GestureDetector(
+                                onTap: onMessageTap,
+                                child: GradientSvgIcon(
+                                  assetPath: ImageConstant.iconChat,
+                                  size: 45.adaptSize,
+                                  gradient: const LinearGradient(
+                                    colors: [Color(0xFFFFFC00), Color(0xFFFFFC00)],
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 10.hw,),
+                              GestureDetector(
+                                onTap: onFavoriteTap,
+                                child: GradientSvgIcon(
+                                  assetPath: ImageConstant.iconLove,
+                                  size: 38.adaptSize,
+                                  gradient: const LinearGradient(
+                                    colors: [Color(0xFFF40303), Color(0xFF8E0202)],
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                  ),
+                                ),
+                              ),
+                              /*  CustomImageView(
+                          imagePath: ImageConstant.iconChat,
+                          height: 45.hw,
+                          width: 45.hw,
+                          //fit: BoxFit.cover,
+                          onTap: onMessageTap,
+                        ),
+                        CustomImageView(
+                          imagePath: ImageConstant.iconLove,
+                          height: 45.hw,
+                          width: 45.hw,
+                          //fit: BoxFit.cover,
+                          color: Color(0xECA90606),
+                          onTap: onFavoriteTap,
+                        ), */
+                            ],
+                          ),
+                        ),
+
+                        SizedBox(width: screenWidth * 0.1),
+
+                        // --- Infos utilisateur
+                        // Right side: text info - put into Expanded/Flexible so it can't overflow the row
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              // fullname and age - single line, ellipsis if too long
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    '${user.fullName}، ${user.age}',
+                                    textAlign: TextAlign.right,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: isTablet ? 30.adaptSize : 26.adaptSize,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(width: 5.adaptSize),
+                                  CircleAvatar(radius: 6, backgroundColor: Colors.green)
+                                ],
+                              ),
+
+                              const SizedBox(height: 6),
+                              // bio - allow up to 2 lines then ellipsis
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    user.bio,
+                                    textAlign: TextAlign.right,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      color: Colors.white70,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  SizedBox(width: 10.adaptSize),
+                                  CustomImageView(
+                                    imagePath: ImageConstant.iconJob,
+                                    color: Colors.white70,
+                                    //height: 200.adaptSize,
+                                    //width: 200.adaptSize,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ],
+                              ),
+
+                            ],
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/*
+class UserCardWidget extends StatelessWidget {
+  final UserModel user;
+  final VoidCallback onMessageTap;
+  final VoidCallback onFavoriteTap;
+  VoidCallback? onTapFilter;
+
+  UserCardWidget({
+    Key? key,
+    required this.user,
+    required this.onMessageTap,
+    required this.onFavoriteTap,
+    this.onTapFilter
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    mediaQueryData = MediaQuery.of(context);
+    var screenWidth = mediaQueryData.size.width;
+    var screenHeight = mediaQueryData.size.height;
+    var isSmallPhone = screenWidth < 360;
+    var isTablet = screenWidth >= 600;
+    // small helpers for consistent sizing
+    const double iconSize = 28;
+    const double bottomPadding = 12;
+    const double horizontalPadding = 12;
+
+    return ClipRRect(
+      borderRadius: BorderRadius.zero, // ✅ enlève coins arrondis du Card
+      child: Stack(
+        children: [
+          // background image (fills)
+          Positioned.fill(
+            child: CustomImageView(
+              imagePath: user.imageProfile,
+              //height: screenHeight,
+              //width: screenWidth,
+              fit: BoxFit.cover,
+              onTap: (){
+                //Navigator.of(context).push(MaterialPageRoute(builder: (context) => AnnonceDetailsScreen(model: model)));
+                Get.toNamed(Routes.profileDetailsScreen, arguments: {
+                  "UserModel" : user
+                });
+              },
+            ),
+          ),
 
           // bottom info container with gradient to improve readability
           Align(
@@ -91,7 +292,7 @@ class UserCardWidget extends StatelessWidget {
                 vertical: bottomPadding,
               ),
               // Use a subtle gradient that goes from transparent -> dark
-             /* decoration: BoxDecoration(
+               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
@@ -100,7 +301,7 @@ class UserCardWidget extends StatelessWidget {
                     Colors.black.withOpacity(1),
                   ],
                 ),
-              ), */
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -125,6 +326,7 @@ class UserCardWidget extends StatelessWidget {
                             ),
                           ),
                         ),
+                        SizedBox(width: 10.hw,),
                         GestureDetector(
                           onTap: onFavoriteTap,
                           child: GradientSvgIcon(
@@ -137,21 +339,6 @@ class UserCardWidget extends StatelessWidget {
                             ),
                           ),
                         ),
-                      /*  CustomImageView(
-                          imagePath: ImageConstant.iconChat,
-                          height: 45.hw,
-                          width: 45.hw,
-                          //fit: BoxFit.cover,
-                          onTap: onMessageTap,
-                        ),
-                        CustomImageView(
-                          imagePath: ImageConstant.iconLove,
-                          height: 45.hw,
-                          width: 45.hw,
-                          //fit: BoxFit.cover,
-                          color: Color(0xECA90606),
-                          onTap: onFavoriteTap,
-                        ), */
                       ],
                     ),
                   ),
@@ -214,91 +401,6 @@ class UserCardWidget extends StatelessWidget {
 
                       ],
                     ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/*
-class UserCardWidget extends StatelessWidget {
-  final UserModel user;
-  final VoidCallback onMessageTap;
-  final VoidCallback onFavoriteTap;
-
-  const UserCardWidget({
-    super.key,
-    required this.user,
-    required this.onMessageTap,
-    required this.onFavoriteTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      clipBehavior: Clip.hardEdge,
-      child: Stack(
-        children: [
-          // Image en arrière-plan
-          Positioned.fill(
-            child: CustomImageView(
-              imagePath: user.imageProfile,
-              //height: 200.adaptSize,
-              //width: 200.adaptSize,
-              fit: BoxFit.cover,
-            ),
-          ),
-          // Container en bas
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              color: Colors.black.withOpacity(0.6),
-              padding: const EdgeInsets.all(12),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  // Icônes gauche : message & favori
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.message, color: Colors.white),
-                        onPressed: onMessageTap,
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.favorite, color: Colors.red),
-                        onPressed: onFavoriteTap,
-                      ),
-                    ],
-                  ),
-                  const Spacer(),
-                  // Nom, âge et bio à droite
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        '${user.fullName}, ${user.age}',
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        user.bio,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(color: Colors.white70, fontSize: 14),
-                        textAlign: TextAlign.right,
-                      ),
-                    ],
                   ),
                 ],
               ),

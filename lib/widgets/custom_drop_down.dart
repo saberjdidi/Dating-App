@@ -24,6 +24,7 @@ class CustomDropDown extends StatelessWidget {
     this.suffixConstraints,
     this.contentPadding,
     this.borderDecoration,
+    this.focusedBorder,
     this.fillColor,
     this.themeColor,
     this.filled = true,
@@ -66,6 +67,8 @@ class CustomDropDown extends StatelessWidget {
 
   final InputBorder? borderDecoration;
 
+  final InputBorder? focusedBorder;
+
   final Color? fillColor;
 
   final Color? themeColor;
@@ -104,6 +107,7 @@ class CustomDropDown extends StatelessWidget {
             items: items?.map((SelectionPopupModel item) {
               return DropdownMenuItem<SelectionPopupModel>(
                 //value: selectedValue,
+                alignment: Alignment.centerRight,
                 value: item,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.v),
@@ -157,7 +161,7 @@ class CustomDropDown extends StatelessWidget {
                   borderSide: BorderSide(color: Color(0xFD636262), width: 1)
                   //borderSide: BorderSide.none,
                 ),
-            focusedBorder: borderDecoration ??
+            focusedBorder: focusedBorder ??
                 OutlineInputBorder(
                   borderRadius: BorderRadius.circular(borderRadius.hw),
                   borderSide: BorderSide(color: TColors.yellowAppDark, width: 2)

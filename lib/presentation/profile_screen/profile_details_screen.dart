@@ -12,6 +12,7 @@ import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:readmore/readmore.dart';
 
 class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
    ProfileDetailsScreen({super.key});
@@ -164,12 +165,40 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
 
                             SizedBox(height: 10.v),
                             SubTitleWidget(subtitle: "بایو:", color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 4, fontSizeDelta: 5,),
-                            SubTitleWidget(subtitle: "اسمي جيسيكا باركر، وأستمتع بلقاء أشخاص جدد وإيجاد طرق لمساعدتهم على خوض تجربة إيجابية. أستمتع بالقراءة....اقرأ المزيد",
-                              color: _appTheme =='light' ? TColors.black : TColors.white, textAlign: TextAlign.right,),
+                            ReadMoreText(
+                              "اسمي جيسيكا باركر، وأستمتع بلقاء أشخاص جدد وإيجاد طرق لمساعدتهم على خوض تجربة إيجابية. اسمي جيسيكا باركر، وأستمتع بلقاء أشخاص جدد وإيجاد طرق لمساعدتهم على خوض تجربة إيجابية.",
+                              trimMode: TrimMode.Line,
+                              trimLines: 3,
+                              trimLength: 240,
+                              //preDataText: 'avant de text',
+                              //preDataTextStyle: const TextStyle(fontWeight: FontWeight.w500),
+                              style: TextStyle(fontSize: 17.adaptSize, color:  _appTheme =='light' ? TColors.black : TColors.white),
+                              //style: Theme.of(context).textTheme.bodyMedium!.apply(color: _appTheme =='light' ? TColors.black : TColors.white, fontSizeDelta: 1, fontWeightDelta: 1),
+                              colorClickableText: Colors.blue,
+                              trimCollapsedText: 'اقرأ المزيد',
+                              trimExpandedText: ' إظهار أقل',
+                              moreStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
+                              lessStyle:  TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
+                            ),
+                           // SubTitleWidget(subtitle: "اسمي جيسيكا باركر، وأستمتع بلقاء أشخاص جدد وإيجاد طرق لمساعدتهم على خوض تجربة إيجابية. أستمتع بالقراءة....اقرأ المزيد", color: _appTheme =='light' ? TColors.black : TColors.white, textAlign: TextAlign.right,),
 
                             SizedBox(height: 20.v),
                             SubTitleWidget(subtitle: "الاهتمامات", color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 4, fontSizeDelta: 5,),
-                            GridView.count(
+                            Wrap(
+                              spacing: 8, // Espace horizontal entre les items
+                              runSpacing: 8, // Espace vertical entre les lignes
+                              alignment: WrapAlignment.start,
+                              children: (controller.userModel.interests ?? []).map((interestName) {
+                                return InterestWidget(
+                                  text: interestName,
+                                  iconPath: InterestModel.getIconByName(interestName),
+                                  isSelected: true,
+                                  activeColor: false,
+                                  onTap: () {},
+                                );
+                              }).toList(),
+                            ),
+                          /*  GridView.count(
                                 crossAxisCount: isTablet ? 3 : 2, // ✅ Deux colonnes fixes
                                 mainAxisSpacing: 2,
                                 crossAxisSpacing: 3,
@@ -185,7 +214,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                                     onTap: () {},
                                   );
                                 }).toList()
-                            ),
+                            ), */
 
                             SizedBox(height: 20.v),
                             SubTitleWidget(subtitle: "معرض", color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 4, fontSizeDelta: 5,),

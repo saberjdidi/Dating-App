@@ -132,25 +132,28 @@ class MultiSelectDropdown extends StatelessWidget {
               return DropdownMenuItem<InterestModel>(
                   value: item,
                   enabled: false, // Empêche la fermeture du menu
-                  child: InkWell(
-                    onTap: () {
-                      controller.toggleInterest(item, context);
-                    },
-                    child: Row(
-                      children: [
-                        Obx(() => Checkbox(
-                          value: controller.selectedInterests.value.contains(item),
-                          //value: isSelected,
-                          onChanged: (_) {
-                            controller.toggleInterest(item, context);
-                          },
-                          activeColor: TColors.yellowAppDark,
-                          checkColor: Colors.white,
-                        )),
-                        Expanded(
-                          child: Text(item.name, overflow: TextOverflow.ellipsis),
-                        ),
-                      ],
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: InkWell(
+                      onTap: () {
+                        controller.toggleInterest(item, context);
+                      },
+                      child: Row(
+                        children: [
+                          Obx(() => Checkbox(
+                            value: controller.selectedInterests.value.contains(item),
+                            //value: isSelected,
+                            onChanged: (_) {
+                              controller.toggleInterest(item, context);
+                            },
+                            activeColor: TColors.yellowAppDark,
+                            checkColor: Colors.white,
+                          )),
+                          Expanded(
+                            child: Text(item.name, overflow: TextOverflow.ellipsis),
+                          ),
+                        ],
+                      ),
                     ),
                   )
               );

@@ -25,13 +25,27 @@ class UserStatsWidget extends StatelessWidget {
   var _appTheme = PrefUtils.getTheme();
 
   Widget _buildDivider(Color color, double height) {
+
     return Container(
       height: height,
       //height: height * 0.7,
       width: 1,
       color: color,
-      margin: const EdgeInsets.symmetric(horizontal: 8),
+      margin:  EdgeInsets.symmetric(horizontal: 8),
     );
+  }
+
+  /// 👇 Définition des couleurs des icônes selon le type
+  Color _getIconColor(String imagePath) {
+    if (imagePath == ImageConstant.iconHeight) {
+      return Colors.green; // ✅ Hauteur = vert
+    } else if (imagePath == ImageConstant.iconWeight) {
+      return Colors.pinkAccent; // ✅ Poids = rose
+    } else if (imagePath == ImageConstant.iconSalary) {
+      return Colors.blue; // ✅ Salaire = bleu
+    } else {
+      return _appTheme == 'light' ? TColors.darkerGrey : TColors.white;
+    }
   }
 
   Widget _buildStatItem(BuildContext context, String text, String imagePath) {
@@ -44,7 +58,8 @@ class UserStatsWidget extends StatelessWidget {
         children: [
           CustomImageView(
             imagePath: imagePath,
-            color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
+            color: _getIconColor(imagePath),
+            //color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
             height: isSmallScreen ? iconSize * 0.8 : iconSize,
             width: isSmallScreen ? iconSize * 0.8 : iconSize,
             fit: BoxFit.cover,
@@ -91,8 +106,8 @@ class UserStatsWidget extends StatelessWidget {
           _buildStatItem(context, height.toString(), ImageConstant.iconHeight),
           _buildDivider(dividerColor, 50),
           _buildStatItem(context, weight, ImageConstant.iconWeight),
-          _buildDivider(dividerColor, 50),
-          _buildStatItem(context, salary, ImageConstant.iconSalary),
+          //_buildDivider(dividerColor, 50),
+         // _buildStatItem(context, salary, ImageConstant.iconSalary),
           _buildDivider(dividerColor, 50),
           _buildStatItem(context, skinColor, ImageConstant.iconSkinColor),
         ],

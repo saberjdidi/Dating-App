@@ -63,14 +63,17 @@ class FavoriteCardWidget extends StatelessWidget {
                 ),
                 // Use a subtle gradient that goes from transparent -> dark
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: [
-                      Colors.black.withOpacity(0.4),
-                      Colors.black.withOpacity(0.9),
-                    ],
-                  ),
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.transparent,       // Haut → totalement transparent
+                        Colors.black.withOpacity(0.4),
+                        Colors.black.withOpacity(0.6),
+                        Colors.black.withOpacity(0.8), // Bas → plus opaque
+                      ],
+                      stops: const [0.0, 0.4, 0.7, 1.0],
+                    )
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

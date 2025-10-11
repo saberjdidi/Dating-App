@@ -162,7 +162,7 @@ class Dialogs {
        builder: (context) => DraggableScrollableSheet(
          expand: false,
          initialChildSize: initialChildSize,
-         maxChildSize: 0.8,
+         maxChildSize: initialChildSize,
          minChildSize: 0.6,
          builder: (context, scrollController) => Stack(
            clipBehavior: Clip.none,

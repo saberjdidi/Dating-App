@@ -11,6 +11,7 @@ import 'package:dating_app_bilhalal/widgets/custom_drop_down.dart';
 import 'package:dating_app_bilhalal/widgets/form_divider_widget.dart';
 import 'package:dating_app_bilhalal/widgets/home/pays_widget.dart';
 import 'package:dating_app_bilhalal/widgets/multi_select_dopdown.dart';
+import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -23,20 +24,20 @@ class SearchDating {
 
     await Dialogs.customModalBottomSheet(
         Get.context!,
-        0.8,
+        0.9,
         Padding(
             padding: EdgeInsets.symmetric(horizontal: 15.fSize, vertical: TSizes.spaceBtwItems.fSize),
             child: Obx(() => Directionality(
               textDirection: TextDirection.rtl,
               child: ListBody(
                 children: <Widget>[
-                  SizedBox(height: TSizes.spaceBtwSections.adaptSize),
+                  /*SizedBox(height: TSizes.spaceBtwSections.adaptSize),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.adaptSize),
                     child: TitleWidget(title: "فلتر".tr,
                         color: _appTheme =='light' ? TColors.black : TColors.white,
                         textAlign: TextAlign.right),
-                  ),
+                  ), */
                   SizedBox(height: TSizes.spaceBtwItems.adaptSize),
                   FormDividerWidget(dividerText: "عمر", thikness: 2),
                   SizedBox(height: TSizes.spaceBtwItems.v),
@@ -322,19 +323,15 @@ class SearchDating {
 
                   CustomDropDown(
                     //textStyle: TextStyle(color: appTheme.black),
-                    hintText: "${'الحالة الاجتماعية'.tr} *",
+                    hintText: "${'الحالة الاجتماعية'.tr}",
                     items: ListMaritalStatus.value,
+                    selectedValue: controller.selectedMaritalStatus.value,
                     onChanged: (value) async {
+                      controller.selectedMaritalStatus.value = value;
                       controller.maritalStatusController.text = value.title;
                       //controller.typePieceIdentityController.text = value.title;
                       debugPrint('marital status : ${controller.maritalStatusController.text}');
                     },
-                    validator: (value) {
-                      if (value == null) {
-                        return "${'lbl_region'.tr} ${"lbl_is_required".tr}";
-                      }
-                      return null;
-                    },
                     icon: Icon(Iconsax.arrow_down_1),
                     borderRadius: 15.hw,
                     contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
@@ -342,22 +339,23 @@ class SearchDating {
                     hintStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
                     textStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
                     themeColor:_appTheme =='light' ?  appTheme.gray50 : TColors.darkerGrey,
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.hw),
+                      borderSide: BorderSide(color: TColors.darkGrey, width: 1),
+                      //borderSide: BorderSide.none,
+                    ),
                   ),
                   SizedBox(height: TSizes.spaceBtwItems.v),
 
                   CustomDropDown(
-                    hintText: "${'نوع الزواج'.tr} *",
+                    hintText: "${'نوع الزواج'.tr}",
                     items: ListLookingFor.value,
+                    selectedValue: controller.selectedLookingFor.value,
                     onChanged: (value) async {
+                      controller.selectedLookingFor.value = value;
                       controller.lookingForController.text = value.title;
                       //controller.typePieceIdentityController.text = value.title;
                       debugPrint('looking for : ${controller.lookingForController.text}');
-                    },
-                    validator: (value) {
-                      if (value == null) {
-                        return "${'lbl_region'.tr} ${"lbl_is_required".tr}";
-                      }
-                      return null;
                     },
                     icon: Icon(Iconsax.arrow_down_1),
                     borderRadius: 15.hw,
@@ -366,6 +364,11 @@ class SearchDating {
                     hintStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
                     textStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
                     themeColor:_appTheme =='light' ?  appTheme.gray50 : TColors.darkerGrey,
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.hw),
+                      borderSide: BorderSide(color: TColors.darkGrey, width: 1),
+                      //borderSide: BorderSide.none,
+                    ),
                   ),
                   SizedBox(height: TSizes.spaceBtwItems.v),
 
@@ -384,17 +387,13 @@ class SearchDating {
                   SizedBox(height: TSizes.spaceBtwItems.v), */
 
                   CustomDropDown(
-                    hintText: "${'دولة'.tr} *",
+                    hintText: "${'دولة'.tr}",
                     items: ListPays.value,
+                    selectedValue: controller.selectedPays.value,
                     onChanged: (value) async {
+                      controller.selectedPays.value = value;
                       controller.paysController.text = value.title;
                       debugPrint('pays : ${controller.paysController.text}');
-                    },
-                    validator: (value) {
-                      if (value == null) {
-                        return "${'lbl_region'.tr} ${"lbl_is_required".tr}";
-                      }
-                      return null;
                     },
                     icon: Icon(Iconsax.arrow_down_1),
                     borderRadius: 15.hw,
@@ -403,6 +402,11 @@ class SearchDating {
                     hintStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
                     textStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
                     themeColor:_appTheme =='light' ?  appTheme.gray50 : TColors.darkerGrey,
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.hw),
+                      borderSide: BorderSide(color: TColors.darkGrey, width: 1),
+                      //borderSide: BorderSide.none,
+                    ),
                   ),
 
                   SizedBox(height: TSizes.spaceBtwItems.v),
@@ -417,6 +421,8 @@ class SearchDating {
                     textStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
                     themeColor:_appTheme =='light' ?  appTheme.gray50 : TColors.darkerGrey,
                   ),
+                  SizedBox(height: TSizes.spaceBtwItems.v),
+
                   /* GridView.count(
                     crossAxisCount: isTablet ? 3 : 2, // ✅ Deux colonnes fixes
                     mainAxisSpacing: 2,
@@ -444,7 +450,7 @@ class SearchDating {
                         isSelected: true,
                         activeColor: false,
                         onTap: () => controller.toggleInterest(interest, Get.context!),
-                        verticalPadding: 20.v,
+                        verticalPadding: 10.v,
                       );
                     }).toList(),
                   ),
@@ -453,11 +459,11 @@ class SearchDating {
                   SizedBox(
                     width: isTablet ? mediaQueryData.size.width * 0.2 : mediaQueryData.size.width * 0.4,
                     child: CustomButtonContainer(
-                      text:"تطبيق المرشحات".tr,
+                      text:"فلتر".tr,
                       color1: TColors.yellowAppDark,
                       color2: TColors.yellowAppLight,
                       borderRadius: 10,
-                      colorText: TColors.redAppLight,
+                      colorText: TColors.black,
                       fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
                       height: isSmallPhone ? 80.v : 70.v,
                       width: screenWidth * 0.8,
@@ -485,19 +491,164 @@ class SearchDating {
     await Dialogs.customModalBottomSheet(
         //await Dialogs.customModalBottomSheetMethod2(
         Get.context!,
+        0.6,
+        Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.fSize, vertical: TSizes.spaceBtwItems.fSize),
+            child: ListBody(
+              children: <Widget>[
+                SizedBox(height: TSizes.spaceBtwSections.adaptSize),
+
+                /// 1️⃣ Pays "الکل" sur toute la largeur
+            Obx(() {
+              final countryAlkol = countriesList.firstWhere((c) => c.name == "الکل");
+              final isSelected = controller.selectedCountries.contains(countryAlkol.name);
+
+              return Align(
+                alignment: Alignment.centerRight, // ✅ positionne le bloc à droite comme les autres
+                child: SizedBox(
+                  width: Get.width * 0.47, // ✅ limite à 40% de la largeur de l’écran
+                  child: GestureDetector(
+                    onTap: () => controller.toggleCountry(countryAlkol.name),
+                    child: TRoundedContainer(
+                      backgroundColor: _appTheme == 'light' ? TColors.white : TColors.dark,
+                      //margin: EdgeInsets.only(right: 20.hw),
+                      //padding: EdgeInsets.only(right: 30, left: 20, top: 12, bottom: 12),
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      child: Directionality(
+                        textDirection: TextDirection.rtl, // ✅ texte arabe à droite
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween, // ✅ texte à droite, checkbox à gauche
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                countryAlkol.name,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: _appTheme == 'light' ? TColors.black : TColors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 20.adaptSize,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              height: 30.adaptSize,
+                              width: 30.adaptSize,
+                              decoration: BoxDecoration(
+                                color: isSelected ? Colors.grey : Colors.transparent,
+                                border: Border.all(
+                                  color: _appTheme == 'light'
+                                      ? Colors.blueGrey
+                                      : TColors.white,
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: isSelected
+                                  ? Icon(Icons.check, size: 18, color: TColors.yellowAppDark)
+                                  : null,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            }),
+
+               /* Obx(() {
+                  final countryAlkol = countriesList.firstWhere((c) => c.name == "الکل");
+                  final isSelected = controller.selectedCountries.contains(countryAlkol.name);
+
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: PaysWidget(
+                      text: countryAlkol.name,
+                      imagePath: countryAlkol.imagePath,
+                      isSelected: isSelected,
+                      onTap: () => controller.toggleCountry(countryAlkol.name),
+                      fullWidth: true,   // ✅ prend toute la ligne
+                    ),
+                  );
+                }), */
+
+                SizedBox(height: 15),
+
+                /// 2️⃣ Les autres pays (3 par ligne)
+                Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: Obx(() {
+                    final otherCountries =
+                    countriesList.where((c) => c.name != "الکل").toList();
+
+                    return GridView.count(
+                      crossAxisCount: isTablet ? 3 : 2, // ✅ Trois par ligne
+                      shrinkWrap: true,
+                      mainAxisSpacing: 7,
+                      crossAxisSpacing: 7,
+                      physics: NeverScrollableScrollPhysics(),
+                      childAspectRatio: isTablet ? 3.2 : 3.1,
+                      //childAspectRatio: 2.2,
+                      children: otherCountries.map((country) {
+                        final isSelected = controller.selectedCountries.contains(country.name);
+                        return PaysWidget(
+                          text: country.name,
+                          imagePath: country.imagePath,
+                          isSelected: isSelected,
+                          onTap: () => controller.toggleCountry(country.name),
+                        );
+                      }).toList(),
+                    );
+                  }),
+                ),
+
+                SizedBox(height: TSizes.spaceBtwItems.v),
+
+                /// 3️⃣ Bouton Enregistrer
+                SizedBox(
+                  width: isTablet
+                      ? mediaQueryData.size.width * 0.2
+                      : mediaQueryData.size.width * 0.4,
+                  child: CustomButtonContainer(
+                    text: "حفظ".tr,
+                    color1: TColors.yellowAppDark,
+                    color2: TColors.yellowAppLight,
+                    borderRadius: 10,
+                    colorText: TColors.black,
+                    fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
+                    height: isSmallPhone ? 80.v : 70.v,
+                    width: screenWidth * 0.8,
+                    onPressed: () async {
+                      var bottomController = BottomBarController.instance;
+                      bottomController.updateCountryTitle();
+                      Get.back();
+                    },
+                  ),
+                ),
+
+                const SizedBox(height: TSizes.spaceBtwItems),
+              ],
+            )
+
+        )
+    );
+  }
+
+  static Future<void> openDialogFilterByPaysDesign2(MainController controller) async {
+    var screenWidth = Get.width;
+    var isSmallPhone = screenWidth < 360;
+    var isTablet = screenWidth >= 600;
+    var _appTheme = PrefUtils.getTheme();
+
+    await Dialogs.customModalBottomSheet(
+      //await Dialogs.customModalBottomSheetMethod2(
+        Get.context!,
         0.7,
         Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.fSize, vertical: TSizes.spaceBtwItems.fSize),
             child: ListBody(
               children: <Widget>[
-                /*   Center(
-                child: InkWell(
-                    onTap: (){
-                      Navigator.pop(context);
-                    },
-                    child: Icon(Icons.keyboard_arrow_down_rounded, color: TColors.textSecondary, size: 40.adaptSize,)
-                ),
-              ), */
                 SizedBox(height: TSizes.spaceBtwSections.adaptSize),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.adaptSize),
@@ -527,7 +678,7 @@ class SearchDating {
                 SizedBox(
                   width: isTablet ? mediaQueryData.size.width * 0.2 : mediaQueryData.size.width * 0.4,
                   child: CustomButtonContainer(
-                    text:"حفظ التغييرات".tr,
+                    text:"حفظ".tr,
                     color1: TColors.yellowAppDark,
                     color2: TColors.yellowAppLight,
                     borderRadius: 10,

@@ -214,11 +214,12 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                       borderRadius: 30,
                                       colorText: TColors.black,
                                       fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
-                                      height: isSmallPhone ? 80.v : isTablet ? 70.v : 65.v,
+                                      height: isSmallPhone ? 65.v : isTablet ? 55.v : 40.v,
                                       width: 120.adaptSize,
                                       onPressed: () async {
                                         Get.toNamed(Routes.mediaOwnerProfileScreen);
                                       },
+                                        paddingVertical: 2
                                     ),
                                   ],
                                 ),

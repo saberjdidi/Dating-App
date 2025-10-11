@@ -5,6 +5,7 @@ import 'package:dating_app_bilhalal/routes/app_routes.dart';
 import 'package:dating_app_bilhalal/presentation/splash_screen/controller/splash_redirect_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 //import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,6 +30,9 @@ void main() async  {
         (FirebaseApp value) => Get.put(AuthenticationRepository()),
   );
 
+  // Active le mode immersif total
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  //SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
   //Get.put(SplashRedirectController()); //using when use flutter_native_splash
 

@@ -26,6 +26,76 @@ class InterestWidget extends StatelessWidget {
 
     return GestureDetector(
       onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          vertical: verticalPadding,
+          horizontal: 12, // ✅ un padding horizontal cohérent
+        ),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? (activeColor ? TColors.yellowAppDark : TColors.greyDating)
+              : TColors.white,
+          border: Border.all(
+            color: isSelected
+                ? (activeColor ? TColors.yellowAppLight : TColors.greyDating)
+                : TColors.greyDating,
+            width: 0.8,
+          ),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min, // ✅ s’adapte au contenu
+          children: [
+            Icon(
+              iconPath,
+              size: 22,
+              color: isSelected
+                  ? (activeColor ? TColors.black : (_appTheme == 'light' ? TColors.black : TColors.darkerGrey))
+                  : (_appTheme == 'light' ? TColors.black : TColors.darkerGrey),
+            ),
+            const SizedBox(width: 6),
+            Text(
+              text,
+              style: TextStyle(
+                color: isSelected
+                    ? (activeColor ? TColors.black : (_appTheme == 'light' ? TColors.black : TColors.darkerGrey))
+                    : (_appTheme == 'light' ? TColors.black : TColors.darkerGrey),
+                fontWeight: FontWeight.bold,
+                fontSize: 16, // ✅ taille équilibrée pour toutes les longueurs
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/*
+class InterestWidget extends StatelessWidget {
+  final String text;
+  final IconData iconPath;
+  final bool isSelected;
+  final bool activeColor;
+  final VoidCallback onTap;
+  final double verticalPadding;
+
+  const InterestWidget({
+    super.key,
+    required this.text,
+    required this.iconPath,
+    required this.isSelected,
+    this.activeColor = true,
+    required this.onTap,
+    this.verticalPadding = 10,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    var _appTheme = PrefUtils.getTheme();
+
+    return GestureDetector(
+      onTap: onTap,
       child: TRoundedContainer(
         //height: isTablet ? 20.hw : 52.hw,
         width: Get.width * 0.4,
@@ -48,12 +118,6 @@ class InterestWidget extends StatelessWidget {
               Icon(iconPath, size: 30.adaptSize, color: isSelected
                   ?  activeColor ? TColors.black : (_appTheme =='light' ? TColors.black : TColors.darkerGrey)
                   : _appTheme =='light' ? TColors.black : TColors.darkerGrey),
-            /*  CustomImageView(
-                imagePath: iconPath,
-                height: 35.adaptSize,
-                width: 35.adaptSize,
-                fit: BoxFit.fill,
-              ), */
               //Image.asset(iconPath, height: 20, width: 20), // Icône
                SizedBox(width: 8.hw),
               Text(
@@ -69,40 +133,7 @@ class InterestWidget extends StatelessWidget {
             ],
           ),
       ),
-    /*  child: Container(
-        width: Get.width * 0.4,
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-        margin: const EdgeInsets.all(5),
-        decoration: BoxDecoration(
-          color: isSelected ? Colors.yellow.shade700 : Colors.grey.shade200,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: isSelected ? Colors.black : Colors.transparent,
-            width: 1.5,
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            CustomImageView(
-              imagePath: iconPath,
-              height: 40.adaptSize,
-              width: 40.adaptSize,
-              fit: BoxFit.fill,
-            ),
-            //Image.asset(iconPath, height: 20, width: 20), // Icône
-            //const SizedBox(width: 8),
-            Text(
-              text,
-              style: TextStyle(
-                color: isSelected ? Colors.white : Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 20.adaptSize
-              ),
-            ),
-          ],
-        ),
-      ), */
     );
   }
 }
+ */

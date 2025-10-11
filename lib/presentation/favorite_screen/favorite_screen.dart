@@ -61,9 +61,9 @@ class FavoriteScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 5.hw),
                 child: TabbedPageWidget(
                   tabs: [
-                    TabItem("الحسابات المفضلة"),
-                    TabItem("ملفي المفضل"),
-                    TabItem("الصور المفضلة")
+                    TabItem("المفضّل"),
+                    TabItem("إعجاباتي"),
+                    TabItem("مُعجبيني")
                   ],
                   onTabChanged: controller.onTabChanged,
                   activeColor: TColors.yellowAppDark,

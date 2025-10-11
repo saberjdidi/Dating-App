@@ -1,10 +1,13 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/popups/full_screen_loader.dart';
 import 'package:dating_app_bilhalal/core/utils/popups/search_dating.dart';
+import 'package:dating_app_bilhalal/data/datasources/dropdown_local_data_source.dart';
 import 'package:dating_app_bilhalal/data/models/UserModel.dart';
 import 'package:dating_app_bilhalal/data/models/interest_model.dart';
+import 'package:dating_app_bilhalal/data/models/selection_popup_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 
@@ -18,6 +21,9 @@ class FilterController extends GetxController {
   TextEditingController lookingForController = TextEditingController();
   //TextEditingController jobController = TextEditingController();
   TextEditingController paysController = TextEditingController();
+  final Rx<SelectionPopupModel?> selectedMaritalStatus = Rx<SelectionPopupModel?>(null);
+  final Rx<SelectionPopupModel?> selectedLookingFor = Rx<SelectionPopupModel?>(null);
+  final Rx<SelectionPopupModel?> selectedPays = Rx<SelectionPopupModel?>(null);
 
   //RxInt sexValue = 0.obs;
   //RxDouble currentAgeValue = 20.toDouble().obs; //choice one age
@@ -56,6 +62,14 @@ class FilterController extends GetxController {
     loadUsers();
     // Démarre le swipe automatique après un petit délai
     Future.delayed(const Duration(seconds: 2), startAutoSwipe);
+
+    /// ✅ Définir les valeurs par défaut
+    selectedMaritalStatus.value = ListMaritalStatus.value.first;
+    selectedLookingFor.value = ListLookingFor.value.first;
+    selectedPays.value = ListPays.value.first;
+    maritalStatusController.text = ListMaritalStatus.value.first.title; // "أعزب"
+    lookingForController.text = ListLookingFor.value.first.title; // "زواج معلن دائم"
+    paysController.text = ListPays.value.first.title; // "السعودیة"
   }
   @override
   void onReady() {
@@ -70,7 +84,8 @@ class FilterController extends GetxController {
           imageProfile: ImageConstant.imgOnBoarding1,
           fullName: 'نورا خالد',
           age: 25,
-          bio: '🌍📸 نموذج احترافي',
+          bio: 'نموذج احترافي',
+          isFavoris: true,
           interests: ["التسوق", "فوتوغرافيا", "اليوغا"],
           images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
       ),
@@ -79,6 +94,7 @@ class FilterController extends GetxController {
           fullName: 'نورا خالد',
           age: 32,
           bio: 'مبرمج',
+          isFavoris: true,
           interests: ["كاريوكي", "التنس", "اليوغا", "طبخ", "سباحة"],
           images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
       ),
@@ -87,10 +103,21 @@ class FilterController extends GetxController {
           fullName: 'ايلاف خالد',
           age: 29,
           bio: 'شخص إعلامي',
+          isFavoris: false,
           interests: ["ركض", "السفر", "قراءة", "طبخ", "سباحة"],
           images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
       ),
+      UserModel(
+          imageProfile: ImageConstant.imgOnBoarding4,
+          fullName: 'إسراء الجديدي',
+          age: 22,
+          bio: 'شخص إعلامي',
+          isFavoris: true,
+          interests: ["السفر", "قراءة", "طبخ", "سباحة"],
+          images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
+      ),
     ];
+    currentIndex.value = 0; // Initialisation
   }
 
    toggleCountry(String countryName) {
@@ -115,11 +142,45 @@ class FilterController extends GetxController {
   }
 
   ///LinearProgressIndicator Start
+  // Ajout : Suivi de l'index courant pour les navigations programmatiques
+  final RxInt currentIndex = 0.obs;
+  int get cardsCount => users.length; // Getter pour la taille (performant)
+
   final CardSwiperController swiperController = CardSwiperController();
   final RxDouble progress = 0.0.obs;
   //Timer? autoSwipeTimer;
   Timer? progressTimer;
+
   void startAutoSwipe() {
+    stopAutoSwipe();
+
+    const swipeInterval = Duration(seconds: 10);
+    const tickInterval = Duration(milliseconds: 100);
+    const totalTicks = 10000 ~/ 100; // 10s -> 100 ticks
+
+    int tickCount = 0;
+    progress.value = 0;
+
+    progressTimer = Timer.periodic(tickInterval, (timer) {
+      tickCount++;
+      progress.value = tickCount / totalTicks;
+      if (tickCount >= totalTicks) {
+        timer.cancel();
+
+        // Modification : Swipe automatique vers un index ALÉATOIRE
+        int nextIndex = Random().nextInt(cardsCount);
+        if (nextIndex == currentIndex.value) {
+          nextIndex = (currentIndex.value + 1) % cardsCount; // Évite la répétition
+        }
+        currentIndex.value = nextIndex;
+        swiperController.moveTo(nextIndex); // Programmatique et fluide
+
+        startAutoSwipe(); // Relance le cycle
+      }
+    });
+  }
+  ///with progress timer
+ /* void startAutoSwipe() {
     stopAutoSwipe();
 
     const swipeInterval = Duration(seconds: 10);
@@ -138,7 +199,7 @@ class FilterController extends GetxController {
         startAutoSwipe(); // relance le cycle automatiquement
       }
     });
-  }
+  } */
 
   //without progress timer
   /* void startAutoSwipe() {
