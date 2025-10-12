@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +11,8 @@ class InterestWidget extends StatelessWidget {
   final bool activeColor;
   final VoidCallback onTap;
   final double verticalPadding;
+  final bool showRandomColor;
+  final List<Color>? randomList;
 
   const InterestWidget({
     super.key,
@@ -18,11 +22,24 @@ class InterestWidget extends StatelessWidget {
     this.activeColor = true,
     required this.onTap,
     this.verticalPadding = 10,
+    this.showRandomColor = false,
+    this.randomList,
   });
 
   @override
   Widget build(BuildContext context) {
     var _appTheme = PrefUtils.getTheme();
+
+    // ✅ Choisir une couleur aléatoire si activé
+    final Color? randomColor = (showRandomColor && randomList != null && randomList!.isNotEmpty)
+        ? randomList![Random().nextInt(randomList!.length)]
+        : null;
+
+    final Color backgroundColor = isSelected
+        ? (activeColor
+        ? (showRandomColor ? (randomColor ?? TColors.primaryColorApp) : TColors.primaryColorApp)
+        : TColors.greyDating)
+        : (showRandomColor ? (randomColor ?? TColors.white) : TColors.white);
 
     return GestureDetector(
       onTap: onTap,
@@ -32,9 +49,8 @@ class InterestWidget extends StatelessWidget {
           horizontal: 12, // ✅ un padding horizontal cohérent
         ),
         decoration: BoxDecoration(
-          color: isSelected
-              ? (activeColor ? TColors.primaryColorApp : TColors.greyDating)
-              : TColors.white,
+          color: backgroundColor,
+          //color: isSelected ? (activeColor ? TColors.primaryColorApp : TColors.greyDating) : TColors.white,
           border: Border.all(
             color: isSelected
                 ? (activeColor ? TColors.primaryColorApp : TColors.greyDating)
@@ -50,16 +66,22 @@ class InterestWidget extends StatelessWidget {
               iconPath,
               size: 22,
               color: isSelected
-                  ? (activeColor ? TColors.black : (_appTheme == 'light' ? TColors.black : TColors.darkerGrey))
+                  ? (activeColor
+                  ? TColors.black
+                  : (_appTheme == 'light' ? TColors.black : TColors.darkerGrey))
                   : (_appTheme == 'light' ? TColors.black : TColors.darkerGrey),
+              //color: isSelected ? (activeColor ? TColors.black : (_appTheme == 'light' ? TColors.black : TColors.darkerGrey)) : (_appTheme == 'light' ? TColors.black : TColors.darkerGrey),
             ),
             const SizedBox(width: 6),
             Text(
               text,
               style: TextStyle(
                 color: isSelected
-                    ? (activeColor ? TColors.black : (_appTheme == 'light' ? TColors.black : TColors.darkerGrey))
+                    ? (activeColor
+                    ? TColors.black
+                    : (_appTheme == 'light' ? TColors.black : TColors.darkerGrey))
                     : (_appTheme == 'light' ? TColors.black : TColors.darkerGrey),
+                //color: isSelected ? (activeColor ? TColors.black : (_appTheme == 'light' ? TColors.black : TColors.darkerGrey)) : (_appTheme == 'light' ? TColors.black : TColors.darkerGrey),
                 fontWeight: FontWeight.bold,
                 fontSize: 16, // ✅ taille équilibrée pour toutes les longueurs
               ),

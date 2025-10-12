@@ -206,7 +206,16 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                                   text: interestName,
                                   iconPath: InterestModel.getIconByName(interestName),
                                   isSelected: true,
-                                  activeColor: false,
+                                  activeColor: true,
+                                  showRandomColor: true, // ✅ active les couleurs aléatoires
+                                  randomList: [
+                                    const Color(0xFFFFF9C4), // jaune clair
+                                    const Color(0xFFE1BEE7), // violet clair
+                                    const Color(0xFFB3E5FC), // bleu clair
+                                    const Color(0xFFC8E6C9), // vert clair
+                                    const Color(0xFFFFE0B2), // orange clair
+                                    const Color(0xFFFFCDD2), // rose clair
+                                  ],
                                   onTap: () {},
                                 );
                               }).toList(),
@@ -291,6 +300,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                                   borderColor: TColors.primaryColorApp,
                                   child: CustomImageView(
                                     imagePath: ImageConstant.iconChat,
+                                    color: TColors.primaryColorApp,
                                     //height: 50.hw,
                                     //width: 50.hw,
                                     fit: BoxFit.cover,

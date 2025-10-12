@@ -448,9 +448,18 @@ class SearchDating {
                         text: interest.name,
                         iconPath: interest.icon,
                         isSelected: true,
-                        activeColor: false,
+                        activeColor: true,
                         onTap: () => controller.toggleInterest(interest, Get.context!),
                         verticalPadding: 10.v,
+                        showRandomColor: true, // ✅ active les couleurs aléatoires
+                        randomList: [
+                          const Color(0xFFFFF9C4), // jaune clair
+                          const Color(0xFFE1BEE7), // violet clair
+                          const Color(0xFFB3E5FC), // bleu clair
+                          const Color(0xFFC8E6C9), // vert clair
+                          const Color(0xFFFFE0B2), // orange clair
+                          const Color(0xFFFFCDD2), // rose clair
+                        ],
                       );
                     }).toList(),
                   ),
