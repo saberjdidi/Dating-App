@@ -47,7 +47,7 @@ class PassswordSuccessScreen extends StatelessWidget {
                     color1: TColors.yellowAppDark,
                     color2: TColors.yellowAppLight,
                     borderRadius: 10,
-                    colorText: TColors.white,
+                    colorText: TColors.black,
                     fontSize: 20.adaptSize,
                     width: Get.width,
                     textAlign: TextAlign.center,

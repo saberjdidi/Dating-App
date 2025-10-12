@@ -22,6 +22,7 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
     var isTablet = screenWidth >= 600;
 
     return SafeArea(
+        top: false,
         child: Form(
           key: controller.formChangePasswordKey,
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -39,6 +40,7 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
                     padding: EdgeInsets.symmetric(horizontal: 24.hw, vertical: 11.v),
                     child: Column(
                         children: [
+                          SizedBox(height: TSizes.spaceBtwItems),
                           Align(
                             alignment: Alignment.center,
                             child: CustomImageView(
@@ -65,7 +67,7 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
                               textInputAction: TextInputAction.next,
                               prefixConstraints: BoxConstraints(maxHeight: 60.v),
                               contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
-                              validator: (value) => Validator.validateEmptyText("Password".tr, value),
+                              validator: (value) => Validator.validatePassword(value),
                               obscureText: controller.isShowPassword.value,
                               fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
                               hintStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSemiBoldBlack : CustomTextStyles.titleMediumSemiBoldWhite,
@@ -90,7 +92,7 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
                                           width: 20.adaptSize)
                                   )), */
                               suffixConstraints: BoxConstraints(maxHeight: 60.v),
-                              validator: (value) => Validator.validateEmptyText("Confirm Password".tr, value),
+                              validator: (value) => Validator.validatePassword(value),
                               obscureText: controller.isShowPassword.value,
                               contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
                               fillColor: _appTheme =='light' ? TColors.white : TColors.dark,

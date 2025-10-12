@@ -23,6 +23,7 @@ class NavigationScreen extends GetWidget<NavigationController> {
     //bottomCtrl.initGuideAutoShowIfNeeded();
 
     return SafeArea(
+        top: false,
         child: Scaffold(
             key: _scaffoldNavigationKey,
             //backgroundColor:PrefUtils.getTheme() =='light' ? TColors.lightContainer : appTheme.primaryColor,
@@ -36,7 +37,7 @@ class NavigationScreen extends GetWidget<NavigationController> {
                         transition: Transition.noTransition)
                 ),
                 //Affiche le guide de lapplication
-                GuideDialog(),
+                //GuideDialog(),
               ],
             ),
             bottomNavigationBar: _buildBottomBar()

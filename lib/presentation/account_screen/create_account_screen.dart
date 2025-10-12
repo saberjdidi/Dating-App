@@ -36,6 +36,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
     var isTablet = screenWidth >= 600;
 
     return SafeArea(
+        top: false,
       child: Form(
         key: controller.formCreateAccountKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,

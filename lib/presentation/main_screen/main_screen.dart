@@ -26,7 +26,56 @@ class MainScreen extends GetView<MainController> {
               return const Center(child: CircularProgressIndicator());
             }
 
-            return GestureDetector(
+            return CardSwiper(
+              controller: controller.swiperController,
+              cardsCount: controller.users.length,
+              numberOfCardsDisplayed: 1,
+              isLoop: true,
+              padding: EdgeInsets.zero,
+              //Auto Swiper with timer - Mise à jour du callback onSwipe
+              onSwipe: (previousIndex, currentIndex, direction) {
+                // Relance toujours le timer sur geste manuel
+                controller.onSwipe();
+
+                if (direction == CardSwiperDirection.left) {
+                  // Swipe gauche : Va au précédent (non aléatoire)
+                  final targetIndex = (previousIndex! - 1 + controller.cardsCount) % controller.cardsCount;
+                  controller.currentIndex.value = targetIndex;
+                  controller.swiperController.moveTo(targetIndex);
+                  return false; // Annule le swipe gauche pour éviter le next par défaut
+                } else {
+                  // Swipe droite (ou autre) : Autorise le next séquentiel
+                  // Met à jour l'index après l'animation (microtask pour sync)
+                  Future.microtask(() {
+                    controller.currentIndex.value = currentIndex ?? 0;
+                  });
+                  return true;
+                }
+              },
+              //Auto Swiper with timer
+              /* onSwipe: (previousIndex, currentIndex, direction) {
+                // ✅ Lorsqu’on swipe manuellement, on relance le timer
+                controller.onSwipe();
+                return true;
+              }, */
+              //maxAngle: 30,
+              cardBuilder: (context, index, percentX, percentY) {
+                final user = controller.users[index];
+                return UserCardWidget(
+                  user: user,
+                  onMessageTap: () async {
+                    debugPrint("message ${user.fullName}");
+                  },
+                  onFavoriteTap: () async {
+
+                  },
+                  /*  onTapFilter: () async {
+                    await dialogSearch(context);
+                  }, */
+                );
+              },
+            );
+          /*  return GestureDetector(
               // ✅ Stop auto-swipe when user interacts (optionnel)
               onTapDown: (_) => controller.stopAutoSwipe(),
               onTapUp: (_) => controller.startAutoSwipe(),
@@ -53,13 +102,10 @@ class MainScreen extends GetView<MainController> {
                       //await dialogSearchByCountry(context);
                     },
                     onFavoriteTap: () => debugPrint("Favorite ${user.fullName}"),
-                   /* onTapFilter: () async {
-                      await dialogSearchByCountry(context);
-                    }, */
                   );
                 },
               ),
-            );
+            ); */
           }),
 
           // ✅ Barre de progression animée

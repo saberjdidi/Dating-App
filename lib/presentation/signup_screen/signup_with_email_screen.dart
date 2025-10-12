@@ -23,6 +23,7 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
     var isTablet = screenWidth >= 600;
 
     return SafeArea(
+      top: false,
         child: Scaffold(
             resizeToAvoidBottomInset: false,
             //backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
@@ -36,6 +37,7 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
                       //padding: EdgeInsets.symmetric(horizontal: 24.hw, vertical: 11.v),
                       child: Column(
                           children: [
+                            SizedBox(height: TSizes.spaceBtwSections),
                             Visibility(
                               visible: false,
                               child: CustomImageView(

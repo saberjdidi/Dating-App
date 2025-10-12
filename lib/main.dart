@@ -31,8 +31,24 @@ void main() async  {
   );
 
   // Active le mode immersif total
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-  //SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+  //SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  //SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive); //works for nidhal
+  ///SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []); works but status black on top
+
+  // Mode immersif sticky : cache les barres et gère les gestes pour les réafficher temporairement
+  SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.manual,
+    //SystemUiMode.immersiveSticky, //SystemUiMode.edgeToEdge,
+    overlays: [], // Cache status bar ET navigation bar
+  );
+  // Force la transparence + visibilité des icônes
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent, // rend la status bar transparente
+    systemNavigationBarColor: Colors.transparent, // rend aussi la barre du bas transparente
+      //statusBarBrightness: Brightness.light, // Icônes sombres si fond clair (ajustez si thème sombre)
+      //statusBarIconBrightness: Brightness.dark, // Icônes visibles
+    ),
+  );
 
   //Get.put(SplashRedirectController()); //using when use flutter_native_splash
 

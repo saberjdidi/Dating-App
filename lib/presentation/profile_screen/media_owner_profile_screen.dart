@@ -24,6 +24,7 @@ class MediaOwnerProfileScreen extends GetWidget<MediaOwnerProfileController> {
     var isTablet = screenWidth >= 600;
 
     return SafeArea(
+        top: false,
         child: Form(
         key: controller.formMediaProfileKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,

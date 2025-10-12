@@ -11,8 +11,19 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item> -->
     </style>
-    <!-- Thème Flutter normal -->
+    <!-- Thème principal (NormalTheme) : appliqué pendant et après l'initialisation Flutter -->
     <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
         <item name="android:windowBackground">?android:colorBackground</item>
+
+        <!-- Clés pour transparence et full screen -->
+        <item name="android:windowTranslucentStatus">true</item> <!-- Rend la status bar translucide -->
+        <item name="android:statusBarColor">@android:color/transparent</item> <!-- Couleur transparente -->
+
+        <!-- Gère les découpages d'écran (encoches/punch-holes) pour éviter la bande noire -->
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+
+        <!-- Optionnel : pour la nav bar si besoin -->
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
 </resources>

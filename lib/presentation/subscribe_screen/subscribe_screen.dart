@@ -22,6 +22,7 @@ class SubscribeScreen extends GetView<SubscribeController> {
     var isTablet = screenWidth >= 600;
 
     return SafeArea(
+      top: false,
       child: Scaffold(
         //backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
         key: _scaffoldKeySubscribe,
@@ -296,7 +297,7 @@ class SubscribeScreen extends GetView<SubscribeController> {
                     color1: TColors.yellowAppDark,
                     color2: TColors.yellowAppLight,
                     borderRadius: 10,
-                    colorText: TColors.white,
+                    colorText: TColors.black,
                     fontSize: 20.adaptSize,
                     width: Get.width,
                     height: isSmallPhone ? 80.v : 70.v,

@@ -134,7 +134,7 @@ class FilterController extends GetxController {
     FullScreenLoader.openLoadingSearchDialog("مباراة البحث", "مطابقة الأشخاص مع متطلباتك",ImageConstant.imgLove, ImageConstant.imgLoves);
     //FullScreenLoader.openLoadingDialog('مطابقة الأشخاص مع متطلباتك..', ImageConstant.lottieTrophy);
 
-    Future.delayed(const Duration(milliseconds: 4000), (){
+    Future.delayed(const Duration(milliseconds: 3000), (){
       //Remove Loader
       FullScreenLoader.stopLoading();
     });

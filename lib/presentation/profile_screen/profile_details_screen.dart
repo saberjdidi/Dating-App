@@ -28,6 +28,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
     var isTablet = screenWidth >= 600;
 
     return SafeArea(
+        top: false,
         child: Scaffold(
           //backgroundColor: PrefUtils().getThemeData() =='light' ? TColors.lightContainer : TColors.darkerGrey,
           resizeToAvoidBottomInset: false,

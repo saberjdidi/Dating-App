@@ -62,7 +62,8 @@ class TabbedPageWidget extends StatelessWidget {
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     gradient: LinearGradient(
-                      colors: isActive ? [TColors.yellowAppDark, Color(0xFFF4AB03)]
+                      colors: isActive
+                          ? (activeColor == Color(0xFF09AFFF) ? [Color(0xFF09AFFF), Color(0xFF09AFFF)] :  [TColors.yellowAppDark, Color(0xFFF4AB03)])
                           : _appTheme =='light' ? [TColors.black, TColors.black] : [TColors.white, TColors.white], // green gradient
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
@@ -86,12 +87,9 @@ class TabbedPageWidget extends StatelessWidget {
                       margin: const EdgeInsets.only(top: 3),
                       height: 2,
                       width: isActive ? 60 : 0, // largeur animée
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [
-                            TColors.yellowAppDark,
-                            Color(0xFFF4AB03),
-                          ],
+                          colors: activeColor == Color(0xFF09AFFF) ? [Color(0xFF09AFFF), Color(0xFF09AFFF)] :  [TColors.yellowAppDark, Color(0xFFF4AB03)],
                           begin: Alignment.centerLeft,
                           end: Alignment.centerRight,
                         ),

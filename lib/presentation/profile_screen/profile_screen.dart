@@ -26,6 +26,7 @@ class ProfileScreen extends StatelessWidget {
     var isTablet = screenWidth >= 600;
 
     return SafeArea(
+      top: false,
       child: Obx(() {
         // Lis l'état du thème ici
         bool isDark = ThemeController.instance.isDark.value;
@@ -46,12 +47,14 @@ class ProfileScreen extends StatelessWidget {
                     );
                   },
                   child: TRoundedContainer(
-                    showBorder: true,
+                    showBorder: false,
                     backgroundColor: isDark ? TColors.dark : TColors.white,
                     borderColor: isDark ? TColors.white : TColors.grey400,
                     radius: 20.adaptSize,
-                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 7.adaptSize),
-                    padding: EdgeInsets.all(10.adaptSize),
+                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
+                    //margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 7.adaptSize),
+                    padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
+                    //padding: EdgeInsets.all(10.adaptSize),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -74,8 +77,8 @@ class ProfileScreen extends StatelessWidget {
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             CustomImageView(
                               imagePath: ImageConstant.profile8,
-                              width: 60.adaptSize,
-                              height: 60.adaptSize,
+                              width: 40.adaptSize,
+                              height: 40.adaptSize,
                               radius: BorderRadius.circular(60.adaptSize),
                             )
                           ],
@@ -90,12 +93,13 @@ class ProfileScreen extends StatelessWidget {
                     Get.toNamed(Routes.settingsScreen);
                   },
                   child: TRoundedContainer(
-                    showBorder: true,
+                    showBorder: false,
                     backgroundColor: isDark ? TColors.dark : TColors.white,
                     borderColor: isDark ? TColors.white : TColors.grey400,
                     radius: 20.adaptSize,
-                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 7.adaptSize),
-                    padding: EdgeInsets.all(10.adaptSize),
+                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
+                    padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
+                    //padding: EdgeInsets.all(10.adaptSize),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -115,8 +119,8 @@ class ProfileScreen extends StatelessWidget {
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             CustomImageView(
                               imagePath: ImageConstant.imgSettingsCalling,
-                              width: 40.adaptSize,
-                              height: 40.adaptSize,
+                              width: 25.adaptSize,
+                              height: 25.adaptSize,
                               //radius: BorderRadius.circular(40.adaptSize),
                             )
                           ],
@@ -131,12 +135,13 @@ class ProfileScreen extends StatelessWidget {
                     Get.toNamed(Routes.changePasswordScreen);
                   },
                   child: TRoundedContainer(
-                    showBorder: true,
+                    showBorder: false,
                     backgroundColor: isDark ? TColors.dark : TColors.white,
                     borderColor: isDark ? TColors.white : TColors.grey400,
                     radius: 20.adaptSize,
-                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 7.adaptSize),
-                    padding: EdgeInsets.all(10.adaptSize),
+                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
+                    padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
+                    //padding: EdgeInsets.all(10.adaptSize),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -154,8 +159,8 @@ class ProfileScreen extends StatelessWidget {
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             CustomImageView(
                               imagePath: ImageConstant.imgPassword,
-                              width: 40.adaptSize,
-                              height: 40.adaptSize,
+                              width: 25.adaptSize,
+                              height: 25.adaptSize,
                               //radius: BorderRadius.circular(40.adaptSize),
                             )
                           ],
@@ -176,12 +181,13 @@ class ProfileScreen extends StatelessWidget {
                     }
                   },
                   child: TRoundedContainer(
-                    showBorder: true,
+                    showBorder: false,
                     backgroundColor: isDark ? TColors.dark : TColors.white,
                     borderColor: isDark ? TColors.white : TColors.grey400,
                     radius: 20.adaptSize,
-                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 7.adaptSize),
-                    padding: EdgeInsets.all(10.adaptSize),
+                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
+                    padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
+                    //padding: EdgeInsets.all(10.adaptSize),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -201,8 +207,8 @@ class ProfileScreen extends StatelessWidget {
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             CustomImageView(
                               imagePath: ImageConstant.imgSubscription,
-                              width: 40.adaptSize,
-                              height: 40.adaptSize,
+                              width: 25.adaptSize,
+                              height: 25.adaptSize,
                               // radius: BorderRadius.circular(40.adaptSize),
                             )
                           ],
@@ -217,12 +223,13 @@ class ProfileScreen extends StatelessWidget {
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => TermesAndConditionsScreen()));
                   },
                   child: TRoundedContainer(
-                    showBorder: true,
+                    showBorder: false,
                     backgroundColor: isDark ? TColors.dark : TColors.white,
                     borderColor: isDark ? TColors.white : TColors.grey400,
                     radius: 20.adaptSize,
-                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 7.adaptSize),
-                    padding: EdgeInsets.all(10.adaptSize),
+                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
+                    padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
+                    //padding: EdgeInsets.all(10.adaptSize),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -242,8 +249,8 @@ class ProfileScreen extends StatelessWidget {
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             CustomImageView(
                               imagePath: ImageConstant.imgTerms,
-                              width: 40.adaptSize,
-                              height: 40.adaptSize,
+                              width: 25.adaptSize,
+                              height: 25.adaptSize,
                               //radius: BorderRadius.circular(40.adaptSize),
                             )
                           ],
@@ -258,12 +265,13 @@ class ProfileScreen extends StatelessWidget {
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => PrivacyPolicyScreen()));
                   },
                   child: TRoundedContainer(
-                    showBorder: true,
+                    showBorder: false,
                     backgroundColor: isDark ? TColors.dark : TColors.white,
                     borderColor: isDark ? TColors.white : TColors.grey400,
                     radius: 20.adaptSize,
-                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 7.adaptSize),
-                    padding: EdgeInsets.all(10.adaptSize),
+                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
+                    padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
+                    //padding: EdgeInsets.all(10.adaptSize),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -283,8 +291,8 @@ class ProfileScreen extends StatelessWidget {
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             CustomImageView(
                               imagePath: ImageConstant.imgPrivacyPolicy,
-                              width: 40.adaptSize,
-                              height: 40.adaptSize,
+                              width: 25.adaptSize,
+                              height: 25.adaptSize,
                               //radius: BorderRadius.circular(40.adaptSize),
                             )
                           ],
@@ -299,12 +307,13 @@ class ProfileScreen extends StatelessWidget {
                     ThemeController.instance.toggleTheme();
                   },
                   child: TRoundedContainer(
-                    showBorder: true,
+                    showBorder: false,
                     backgroundColor: isDark ? TColors.dark : TColors.white,
                     borderColor: isDark ? TColors.white : TColors.grey400,
                     radius: 20.adaptSize,
-                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 7.adaptSize),
-                    padding: EdgeInsets.all(10.adaptSize),
+                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical:0),
+                    padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
+                    //padding: EdgeInsets.all(10.adaptSize),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -329,7 +338,7 @@ class ProfileScreen extends StatelessWidget {
                               isDark ? Icons.dark_mode : Icons.light_mode,
                               color: TColors.buttonSecondary,
                               //color: isDark ? Colors.amber : Colors.blueGrey,
-                              size: 40.adaptSize,
+                              size: 25.adaptSize,
                             ),
                           ],
                         ),
@@ -385,12 +394,13 @@ class ProfileScreen extends StatelessWidget {
                    // Get.offAllNamed(Routes.navigationScreen);
                   }, */
                   child: TRoundedContainer(
-                    showBorder: true,
+                    showBorder: false,
                     backgroundColor: isDark ? TColors.dark : TColors.white,
                     borderColor: isDark ? TColors.white : TColors.grey400,
                     radius: 20.adaptSize,
-                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 7.adaptSize),
-                    padding: EdgeInsets.all(10.adaptSize),
+                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
+                    padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
+                    //padding: EdgeInsets.all(10.adaptSize),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -411,7 +421,7 @@ class ProfileScreen extends StatelessWidget {
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             Icon(Icons.view_timeline_outlined,
                               color: TColors.buttonSecondary,
-                              size: 40.adaptSize,
+                              size: 25.adaptSize,
                             ),
                           ],
                         )
@@ -427,12 +437,13 @@ class ProfileScreen extends StatelessWidget {
                     //Dialogs.dialogLogout(context);
                   },
                   child: TRoundedContainer(
-                    showBorder: true,
+                    showBorder: false,
                     backgroundColor: isDark ? TColors.dark : TColors.white,
                     borderColor: isDark ? TColors.white : TColors.grey400,
                     radius: 20.adaptSize,
-                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 7.adaptSize),
-                    padding: EdgeInsets.all(10.adaptSize),
+                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
+                    padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
+                    //padding: EdgeInsets.all(10.adaptSize),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -453,8 +464,8 @@ class ProfileScreen extends StatelessWidget {
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             CustomImageView(
                               imagePath: ImageConstant.imgLogout,
-                              width: 40.adaptSize,
-                              height: 40.adaptSize,
+                              width: 25.adaptSize,
+                              height: 25.adaptSize,
                               // radius: BorderRadius.circular(40.adaptSize),
                             )
                           ],

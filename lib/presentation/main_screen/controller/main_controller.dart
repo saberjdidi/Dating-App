@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/popups/search_dating.dart';
@@ -12,8 +13,6 @@ class MainController extends GetxController {
 
   final RxList<UserModel> users = <UserModel>[].obs;
   var selectedCountries = <String>[].obs;
-
-  var currentIndex = 0.obs;
 
   @override
   void onInit() {
@@ -124,6 +123,69 @@ class MainController extends GetxController {
       debugPrint('selectedCountryTitle : ${selectedCountryTitle.value}');
   }
 
+  ///LinearProgressIndicator Start
+  // Ajout : Suivi de l'index courant pour les navigations programmatiques
+  final RxInt currentIndex = 0.obs;
+  int get cardsCount => users.length; // Getter pour la taille (performant)
+
+  final CardSwiperController swiperController = CardSwiperController();
+  final RxDouble progress = 0.0.obs;
+  //Timer? autoSwipeTimer;
+  Timer? progressTimer;
+
+  void startAutoSwipe() {
+    stopAutoSwipe();
+
+    const swipeInterval = Duration(seconds: 10);
+    const tickInterval = Duration(milliseconds: 100);
+    const totalTicks = 10000 ~/ 100; // 10s -> 100 ticks
+
+    int tickCount = 0;
+    progress.value = 0;
+
+    progressTimer = Timer.periodic(tickInterval, (timer) {
+      tickCount++;
+      progress.value = tickCount / totalTicks;
+      if (tickCount >= totalTicks) {
+        timer.cancel();
+
+        // Modification : Swipe automatique vers un index ALÉATOIRE
+        int nextIndex = Random().nextInt(cardsCount);
+        if (nextIndex == currentIndex.value) {
+          nextIndex = (currentIndex.value + 1) % cardsCount; // Évite la répétition
+        }
+        currentIndex.value = nextIndex;
+        swiperController.moveTo(nextIndex); // Programmatique et fluide
+
+        startAutoSwipe(); // Relance le cycle
+      }
+    });
+  }
+
+  void stopAutoSwipe() {
+    //autoSwipeTimer?.cancel();
+    progressTimer?.cancel(); //if add progess timer
+  }
+
+  /// 🔁 Appelé après chaque swipe (manuel ou auto)
+  void onSwipe() {
+    stopAutoSwipe();
+    startAutoSwipe();
+  }
+
+  @override
+  void onClose() {
+    stopAutoSwipe();
+    super.onClose();
+  }
+///LinearProgressIndicator End
+}
+
+///Auther method swipe
+/*
+
+  ///LinearProgressIndicator Start 🔁 Gestion auto-swipe + progress
+  var currentIndex = 0.obs;
   /// 👉 Swipe à droite (next user)
   void goToNextUser() {
     if (users.isEmpty) return;
@@ -138,27 +200,6 @@ class MainController extends GetxController {
         (currentIndex.value - 1 + users.length) % users.length;
     swiperController.swipe(CardSwiperDirection.left);
   }
-  /// 👉 Swipe vers le bas (next user)
- /* void nextUser() {
-    if (currentIndex.value < users.length - 1) {
-      currentIndex.value++;
-      swiperController.swipe(CardSwiperDirection.right);
-    } else {
-      currentIndex.value = 0;
-    }
-    onSwipe();
-  }
-
-  /// 👆 Swipe vers le haut (previous user)
-  void previousUser() {
-    if (currentIndex.value > 0) {
-      currentIndex.value--;
-      swiperController.swipe(CardSwiperDirection.left);
-    } else {
-      currentIndex.value = users.length - 1;
-    }
-    onSwipe();
-  } */
 
   void onSwipe(CardSwiperDirection direction) {
     if (direction == CardSwiperDirection.right) {
@@ -172,7 +213,6 @@ class MainController extends GetxController {
     startAutoSwipe();
   }
 
-  ///LinearProgressIndicator Start 🔁 Gestion auto-swipe + progress
   final CardSwiperController swiperController = CardSwiperController();
   final RxDouble progress = 0.0.obs;
   //Timer? autoSwipeTimer;
@@ -198,29 +238,14 @@ class MainController extends GetxController {
     });
   }
 
-  //without progress timer
-  /* void startAutoSwipe() {
-    // 🔁 Swipe automatique toutes les 10 secondes
-    autoSwipeTimer = Timer.periodic(const Duration(seconds: 8), (timer) {
-      swiperController.swipe(CardSwiperDirection.right);
-    });
-  } */
-
   void stopAutoSwipe() {
     //autoSwipeTimer?.cancel();
     progressTimer?.cancel(); //if add progess timer
   }
-
-  /// 🔁 Appelé après chaque swipe (manuel ou auto)
- /* void onSwipe() {
-    stopAutoSwipe();
-    startAutoSwipe();
-  } */
-
   @override
   void onClose() {
     stopAutoSwipe();
     super.onClose();
   }
 ///LinearProgressIndicator End
-}
+ */

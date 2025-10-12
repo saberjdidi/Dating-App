@@ -60,8 +60,8 @@ class UserStatsWidget extends StatelessWidget {
             imagePath: imagePath,
             color: _getIconColor(imagePath),
             //color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
-            height: isSmallScreen ? iconSize * 0.8 : iconSize,
-            width: isSmallScreen ? iconSize * 0.8 : iconSize,
+            height: imagePath == ImageConstant.iconSkinColor ? 30 : (isSmallScreen ? iconSize * 0.8 : iconSize),
+            width: imagePath == ImageConstant.iconSkinColor ? 30 : (isSmallScreen ? iconSize * 0.8 : iconSize),
             fit: BoxFit.cover,
           ),
           if (imagePath == ImageConstant.iconSkinColor)

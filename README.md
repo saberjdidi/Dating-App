@@ -414,4 +414,4 @@ NB: swipe user card automatic after 10 secondes
 support email screen : upload juste one file
 
 
-## immersive mode => for Android device
+## immersive mode => for Android device : https://www.youtube.com/watch?v=X_hQijCqaKA

@@ -17,6 +17,7 @@ class ChatItem extends StatelessWidget {
     var screenHeight = MediaQuery.of(context).size.height;
     var isSmallPhone = screenWidth < 360;
     var isTablet = screenWidth >= 600;
+    var _appTheme = PrefUtils.getTheme();
 
     return InkWell(
       onTap: onTap,
@@ -59,7 +60,7 @@ class ChatItem extends StatelessWidget {
                   width: 50.hw,
                   height: 50.hw,
                   radius: 10.hw,
-                  backgroundColor: Color(0xFFF4AB03),
+                  backgroundColor: Color(0xFF09AFFF),
                   child: Icon(Iconsax.archive_11, size: 25.hw, color: TColors.light),
                 ),
               ],
@@ -89,12 +90,12 @@ class ChatItem extends StatelessWidget {
           ],
         ),
         child: TRoundedContainer(
+          showBorder: _appTheme =='light' ? false : true,
           borderColor: TColors.buttonSecondary,
-          backgroundColor: TColors.greyContainerChat,
+          backgroundColor: _appTheme =='light' ? TColors.white :TColors.greyContainerChat,
           withBorder: 0.7,
-          showBorder: true,
           padding: EdgeInsets.symmetric(horizontal: TSizes.spaceBtwItems.hw, vertical: 8.v),
-          margin: EdgeInsets.symmetric(vertical: 5.v, horizontal: 10.hw),
+          margin: EdgeInsets.symmetric(vertical: 2.v, horizontal: 10.hw),
           child: Row(
             children: [
               Stack(

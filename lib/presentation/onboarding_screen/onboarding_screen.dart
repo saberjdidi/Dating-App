@@ -80,7 +80,7 @@ class OnBoardingScreen extends StatelessWidget {
                   children: [
                     Text(currentData.title!,
                         style: Theme.of(context).textTheme.headlineMedium!
-                            .apply(color: TColors.yellowAppDark, fontSizeDelta: isTablet ? 5 : 2, fontWeightDelta: isTablet ? 4 : 2),
+                            .apply(color: _appTheme =='light' ?  TColors.black :TColors.yellowAppDark, fontSizeDelta: isTablet ? 5 : 2, fontWeightDelta: isTablet ? 4 : 2),
                         textAlign: TextAlign.center),
                      SizedBox(height: 10.v),
 
@@ -292,7 +292,7 @@ class OnBoardingScreen extends StatelessWidget {
                                 child: Text("تسجيل الدخول",
                                   //style: CustomTextStyles.titleMediumBlueVPT
                                   style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                                    color: TColors.yellowAppDark,
+                                    color:_appTheme =='light' ?  Colors.blue : TColors.yellowAppDark,
                                     fontSize: 16.fSize,
                                     fontWeight: FontWeight.w600,
                                   ),

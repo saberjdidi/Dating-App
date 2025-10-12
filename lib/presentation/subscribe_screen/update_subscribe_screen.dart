@@ -20,6 +20,7 @@ class UpdateSubscribeScreen extends GetView<SubscribeController> {
     var isTablet = screenWidth >= 600;
 
     return SafeArea(
+      top: false,
       child: Scaffold(
         //backgroundColor: _appTheme == 'light' ? TColors.white : appTheme.primaryColor,
         key: _scaffoldKeyUpdateSubscribe,

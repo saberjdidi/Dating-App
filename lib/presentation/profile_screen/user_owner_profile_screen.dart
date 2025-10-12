@@ -25,6 +25,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
     var isTablet = screenWidth >= 600;
 
     return SafeArea(
+        top: false,
         child: Scaffold(
           //backgroundColor: PrefUtils.getTheme() =='light' ? TColors.lightContainer : TColors.darkerGrey,
             resizeToAvoidBottomInset: false,

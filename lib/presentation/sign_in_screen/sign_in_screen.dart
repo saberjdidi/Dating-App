@@ -22,87 +22,87 @@ class SignInScreen extends GetView<SignInController> {
     var isSmallPhone = screenWidth < 360;
     var isTablet = screenWidth >= 600;
 
-    return SafeArea(
-        child: Scaffold(
-            resizeToAvoidBottomInset: true, // important pour éviter que le clavier cache le champ
-            //backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
-            body: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Form(
-                  key: controller.formLoginKey,
-                  child: Container(
-                      width: double.maxFinite,
-                      padding: EdgeInsets.only(left: 24.hw, right: 24.hw, top: 11.v, bottom: MediaQuery.of(context).viewInsets.bottom + 11.v),
-                      //padding: EdgeInsets.symmetric(horizontal: 24.hw, vertical: 11.v),
-                      child: Column(
-                          children: [
-                            Visibility(
-                              visible: false,
-                              child: CustomImageView(
-                                  imagePath: _appTheme =='dark'
-                                      ? ImageConstant.imgArrowLeftWhite : ImageConstant.imgArrowLeftBlack,
-                                  height: 28.adaptSize,
-                                  width: 28.adaptSize,
-                                  alignment: Alignment.centerLeft,
-                                  onTap: () {onTapImgArrowLeft();}
-                              ),
-                            ),
-                            SizedBox(height: TSizes.spaceBtwSections),
-                            Align(
-                              alignment: Alignment.center,
-                              child: CustomImageView(
-                                imagePath: ImageConstant.logo,
-                                height: 200.adaptSize,
-                                width: 200.adaptSize,
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                            SizedBox(height: TSizes.spaceBtwItems),
-                            Text("تسجيل الدخول",
-                                style: Theme.of(context).textTheme.headlineSmall!
-                                    .apply(color: _appTheme =='light' ? TColors.black : TColors.yellowAppDark, fontWeightDelta: 2),
-                                textAlign: TextAlign.center),
-                            SizedBox(height: TSizes.spaceBtwSections),
-                            _buildLoginForm(context),
-                            SizedBox(height: 10.v),
+    return Scaffold(
+        resizeToAvoidBottomInset: true, // important pour éviter que le clavier cache le champ
+        //backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Form(
+              key: controller.formLoginKey,
+              child: Container(
+                  width: double.maxFinite,
+                  padding: EdgeInsets.only(left: 24.hw, right: 24.hw, top: 11.v, bottom: MediaQuery.of(context).viewInsets.bottom + 11.v),
+                  //padding: EdgeInsets.symmetric(horizontal: 24.hw, vertical: 11.v),
+                  child: Column(
+                      children: [
+                        SizedBox(height: TSizes.spaceBtwSections),
+                        Visibility(
+                          visible: false,
+                          child: CustomImageView(
+                              imagePath: _appTheme =='dark'
+                                  ? ImageConstant.imgArrowLeftWhite : ImageConstant.imgArrowLeftBlack,
+                              height: 28.adaptSize,
+                              width: 28.adaptSize,
+                              alignment: Alignment.centerLeft,
+                              onTap: () {onTapImgArrowLeft();}
+                          ),
+                        ),
+                        SizedBox(height: TSizes.spaceBtwSections),
+                        Align(
+                          alignment: Alignment.center,
+                          child: CustomImageView(
+                            imagePath: ImageConstant.logo,
+                            height: 200.adaptSize,
+                            width: 200.adaptSize,
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        SizedBox(height: TSizes.spaceBtwItems),
+                        Text("تسجيل الدخول",
+                            style: Theme.of(context).textTheme.headlineSmall!
+                                .apply(color: _appTheme =='light' ? TColors.black : TColors.yellowAppDark, fontWeightDelta: 2),
+                            textAlign: TextAlign.center),
+                        SizedBox(height: TSizes.spaceBtwSections),
+                        _buildLoginForm(context),
+                        SizedBox(height: 10.v),
 
-                            CustomTermPrivacyWidget(),
-                            //_buildOrDivider(),
-                            //SizedBox(height: 30.v),
-                          /*  Column(
-                              //mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(padding: EdgeInsets.only(bottom: 1.v),
-                                      child: Text("lbl_dont_have_account".tr,
-                                          style:  isTablet
-                                              ? Theme.of(context).textTheme.titleMedium!.apply(color: TColors.gray700)
-                                              : CustomTextStyles.bodyMediumTextFormFieldGrey)
-                                  ),
-                                  GestureDetector(
-                                      onTap: () {
-                                        onTapTxtSignUp();
-                                      },
-                                      child: Padding(padding: EdgeInsets.only(left: 8.hw),
-                                          child: Text("lbl_signup_now".tr,
-                                            //style: CustomTextStyles.titleMediumBlueVPT
-                                            style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                                              color: TColors.blueVPT,
-                                              fontSize: 16.fSize,
-                                              fontWeight: FontWeight.w600,
-                                              decoration: TextDecoration.underline,
-                                              decorationColor: TColors.blueVPT,
-                                            ),
-                                          )
+                        CustomTermPrivacyWidget(),
+                        //_buildOrDivider(),
+                        //SizedBox(height: 30.v),
+                      /*  Column(
+                          //mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Padding(padding: EdgeInsets.only(bottom: 1.v),
+                                  child: Text("lbl_dont_have_account".tr,
+                                      style:  isTablet
+                                          ? Theme.of(context).textTheme.titleMedium!.apply(color: TColors.gray700)
+                                          : CustomTextStyles.bodyMediumTextFormFieldGrey)
+                              ),
+                              GestureDetector(
+                                  onTap: () {
+                                    onTapTxtSignUp();
+                                  },
+                                  child: Padding(padding: EdgeInsets.only(left: 8.hw),
+                                      child: Text("lbl_signup_now".tr,
+                                        //style: CustomTextStyles.titleMediumBlueVPT
+                                        style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                                          color: TColors.blueVPT,
+                                          fontSize: 16.fSize,
+                                          fontWeight: FontWeight.w600,
+                                          decoration: TextDecoration.underline,
+                                          decorationColor: TColors.blueVPT,
+                                        ),
                                       )
                                   )
-                                ]
-                            ), */
-                            SizedBox(height: 5.v)
-                          ]
-                      ))
-              ),
-            )));
+                              )
+                            ]
+                        ), */
+                        SizedBox(height: 5.v)
+                      ]
+                  ))
+          ),
+        ));
   }
 
   /// Section Widget

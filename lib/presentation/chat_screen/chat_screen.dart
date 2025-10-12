@@ -22,6 +22,7 @@ class ChatScreen extends StatelessWidget {
     var isTablet = screenWidth >= 600;
 
     return SafeArea(
+      top: false,
       child: Scaffold(
         appBar: TAppBar(
           title: TitleWidget(
@@ -59,7 +60,7 @@ class ChatScreen extends StatelessWidget {
                   TabItem("أرشيف"),
                 ],
                 onTabChanged: controller.onTabChanged,
-                activeColor: TColors.yellowAppDark,
+                activeColor: Color(0xFF09AFFF),
                 inactiveColor: _appTheme =='light' ? TColors.black : TColors.white,
               ),
 

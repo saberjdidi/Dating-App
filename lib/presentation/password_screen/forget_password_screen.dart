@@ -22,6 +22,7 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
     var isTablet = screenWidth >= 600;
 
     return SafeArea(
+        top: false,
         child: Form(
           key: controller.formForgetPasswordKey,
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -39,6 +40,7 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
                     padding: EdgeInsets.symmetric(horizontal: 24.hw, vertical: 11.v),
                     child: Column(
                         children: [
+                          SizedBox(height: TSizes.spaceBtwItems),
                           Align(
                             alignment: Alignment.center,
                             child: CustomImageView(

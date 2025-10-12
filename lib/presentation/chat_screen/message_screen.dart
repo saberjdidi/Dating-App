@@ -31,6 +31,7 @@ class MessageScreen extends GetView<MessageController> {
     var isTablet = screenWidth >= 600;
 
     return SafeArea(
+      top: false,
       child: Scaffold(
         //backgroundColor: TColors.white,
         resizeToAvoidBottomInset: true, // important pour éviter que le clavier cache le champ

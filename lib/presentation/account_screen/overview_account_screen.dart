@@ -34,6 +34,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
     var isTablet = screenWidth >= 600;
 
     return SafeArea(
+        top: false,
         child: Form(
           key: controller.formOverviewAccountKey,
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -93,7 +94,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return "الاسم الكامل مطلوب";
+                                return "الاسم الكامل إجباري";
                               }
                               if (value.length > 100) {
                                 return "الاسم الكامل لا يمكن أن يتجاوز 100 حرف.";
@@ -137,7 +138,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             textInputType: TextInputType.text,
                             prefixConstraints: BoxConstraints(maxHeight: 60.v),
                             contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
-                            validator: (value) => (value == null || value.isEmpty) ? "البایو مطلوب" : null,
+                            validator: (value) => (value == null || value.isEmpty) ? "البایو إجباري" : null,
                             fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
                             hintStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSemiBoldBlack : CustomTextStyles.titleMediumSemiBoldWhite,
                             textStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
@@ -470,7 +471,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             }, */
                             validator: (value) {
                               if (value == null) {
-                                return "الدولة مطلوبة";
+                                return "الدولة إجباري";
                               }
                               return null;
                             },

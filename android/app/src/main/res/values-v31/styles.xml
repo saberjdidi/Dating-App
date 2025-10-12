@@ -23,5 +23,17 @@
          This Theme is only used starting with V2 of Flutter's Android embedding. -->
     <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
         <item name="android:windowBackground">?android:colorBackground</item>
+
+        <!-- Clés pour transparence et full screen (déjà présentes, mais renforcées) -->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item> <!-- CLÉ : permet de dessiner derrière -->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+
+        <!-- Gère les découpages d'écran -->
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+
+        <!-- Pour la nav bar -->
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
 </resources>
