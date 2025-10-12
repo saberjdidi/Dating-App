@@ -25,7 +25,7 @@ class TabbedPageWidget extends StatelessWidget {
     super.key,
     required this.tabs,
     required this.onTabChanged,
-    this.activeColor = TColors.yellowAppDark,
+    this.activeColor = TColors.primaryColorApp,
     this.inactiveColor = Colors.transparent,
   });
 
@@ -62,8 +62,8 @@ class TabbedPageWidget extends StatelessWidget {
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     gradient: LinearGradient(
-                      colors: isActive
-                          ? (activeColor == Color(0xFF09AFFF) ? [Color(0xFF09AFFF), Color(0xFF09AFFF)] :  [TColors.yellowAppDark, Color(0xFFF4AB03)])
+                      colors: isActive ? [TColors.primaryColorApp, TColors.primaryColorApp]
+                          //? (activeColor == TColors.blueApp ? [TColors.blueApp, TColors.blueApp] :  [TColors.primaryColorApp, Color(0xFFF4AB03)])
                           : _appTheme =='light' ? [TColors.black, TColors.black] : [TColors.white, TColors.white], // green gradient
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
@@ -89,7 +89,8 @@ class TabbedPageWidget extends StatelessWidget {
                       width: isActive ? 60 : 0, // largeur animée
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          colors: activeColor == Color(0xFF09AFFF) ? [Color(0xFF09AFFF), Color(0xFF09AFFF)] :  [TColors.yellowAppDark, Color(0xFFF4AB03)],
+                          colors:  [TColors.primaryColorApp, TColors.primaryColorApp],
+                          //colors: activeColor == TColors.blueApp ? [TColors.blueApp, TColors.blueApp] :  [TColors.yellowAppDark, Color(0xFFF4AB03)],
                           begin: Alignment.centerLeft,
                           end: Alignment.centerRight,
                         ),

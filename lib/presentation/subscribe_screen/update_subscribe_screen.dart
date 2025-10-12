@@ -59,7 +59,7 @@ class UpdateSubscribeScreen extends GetView<SubscribeController> {
                       onTap: () {}, // Pas besoin de confirmation pour le plan déjà choisi
                       child: TRoundedContainer(
                         showBorder: true,
-                        borderColor: TColors.yellowAppDark,
+                        borderColor: TColors.primaryColorApp,
                         radius: 20.adaptSize,
                         margin: EdgeInsets.symmetric(vertical: 10.adaptSize),
                         padding: EdgeInsets.all(15.adaptSize),
@@ -67,7 +67,7 @@ class UpdateSubscribeScreen extends GetView<SubscribeController> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Icon(Icons.radio_button_checked, color: TColors.yellowAppDark),
+                            Icon(Icons.radio_button_checked, color: TColors.primaryColorApp),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [

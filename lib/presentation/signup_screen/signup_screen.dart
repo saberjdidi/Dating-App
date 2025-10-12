@@ -76,7 +76,7 @@ class SignUpScreen extends GetView<SignUpController> {
 
              SizedBox(height: 20.v),
             TitleWidget(title: "اشتراک",
-              color: _appTheme =='light' ? TColors.black : TColors.yellowAppDark,
+              color: _appTheme =='light' ? TColors.black : TColors.primaryColorApp,
               fontSizeDelta: 2,
               textAlign: TextAlign.center,),
 
@@ -85,10 +85,10 @@ class SignUpScreen extends GetView<SignUpController> {
             /// Button
             CustomButtonContainer(
               text: 'تواصل عبر البريد الإلكتروني',
-              color1: TColors.yellowAppDark,
-              color2: TColors.yellowAppLight,
+              color1: TColors.primaryColorApp,
+              color2: TColors.primaryColorApp,
               borderRadius: 10,
-              colorText: TColors.black,
+              colorText: TColors.white,
               textAlign: TextAlign.center,
               fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
               height: isSmallPhone ? 80.v : 70.v,

@@ -45,7 +45,7 @@ class SplashScreen extends GetWidget<SplashController> {
               fontWeight: FontWeight.bold,
               textAlign: TextAlign.center,
               gradient: const LinearGradient(
-                colors: [TColors.yellowAppDark, Color(0xFFF4AB03)], // green gradient
+                colors: [TColors.primaryColorApp, TColors.primaryColorApp], // green gradient
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),

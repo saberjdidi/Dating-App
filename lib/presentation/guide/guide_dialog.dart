@@ -125,7 +125,7 @@ class GuideBubble extends StatelessWidget {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: i == guideController.currentStep.value
-                              ? TColors.yellowAppDark
+                              ? TColors.primaryColorApp
                               : Colors.grey.shade400,
                         ),
                       ),

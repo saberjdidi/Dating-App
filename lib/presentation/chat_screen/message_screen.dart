@@ -538,7 +538,7 @@ class MessageScreen extends GetView<MessageController> {
               width: 60.adaptSize,
               height: 60.adaptSize,
               radius: 60.adaptSize,
-              backgroundColor: TColors.yellowAppDark,
+              backgroundColor: TColors.primaryColorApp,
               child: IconButton(
                 icon: Icon(Iconsax.send_1, color: TColors.black, size: 35.adaptSize,),
                 onPressed: (){
@@ -583,7 +583,7 @@ buildDialogSettings(BuildContext context){
                       Switch(
                         value: settingsController.isCallVideo.value,
                         onChanged: settingsController.toggleCallVideo,
-                        activeColor: TColors.yellowAppDark,
+                        activeColor: TColors.primaryColorApp,
                       )
                     ],
                   ),
@@ -603,7 +603,7 @@ buildDialogSettings(BuildContext context){
                       Switch(
                         value: settingsController.isCallVoice.value,
                         onChanged: settingsController.toggleCallVoice,
-                        activeColor: TColors.yellowAppDark,
+                        activeColor: TColors.primaryColorApp,
                       )
                     ],
                   ),
@@ -627,7 +627,7 @@ buildDialogSettings(BuildContext context){
                           settingsController.isInternetConnection.value = value;
                           debugPrint("internet connection : ${settingsController.isInternetConnection.value}");
                         },
-                        activeColor: TColors.yellowAppDark,
+                        activeColor: TColors.primaryColorApp,
                       )
                     ],
                   ),

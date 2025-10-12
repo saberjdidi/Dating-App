@@ -64,7 +64,7 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
                                 style: Theme.of(context).textTheme.headlineSmall!.apply(color: TColors.black, fontWeightDelta: 2),
                                 textAlign: TextAlign.center), */
                             TitleWidget(title: "اشتراک",
-                              color: _appTheme =='light' ? TColors.black : TColors.yellowAppDark, fontSizeDelta: 2,),
+                              color: _appTheme =='light' ? TColors.black : TColors.primaryColorApp, fontSizeDelta: 2,),
                             SizedBox(height: TSizes.spaceBtwSections),
                             _buildRegisterForm(context),
                             SizedBox(height: 10.v),
@@ -232,10 +232,10 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
           Center(
             child: CustomButtonContainer(
               text: "اشتراك",
-              color1: TColors.yellowAppDark,
-              color2: TColors.yellowAppLight,
+              color1: TColors.primaryColorApp,
+              color2: TColors.primaryColorApp,
               borderRadius: 10,
-              colorText: TColors.black,
+              colorText: TColors.white,
               paddingHorizontal: 1.hw,
               fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
               height: isSmallPhone ? 80.v : 70.v,

@@ -78,7 +78,13 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
           Positioned(
             top: 40,
             right: 20,
-            child: CircleIconButton(
+           child: IconButton(
+             icon: Icon(Icons.close, color: TColors.primaryColorApp, size: 40.adaptSize),
+             onPressed: (){
+               Navigator.pop(context);
+             },
+           ),
+           /* child: CircleIconButton(
               size: 60.adaptSize,
               effectiveSize: 60.adaptSize,
               minTapSize: 55.adaptSize,
@@ -89,7 +95,7 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
                     Navigator.pop(context);
                   },
                 ),
-              )
+              ) */
           ),
 
           /// ✅ Flèche gauche
@@ -97,7 +103,13 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
             Positioned(
               left: 10,
               top: MediaQuery.of(context).size.height / 2 - 30,
-              child: CircleIconButton(
+            child: IconButton(
+              icon: Icon(Icons.arrow_back, color: TColors.primaryColorApp, size: 40.adaptSize),
+              onPressed: (){
+                _goToPage(currentIndex - 1);
+              },
+            ),
+            /*  child: CircleIconButton(
                 size: 60.adaptSize,
                 effectiveSize: 60.adaptSize,
                 minTapSize: 60.adaptSize,
@@ -108,7 +120,7 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
                       _goToPage(currentIndex - 1);
                     },
                   ),
-                )
+                ) */
             ),
 
           /// ✅ Flèche droite
@@ -116,7 +128,13 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
             Positioned(
               right: 10,
               top: MediaQuery.of(context).size.height / 2 - 30,
-              child: CircleIconButton(
+             child: IconButton(
+               icon: Icon(Icons.arrow_forward, color: TColors.primaryColorApp, size: 40.adaptSize,),
+               onPressed: (){
+                 _goToPage(currentIndex + 1);
+               },
+             ),
+             /* child: CircleIconButton(
                 size: 60.adaptSize,
                 effectiveSize: 60.adaptSize,
                 minTapSize: 60.adaptSize,
@@ -127,12 +145,29 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
                       _goToPage(currentIndex + 1);
                     },
                   ),
-                )
+                ) */
             ),
 
           Align(
             alignment: Alignment.bottomCenter,
-            child: TRoundedContainer(
+            child: Container(
+              width: double.infinity,
+              height: screenheight * 0.2, // effet plus grand
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.transparent,       // Haut → totalement transparent
+                      Colors.black.withOpacity(0.3),
+                      Colors.black.withOpacity(0.6),
+                      Colors.black.withOpacity(0.8), // Bas → plus opaque
+                    ],
+                    stops: const [0.0, 0.4, 0.7, 1.0],
+                  )
+              ),
+              /*
+              child: TRoundedContainer(
                       width: double.infinity,
                       height: isSmallPhone ? (screenheight * 0.17) : (screenheight * 0.14),
                       backgroundColor: Colors.black.withOpacity(0.5),
@@ -141,93 +176,94 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
                       padding: EdgeInsets.symmetric(
                       horizontal: TSizes.spaceBtwItems.hw,
                       vertical: 10.v),
-              child: Directionality(
-                textDirection: TextDirection.rtl,
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: (){
-                              _goToPage(currentIndex + 1);
-                            },
-                            child: GradientSvgIcon(
-                              assetPath: ImageConstant.iconLove,
-                              size: 60.adaptSize,
-                              gradient: const LinearGradient(
-                                colors: [Color(0xFFF40303), Color(0xFF8E0202)],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                              ),
-                            ),
-                          ),
-                          /*
-                          CircleIconButton(
-                            size: 66.hw,
-                            effectiveSize: 66.hw,
-                            minTapSize: 66.hw,
-                            backgroundColor: TColors.greyDating.withOpacity(0.9),
-                            //margin: EdgeInsets.symmetric(horizontal: 10.hw),
-                            child: IconButton(
-                              icon: Icon(Iconsax.heart5, color: TColors.redAppLight, size: 45.hw,),
-                              onPressed: (){
-                                _goToPage(currentIndex + 1);
-                              },
-                            ),
-                          ),
-                           */
-                          SubTitleWidget(subtitle: '23', color: TColors.white, fontWeightDelta: 2,),
-                        ],
-                      ),
-                     /* for(var image in widget.images){
-                        if(image.endsWith('.mp4')){
-
-                        }
-                      } */
-                      Visibility(
-                        visible: false,
-                        child: ShaderMask(
-                          shaderCallback: (Rect bounds) {
-                            return const LinearGradient(
-                              colors: [TColors.greyDating, TColors.redAppLight], // ✅ Dégradé
-                            ).createShader(bounds);
+               */
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: (){
+                            _goToPage(currentIndex + 1);
                           },
-                          child: SliderTheme(
-                            data: SliderTheme.of(context).copyWith(
-                              trackHeight: 8, // ✅ Augmenter la hauteur du slider
-                              thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 10),
-                              overlayShape: const RoundSliderOverlayShape(overlayRadius: 20),
-                              valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
-                              valueIndicatorTextStyle: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                              ),
-                              showValueIndicator: ShowValueIndicator.always, // ✅ Toujours afficher label
-                            ),
-                            child: Slider(
-                              value: currentWeightValue,
-                              min: 0,
-                              max: 140,
-                              divisions: 140,
-                              label: currentWeightValue.round().toString(),
-                              onChanged: (value) {
-                                setState(() {
-                                  currentWeightValue = value;
-                                });
-                              },
-                              activeColor: Colors.white, // ✅ Couleur appliquée par gradient
-                              inactiveColor: Colors.white.withOpacity(0.3),
+                          child: GradientSvgIcon(
+                            assetPath: ImageConstant.iconLove,
+                            size: 50.adaptSize,
+                            gradient: const LinearGradient(
+                              colors: [Color(0xFFF40303), Color(0xFF8E0202)],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
                             ),
                           ),
                         ),
-                      )
-                    ],
-                  ),
+                        SizedBox(height:2),
+                        /*
+                        CircleIconButton(
+                          size: 66.hw,
+                          effectiveSize: 66.hw,
+                          minTapSize: 66.hw,
+                          backgroundColor: TColors.greyDating.withOpacity(0.9),
+                          //margin: EdgeInsets.symmetric(horizontal: 10.hw),
+                          child: IconButton(
+                            icon: Icon(Iconsax.heart5, color: TColors.redAppLight, size: 45.hw,),
+                            onPressed: (){
+                              _goToPage(currentIndex + 1);
+                            },
+                          ),
+                        ),
+                         */
+                        SubTitleWidget(subtitle: '23', color: TColors.white, fontWeightDelta: 2,),
+                      ],
+                    ),
+                   /* for(var image in widget.images){
+                      if(image.endsWith('.mp4')){
+
+                      }
+                    } */
+                    Visibility(
+                      visible: false,
+                      child: ShaderMask(
+                        shaderCallback: (Rect bounds) {
+                          return const LinearGradient(
+                            colors: [TColors.greyDating, TColors.redAppLight], // ✅ Dégradé
+                          ).createShader(bounds);
+                        },
+                        child: SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                            trackHeight: 8, // ✅ Augmenter la hauteur du slider
+                            thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 10),
+                            overlayShape: const RoundSliderOverlayShape(overlayRadius: 20),
+                            valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
+                            valueIndicatorTextStyle: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                            ),
+                            showValueIndicator: ShowValueIndicator.always, // ✅ Toujours afficher label
+                          ),
+                          child: Slider(
+                            value: currentWeightValue,
+                            min: 0,
+                            max: 140,
+                            divisions: 140,
+                            label: currentWeightValue.round().toString(),
+                            onChanged: (value) {
+                              setState(() {
+                                currentWeightValue = value;
+                              });
+                            },
+                            activeColor: Colors.white, // ✅ Couleur appliquée par gradient
+                            inactiveColor: Colors.white.withOpacity(0.3),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
                       )

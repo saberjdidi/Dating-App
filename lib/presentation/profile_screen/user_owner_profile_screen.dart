@@ -46,7 +46,13 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                 Positioned(
                   top: 20,
                   right: 20,
-                  child: CircleIconButton(
+                 child: IconButton(
+                   icon: Icon(Icons.arrow_forward_outlined, color: TColors.white, size: 35.hw),
+                   onPressed: (){
+                     Navigator.pop(context);
+                   },
+                 ),
+                 /* child: CircleIconButton(
                       size: 60.hw,
                       effectiveSize: 60.hw,
                       minTapSize: 60.hw,
@@ -57,7 +63,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                           Navigator.pop(context);
                         },
                       )
-                  ),
+                  ), */
                 ),
               /*  Positioned(
                     top: 20,
@@ -183,10 +189,10 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                 SizedBox(height: TSizes.spaceBtwItems.v),
                                 CustomButtonContainer(
                                   text: "تعديل الملف الشخصي",
-                                  color1: TColors.yellowAppDark,
-                                  color2: TColors.yellowAppLight,
+                                  color1: TColors.primaryColorApp,
+                                  color2: TColors.primaryColorApp,
                                   borderRadius: 30,
-                                  colorText: TColors.black,
+                                  colorText: TColors.white,
                                   fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
                                   height: isSmallPhone ? 80.v : 70.v,
                                   width: Get.width * 0.5,
@@ -210,10 +216,10 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                     TitleWidget(title: "الصور / الفيديوات", color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 1, fontSizeDelta: 1),
                                     CustomButtonContainer(
                                       text:"حذف",
-                                      color1: TColors.yellowAppDark,
-                                      color2: TColors.yellowAppLight,
+                                      color1: TColors.primaryColorApp,
+                                      color2: TColors.primaryColorApp,
                                       borderRadius: 30,
-                                      colorText: TColors.black,
+                                      colorText: TColors.white,
                                       fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
                                       height: isSmallPhone ? 65.v : isTablet ? 55.v : 40.v,
                                       width: 120.adaptSize,
@@ -232,7 +238,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                     TabItem("أشرطة الفيديو"),
                                   ],
                                   onTabChanged: controller.onTabChanged,
-                                  activeColor: TColors.yellowAppDark,
+                                  activeColor: TColors.primaryColorApp, //TColors.yellowAppDark,
                                   inactiveColor: _appTheme =='light' ? TColors.black : TColors.white,
                                 ),
                                 SizedBox(height: 5.v),

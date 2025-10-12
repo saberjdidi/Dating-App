@@ -60,7 +60,7 @@ class ChatScreen extends StatelessWidget {
                   TabItem("أرشيف"),
                 ],
                 onTabChanged: controller.onTabChanged,
-                activeColor: Color(0xFF09AFFF),
+                activeColor: TColors.primaryColorApp,
                 inactiveColor: _appTheme =='light' ? TColors.black : TColors.white,
               ),
 

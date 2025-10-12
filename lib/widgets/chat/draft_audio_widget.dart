@@ -36,7 +36,7 @@ class DraftAudioWidget extends StatelessWidget {
             Row(
               children: [
                 IconButton(
-                  icon: Icon(Iconsax.send1, color: TColors.yellowAppDark),
+                  icon: Icon(Iconsax.send1, color: TColors.primaryColorApp),
                   onPressed: () async {
                     await controller.sendDraftAudio();
                     //controller.draftAttachment.close();

@@ -436,9 +436,9 @@ class FilterScreen extends StatelessWidget {
                   child: CustomButtonContainer(
                     text:"تطبيق المرشحات".tr,
                     color1: TColors.yellowAppDark,
-                    color2: TColors.yellowAppLight,
+                    color2: TColors.primaryColorApp,
                     borderRadius: 10,
-                    colorText: TColors.redAppLight,
+                    colorText: TColors.white,
                     fontSize: 20.adaptSize,
                     onPressed: () async {
                       controller.applyFilters();

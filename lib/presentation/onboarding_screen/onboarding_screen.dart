@@ -80,7 +80,7 @@ class OnBoardingScreen extends StatelessWidget {
                   children: [
                     Text(currentData.title!,
                         style: Theme.of(context).textTheme.headlineMedium!
-                            .apply(color: _appTheme =='light' ?  TColors.black :TColors.yellowAppDark, fontSizeDelta: isTablet ? 5 : 2, fontWeightDelta: isTablet ? 4 : 2),
+                            .apply(color: _appTheme =='light' ?  TColors.primaryColorApp :TColors.primaryColorApp, fontSizeDelta: isTablet ? 5 : 2, fontWeightDelta: isTablet ? 4 : 2),
                         textAlign: TextAlign.center),
                      SizedBox(height: 10.v),
 
@@ -108,8 +108,8 @@ class OnBoardingScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: TSizes.spaceBtwItems),
                   child:  CustomButtonContainer(
                     text: 'إنشاء حساب',
-                    color1: TColors.yellowAppDark,
-                    color2: TColors.yellowAppLight,
+                    color1: TColors.primaryColorApp,
+                    color2: TColors.primaryColorApp,
                     borderRadius: 10,
                     colorText: TColors.white,
                     fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
@@ -144,7 +144,7 @@ class OnBoardingScreen extends StatelessWidget {
                                   child: Text("تسجيل الدخول",
                                     //style: CustomTextStyles.titleMediumBlueVPT
                                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                                      color: TColors.yellowAppDark,
+                                      color: TColors.primaryColorApp,
                                       fontSize: 16.fSize,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -255,10 +255,10 @@ class OnBoardingScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: TSizes.spaceBtwItems),
                 child:  CustomButtonContainer(
                   text: 'إنشاء حساب',
-                  color1: TColors.yellowAppDark,
-                  color2: TColors.yellowAppLight,
+                  color1: TColors.primaryColorApp,
+                  color2: TColors.primaryColorApp,
                   borderRadius: 10,
-                  colorText: TColors.black,
+                  colorText: TColors.white,
                   //colorText: _appTheme =='light' ? TColors.white : TColors.black,
                   fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
                   height: isSmallPhone ? 80.v : 70.v,
@@ -292,7 +292,7 @@ class OnBoardingScreen extends StatelessWidget {
                                 child: Text("تسجيل الدخول",
                                   //style: CustomTextStyles.titleMediumBlueVPT
                                   style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                                    color:_appTheme =='light' ?  Colors.blue : TColors.yellowAppDark,
+                                    color:_appTheme =='light' ?  Colors.blue : TColors.primaryColorApp,
                                     fontSize: 16.fSize,
                                     fontWeight: FontWeight.w600,
                                   ),

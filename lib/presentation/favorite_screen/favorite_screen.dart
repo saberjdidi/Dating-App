@@ -66,7 +66,7 @@ class FavoriteScreen extends StatelessWidget {
                     TabItem("مُعجبيني")
                   ],
                   onTabChanged: controller.onTabChanged,
-                  activeColor: TColors.yellowAppDark,
+                  activeColor: TColors.primaryColorApp, //TColors.yellowAppDark,
                   inactiveColor: _appTheme =='light' ? TColors.black : TColors.white,
                 ),
               ),

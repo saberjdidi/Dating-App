@@ -60,7 +60,7 @@ class SignInScreen extends GetView<SignInController> {
                         SizedBox(height: TSizes.spaceBtwItems),
                         Text("تسجيل الدخول",
                             style: Theme.of(context).textTheme.headlineSmall!
-                                .apply(color: _appTheme =='light' ? TColors.black : TColors.yellowAppDark, fontWeightDelta: 2),
+                                .apply(color: _appTheme =='light' ? TColors.black : TColors.primaryColorApp, fontWeightDelta: 2),
                             textAlign: TextAlign.center),
                         SizedBox(height: TSizes.spaceBtwSections),
                         _buildLoginForm(context),
@@ -220,10 +220,10 @@ class SignInScreen extends GetView<SignInController> {
             alignment: Alignment.center,
             child: CustomButtonContainer(
               text: "تسجيل الدخول",
-              color1: TColors.yellowAppDark,
-              color2: TColors.yellowAppLight,
+              color1: TColors.primaryColorApp,
+              color2: TColors.primaryColorApp,
               borderRadius: 10,
-              colorText: TColors.black,
+              colorText: TColors.white,
               paddingHorizontal: 1.hw,
               fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
               height: isSmallPhone ? 80.v : 70.v,

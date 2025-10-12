@@ -75,7 +75,7 @@ class PaysWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: isSelected
-                    ? Icon(Icons.check, size: 18, color: TColors.yellowAppDark)
+                    ? Icon(Icons.check, size: 18, color: TColors.primaryColorApp)
                     : null,
               ),
               SizedBox(width: 20.hw,)
@@ -160,7 +160,7 @@ class PaysWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: isSelected
-                    ? Icon(Icons.check, size: 18, color: TColors.yellowAppDark)
+                    ? Icon(Icons.check, size: 18, color: TColors.primaryColorApp)
                     : null,
               ),
               SizedBox(width: 20.hw,)

@@ -18,7 +18,7 @@ class CustomButtonStyles {
   );
 
   static ButtonStyle get elevatedYellowRadius10 => ElevatedButton.styleFrom(
-    backgroundColor: TColors.yellowAppLight,
+    backgroundColor: TColors.primaryColorApp,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10.hw),
     ),

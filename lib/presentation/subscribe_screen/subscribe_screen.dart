@@ -69,7 +69,7 @@ class SubscribeScreen extends GetView<SubscribeController> {
                        onTap: () => controller.selectPlan(index),
                        child: TRoundedContainer(
                          showBorder: true,
-                         borderColor: isSelected ? TColors.yellowAppDark : TColors.greyDating,
+                         borderColor: isSelected ? TColors.primaryColorApp : TColors.greyDating,
                          radius: 20.adaptSize,
                          margin: EdgeInsets.symmetric(vertical: 10.adaptSize),
                          padding: EdgeInsets.all(15.adaptSize),
@@ -79,7 +79,7 @@ class SubscribeScreen extends GetView<SubscribeController> {
                            children: [
                              Icon(
                                isSelected ? Icons.radio_button_checked : Icons.radio_button_off,
-                               color: isSelected ? TColors.yellowAppDark : Colors.grey,
+                               color: isSelected ? TColors.primaryColorApp : Colors.grey,
                              ),
                              Column(
                                crossAxisAlignment: CrossAxisAlignment.end,
@@ -135,7 +135,7 @@ class SubscribeScreen extends GetView<SubscribeController> {
 
                 TRoundedContainer(
                     showBorder: true,
-                    borderColor: controller.subscribeValue.value == 0 ? TColors.yellowAppDark : TColors.greyDating,
+                    borderColor: controller.subscribeValue.value == 0 ? TColors.primaryColorApp : TColors.greyDating,
                     radius: 20.adaptSize,
                     margin: EdgeInsets.symmetric(vertical: 10.adaptSize),
                     padding: EdgeInsets.all(15.adaptSize),
@@ -152,7 +152,7 @@ class SubscribeScreen extends GetView<SubscribeController> {
                           },
                           fillColor: MaterialStateProperty.resolveWith<Color>((states) {
                             if (states.contains(MaterialState.selected)) {
-                              return TColors.yellowAppDark; // ✅ Cercle actif jaune
+                              return TColors.primaryColorApp; // ✅ Cercle actif jaune
                             }
                             return Colors.grey; // Cercle inactif gris
                           }),
@@ -171,7 +171,7 @@ class SubscribeScreen extends GetView<SubscribeController> {
 
                 TRoundedContainer(
                     showBorder: true,
-                    borderColor: controller.subscribeValue.value == 1 ? TColors.yellowAppDark : TColors.greyDating,
+                    borderColor: controller.subscribeValue.value == 1 ? TColors.primaryColorApp : TColors.greyDating,
                     radius: 20.adaptSize,
                     margin: EdgeInsets.symmetric(vertical: 10.adaptSize),
                     padding: EdgeInsets.all(15.adaptSize),
@@ -188,7 +188,7 @@ class SubscribeScreen extends GetView<SubscribeController> {
                           },
                           fillColor: MaterialStateProperty.resolveWith<Color>((states) {
                             if (states.contains(MaterialState.selected)) {
-                              return TColors.yellowAppDark; // ✅ Cercle actif jaune
+                              return TColors.primaryColorApp; // ✅ Cercle actif jaune
                             }
                             return Colors.grey; // Cercle inactif gris
                           }),
@@ -210,7 +210,7 @@ class SubscribeScreen extends GetView<SubscribeController> {
 
                 TRoundedContainer(
                     showBorder: true,
-                    borderColor: controller.subscribeValue.value == 2 ? TColors.yellowAppDark : TColors.greyDating,
+                    borderColor: controller.subscribeValue.value == 2 ? TColors.primaryColorApp : TColors.greyDating,
                     radius: 20.adaptSize,
                     margin: EdgeInsets.symmetric(vertical: 10.adaptSize),
                     padding: EdgeInsets.all(15.adaptSize),
@@ -227,7 +227,7 @@ class SubscribeScreen extends GetView<SubscribeController> {
                           },
                           fillColor: MaterialStateProperty.resolveWith<Color>((states) {
                             if (states.contains(MaterialState.selected)) {
-                              return TColors.yellowAppDark; // ✅ Cercle actif jaune
+                              return TColors.primaryColorApp; // ✅ Cercle actif jaune
                             }
                             return Colors.grey; // Cercle inactif gris
                           }),
@@ -246,7 +246,7 @@ class SubscribeScreen extends GetView<SubscribeController> {
 
                 TRoundedContainer(
                     showBorder: true,
-                    borderColor: controller.subscribeValue.value == 3 ? TColors.yellowAppDark : TColors.greyDating,
+                    borderColor: controller.subscribeValue.value == 3 ? TColors.primaryColorApp : TColors.greyDating,
                     radius: 20.adaptSize,
                     margin: EdgeInsets.symmetric(vertical: 10.adaptSize),
                     padding: EdgeInsets.all(15.adaptSize),
@@ -263,7 +263,7 @@ class SubscribeScreen extends GetView<SubscribeController> {
                           },
                           fillColor: MaterialStateProperty.resolveWith<Color>((states) {
                             if (states.contains(MaterialState.selected)) {
-                              return TColors.yellowAppDark; // ✅ Cercle actif jaune
+                              return TColors.primaryColorApp; // ✅ Cercle actif jaune
                             }
                             return Colors.grey; // Cercle inactif gris
                           }),
@@ -294,10 +294,10 @@ class SubscribeScreen extends GetView<SubscribeController> {
                 Center(
                   child: CustomButtonContainer(
                     text: "استمرار",
-                    color1: TColors.yellowAppDark,
-                    color2: TColors.yellowAppLight,
+                    color1: TColors.primaryColorApp,
+                    color2: TColors.primaryColorApp,
                     borderRadius: 10,
-                    colorText: TColors.black,
+                    colorText: TColors.white,
                     fontSize: 20.adaptSize,
                     width: Get.width,
                     height: isSmallPhone ? 80.v : 70.v,

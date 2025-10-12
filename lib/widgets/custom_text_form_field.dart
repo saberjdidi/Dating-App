@@ -161,7 +161,7 @@ class CustomTextFormField extends StatelessWidget {
         focusedBorder: borderDecoration ??
             OutlineInputBorder(
               borderRadius: BorderRadius.circular(12.hw),
-              borderSide: BorderSide(color: PrefUtils.getTheme() =='light' ? TColors.greyDating : TColors.yellowAppDark, width: 2)
+              borderSide: BorderSide(color: PrefUtils.getTheme() =='light' ? TColors.greyDating : TColors.primaryColorApp, width: 2)
               //borderSide: BorderSide.none,
             ),
       );

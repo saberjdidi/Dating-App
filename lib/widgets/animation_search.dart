@@ -47,7 +47,7 @@ class AnimationSearchWidget extends StatelessWidget {
               fontSize: 30.adaptSize,
               textAlign: TextAlign.center,
               gradient: const LinearGradient(
-                colors: [TColors.yellowAppLight, TColors.yellowAppDark], // green gradient
+                colors: [TColors.primaryColorApp, TColors.primaryColorApp], // green gradient
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -75,7 +75,7 @@ class AnimationSearchWidget extends StatelessWidget {
                   ), */
                   CupertinoActivityIndicator(
                     radius: 20.0, // Larger indicator
-                    color: TColors.yellowAppDark, // Custom color
+                    color: TColors.primaryColorApp, // Custom color
                   ),
                   SizedBox(width: 10.hw,),
                   TypingTextWidget(

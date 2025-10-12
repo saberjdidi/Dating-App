@@ -129,7 +129,7 @@ class CustomTextStyles {
   static get titleMedium16YellowDark => theme.textTheme.titleMedium!.copyWith(
       fontSize: 16.fSize,
       fontWeight: FontWeight.bold,
-      color: TColors.yellowAppDark
+      color: TColors.primaryColorApp
   );
 
   static get labelSmallStatusWhite => mediaQueryData.size.width >= 600

@@ -116,7 +116,7 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
                         assetPath: controller.bottomMenuList[index].activeIcon,
                         size: 35.adaptSize,
                         gradient: const LinearGradient(
-                          colors: [TColors.yellowAppDark, Color(0xFFF4AB03)],
+                          colors: [TColors.primaryColorApp, TColors.primaryColorApp],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),
@@ -130,7 +130,7 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         gradient: const LinearGradient(
-                          colors: [TColors.yellowAppDark, Color(0xFFF4AB03)], // green gradient
+                          colors: [TColors.primaryColorApp, TColors.primaryColorApp], // green gradient
                           begin: Alignment.centerLeft,
                           end: Alignment.centerRight,
                         ),

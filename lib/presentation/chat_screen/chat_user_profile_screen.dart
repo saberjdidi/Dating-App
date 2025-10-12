@@ -46,7 +46,13 @@ class ChatUserProfileScreen extends GetView<UserChatProfileController> {
                 Positioned(
                     top: 20,
                     left: 20,
-                    child:  CircleIconButton(
+                  child: IconButton(
+                    icon: Icon(Icons.share_outlined, color: TColors.white, size: 35.hw,),
+                    onPressed: (){
+                      Navigator.pop(context);
+                    },
+                  ),
+                   /* child:  CircleIconButton(
                       size: isSmallPhone ? 70.hw : 60.hw,
                       minTapSize: isSmallPhone ? 70.hw : 60.hw,
                       effectiveSize: isSmallPhone ? 70.hw : 60.hw,
@@ -57,14 +63,20 @@ class ChatUserProfileScreen extends GetView<UserChatProfileController> {
                           Navigator.pop(context);
                         },
                       ),
-                    )
+                    ) */
                 ),
 
                 // Image en haut à droite
                 Positioned(
                     top: 20,
                     right: 20,
-                    child: CircleIconButton(
+                   child: IconButton(
+                     icon: Icon(Icons.arrow_forward_outlined, color: TColors.white, size: 35.hw,),
+                     onPressed: (){
+                       Navigator.pop(context);
+                     },
+                   ),
+                   /* child: CircleIconButton(
                       size: isSmallPhone ? 70.hw : 60.hw,
                       minTapSize: isSmallPhone ? 70.hw : 60.hw,
                       effectiveSize: isSmallPhone ? 70.hw : 60.hw,
@@ -75,7 +87,7 @@ class ChatUserProfileScreen extends GetView<UserChatProfileController> {
                           Navigator.pop(context);
                         },
                       ),
-                    )
+                    ) */
                 ),
 
 
@@ -168,7 +180,7 @@ class ChatUserProfileScreen extends GetView<UserChatProfileController> {
                                     TabItem("أشرطة الفيديو"),
                                   ],
                                   onTabChanged: controller.onTabChanged,
-                                  activeColor: TColors.yellowAppDark,
+                                  activeColor: TColors.primaryColorApp,
                                   inactiveColor: _appTheme =='light' ? TColors.black : TColors.white,
                                 ),
                                 SizedBox(height: 5.v),

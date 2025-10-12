@@ -196,13 +196,13 @@ class MediaOwnerProfileScreen extends GetWidget<MediaOwnerProfileController> {
             //child: _buildButtonSection()
             child:
             CustomButtonContainer(
-              text:"حفظ التغييرات".tr,
-              color1: TColors.yellowAppDark,
-              color2: TColors.yellowAppLight,
+              text:"حفظ".tr,
+              color1: TColors.primaryColorApp,
+              color2: TColors.primaryColorApp,
               borderRadius: 10,
               colorText: TColors.white,
               fontSize: 30.adaptSize,
-              height: 80.v,
+              height: isTablet ? 80.v : 70.v,
               onPressed: () async {
                 //dialogVerifyAccount(context);
               },

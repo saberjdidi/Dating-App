@@ -24,7 +24,7 @@ class OnBoardingDotNavigation extends StatelessWidget {
         count: 3,
         effect: ScrollingDotsEffect(
           spacing: 6,
-          activeDotColor: TColors.yellowAppDark,
+          activeDotColor: TColors.primaryColorApp,
           //activeDotColor: theme.colorScheme.primary,
           dotColor: _appTheme =='light' ? TColors.greyDating : TColors.darkGrey,
           dotHeight: 8.adaptSize,

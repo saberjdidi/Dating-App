@@ -44,10 +44,10 @@ class PassswordSuccessScreen extends StatelessWidget {
                 Center(
                   child: CustomButtonContainer(
                     text: "تسجيل الدخول",
-                    color1: TColors.yellowAppDark,
-                    color2: TColors.yellowAppLight,
+                    color1: TColors.primaryColorApp,
+                    color2: TColors.primaryColorApp,
                     borderRadius: 10,
-                    colorText: TColors.black,
+                    colorText: TColors.white,
                     fontSize: 20.adaptSize,
                     width: Get.width,
                     textAlign: TextAlign.center,

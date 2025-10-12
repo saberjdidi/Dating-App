@@ -53,7 +53,7 @@ class OTPScreen extends GetView<OTPController> {
               ),
               SizedBox(height: TSizes.spaceBtwItems),
               Center(child: TitleWidget(title: "التحقق من حسابك",
-                color:  _appTheme =='light' ? TColors.black : TColors.yellowAppDark,
+                color:  _appTheme =='light' ? TColors.black : TColors.primaryColorApp,
                 textAlign: TextAlign.center,)),
               Directionality(
                 textDirection: TextDirection.rtl,
@@ -95,7 +95,7 @@ class OTPScreen extends GetView<OTPController> {
                     textStyle: TextStyle(fontSize: 30,
                         color: _appTheme =='light' ? TColors.buttonSecondary : TColors.white),
                     colorBuilder: PinListenColorBuilder(
-                        TColors.yellowAppDark, TColors.buttonSecondary), // ligne grise
+                        TColors.primaryColorApp, TColors.buttonSecondary), // ligne grise
                     //bgColorBuilder: PinListenColorBuilder(Colors.yellow.shade200, Colors.grey.shade200),
                   ),
                 )),
@@ -157,10 +157,10 @@ class OTPScreen extends GetView<OTPController> {
               Center(
                 child: CustomButtonContainer(
                   text: "يكمل",
-                  color1: TColors.yellowAppDark,
-                  color2: TColors.yellowAppLight,
+                  color1: TColors.primaryColorApp,
+                  color2: TColors.primaryColorApp,
                   borderRadius: 15,
-                  colorText: TColors.black,
+                  colorText: TColors.white,
                   fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
                   height: isSmallPhone ? 80.v : 70.v,
                   width: Get.width,
@@ -352,7 +352,7 @@ class _OTPScreenState extends State<OTPScreen> with SingleTickerProviderStateMix
                                   child: Text("أعد الإرسال",
                                     //style: CustomTextStyles.titleMediumBlueVPT
                                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                                      color: TColors.yellowAppDark,
+                                      color: TColors.primaryColorApp,
                                       fontSize: 16.fSize,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -368,8 +368,8 @@ class _OTPScreenState extends State<OTPScreen> with SingleTickerProviderStateMix
               Center(
                 child: CustomButtonContainer(
                   text: "يكمل",
-                  color1: TColors.yellowAppDark,
-                  color2: TColors.yellowAppLight,
+                  color1: TColors.primaryColorApp,
+                  color2: TColors.primaryColorApp,
                   borderRadius: 10,
                   colorText: TColors.white,
                   fontSize: isTablet ? 30.adaptSize : 22.adaptSize,

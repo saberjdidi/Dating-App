@@ -49,7 +49,13 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
               Positioned(
                 top: 20,
                 left: 20,
-                child:  CircleIconButton(
+               child: IconButton(
+                 icon: Icon(Icons.share_outlined, color: TColors.white, size: 35.hw,),
+                 onPressed: (){
+                   Navigator.pop(context);
+                 },
+               ),
+               /* child:  CircleIconButton(
                   size: isSmallPhone ? 70.hw : isTablet ? 65.hw : 60.hw,
                   effectiveSize: isSmallPhone ? 70.hw : 60.hw,
                   minTapSize: 60.hw,
@@ -60,14 +66,20 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                       Navigator.pop(context);
                     },
                   ),
-                )
+                ) */
               ),
 
               // Image en haut à droite
               Positioned(
                 top: 20,
                 right: 20,
-                child: CircleIconButton(
+               child: IconButton(
+                 icon: Icon(Icons.arrow_forward_outlined, color: TColors.white, size: 35.hw,),
+                 onPressed: (){
+                   Navigator.pop(context);
+                 },
+               ),
+               /* child: CircleIconButton(
                   size: isSmallPhone ? 70.hw : 60.hw,
                   effectiveSize: isSmallPhone ? 70.hw : 60.hw,
                   minTapSize: 60.hw,
@@ -78,7 +90,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                       Navigator.pop(context);
                     },
                   ),
-                )
+                ) */
               ),
 
 
@@ -276,7 +288,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                                   effectiveSize: isSmallPhone ? 110.hw : 100.hw,
                                   backgroundColor: TColors.greyDating.withOpacity(0.5),
                                   showBorder: true,
-                                  borderColor: TColors.yellowAppDark,
+                                  borderColor: TColors.primaryColorApp,
                                   child: CustomImageView(
                                     imagePath: ImageConstant.iconChat,
                                     //height: 50.hw,

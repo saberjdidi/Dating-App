@@ -50,10 +50,10 @@ class OTPSuccessScreen extends StatelessWidget {
                 Center(
                   child: CustomButtonContainer(
                     text: "أكمل ملفك الشخصي",
-                    color1: TColors.yellowAppDark,
-                    color2: TColors.yellowAppLight,
+                    color1: TColors.primaryColorApp,
+                    color2: TColors.primaryColorApp,
                     borderRadius: 10,
-                    colorText: TColors.black,
+                    colorText: TColors.white,
                     fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
                     height: isSmallPhone ? 80.v : 70.v,
                     width: Get.width,

@@ -460,12 +460,12 @@ class SearchDating {
                     width: isTablet ? mediaQueryData.size.width * 0.2 : mediaQueryData.size.width * 0.4,
                     child: CustomButtonContainer(
                       text:"فلتر".tr,
-                      color1: TColors.yellowAppDark,
-                      color2: TColors.yellowAppLight,
+                      color1: TColors.primaryColorApp,
+                      color2: TColors.primaryColorApp,
                       borderRadius: 10,
-                      colorText: TColors.black,
+                      colorText: TColors.white,
                       fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
-                      height: isSmallPhone ? 80.v : 70.v,
+                      height: isSmallPhone ? 80.v : isTablet ? 70.v : 65.v,
                       width: screenWidth * 0.8,
                       onPressed: () async {
                         Navigator.pop(Get.context!);
@@ -545,7 +545,7 @@ class SearchDating {
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: isSelected
-                                  ? Icon(Icons.check, size: 18, color: TColors.yellowAppDark)
+                                  ? Icon(Icons.check, size: 18, color: TColors.primaryColorApp)
                                   : null,
                             ),
                           ],
@@ -612,12 +612,12 @@ class SearchDating {
                       : mediaQueryData.size.width * 0.4,
                   child: CustomButtonContainer(
                     text: "حفظ".tr,
-                    color1: TColors.yellowAppDark,
-                    color2: TColors.yellowAppLight,
+                    color1: TColors.primaryColorApp,
+                    color2: TColors.primaryColorApp,
                     borderRadius: 10,
-                    colorText: TColors.black,
+                    colorText: TColors.white,
                     fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
-                    height: isSmallPhone ? 80.v : 70.v,
+                    height: isSmallPhone ? 80.v : isTablet ? 70.v : 65.v,
                     width: screenWidth * 0.8,
                     onPressed: () async {
                       var bottomController = BottomBarController.instance;
@@ -679,12 +679,12 @@ class SearchDating {
                   width: isTablet ? mediaQueryData.size.width * 0.2 : mediaQueryData.size.width * 0.4,
                   child: CustomButtonContainer(
                     text:"حفظ".tr,
-                    color1: TColors.yellowAppDark,
-                    color2: TColors.yellowAppLight,
+                    color1: TColors.primaryColorApp,
+                    color2: TColors.primaryColorApp,
                     borderRadius: 10,
-                    colorText: TColors.redAppLight,
+                    colorText: TColors.white,
                     fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
-                    height: isSmallPhone ? 80.v : 70.v,
+                    height: isSmallPhone ? 80.v : isTablet ? 70.v : 65.v,
                     width: screenWidth * 0.8,
                     onPressed: () async {
                       var bottomController = BottomBarController.instance;

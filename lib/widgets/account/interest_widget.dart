@@ -33,11 +33,11 @@ class InterestWidget extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           color: isSelected
-              ? (activeColor ? TColors.yellowAppDark : TColors.greyDating)
+              ? (activeColor ? TColors.primaryColorApp : TColors.greyDating)
               : TColors.white,
           border: Border.all(
             color: isSelected
-                ? (activeColor ? TColors.yellowAppLight : TColors.greyDating)
+                ? (activeColor ? TColors.primaryColorApp : TColors.greyDating)
                 : TColors.greyDating,
             width: 0.8,
           ),
@@ -105,7 +105,7 @@ class InterestWidget extends StatelessWidget {
               ? activeColor ? TColors.yellowAppDark : TColors.greyDating
               : TColors.white,
           borderColor: isSelected
-              ? activeColor ? TColors.yellowAppLight : TColors.greyDating
+              ? activeColor ? TColors.primaryColorApp : TColors.greyDating
               : TColors.greyDating,
           radius: 15,
           padding: EdgeInsets.symmetric(vertical: verticalPadding, horizontal: 8.hw),

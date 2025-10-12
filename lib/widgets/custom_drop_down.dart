@@ -164,7 +164,7 @@ class CustomDropDown extends StatelessWidget {
             focusedBorder: focusedBorder ??
                 OutlineInputBorder(
                   borderRadius: BorderRadius.circular(borderRadius.hw),
-                  borderSide: BorderSide(color: TColors.yellowAppDark, width: 2)
+                  borderSide: BorderSide(color: TColors.primaryColorApp, width: 2)
                   //borderSide: BorderSide.none,
                 ),
       );

@@ -31,7 +31,7 @@ class OnBoardingPage extends StatelessWidget {
               padding: const EdgeInsets.only(top: TSizes.spaceBtwItems),
               child: Text(title,
                   style: Theme.of(context).textTheme.headlineMedium!
-                      .apply(color: TColors.yellowAppDark, fontSizeDelta: 2, fontWeightDelta: 2),
+                      .apply(color: TColors.primaryColorApp, fontSizeDelta: 2, fontWeightDelta: 2),
                   textAlign: TextAlign.center),
             ),
 

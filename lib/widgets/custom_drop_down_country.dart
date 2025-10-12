@@ -179,7 +179,7 @@ class CustomDropDownCountry extends StatelessWidget {
             focusedBorder: borderDecoration ??
                 OutlineInputBorder(
                   borderRadius: BorderRadius.circular(borderRadius.hw),
-                  borderSide: BorderSide(color: TColors.yellowAppDark, width: 2)
+                  borderSide: BorderSide(color: TColors.primaryColorApp, width: 2)
                   //borderSide: BorderSide.none,
                 ),
       );

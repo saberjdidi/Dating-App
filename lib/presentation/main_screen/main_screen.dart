@@ -180,7 +180,7 @@ class MainScreen extends GetView<MainController> {
                 child: CustomButtonContainer(
                   text:"حفظ التغييرات".tr,
                   color1: TColors.yellowAppDark,
-                  color2: TColors.yellowAppLight,
+                  color2: TColors.primaryColorApp,
                   borderRadius: 10,
                   colorText: TColors.redAppLight,
                   fontSize: 20.adaptSize,

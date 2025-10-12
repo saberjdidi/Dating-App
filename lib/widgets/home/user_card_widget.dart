@@ -123,7 +123,8 @@ class UserCardWidget extends StatelessWidget {
                                   assetPath: ImageConstant.iconChat,
                                   size: 45.adaptSize,
                                   gradient: const LinearGradient(
-                                    colors: [Color(0xFFFFFC00), Color(0xFFFFFC00)],
+                                    colors: [TColors.primaryColorApp, TColors.primaryColorApp],
+                                    //colors: [Color(0xFFFFFC00), Color(0xFFFFFC00)],
                                     begin: Alignment.topLeft,
                                     end: Alignment.bottomRight,
                                   ),

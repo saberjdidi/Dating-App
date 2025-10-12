@@ -48,8 +48,8 @@ class MessageBubble extends StatelessWidget {
                   end: Alignment.centerRight,
                   colors: isSender
                       ? [
-                    TColors.yellowAppDark,
-                    TColors.yellowAppLight.withOpacity(0.6),
+                    TColors.primaryColorApp,
+                    TColors.primaryColorApp.withOpacity(0.6),
                   ]
                       : [
                     TColors.greyDating,

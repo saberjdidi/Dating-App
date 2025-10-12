@@ -109,10 +109,10 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
               child:
               CustomButtonContainer(
                 text:"إعادة تعيين كلمة المرور".tr,
-                color1: TColors.yellowAppDark,
-                color2: TColors.yellowAppLight,
+                color1: TColors.primaryColorApp,
+                color2: TColors.primaryColorApp,
                 borderRadius: 20.adaptSize,
-                colorText: TColors.black,
+                colorText: TColors.white,
                 fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
                 height: isSmallPhone ? 80.v : 70.v,
                 width: Get.width,

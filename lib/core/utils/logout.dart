@@ -6,8 +6,8 @@ import '../app_export.dart';
 class Logout {
   static void onTapLogout()  async {
     //google signout
-    final GoogleSignIn _googleSignIn = GoogleSignIn();
-    await _googleSignIn.signOut();
+    //final GoogleSignIn _googleSignIn = GoogleSignIn();
+    //await _googleSignIn.signOut();
     await PrefUtils.clearEmail();
     //await PrefUtils.clearFirstname();
     //await PrefUtils.clearLastName();

@@ -58,7 +58,7 @@ class SettingsScreen extends GetWidget<SettingsController> {
                         controller.isCallVideo.value = value;
                         debugPrint("call video : ${controller.isCallVideo.value}");
                       }, */
-                      activeColor: TColors.yellowAppDark,
+                      activeColor: TColors.primaryColorApp,
                     )
                   ],
                 ),
@@ -82,7 +82,7 @@ class SettingsScreen extends GetWidget<SettingsController> {
                         controller.isCallVoice.value = value;
                         debugPrint("call voice : ${controller.isCallVoice.value}");
                       }, */
-                      activeColor: TColors.yellowAppDark,
+                      activeColor: TColors.primaryColorApp,
                     )
                   ],
                 ),
@@ -106,7 +106,7 @@ class SettingsScreen extends GetWidget<SettingsController> {
                         controller.isInternetConnection.value = value;
                         debugPrint("internet connection : ${controller.isInternetConnection.value}");
                       },
-                      activeColor: TColors.yellowAppDark,
+                      activeColor: TColors.primaryColorApp,
                     )
                   ],
                 ),
