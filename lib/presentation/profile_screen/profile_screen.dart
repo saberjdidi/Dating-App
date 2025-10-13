@@ -119,6 +119,7 @@ class ProfileScreen extends StatelessWidget {
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             CustomImageView(
                               imagePath: ImageConstant.imgSettingsCalling,
+                              color: Color(0xFF8E0202),
                               width: 25.adaptSize,
                               height: 25.adaptSize,
                               //radius: BorderRadius.circular(40.adaptSize),
@@ -159,6 +160,7 @@ class ProfileScreen extends StatelessWidget {
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             CustomImageView(
                               imagePath: ImageConstant.imgPassword,
+                              color: Color(0xFF8B8700),
                               width: 25.adaptSize,
                               height: 25.adaptSize,
                               //radius: BorderRadius.circular(40.adaptSize),
@@ -207,6 +209,7 @@ class ProfileScreen extends StatelessWidget {
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             CustomImageView(
                               imagePath: ImageConstant.imgSubscription,
+                              color: Color(0xFF0DB015),
                               width: 25.adaptSize,
                               height: 25.adaptSize,
                               // radius: BorderRadius.circular(40.adaptSize),
@@ -249,6 +252,7 @@ class ProfileScreen extends StatelessWidget {
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             CustomImageView(
                               imagePath: ImageConstant.imgTerms,
+                              color: Color(0xFF1230F3),
                               width: 25.adaptSize,
                               height: 25.adaptSize,
                               //radius: BorderRadius.circular(40.adaptSize),
@@ -291,6 +295,7 @@ class ProfileScreen extends StatelessWidget {
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             CustomImageView(
                               imagePath: ImageConstant.imgPrivacyPolicy,
+                              color: Color(0xFF15F0E2),
                               width: 25.adaptSize,
                               height: 25.adaptSize,
                               //radius: BorderRadius.circular(40.adaptSize),
@@ -336,13 +341,56 @@ class ProfileScreen extends StatelessWidget {
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             Icon(
                               isDark ? Icons.dark_mode : Icons.light_mode,
-                              color: TColors.buttonSecondary,
+                              color: isDark ? TColors.buttonSecondary : Color(0xFF15F0E2),
                               //color: isDark ? Colors.amber : Colors.blueGrey,
                               size: 25.adaptSize,
                             ),
                           ],
                         ),
                         //Icon(Icons.arrow_back_ios, color: TColors.buttonSecondary),
+                      ],
+                    ),
+                  ),
+                ),
+
+                InkWell(
+                  onTap: (){
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => PrivacyPolicyScreen()));
+                  },
+                  child: TRoundedContainer(
+                    showBorder: false,
+                    backgroundColor: isDark ? TColors.dark : TColors.white,
+                    borderColor: isDark ? TColors.white : TColors.grey400,
+                    radius: 20.adaptSize,
+                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
+                    padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
+                    //padding: EdgeInsets.all(10.adaptSize),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          onPressed: (){
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => PrivacyPolicyScreen()));
+                          },
+                          icon: Icon(Icons.arrow_back_ios),
+                          iconSize: 25.adaptSize,
+                          color: TColors.buttonSecondary,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            SubTitleWidget(subtitle: "يدعم", fontWeightDelta: 2, fontSizeDelta: 2,
+                                color: isDark ? TColors.whitePrimary : TColors.black),
+                            SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
+                            CustomImageView(
+                              imagePath: ImageConstant.imgSupport,
+                              color: Color(0xFF121CE3),
+                              width: 25.adaptSize,
+                              height: 25.adaptSize,
+                              //radius: BorderRadius.circular(40.adaptSize),
+                            )
+                          ],
+                        )
                       ],
                     ),
                   ),
@@ -420,7 +468,7 @@ class ProfileScreen extends StatelessWidget {
                               color: isDark ? TColors.whitePrimary : TColors.black),
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             Icon(Icons.view_timeline_outlined,
-                              color: TColors.buttonSecondary,
+                              color: TColors.yellowAppDark,
                               size: 25.adaptSize,
                             ),
                           ],
@@ -464,6 +512,7 @@ class ProfileScreen extends StatelessWidget {
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             CustomImageView(
                               imagePath: ImageConstant.imgLogout,
+                              color: Color(0xFFDB161B),
                               width: 25.adaptSize,
                               height: 25.adaptSize,
                               // radius: BorderRadius.circular(40.adaptSize),

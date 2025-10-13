@@ -85,6 +85,7 @@ class ImageConstant {
   static String imgSubscription = '$imagePath/profiles/img_subscription.svg';
   static String imgTerms = '$imagePath/profiles/img_terms.svg';
   static String imgPrivacyPolicy = '$imagePath/profiles/img_privacy_policy.svg';
+  static String imgSupport = '$imagePath/profiles/img_support.svg';
   static String imgLogout = '$imagePath/profiles/img_logout.svg';
 
   //Icons
