@@ -101,7 +101,7 @@ class ImageConstant {
   static String iconCam = '$iconPath/icon_cam.png';
 
   ///Images Button
-  static String imgSend = '$imagePath/img_send.png';
+  static String imgSend = '$imagePath/img_send.png'; //change image
   static String removeImage = '$imagePath/remove_image.svg';
 
   ///Other

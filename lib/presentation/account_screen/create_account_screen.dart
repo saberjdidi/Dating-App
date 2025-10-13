@@ -16,6 +16,7 @@ import 'package:dating_app_bilhalal/widgets/form_divider_widget.dart';
 import 'package:dating_app_bilhalal/widgets/grid_layout.dart';
 import 'package:dating_app_bilhalal/widgets/line_stepper_widget.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
+import 'package:dating_app_bilhalal/widgets/shader_mask_widget.dart';
 import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
@@ -427,12 +428,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                   color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                 ),
                 // Slider avec gradient, label toujours visible, hauteur augmentée
-                ShaderMask(
-                  shaderCallback: (Rect bounds) {
-                    return const LinearGradient(
-                      colors: [TColors.yellowAppLight, Colors.redAccent], // ✅ Dégradé
-                    ).createShader(bounds);
-                  },
+                 ShaderMaskWidget(
                   child: SliderTheme(
                     data: SliderTheme.of(context).copyWith(
                       trackHeight: 8, // ✅ Augmenter la hauteur du slider
@@ -474,12 +470,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                       color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                 ),
                 // Slider avec gradient, label toujours visible, hauteur augmentée
-                ShaderMask(
-                  shaderCallback: (Rect bounds) {
-                    return const LinearGradient(
-                      colors: [TColors.yellowAppLight, Colors.redAccent], // ✅ Dégradé
-                    ).createShader(bounds);
-                  },
+                ShaderMaskWidget(
                   child: SliderTheme(
                     data: SliderTheme.of(context).copyWith(
                       trackHeight: 8, // ✅ Augmenter la hauteur du slider
@@ -521,12 +512,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                       color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                 ),
                 // Slider avec gradient, label toujours visible, hauteur augmentée
-                ShaderMask(
-                  shaderCallback: (Rect bounds) {
-                    return const LinearGradient(
-                      colors: [TColors.yellowAppLight, Colors.redAccent], // ✅ Dégradé
-                    ).createShader(bounds);
-                  },
+                ShaderMaskWidget(
                   child: SliderTheme(
                     data: SliderTheme.of(context).copyWith(
                       trackHeight: 8, // ✅ Augmenter la hauteur du slider
@@ -716,12 +702,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                 ),
 
                 // ✅ Slider avec gradient et labels toujours visibles
-                ShaderMask(
-                  shaderCallback: (Rect bounds) {
-                    return const LinearGradient(
-                      colors: [TColors.yellowAppLight, Colors.redAccent], // Dégradé
-                    ).createShader(bounds);
-                  },
+                ShaderMaskWidget(
                   child: SliderTheme(
                     data: SliderTheme.of(context).copyWith(
                       trackHeight: 8, // Hauteur du slider
