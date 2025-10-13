@@ -48,8 +48,13 @@ class MainScreen extends GetView<MainController> {
                   return false;
                 }
 
+                // 🚫 Bloquer les swipes gauche/droite
+                if (direction == CardSwiperDirection.left ||
+                    direction == CardSwiperDirection.right) {
+                  return false; // Annule le swipe horizontal
+                }
                 // Si tu veux encore gérer les swipes gauche/droite :
-                if (direction == CardSwiperDirection.left) {
+               /* if (direction == CardSwiperDirection.left) {
                   final targetIndex =
                       (previousIndex! - 1 + controller.cardsCount) % controller.cardsCount;
                   controller.currentIndex.value = targetIndex;
@@ -60,9 +65,9 @@ class MainScreen extends GetView<MainController> {
                   controller.currentIndex.value = targetIndex;
                   controller.swiperController.moveTo(targetIndex);
                   return false;
-                }
+                } */
 
-                return true;
+                return false;
               },
               //maxAngle: 30,
               cardBuilder: (context, index, percentX, percentY) {

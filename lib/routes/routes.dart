@@ -37,6 +37,8 @@ class Routes {
   static const String callScreen = '/call_screen';
   static const String callVideoScreen = '/call_video_screen';
 
+  static const String supportScreen = '/support_screen';
+
   ///Other
 ///
 

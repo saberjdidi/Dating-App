@@ -355,7 +355,7 @@ class ProfileScreen extends StatelessWidget {
 
                 InkWell(
                   onTap: (){
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => PrivacyPolicyScreen()));
+                    Get.toNamed(Routes.supportScreen);
                   },
                   child: TRoundedContainer(
                     showBorder: false,
@@ -370,8 +370,8 @@ class ProfileScreen extends StatelessWidget {
                       children: [
                         IconButton(
                           onPressed: (){
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => PrivacyPolicyScreen()));
-                          },
+                            Get.toNamed(Routes.supportScreen);
+                            },
                           icon: Icon(Icons.arrow_back_ios),
                           iconSize: 25.adaptSize,
                           color: TColors.buttonSecondary,

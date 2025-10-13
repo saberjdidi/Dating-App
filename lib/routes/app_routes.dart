@@ -42,6 +42,8 @@ import 'package:dating_app_bilhalal/presentation/splash_screen/splash_screen.dar
 import 'package:dating_app_bilhalal/presentation/subscribe_screen/binding/subscribe_binding.dart';
 import 'package:dating_app_bilhalal/presentation/subscribe_screen/subscribe_screen.dart';
 import 'package:dating_app_bilhalal/presentation/subscribe_screen/update_subscribe_screen.dart';
+import 'package:dating_app_bilhalal/presentation/support_screen/binding/support_binding.dart';
+import 'package:dating_app_bilhalal/presentation/support_screen/support_screen.dart';
 
 import '../core/app_export.dart';
 
@@ -249,6 +251,13 @@ class AppRoutes {
       page: () => CallVideoScreen(),
       bindings: [
         CallBinding(),
+      ],
+    ),
+    GetPage(
+      name: Routes.supportScreen,
+      page: () => SupportScreen(),
+      bindings: [
+        SupportBinding(),
       ],
     ),
   ];

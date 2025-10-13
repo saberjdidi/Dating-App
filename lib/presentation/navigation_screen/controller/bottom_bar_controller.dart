@@ -52,14 +52,34 @@ class BottomBarController extends GetxController {
   // title exemple (ton usage existant)
   RxString selectedCountryTitle = "الکل".obs;
 
-
+  // 🔹 indique si on vient d’ouvrir la main screen pour la première fois
+  bool isFirstOpenMain = true;
 
    changeTabIndex(int index) async {
+     final oldIndex = selectedIndex.value;
+    selectedIndex.value = index;
+     // 🔸 Si on clique sur "main"
+     if (index == 2) {
+       // Cas 1 : première ouverture (navigation initiale)
+       if (isFirstOpenMain) {
+         isFirstOpenMain = false; // On désactive le mode "première ouverture"
+         return; // Ne pas ouvrir le dialog
+       }
+
+       // Cas 2 : on clique manuellement sur "main" déjà actif
+       if (oldIndex == 2) {
+         openSearchDialog();
+       }
+     }
+  }
+
+  //open dialog when go to main screen
+ /* changeTabIndex(int index) async {
     selectedIndex.value = index;
     if (index == 2) { // si onglet "main" sélectionné
       openSearchDialog();
     }
-  }
+  } */
 
   void updateCountryTitle() {
     if (mainController.selectedCountries.isEmpty || mainController.selectedCountries.contains("الکل")) {

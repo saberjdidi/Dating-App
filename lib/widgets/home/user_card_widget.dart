@@ -2,6 +2,7 @@ import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/data/models/UserModel.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
 import 'package:dating_app_bilhalal/widgets/gradient/gradient_svg_icon.dart';
+import 'package:dating_app_bilhalal/widgets/home/favorite_icon.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
@@ -121,7 +122,7 @@ class UserCardWidget extends StatelessWidget {
                                 onTap: onMessageTap,
                                 child: GradientSvgIcon(
                                   assetPath: ImageConstant.iconChat,
-                                  size: 45.adaptSize,
+                                  size:  isTablet ? 55.adaptSize : 45.adaptSize,
                                   gradient: const LinearGradient(
                                     colors: [TColors.primaryColorApp, TColors.primaryColorApp],
                                     //colors: [Color(0xFFFFFC00), Color(0xFFFFFC00)],
@@ -131,18 +132,19 @@ class UserCardWidget extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(width: 10.hw,),
-                              GestureDetector(
+                              FavoriteIcon(userId: "1"),
+                             /* GestureDetector(
                                 onTap: onFavoriteTap,
                                 child: GradientSvgIcon(
                                   assetPath: ImageConstant.iconLove,
-                                  size: 38.adaptSize,
+                                  size: isTablet ? 55.adaptSize : 38.adaptSize,
                                   gradient: const LinearGradient(
                                     colors: [Color(0xFFF40303), Color(0xFF8E0202)],
                                     begin: Alignment.topLeft,
                                     end: Alignment.bottomRight,
                                   ),
                                 ),
-                              ),
+                              ), */
                               /*  CustomImageView(
                           imagePath: ImageConstant.iconChat,
                           height: 45.hw,
