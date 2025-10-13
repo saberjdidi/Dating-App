@@ -50,7 +50,7 @@ class ThemeHelper {
         _supportedColorScheme[_appTheme] ?? ColorSchemes.primaryColorScheme;
     return ThemeData(
       useMaterial3: true,
-      fontFamily: 'Poppins',
+      fontFamily: 'Cairo',
       visualDensity: VisualDensity.standard,
       colorScheme: colorScheme,
       brightness: Brightness.light,
@@ -135,7 +135,7 @@ class ThemeHelper {
         _supportedColorScheme[_appTheme] ?? ColorSchemes.primaryColorScheme;
     return ThemeData(
       useMaterial3: true,
-      fontFamily: 'Poppins',
+      fontFamily: 'Cairo',
       visualDensity: VisualDensity.standard,
       colorScheme: colorScheme,
       //textTheme: TextThemes.textTheme(colorScheme),

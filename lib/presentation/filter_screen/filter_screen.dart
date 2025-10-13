@@ -28,32 +28,38 @@ class FilterScreen extends StatelessWidget {
               numberOfCardsDisplayed: 1,
               isLoop: true,
               padding: EdgeInsets.zero,
-              //Auto Swiper with timer - Mise à jour du callback onSwipe
               onSwipe: (previousIndex, currentIndex, direction) {
-                // Relance toujours le timer sur geste manuel
-                controller.onSwipe();
-
-                if (direction == CardSwiperDirection.left) {
-                  // Swipe gauche : Va au précédent (non aléatoire)
-                  final targetIndex = (previousIndex! - 1 + controller.cardsCount) % controller.cardsCount;
+                if (direction == CardSwiperDirection.top) {
+                  // 🔼 Swipe vers le haut → précédent
+                  final targetIndex =
+                      (previousIndex! - 1 + controller.cardsCount) % controller.cardsCount;
                   controller.currentIndex.value = targetIndex;
                   controller.swiperController.moveTo(targetIndex);
-                  return false; // Annule le swipe gauche pour éviter le next par défaut
-                } else {
-                  // Swipe droite (ou autre) : Autorise le next séquentiel
-                  // Met à jour l'index après l'animation (microtask pour sync)
-                  Future.microtask(() {
-                    controller.currentIndex.value = currentIndex ?? 0;
-                  });
-                  return true;
+                  return false; // Bloque le swipe horizontal
+                } else if (direction == CardSwiperDirection.bottom) {
+                  // 🔽 Swipe vers le bas → suivant
+                  final targetIndex = (previousIndex! + 1) % controller.cardsCount;
+                  controller.currentIndex.value = targetIndex;
+                  controller.swiperController.moveTo(targetIndex);
+                  return false;
                 }
-              },
-              //Auto Swiper with timer
-             /* onSwipe: (previousIndex, currentIndex, direction) {
-                // ✅ Lorsqu’on swipe manuellement, on relance le timer
-                controller.onSwipe();
+
+                // Si tu veux encore gérer les swipes gauche/droite :
+                if (direction == CardSwiperDirection.left) {
+                  final targetIndex =
+                      (previousIndex! - 1 + controller.cardsCount) % controller.cardsCount;
+                  controller.currentIndex.value = targetIndex;
+                  controller.swiperController.moveTo(targetIndex);
+                  return false;
+                } else if (direction == CardSwiperDirection.right) {
+                  final targetIndex = (previousIndex! + 1) % controller.cardsCount;
+                  controller.currentIndex.value = targetIndex;
+                  controller.swiperController.moveTo(targetIndex);
+                  return false;
+                }
+
                 return true;
-              }, */
+              },
               //maxAngle: 30,
               cardBuilder: (context, index, percentX, percentY) {
                 final user = controller.users[index];
@@ -72,16 +78,6 @@ class FilterScreen extends StatelessWidget {
               },
             );
           }),
-
-          // ✅ Barre de progression animée
-          Positioned(
-            top: MediaQuery.of(context).padding.top + 10,
-            left: 20,
-            right: 20,
-            child: Obx(() => AnimatedGradientProgressWidget(
-              progress: controller.progress.value,
-            )),
-          ),
         ],
       ),
     );
@@ -456,4 +452,88 @@ class FilterScreen extends StatelessWidget {
   }  */
 }
 
+///FilterScreen avec  progression animée
+/*
+class FilterScreen extends StatelessWidget {
+  FilterScreen({super.key});
 
+  final controller = Get.put(FilterController());
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+      //appBar: AppBar(title: const Text("Dating App")),
+      body: Stack(
+        children: [
+          Obx(() {
+            if (controller.users.isEmpty) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            return CardSwiper(
+              controller: controller.swiperController,
+              cardsCount: controller.users.length,
+              numberOfCardsDisplayed: 1,
+              isLoop: true,
+              padding: EdgeInsets.zero,
+              //Auto Swiper with timer - Mise à jour du callback onSwipe
+              onSwipe: (previousIndex, currentIndex, direction) {
+                // Relance toujours le timer sur geste manuel
+                controller.onSwipe();
+
+                if (direction == CardSwiperDirection.left) {
+                  // Swipe gauche : Va au précédent (non aléatoire)
+                  final targetIndex = (previousIndex! - 1 + controller.cardsCount) % controller.cardsCount;
+                  controller.currentIndex.value = targetIndex;
+                  controller.swiperController.moveTo(targetIndex);
+                  return false; // Annule le swipe gauche pour éviter le next par défaut
+                } else {
+                  // Swipe droite (ou autre) : Autorise le next séquentiel
+                  // Met à jour l'index après l'animation (microtask pour sync)
+                  Future.microtask(() {
+                    controller.currentIndex.value = currentIndex ?? 0;
+                  });
+                  return true;
+                }
+              },
+              //Auto Swiper with timer
+              /* onSwipe: (previousIndex, currentIndex, direction) {
+                // ✅ Lorsqu’on swipe manuellement, on relance le timer
+                controller.onSwipe();
+                return true;
+              }, */
+              //maxAngle: 30,
+              cardBuilder: (context, index, percentX, percentY) {
+                final user = controller.users[index];
+                return UserCardWidget(
+                  user: user,
+                  onMessageTap: () async {
+                    debugPrint("message ${user.fullName}");
+                  },
+                  onFavoriteTap: () async {
+
+                  },
+                  /*  onTapFilter: () async {
+                    await dialogSearch(context);
+                  }, */
+                );
+              },
+            );
+          }),
+
+          // ✅ Barre de progression animée
+          Positioned(
+            top: MediaQuery.of(context).padding.top + 10,
+            left: 20,
+            right: 20,
+            child: Obx(() => AnimatedGradientProgressWidget(
+              progress: controller.progress.value,
+            )),
+          ),
+        ],
+      ),
+    );
+  }
+}
+*/

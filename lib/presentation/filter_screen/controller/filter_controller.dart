@@ -16,6 +16,10 @@ class FilterController extends GetxController {
 
   final RxList<UserModel> users = <UserModel>[].obs;
   var selectedCountries = <String>[].obs;
+  //Card Swiper
+  final CardSwiperController swiperController = CardSwiperController();
+  final RxInt currentIndex = 0.obs;
+  int get cardsCount => users.length; // Getter pour la taille (performant)
 
   TextEditingController maritalStatusController = TextEditingController();
   TextEditingController lookingForController = TextEditingController();
@@ -61,7 +65,7 @@ class FilterController extends GetxController {
     super.onInit();
     loadUsers();
     // Démarre le swipe automatique après un petit délai
-    Future.delayed(const Duration(seconds: 2), startAutoSwipe);
+    //Future.delayed(const Duration(seconds: 2), startAutoSwipe);
 
     /// ✅ Définir les valeurs par défaut
     selectedMaritalStatus.value = ListMaritalStatus.value.first;
@@ -117,7 +121,7 @@ class FilterController extends GetxController {
           images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
       ),
     ];
-    currentIndex.value = 0; // Initialisation
+    currentIndex.value = 0; // using when swipe automatic whit previous user
   }
 
    toggleCountry(String countryName) {
@@ -142,6 +146,7 @@ class FilterController extends GetxController {
   }
 
   ///LinearProgressIndicator Start
+  /*
   // Ajout : Suivi de l'index courant pour les navigations programmatiques
   final RxInt currentIndex = 0.obs;
   int get cardsCount => users.length; // Getter pour la taille (performant)
@@ -179,35 +184,6 @@ class FilterController extends GetxController {
       }
     });
   }
-  ///with progress timer
- /* void startAutoSwipe() {
-    stopAutoSwipe();
-
-    const swipeInterval = Duration(seconds: 10);
-    const tickInterval = Duration(milliseconds: 100);
-    const totalTicks = 10000 ~/ 100; // 10s -> 100 ticks
-
-    int tickCount = 0;
-    progress.value = 0;
-
-    progressTimer = Timer.periodic(tickInterval, (timer) {
-      tickCount++;
-      progress.value = tickCount / totalTicks;
-      if (tickCount >= totalTicks) {
-        timer.cancel();
-        swiperController.swipe(CardSwiperDirection.right);
-        startAutoSwipe(); // relance le cycle automatiquement
-      }
-    });
-  } */
-
-  //without progress timer
-  /* void startAutoSwipe() {
-    // 🔁 Swipe automatique toutes les 10 secondes
-    autoSwipeTimer = Timer.periodic(const Duration(seconds: 8), (timer) {
-      swiperController.swipe(CardSwiperDirection.right);
-    });
-  } */
 
   void stopAutoSwipe() {
     //autoSwipeTimer?.cancel();
@@ -225,5 +201,6 @@ class FilterController extends GetxController {
     stopAutoSwipe();
     super.onClose();
   }
+  */
   ///LinearProgressIndicator End
 }
