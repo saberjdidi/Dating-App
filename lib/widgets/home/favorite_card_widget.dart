@@ -2,6 +2,7 @@ import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/data/models/UserModel.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
 import 'package:dating_app_bilhalal/widgets/gradient/gradient_svg_icon.dart';
+import 'package:dating_app_bilhalal/widgets/home/favorite_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 
@@ -132,7 +133,8 @@ class FavoriteCardWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          GestureDetector(
+                          FavoriteIcon(userId: "1"),
+                         /* GestureDetector(
                             onTap: onFavoriteTap,
                             child: GradientSvgIcon(
                               assetPath: ImageConstant.iconLove,
@@ -143,12 +145,12 @@ class FavoriteCardWidget extends StatelessWidget {
                                 end: Alignment.bottomRight,
                               ),
                             ),
-                          ),
+                          ), */
                           GestureDetector(
                             onTap: onMessageTap,
                             child: GradientSvgIcon(
                               assetPath: ImageConstant.iconChat,
-                              size: 45.adaptSize,
+                              size: 42.adaptSize,
                               gradient: const LinearGradient(
                                 colors: [TColors.primaryColorApp, TColors.primaryColorApp],
                                 //colors: [Color(0xFFFFFC00), Color(0xFFFFFC00)],

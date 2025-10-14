@@ -194,8 +194,8 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                   borderRadius: 30,
                                   colorText: TColors.white,
                                   fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
-                                  height: isSmallPhone ? 80.v : 70.v,
-                                  width: Get.width * 0.5,
+                                  height: isSmallPhone ? 75.v : 65.v,
+                                  width: isTablet ? Get.width * 0.5 : Get.width * 0.65,
                                   onPressed: () async {
                                     Get.toNamed(Routes.overviewAccountScreen);
                                   },

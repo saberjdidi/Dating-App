@@ -112,9 +112,26 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      GradientSvgIcon(
+                      CustomImageView(
+                        imagePath: controller.bottomMenuList[index].activeIcon,
+                        height: 30.adaptSize,
+                        width: 30.adaptSize,
+                        color: TColors.primaryColorApp,
+                      ),
+                      Text(
+                        isMain
+                            ? selectedCountry
+                            : controller.bottomMenuList[index].title!,
+                        //bottomMenuList[index].title!,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: TColors.primaryColorApp,
+                            fontSize:  isTablet ? 20.adaptSize : isSmallPhone ? 15.adaptSize : 16.adaptSize
+                        ),
+                      ),
+                      /* GradientSvgIcon(
                         assetPath: controller.bottomMenuList[index].activeIcon,
-                        size: 35.adaptSize,
+                        size: 30.adaptSize,
                         gradient: const LinearGradient(
                           colors: [TColors.primaryColorApp, TColors.primaryColorApp],
                           begin: Alignment.topLeft,
@@ -134,26 +151,7 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
                           begin: Alignment.centerLeft,
                           end: Alignment.centerRight,
                         ),
-                      ),
-                     /*
-                      CustomImageView(
-                        imagePath: controller.bottomMenuList[index].activeIcon,
-                        height: 35.adaptSize,
-                        width: 35.adaptSize,
-                        color: TColors.yellowAppDark,
-                        //color: theme.colorScheme.primary,
-                      ),
-                      Text(
-                        isMain
-                            ? selectedCountry
-                            : controller.bottomMenuList[index].title!,
-                        //bottomMenuList[index].title!,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            color: TColors.yellowAppDark,
-                            fontSize: isTablet ? 20.adaptSize : isSmallPhone ? 15.adaptSize : 16.adaptSize
-                        ),
-                      ) */
+                      ), */
                     ],
                   ),
                   label: '',
@@ -166,8 +164,8 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
                 // 🔹 Si on quitte l’onglet "main"
                 if (bottomType != BottomBarEnum.main) {
                   final mainController = Get.find<MainController>();
-                  mainController.selectedCountries.clear();      // vider la sélection
-                  mainController.selectedCountries.add("الکل"); // remettre "الکل"
+                  //mainController.selectedCountries.clear();      // vider la sélection
+                 // mainController.selectedCountries.add("الکل"); // remettre "الکل"
                   controller.updateCountryTitle();              // mettre à jour le texte
                 }
 

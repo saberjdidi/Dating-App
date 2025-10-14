@@ -28,6 +28,12 @@ class FilterScreen extends StatelessWidget {
               numberOfCardsDisplayed: 1,
               isLoop: true,
               padding: EdgeInsets.zero,
+              allowedSwipeDirection: const AllowedSwipeDirection.only(
+                up: true,
+                down: true,
+                left: false,
+                right: false,
+              ),
               onSwipe: (previousIndex, currentIndex, direction) {
                 if (direction == CardSwiperDirection.top) {
                   // 🔼 Swipe vers le haut → précédent

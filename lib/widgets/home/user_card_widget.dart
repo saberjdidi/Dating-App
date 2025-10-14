@@ -122,7 +122,7 @@ class UserCardWidget extends StatelessWidget {
                                 onTap: onMessageTap,
                                 child: GradientSvgIcon(
                                   assetPath: ImageConstant.iconChat,
-                                  size:  isTablet ? 55.adaptSize : 45.adaptSize,
+                                  size:  isTablet ? 48.adaptSize : 42.adaptSize,
                                   gradient: const LinearGradient(
                                     colors: [TColors.primaryColorApp, TColors.primaryColorApp],
                                     //colors: [Color(0xFFFFFC00), Color(0xFFFFFC00)],

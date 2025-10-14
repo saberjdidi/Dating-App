@@ -288,7 +288,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                                     //height: 35.hw,
                                     //width: 35.hw,
                                     fit: BoxFit.cover,
-                                    color: Color(0xECA90606),
+                                    color: TColors.redApp,
                                   ),
                                 ),
                                 CircleIconButton(

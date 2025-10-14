@@ -15,6 +15,7 @@ import 'package:dating_app_bilhalal/widgets/custom_text_form_field.dart';
 import 'package:dating_app_bilhalal/widgets/form_divider_widget.dart';
 import 'package:dating_app_bilhalal/widgets/grid_layout.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
+import 'package:dating_app_bilhalal/widgets/shader_mask_widget.dart';
 import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
@@ -162,7 +163,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
 
                           SizedBox(height: TSizes.spaceBtwItems.v),
                           FormDividerWidget(dividerText: "عمر", thikness: 1),
-                          SizedBox(height: TSizes.spaceBtwItems.v),
+                          SizedBox(height: 10.v),
 
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -173,12 +174,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                                     color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                               ),
                               // Slider avec gradient, label toujours visible, hauteur augmentée
-                              ShaderMask(
-                                shaderCallback: (Rect bounds) {
-                                  return const LinearGradient(
-                                    colors: [TColors.yellowAppLight, Colors.redAccent], // ✅ Dégradé
-                                  ).createShader(bounds);
-                                },
+                              ShaderMaskWidget(
                                 child: SliderTheme(
                                   data: SliderTheme.of(context).copyWith(
                                     trackHeight: 8, // ✅ Augmenter la hauteur du slider
@@ -210,7 +206,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
 
                           SizedBox(height: TSizes.spaceBtwItems.v),
                           FormDividerWidget(dividerText: "الوزن", thikness: 1),
-                          SizedBox(height: TSizes.spaceBtwItems.v),
+                          SizedBox(height: 10.v),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -220,12 +216,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                                     color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                               ),
                               // Slider avec gradient, label toujours visible, hauteur augmentée
-                              ShaderMask(
-                                shaderCallback: (Rect bounds) {
-                                  return const LinearGradient(
-                                    colors: [TColors.yellowAppLight, Colors.redAccent], // ✅ Dégradé
-                                  ).createShader(bounds);
-                                },
+                              ShaderMaskWidget(
                                 child: SliderTheme(
                                   data: SliderTheme.of(context).copyWith(
                                     trackHeight: 8, // ✅ Augmenter la hauteur du slider
@@ -257,7 +248,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
 
                           SizedBox(height: TSizes.spaceBtwItems.v),
                           FormDividerWidget(dividerText: "الطول", thikness: 1),
-                          SizedBox(height: TSizes.spaceBtwItems.v),
+                          SizedBox(height: 10.v),
 
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -268,12 +259,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                                     color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                               ),
                               // Slider avec gradient, label toujours visible, hauteur augmentée
-                              ShaderMask(
-                                shaderCallback: (Rect bounds) {
-                                  return const LinearGradient(
-                                    colors: [TColors.yellowAppLight, Colors.redAccent], // ✅ Dégradé
-                                  ).createShader(bounds);
-                                },
+                              ShaderMaskWidget(
                                 child: SliderTheme(
                                   data: SliderTheme.of(context).copyWith(
                                     trackHeight: 8, // ✅ Augmenter la hauteur du slider
@@ -306,7 +292,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
 
                           SizedBox(height: TSizes.spaceBtwItems.v),
                           FormDividerWidget(dividerText: "جنسك", thikness: 1),
-                          SizedBox(height: TSizes.spaceBtwItems.v),
+                          SizedBox(height: 10.v),
 
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 10.hw),
@@ -506,7 +492,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
 
                           SizedBox(height: TSizes.spaceBtwItems.v),
                           FormDividerWidget(dividerText: "لون البشرة", thikness: 1),
-                          SizedBox(height: TSizes.spaceBtwItems.v),
+                          SizedBox(height: 10.v),
 
                           Wrap(
                               spacing: 5,
@@ -524,7 +510,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
 
                           SizedBox(height: TSizes.spaceBtwItems.v),
                           FormDividerWidget(dividerText: "نطاق الراتب", thikness: 1),
-                          SizedBox(height: TSizes.spaceBtwItems.v),
+                          SizedBox(height: 10.v),
 
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -537,12 +523,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                               ),
 
                               // ✅ Slider avec gradient et labels toujours visibles
-                              ShaderMask(
-                                shaderCallback: (Rect bounds) {
-                                  return const LinearGradient(
-                                    colors: [TColors.yellowAppLight, Colors.redAccent], // Dégradé
-                                  ).createShader(bounds);
-                                },
+                              ShaderMaskWidget(
                                 child: SliderTheme(
                                   data: SliderTheme.of(context).copyWith(
                                     trackHeight: 8, // Hauteur du slider
@@ -597,6 +578,25 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                           ),
                           SizedBox(height: 10.v),
                           Wrap(
+                            spacing: 5,
+                            runSpacing: 5,
+                            children: interestsList.map((interest) {
+                              final isSelected = controller.selectedInterests.contains(interest.name);
+                              final randomColor =
+                              controller.selectedInterestColors[interest.name]; // ✅ couleur mémorisée
+                              return InterestWidget(
+                                text: interest.name,
+                                iconPath: interest.icon,
+                                isSelected: isSelected,
+                                activeColor: true,
+                                onTap: () => controller.toggleInterest(interest.name, context),
+                                verticalPadding: 13.v,
+                                showRandomColor: isSelected, // ✅ afficher la couleur seulement si sélectionné
+                                randomList: randomColor != null ? [randomColor] : controller.randomColorList,
+                              );
+                            }).toList(),
+                          ),
+                          /* Wrap(
                               spacing: 8, // Espace horizontal entre les items
                               runSpacing: 8, // Espace vertical entre les lignes
                               alignment: WrapAlignment.start,
@@ -611,7 +611,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                                 );
                               }).toList()
                           ),
-                        /*  GridView.count(
+                         GridView.count(
                               crossAxisCount: isTablet ? 3 : 2, // ✅ Deux colonnes fixes
                               mainAxisSpacing: 2,
                               crossAxisSpacing: 3,

@@ -3,18 +3,20 @@ import 'package:get/get.dart';
 
 Rx<List<SelectionPopupModel>> ListMaritalStatus = Rx(
     [
-      SelectionPopupModel(id:1,title:"أعزب"),
-      SelectionPopupModel(id:2,title:"متزوج"),
-      SelectionPopupModel(id:3,title:"مُطلّق"),
-      SelectionPopupModel(id:4,title:"أرمل")
+      SelectionPopupModel(id:1,title:"الكل"),
+      SelectionPopupModel(id:2,title:"أعزب"),
+      SelectionPopupModel(id:3,title:"متزوج"),
+      SelectionPopupModel(id:4,title:"مُطلّق"),
+      SelectionPopupModel(id:5,title:"أرمل")
     ]
 );
 
 Rx<List<SelectionPopupModel>> ListLookingFor = Rx(
     [
-      SelectionPopupModel(id:1,title:"زواج معلن دائم"),
-      SelectionPopupModel(id:2,title:"زواج سري دائم"),
-      SelectionPopupModel(id:3,title:"آخر"),
+     SelectionPopupModel(id:1,title:"الكل"),
+     SelectionPopupModel(id:2,title:"زواج معلن دائم"),
+      SelectionPopupModel(id:3,title:"زواج سري دائم"),
+      SelectionPopupModel(id:4,title:"آخر"),
      /* SelectionPopupModel(id:1,title:"مواعدة"),
       SelectionPopupModel(id:2,title:"زواج"),
       SelectionPopupModel(id:3,title:"معيشة"),
@@ -24,15 +26,16 @@ Rx<List<SelectionPopupModel>> ListLookingFor = Rx(
 
 Rx<List<SelectionPopupModel>> ListPays = Rx(
     [
-      SelectionPopupModel(id:1,title:"السعودیة"),
-      SelectionPopupModel(id:2,title:"البحرین"),
-      SelectionPopupModel(id:3,title:"الامارات"),
-      SelectionPopupModel(id:4,title:"تونس"),
-      SelectionPopupModel(id:4,title:"قطر"),
-      SelectionPopupModel(id:4,title:"الکویت"),
-      SelectionPopupModel(id:4,title:"العراق"),
-      SelectionPopupModel(id:4,title:"عمان"),
-      SelectionPopupModel(id:4,title:"المغرب"),
+      SelectionPopupModel(id:1,title:"الكل"),
+      SelectionPopupModel(id:2,title:"السعودیة"),
+      SelectionPopupModel(id:3,title:"البحرین"),
+      SelectionPopupModel(id:4,title:"الامارات"),
+      SelectionPopupModel(id:5,title:"تونس"),
+      SelectionPopupModel(id:6,title:"قطر"),
+      SelectionPopupModel(id:7,title:"الکویت"),
+      SelectionPopupModel(id:8,title:"العراق"),
+      SelectionPopupModel(id:9,title:"عمان"),
+      SelectionPopupModel(id:10,title:"المغرب"),
     ]
 );
 

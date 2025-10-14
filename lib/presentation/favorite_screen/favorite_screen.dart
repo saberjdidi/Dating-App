@@ -31,7 +31,7 @@ class FavoriteScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: TAppBar(
-          title: TitleWidget(title: "المفضلة", fontWeightDelta: 3,
+          title: TitleWidget(title: "المفضلات", fontWeightDelta: 3,
               color: _appTheme =='light' ? TColors.buttonSecondary : TColors.white),
           showAction: false,
         ),
@@ -62,8 +62,8 @@ class FavoriteScreen extends StatelessWidget {
                 child: TabbedPageWidget(
                   tabs: [
                     TabItem("المفضّل"),
-                    TabItem("إعجاباتي"),
-                    TabItem("مُعجبيني")
+                    TabItem("المعجبون"),
+                    TabItem("إعجابات")
                   ],
                   onTabChanged: controller.onTabChanged,
                   activeColor: TColors.primaryColorApp, //TColors.yellowAppDark,

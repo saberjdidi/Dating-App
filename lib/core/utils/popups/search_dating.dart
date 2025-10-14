@@ -12,6 +12,7 @@ import 'package:dating_app_bilhalal/widgets/form_divider_widget.dart';
 import 'package:dating_app_bilhalal/widgets/home/pays_widget.dart';
 import 'package:dating_app_bilhalal/widgets/multi_select_dopdown.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
+import 'package:dating_app_bilhalal/widgets/shader_mask_widget.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -39,7 +40,7 @@ class SearchDating {
                         textAlign: TextAlign.right),
                   ), */
                   SizedBox(height: TSizes.spaceBtwItems.adaptSize),
-                  FormDividerWidget(dividerText: "عمر", thikness: 2),
+                  FormDividerWidget(dividerText: "العمر", thikness: 2),
                   SizedBox(height: TSizes.spaceBtwItems.v),
 
                   Column(
@@ -53,12 +54,7 @@ class SearchDating {
                             color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                       ),
                       // Slider avec gradient, label toujours visible, hauteur augmentée
-                      ShaderMask(
-                        shaderCallback: (Rect bounds) {
-                          return const LinearGradient(
-                            colors: [TColors.yellowAppLight, Colors.redAccent], // ✅ Dégradé
-                          ).createShader(bounds);
-                        },
+                      ShaderMaskWidget(
                         child: SliderTheme(
                           data: SliderTheme.of(Get.context!).copyWith(
                             trackHeight: 8, // ✅ Augmenter la hauteur du slider
@@ -118,12 +114,7 @@ class SearchDating {
                             color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                       ),
                       // Slider avec gradient, label toujours visible, hauteur augmentée
-                      ShaderMask(
-                        shaderCallback: (Rect bounds) {
-                          return const LinearGradient(
-                            colors: [TColors.yellowAppLight, Colors.redAccent], // ✅ Dégradé
-                          ).createShader(bounds);
-                        },
+                      ShaderMaskWidget(
                         child: SliderTheme(
                           data: SliderTheme.of(Get.context!).copyWith(
                             trackHeight: 8, // ✅ Augmenter la hauteur du slider
@@ -184,12 +175,7 @@ class SearchDating {
                             color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                       ),
                       // Slider avec gradient, label toujours visible, hauteur augmentée
-                      ShaderMask(
-                        shaderCallback: (Rect bounds) {
-                          return const LinearGradient(
-                            colors: [TColors.yellowAppLight, Colors.redAccent], // ✅ Dégradé
-                          ).createShader(bounds);
-                        },
+                      ShaderMaskWidget(
                         child: SliderTheme(
                           data: SliderTheme.of(Get.context!).copyWith(
                             trackHeight: 8, // ✅ Augmenter la hauteur du slider
@@ -410,7 +396,7 @@ class SearchDating {
                   ),
 
                   SizedBox(height: TSizes.spaceBtwItems.v),
-                  MultiSelectDropdown(
+                 /* MultiSelectDropdown(
                     hint: "حدد الهوايات",
                     items: interestsList,
                     controller: controller,
@@ -421,26 +407,10 @@ class SearchDating {
                     textStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
                     themeColor:_appTheme =='light' ?  appTheme.gray50 : TColors.darkerGrey,
                   ),
-                  SizedBox(height: TSizes.spaceBtwItems.v),
+                  SizedBox(height: TSizes.spaceBtwItems.v), */
 
-                  /* GridView.count(
-                    crossAxisCount: isTablet ? 3 : 2, // ✅ Deux colonnes fixes
-                    mainAxisSpacing: 2,
-                    crossAxisSpacing: 3,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(), // Empêche le scroll dans un Column
-                    childAspectRatio: 2, // ✅ contrôle la largeur/hauteur
-                    children: controller.selectedInterests.map((interest) {
-                      return InterestWidget(
-                        text: interest.name,
-                        iconPath: interest.icon,
-                        isSelected: true,
-                        activeColor: false,
-                        onTap: () => controller.toggleInterest(interest, context),
-                      );
-                    }).toList()
-                ), */
-                  Wrap(
+                  ///Method with Wrap
+                  /*  Wrap(
                     spacing: 5,
                     runSpacing: 5,
                     children: controller.selectedInterests.map((interest) {
@@ -462,7 +432,25 @@ class SearchDating {
                         ],
                       );
                     }).toList(),
-                  ),
+                  ), */
+                  ///Method with GridView
+                  /* GridView.count(
+                    crossAxisCount: isTablet ? 3 : 2, // ✅ Deux colonnes fixes
+                    mainAxisSpacing: 2,
+                    crossAxisSpacing: 3,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(), // Empêche le scroll dans un Column
+                    childAspectRatio: 2, // ✅ contrôle la largeur/hauteur
+                    children: controller.selectedInterests.map((interest) {
+                      return InterestWidget(
+                        text: interest.name,
+                        iconPath: interest.icon,
+                        isSelected: true,
+                        activeColor: false,
+                        onTap: () => controller.toggleInterest(interest, context),
+                      );
+                    }).toList()
+                ), */
 
                   SizedBox(height: TSizes.spaceBtwItems.v),
                   SizedBox(

@@ -22,6 +22,19 @@ class FormDividerWidget extends StatelessWidget {
       builder: (context, constraints) {
         final screenWidth = constraints.maxWidth;
 
+        return Padding(
+          padding: const EdgeInsets.only(right: 30),
+          child: Text(
+            dividerText,
+            style: Theme.of(context).textTheme.labelMedium!.apply(
+              color: color ??
+                  (_appTheme == 'light'
+                      ? TColors.buttonSecondary
+                      : TColors.white),
+            ),
+          ),
+        );
+        /*
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -58,6 +71,7 @@ class FormDividerWidget extends StatelessWidget {
             ),
           ],
         );
+        */
       },
     );
   }

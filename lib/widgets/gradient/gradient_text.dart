@@ -51,6 +51,7 @@ class GradientText extends StatelessWidget {
       final Shader textShader = usedGradient.createShader(Rect.fromLTWH(0, 0, width, fontSize * 1.2));
 
       final TextStyle effectiveStyle = (style ?? const TextStyle()).copyWith(
+        fontFamily: 'Cairo',
         fontSize: fontSize,
         fontWeight: fontWeight,
         decoration: TextDecoration.none, // 👈 Supprime le soulignement

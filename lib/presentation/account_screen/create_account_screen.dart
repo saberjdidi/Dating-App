@@ -306,7 +306,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
 
             SizedBox(height: TSizes.spaceBtwItems.v),
             FormDividerWidget(dividerText: "الجنس", thikness: 1),
-            SizedBox(height: TSizes.spaceBtwItems.v),
+            SizedBox(height: 10.v),
 
             /* Obx(() => Row(
               children: [
@@ -402,7 +402,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
 
             SizedBox(height: TSizes.spaceBtwItems.v),
             FormDividerWidget(dividerText: "عمر", thikness: 1),
-            SizedBox(height: TSizes.spaceBtwItems.v),
+            SizedBox(height: 10.v),
             /*
             Obx(() => Slider(
               //year2023: year2023,
@@ -460,7 +460,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
 
             SizedBox(height: TSizes.spaceBtwItems.v),
             FormDividerWidget(dividerText: "الوزن", thikness: 1),
-            SizedBox(height: TSizes.spaceBtwItems.v),
+            SizedBox(height: 10.v),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -502,7 +502,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
 
             SizedBox(height: TSizes.spaceBtwItems.v),
             FormDividerWidget(dividerText: "الطول", thikness: 1),
-            SizedBox(height: TSizes.spaceBtwItems.v),
+            SizedBox(height: 10.v),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -671,7 +671,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
 
             SizedBox(height: TSizes.spaceBtwItems.v),
             FormDividerWidget(dividerText: "لون البشرة", thikness: 1),
-            SizedBox(height: TSizes.spaceBtwItems.v),
+            SizedBox(height: 10.v),
 
             Wrap(
                 spacing: 5,
@@ -689,7 +689,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
 
             SizedBox(height: TSizes.spaceBtwItems.v),
             FormDividerWidget(dividerText: "نطاق الراتب", thikness: 1),
-            SizedBox(height: TSizes.spaceBtwItems.v),
+            SizedBox(height: 10.v),
 
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -753,20 +753,40 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             SizedBox(height: TSizes.spaceBtwItems.v),
             Align(
                 alignment: Alignment.topRight,
-                child: TitleWidget(title: "أضف ميزة".tr,
+                child: TitleWidget(title: "أضف لمستك".tr,
                   color:  _appTheme =='light' ? TColors.black : TColors.primaryColorApp,
                   textAlign: TextAlign.end,)
             ),
             Align(
                 alignment: Alignment.topRight,
-                child: SubTitleWidget(subtitle: "أضف 5 اهتمامات للعثور على شريك يتوافق مع شغفك.".tr,
+                child: SubTitleWidget(subtitle: "أضف 5 من اهتماماتك لتجد شريكًا يشاركك شغفك.".tr,
                   color:  _appTheme =='light' ? TColors.gray700 : TColors.white,
                   textAlign: TextAlign.end,)
             ),
 
             SizedBox(height: TSizes.spaceBtwSections.v),
-            ///Method using Wrap
             Wrap(
+              spacing: 5,
+              runSpacing: 5,
+              children: interestsList.map((interest) {
+                final isSelected = controller.selectedInterests.contains(interest.name);
+                final randomColor =
+                controller.selectedInterestColors[interest.name]; // ✅ couleur mémorisée
+                return InterestWidget(
+                  text: interest.name,
+                  iconPath: interest.icon,
+                  isSelected: isSelected,
+                  activeColor: true,
+                  onTap: () => controller.toggleInterest(interest.name, context),
+                  verticalPadding: 13.v,
+                  showRandomColor: isSelected, // ✅ afficher la couleur seulement si sélectionné
+                  randomList: randomColor != null ? [randomColor] : controller.randomColorList,
+                );
+              }).toList(),
+            ),
+
+            ///Method using Wrap without random colors
+          /*  Wrap(
               spacing: 8, // Espace horizontal entre les items
               runSpacing: 8, // Espace vertical entre les lignes
               alignment: WrapAlignment.start,
@@ -780,7 +800,8 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                   verticalPadding: 20.v,
                 );
               }).toList()
-            ),
+            ), */
+
             ///Method using GridView
           /*  GridView.count(
               crossAxisCount: isTablet ? 3 : 2, // ✅ Deux colonnes fixes

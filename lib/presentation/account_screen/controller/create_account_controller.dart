@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/network_manager.dart';
@@ -60,6 +61,37 @@ class CreateAccountController extends GetxController {
   }
 
   ///Interest Start
+  // Map pour mémoriser la couleur random de chaque intérêt sélectionné
+  final selectedInterestColors = <String, Color>{}.obs;
+
+  final List<Color> randomColorList = const [
+    Color(0xFFFFF9C4), // jaune clair
+    Color(0xFFE1BEE7), // violet clair
+    Color(0xFFB3E5FC), // bleu clair
+    Color(0xFFC8E6C9), // vert clair
+    Color(0xFFFFE0B2), // orange clair
+    Color(0xFFFFCDD2), // rose clair
+  ];
+
+  void toggleInterestWithColor(String interest, BuildContext context) {
+    if (selectedInterests.contains(interest)) {
+      selectedInterests.remove(interest);
+      selectedInterestColors.remove(interest); // 🔹 supprimer la couleur associée
+    } else {
+      if (selectedInterests.length >= 5) {
+        showMaxInterestDialog(context);
+        return;
+      }
+      selectedInterests.add(interest);
+      // 🔹 assigner une couleur aléatoire si non déjà attribuée
+      selectedInterestColors[interest] =
+      randomColorList[Random().nextInt(randomColorList.length)];
+    }
+
+    debugPrint('selectedInterests : $selectedInterests');
+  }
+
+
   var selectedInterests = <String>[].obs;
 
    toggleInterest(String interest, BuildContext context) {

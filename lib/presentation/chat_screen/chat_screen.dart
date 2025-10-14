@@ -26,7 +26,7 @@ class ChatScreen extends StatelessWidget {
       child: Scaffold(
         appBar: TAppBar(
           title: TitleWidget(
-              title: "الدردشة", fontWeightDelta: 3,
+              title: "المحادثات", fontWeightDelta: 3,
               color: _appTheme =='light' ? TColors.buttonSecondary : TColors.white,
           ),
           showAction: false,
@@ -39,7 +39,7 @@ class ChatScreen extends StatelessWidget {
               SizedBox(height: TSizes.spaceBtwItems.v),
               CustomSearchView(
                 width: mediaQueryData.size.width * 0.9,
-                fillColor: TColors.greyContainerChat,
+                fillColor: TColors.white,
                 controller: controller.searchController,
                 focusNode: _focusNode,
                 hintText: "بحث".tr,

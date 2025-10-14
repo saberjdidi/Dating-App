@@ -18,7 +18,7 @@ class FavoriteIcon extends StatelessWidget {
     final controller = Get.put(FavoriteController());
     return Obx(() => CustomImageView(
       imagePath: ImageConstant.iconLove,
-      color: controller.isFavourite(userId) ? Color(0xFF8E0202) : TColors.white,
+      color: controller.isFavourite(userId) ? TColors.redApp : TColors.white,
       height: isTablet ? 55.adaptSize : 38.adaptSize,
       width: isTablet ? 55.adaptSize : 38.adaptSize,
       onTap: () => controller.toggleFavoriteProperty(userId),

@@ -23,7 +23,7 @@ class BottomBarController extends GetxController {
     BottomMenuModel(
       icon: ImageConstant.discussionImg,
       activeIcon: ImageConstant.discussionImg,
-      title: "محادثة".tr,
+      title: "المحادثات".tr,
       type: BottomBarEnum.discussion,
     ),
     BottomMenuModel(
@@ -35,7 +35,7 @@ class BottomBarController extends GetxController {
     BottomMenuModel(
       icon: ImageConstant.likeImg,
       activeIcon: ImageConstant.likeImg,
-      title: "المفضلة".tr,
+      title: "المفضلات".tr,
       type: BottomBarEnum.favoris,
     ),
     BottomMenuModel(
@@ -94,7 +94,7 @@ class BottomBarController extends GetxController {
 
   void openSearchDialog() {
 
-    mainController.selectedCountries.clear();
+    //mainController.selectedCountries.clear(); //clear country when open diaog
     Future.delayed(Duration.zero, () {
       SearchDating.openDialogFilterByPays(mainController); // 👈 appelé uniquement quand onglet "main"
     });
