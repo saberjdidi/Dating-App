@@ -29,7 +29,7 @@ class FilterController extends GetxController {
   final Rx<SelectionPopupModel?> selectedMaritalStatus = Rx<SelectionPopupModel?>(null);
   final Rx<SelectionPopupModel?> selectedLookingFor = Rx<SelectionPopupModel?>(null);
   //final Rx<SelectionPopupModel?> selectedPays = Rx<SelectionPopupModel?>(null);
-  final selectedPays = Rxn<CountryModel>();
+  final Rx<CountryModel?> selectedPays = Rxn<CountryModel?>(null);
 
   //RxInt sexValue = 0.obs;
   //RxDouble currentAgeValue = 20.toDouble().obs; //choice one age
@@ -70,13 +70,13 @@ class FilterController extends GetxController {
     //Future.delayed(const Duration(seconds: 2), startAutoSwipe);
 
     /// ✅ Définir les valeurs par défaut
-    selectedMaritalStatus.value = ListMaritalStatus.value.first;
-    selectedLookingFor.value = ListLookingFor.value.first;
+    selectedMaritalStatus.value = ListMaritalStatusFilter.value.first;
+    selectedLookingFor.value = ListLookingForFilter.value.first;
     //selectedPays.value = ListPays.value.first;
-    selectedPays.value = PaysList.value.first;
-    maritalStatusController.text = ListMaritalStatus.value.first.title; // "أعزب"
-    lookingForController.text = ListLookingFor.value.first.title; // "زواج معلن دائم"
-    paysController.text = ListPays.value.first.title; // "السعودیة"
+    selectedPays.value = PaysListFilter.value.first;
+    maritalStatusController.text = ListMaritalStatusFilter.value.first.title; // "أعزب"
+    lookingForController.text = ListLookingForFilter.value.first.title; // "زواج معلن دائم"
+    paysController.text = PaysListFilter.value.first.name; // "السعودیة"
   }
   @override
   void onReady() {

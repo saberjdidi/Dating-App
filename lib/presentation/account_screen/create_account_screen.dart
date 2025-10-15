@@ -20,6 +20,7 @@ import 'package:dating_app_bilhalal/widgets/shader_mask_widget.dart';
 import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 //import 'package:im_stepper/stepper.dart';
 
 class CreateAccountScreen extends GetWidget<CreateAccountController> {
@@ -53,6 +54,21 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               fontWeightDelta: 3,
               color: _appTheme =='light' ?  TColors.buttonSecondary : TColors.white,
             ),
+           actions: [
+             IconButton(
+                 onPressed: (){
+                   //SystemNavigator.pop();
+                   if (controller.activeStep.value == 0) {
+                     Get.offAllNamed(Routes.signInScreen);
+                   } else if(controller.activeStep.value == 1 || controller.activeStep.value == 2 ||
+                             controller.activeStep.value == 3 || controller.activeStep.value == 4) {
+                     controller.activeStep.value--;
+                     //Navigator.of(context).pop();
+                   }
+                 },
+                 icon: Icon(Iconsax.arrow_right_1, color: _appTheme =='light' ? TColors.black : TColors.white)
+             )
+           ],
            /* title: Text('إنشاء حساب',
               style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                 color: TColors.black,
@@ -257,7 +273,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               child: Text(
                 controller.fullNameError.value.isNotEmpty
                     ? controller.fullNameError.value
-                    : "${controller.fullNameRemaining.value} حرف متبقي",
+                    : "${"الحروف المتبقية"} ${controller.fullNameRemaining.value}",
                 style: TextStyle(
                   fontSize: 15.adaptSize,
                   color: controller.fullNameError.value.isNotEmpty
@@ -294,7 +310,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               child: Text(
                 controller.bioError.value.isNotEmpty
                     ? controller.bioError.value
-                    : "${controller.bioRemaining.value} حرف متبقي",
+                    : "${"الحروف المتبقية"} ${controller.bioRemaining.value}",
                 style: TextStyle(
                   fontSize: 15.adaptSize,
                   color: controller.bioError.value.isNotEmpty
@@ -362,7 +378,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                           ),
                           SubTitleWidget(subtitle: 'امراة',
                               color: _appTheme =='light' ? TColors.black : TColors.white,
-                              fontSizeDelta: 2, fontWeightDelta: 2),
+                              fontSizeDelta: 2, fontWeightDelta: 1),
                           //TitleWidget(title: 'امراة',),
                         ],
                       )
@@ -391,7 +407,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                           ),
                           SubTitleWidget(subtitle: 'رجل',
                               color: _appTheme =='light' ? TColors.black : TColors.white,
-                              fontSizeDelta: 2, fontWeightDelta: 2),
+                              fontSizeDelta: 2, fontWeightDelta: 1),
                           //TitleWidget(title: 'رجل',),
                         ],
                       )
@@ -401,7 +417,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             ),
 
             SizedBox(height: TSizes.spaceBtwItems.v),
-            FormDividerWidget(dividerText: "عمر", thikness: 1),
+            FormDividerWidget(dividerText: "العمر", thikness: 1),
             SizedBox(height: 10.v),
             /*
             Obx(() => Slider(
@@ -424,7 +440,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               children: [
                 // ✅ Afficher l’âge sous le slider
                 Text("${controller.currentAgeValue.value.round()} سنة",
-                  style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.bold,
+                  style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.w500,
                   color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                 ),
                 // Slider avec gradient, label toujours visible, hauteur augmentée
@@ -466,7 +482,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               children: [
                 // ✅ Afficher l’âge sous le slider
                 Text(" ${controller.currentWeightValue.value.round()} كغ ",
-                  style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.bold,
+                  style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.w500,
                       color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                 ),
                 // Slider avec gradient, label toujours visible, hauteur augmentée
@@ -508,7 +524,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               children: [
                 // ✅ Afficher l’âge sous le slider
                 Text("${controller.currentHeightValue.value.round()} سم",
-                  style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.bold,
+                  style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.w500,
                       color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                 ),
                 // Slider avec gradient, label toujours visible, hauteur augmentée
@@ -638,7 +654,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               child: Text(
                 controller.jobError.value.isNotEmpty
                     ? controller.jobError.value
-                    : "${controller.jobRemaining.value} حرف متبقي",
+                    : "${"الحروف المتبقية"} ${controller.jobRemaining.value}",
                 style: TextStyle(
                   fontSize: 15.adaptSize,
                   color: controller.jobError.value.isNotEmpty
@@ -650,7 +666,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             SizedBox(height: TSizes.spaceBtwItems.v),
 
             CustomDropDownCountry(
-              hintText: "${'دولة'.tr} *",
+              hintText: "${'الدولة'.tr} *",
               items: PaysList.value,
               selectedValue: controller.selectedPays.value,
               onChanged: (val) => controller.selectedPays.value = val,
@@ -697,7 +713,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                 // ✅ Afficher les valeurs sous le slider
                 Text(
                   "${controller.currentRangeValues.value.start.round()}K - ${controller.currentRangeValues.value.end.round()}K",
-                  style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.bold,
+                  style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.w500,
                       color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                 ),
 

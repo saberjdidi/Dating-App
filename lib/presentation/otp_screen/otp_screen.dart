@@ -101,6 +101,7 @@ class OTPScreen extends GetView<OTPController> {
                 )),
               ),
               SizedBox(height: 20.v),
+              /// 🕒 Compte à rebours + réenvoi
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -136,6 +137,7 @@ class OTPScreen extends GetView<OTPController> {
                               onTap: () async {
                                 controller.animationController?.reset();
                                 controller.animationController?.forward();
+                                controller.resendOtpFn();
                               },
                               child: Padding(padding: EdgeInsets.only(left: 8.hw),
                                   child: Text("أعد الإرسال",
@@ -153,7 +155,19 @@ class OTPScreen extends GetView<OTPController> {
                   )
                 ],
               ),
-              SizedBox(height: 50.v),
+              SizedBox(height: 20.v),
+              /// 🚨 Message d’erreur rouge
+              Obx(() => controller.isOtpError.value
+                  ? Directionality(
+                textDirection: TextDirection.rtl,
+                    child: Text(
+                        controller.errorMessage.value,
+                        style: TextStyle(color: Colors.red, fontSize: 16.adaptSize, fontWeight: FontWeight.w500),
+                      ),
+                  )
+                  : const SizedBox.shrink()),
+
+              SizedBox(height: 40.v),
               Center(
                 child: CustomButtonContainer(
                   text: "التالي",
@@ -165,37 +179,43 @@ class OTPScreen extends GetView<OTPController> {
                   height: isSmallPhone ? 80.v : 70.v,
                   width: Get.width,
                   onPressed: () async {
-                   await controller.saveOTPFn(context);
-                    //onTapOTPSuccessPage(context);
+                    await controller.verifyOtpFn(context);
+                   //await controller.saveOTPFn(context);
                   },
                 ),
               ),
               SizedBox(height: 15.v,),
-              //if(controller.levelClock.value == 0)
-                Visibility(
-                  visible: false,
-                  child: Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: CustomOutlinedButton(
-                      buttonTextStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormFieldBold : CustomTextStyles.titleLargeWhite,
-                      buttonStyle: _appTheme =='light' ? CustomButtonStyles.outlineBlack : CustomButtonStyles.outlineWhite,
-                      text: "إعادة إرسال OTP",
-                      margin: EdgeInsets.only(top: 6.hw),
-                      borderRadius: 100.hw,
-                      height: isSmallPhone ? 80.v : 70.v,
-                      width: Get.width,
-                      onPressed: (){
-                        //?  use this code to get sms signature for your app
-                        //final String signature = await SmsAutoFill().getAppSignature;
-                        //print("Signature: $signature");
-
-                        controller.animationController?.reset();
-                        controller.animationController?.forward();
-                        //_animationController!.forward();
-                      },
-                    ),
+             /* Obx(() => controller.canResend.value
+                  ? GestureDetector(
+                onTap: controller.resendOtpFn,
+                child: Text(
+                  "إعادة إرسال OTP",
+                  style: TextStyle(
+                    color: TColors.primaryColorApp,
+                    fontSize: 18.fSize,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
+              )
+                  : const SizedBox.shrink()), */
+              Obx(() => controller.canResend.value
+                  ? Directionality(
+                textDirection: TextDirection.rtl,
+                child: CustomOutlinedButton(
+                  buttonTextStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormFieldBold : CustomTextStyles.titleLargeWhite,
+                  buttonStyle: _appTheme =='light' ? CustomButtonStyles.outlineBlack : CustomButtonStyles.outlineWhite,
+                  text: "إعادة إرسال OTP",
+                  margin: EdgeInsets.only(top: 6.hw),
+                  borderRadius: 100.hw,
+                  height: isSmallPhone ? 80.v : 70.v,
+                  width: Get.width,
+                  onPressed: () async {
+                   await controller.resendOtpFn();
+                  },
+                ),
+                 )
+                  : const SizedBox.shrink(),
+              )
             ],
           ),
         ),

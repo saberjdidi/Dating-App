@@ -3,6 +3,15 @@ import 'package:get/get.dart';
 
 Rx<List<SelectionPopupModel>> ListMaritalStatus = Rx(
     [
+      SelectionPopupModel(id:1,title:"أعزب"),
+      SelectionPopupModel(id:2,title:"متزوج"),
+      SelectionPopupModel(id:3,title:"مُطلّق"),
+      SelectionPopupModel(id:4,title:"أرمل")
+    ]
+);
+
+Rx<List<SelectionPopupModel>> ListMaritalStatusFilter = Rx(
+    [
       SelectionPopupModel(id:1,title:"الكل"),
       SelectionPopupModel(id:2,title:"أعزب"),
       SelectionPopupModel(id:3,title:"متزوج"),
@@ -13,14 +22,22 @@ Rx<List<SelectionPopupModel>> ListMaritalStatus = Rx(
 
 Rx<List<SelectionPopupModel>> ListLookingFor = Rx(
     [
-     SelectionPopupModel(id:1,title:"الكل"),
-     SelectionPopupModel(id:2,title:"زواج معلن دائم"),
-      SelectionPopupModel(id:3,title:"زواج سري دائم"),
-      SelectionPopupModel(id:4,title:"آخر"),
+     SelectionPopupModel(id:1,title:"زواج معلن دائم"),
+      SelectionPopupModel(id:2,title:"زواج سري دائم"),
+      SelectionPopupModel(id:3,title:"آخر"),
      /* SelectionPopupModel(id:1,title:"مواعدة"),
       SelectionPopupModel(id:2,title:"زواج"),
       SelectionPopupModel(id:3,title:"معيشة"),
       SelectionPopupModel(id:4,title:"الصداقة") */
+    ]
+);
+
+Rx<List<SelectionPopupModel>> ListLookingForFilter = Rx(
+    [
+      SelectionPopupModel(id:1,title:"الكل"),
+      SelectionPopupModel(id:2,title:"زواج معلن دائم"),
+      SelectionPopupModel(id:3,title:"زواج سري دائم"),
+      SelectionPopupModel(id:4,title:"آخر"),
     ]
 );
 

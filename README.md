@@ -746,3 +746,14 @@ convertir la logique pour utiliser http (si tu préfères) ;
 ajouter tests unitaires simples pour AuthRepository.
 
 Souhaites-tu que j’ajoute l’AuthInterceptor (pour ajouter automatiquement Authorization si token présent) et le code pour sauvegarder le token quand le backend le renvoie ?
+
+## response api register
+I/flutter (15392):  Accept: application/json
+I/flutter (15392):  Content-Type: application/json
+I/flutter (15392): data:
+I/flutter (15392): {email: saberjdidi30@gmail.com, password: Saber1234**}
+I/flutter (15392):
+I/flutter (15392): *** Response ***
+I/flutter (15392): uri: http://164.92.138.66/api/v1/app/auth/register
+I/flutter (15392): Response Text:
+I/flutter (15392): {"success":true,"message":"تم بدء التسجيل. تم إرسال رمز التحقق إلى البريد الإلكتروني.","data":{"email":"saberjdidi30@gmail.com"}}

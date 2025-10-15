@@ -340,43 +340,60 @@ class MessageScreen extends GetView<MessageController> {
                  backgroundColor: _appTheme =='light' ? TColors.greyDating : TColors.dark,
                  radius: 35.adaptSize,
                  padding: EdgeInsets.symmetric(horizontal: 2.hw),
-                 child: Row(
-                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                   mainAxisSize: MainAxisSize.min,
-                   children: [
-                     SizedBox(
-                       width: screenWidth * 0.1,
-                       child: Obx(() {
-                         return IconButton(
-                           icon: Icon(controller.isRecording.value ? Icons.stop : Icons.keyboard_voice_outlined,
-                               color: controller.isRecording.value ? Colors.red : Color(0xFF6B7280)),
-                           onPressed: () async => await controller.toggleRecording(),
-                         );
-                       }),
-                     ),
-                     SizedBox(
-                       width: screenWidth * 0.55,
-                       child: Obx(() => Directionality(
-                         textDirection: controller.isRTL.value ? TextDirection.rtl : TextDirection.ltr,
-                         //textDirection: TextDirection.rtl,
+                 child: Directionality(
+                   textDirection: TextDirection.rtl,
+                   child: Row(
+                     children: [
+                       SizedBox(
+                         width: screenWidth * 0.1,
+                         child: Obx(() {
+                           return IconButton(
+                             icon: Icon(controller.isRecording.value ? Icons.stop : Icons.keyboard_voice_outlined,
+                                 color: controller.isRecording.value ? Colors.red : Color(0xFF6B7280)),
+                             onPressed: () async => await controller.toggleRecording(),
+                           );
+                         }),
+                       ),
+                       SizedBox(
+                         width: screenWidth * 0.55,
                          child: TextField(
                            controller: controller.messageController,
                            onChanged: (value) => controller.isRTL.value = TDeviceUtils.isArabic(value),
                            /* onChanged: (value) {
-                             // Déclenche la reconstruction pour changer la direction
-                             controller.update();
-                           }, */
+                               // Déclenche la reconstruction pour changer la direction
+                               controller.update();
+                             }, */
                            style: TextStyle(color: _appTheme =='light' ? TColors.black : TColors.white),
                            cursorColor: _appTheme =='light' ? TColors.black : TColors.white,
                            decoration: InputDecoration(
-                             hintText: "اكتب رسالة",
-                             border: InputBorder.none,
-                             hintStyle: TextStyle(color: _appTheme =='light' ? TColors.black : TColors.white)
+                               hintText: "اكتب رسالة",
+                               border: InputBorder.none,
+                               hintStyle: TextStyle(color: _appTheme =='light' ? TColors.black : TColors.white)
                            ),
                          ),
-                       )),
-                     )
-                   ],
+                         /*
+                         Obx(() => Directionality(
+                           textDirection: controller.isRTL.value ? TextDirection.rtl : TextDirection.ltr,
+                           child: TextField(
+                             controller: controller.messageController,
+                             onChanged: (value) => controller.isRTL.value = TDeviceUtils.isArabic(value),
+                             /* onChanged: (value) {
+                               // Déclenche la reconstruction pour changer la direction
+                               controller.update();
+                             }, */
+                             style: TextStyle(color: _appTheme =='light' ? TColors.black : TColors.white),
+                             cursorColor: _appTheme =='light' ? TColors.black : TColors.white,
+                             decoration: InputDecoration(
+                               hintText: "اكتب رسالة",
+                               border: InputBorder.none,
+                               hintStyle: TextStyle(color: _appTheme =='light' ? TColors.black : TColors.white)
+                             ),
+                           ),
+                         )),
+                          */
+                       )
+                     ],
+                   ),
                  ),
                 ),
       
@@ -636,18 +653,42 @@ buildDialogSettings(BuildContext context){
                     child: CustomDividerWidget(),
                   ),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(Iconsax.user_remove, color: _appTheme =='light' ? TColors.gray700 : TColors.white,),
-                      SizedBox(width: 10.hw),
-                      SubTitleWidget(
-                          subtitle: 'حظر المستخدم',
-                          color: _appTheme =='light' ? TColors.gray700 : TColors.white,
-                          fontWeightDelta: 2,
-                          fontSizeDelta: 1
-                      ),
-                    ],
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Icon(Iconsax.user_remove, color: _appTheme =='light' ? TColors.gray700 : TColors.white,),
+                        SizedBox(width: 10.hw),
+                        SubTitleWidget(
+                            subtitle: 'حظر المستخدم',
+                            color: _appTheme =='light' ? TColors.gray700 : TColors.white,
+                            fontWeightDelta: 2,
+                            fontSizeDelta: 1
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 5.v),
+                    child: CustomDividerWidget(),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Icon(Iconsax.trash, color: _appTheme =='light' ? TColors.gray700 : TColors.white,),
+                        SizedBox(width: 10.hw),
+                        SubTitleWidget(
+                            subtitle: 'حذف المحادثة',
+                            color: _appTheme =='light' ? TColors.gray700 : TColors.white,
+                            fontWeightDelta: 2,
+                            fontSizeDelta: 1
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

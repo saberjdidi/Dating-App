@@ -7,7 +7,7 @@ class ImageConstant {
   //Dating App
   static String logo = '$imagePath/logo.png';  //'$imagePath/logo-splash.png'; //'$imagePath/logo_old.png';
   //static String logoHeader = '$imagePath/logo_old.png'; //'$imagePath/new-logo-header.png';
-  static String successOTPImage = '$imagePath/success_otp.png';
+  //static String successOTPImage = '$imagePath/success_otp.png';
   static String imgPasswordSuccess = '$imagePath/img_password_success.svg';
 
   static String imgWarning = '$imagePath/img_warning.png';
@@ -20,6 +20,7 @@ class ImageConstant {
   //lottie
   static String lottieTrophy = '$animationPath/trophy.json';
   static String lottieArroDown = '$animationPath/arrow_down.json';
+  static String lottieLoading = '$animationPath/loading.json';
 
   //logo
   static String backgroundSplash = '$imagePath/background_splash.png';

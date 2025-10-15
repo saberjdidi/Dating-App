@@ -135,7 +135,7 @@ class SignInScreen extends GetView<SignInController> {
               focusNode: controller.emailFocus,
               onTap: () => FocusScope.of(context).requestFocus(controller.emailFocus),
               onEditingComplete: () => FocusScope.of(context).requestFocus(controller.passwordFocus),
-              hintText: "بريد إلكتروني".tr,
+              hintText: "البريد الإلكتروني".tr,
               textInputType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
               /*  prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),
@@ -257,7 +257,7 @@ class SignInScreen extends GetView<SignInController> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Flexible(child: Divider(color: _appTheme =='light' ? TColors.black54 : TColors.white, thickness: 0.3, indent: 60, endIndent: 5,)),
-              Text("أو قم بالتسجيل مع".tr,
+              Text("أو سجّل  مع".tr,
                   style:Theme.of(context).textTheme.titleMedium!.copyWith(
                     color: _appTheme =='light' ?TColors.black54 : TColors.white,
                     fontSize: 18.fSize,

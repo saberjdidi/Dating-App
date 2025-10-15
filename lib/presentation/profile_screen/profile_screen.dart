@@ -119,7 +119,7 @@ class ProfileScreen extends StatelessWidget {
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             CustomImageView(
                               imagePath: ImageConstant.imgSettingsCalling,
-                              color: Color(0xFF8E0202),
+                              color: Color(0xFF32BD00),
                               width: 25.adaptSize,
                               height: 25.adaptSize,
                               //radius: BorderRadius.circular(40.adaptSize),
@@ -341,7 +341,7 @@ class ProfileScreen extends StatelessWidget {
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             Icon(
                               isDark ? Icons.dark_mode : Icons.light_mode,
-                              color: isDark ? TColors.buttonSecondary : Color(0xFF15F0E2),
+                              color: isDark ? TColors.buttonSecondary : Color(0xFFFFFC00),
                               //color: isDark ? Colors.amber : Colors.blueGrey,
                               size: 25.adaptSize,
                             ),
@@ -379,7 +379,7 @@ class ProfileScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            SubTitleWidget(subtitle: "يدعم", fontWeightDelta: 2, fontSizeDelta: 2,
+                            SubTitleWidget(subtitle: "الدعم", fontWeightDelta: 2, fontSizeDelta: 2,
                                 color: isDark ? TColors.whitePrimary : TColors.black),
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             CustomImageView(
@@ -397,50 +397,9 @@ class ProfileScreen extends StatelessWidget {
                 ),
 
                 InkWell(
-                  onTap: () async {
-                    // 🔹 1. Réinitialiser les préférences pour forcer l’affichage du guide
-                    await PrefUtils.setHasSeenGuide(false);
-                    await PrefUtils.setShowGuide(true);
-
-                    // 🔹 2. Récupérer les contrôleurs
-                    final guideController = GuideController.instance;
-
-                    // 🔹 4. Revenir à la page d’accueil (index 0)
-                    BottomBarController.instance.changeTabIndex(0);
-
-                    // 🔹 3. Réinitialiser le guide (étape 0)
-                    guideController.currentStep.value = 0;
-                    guideController.currentGuidePage.value = 0;
-                    guideController.showGuide.value = true;
-
-                    // 🔹 5. Forcer la navigation vers la page d’accueil
-                    //Get.offAllNamed(Routes.navigationScreen);
-                   Get.offAllNamed(Routes.filterScreen, id: 1);
-
-
-                    // 🔹 6. Afficher une confirmation visuelle
-                    Get.snackbar(
-                      "Guide",
-                      "Le guide a été réinitialisé et recommence depuis le début",
-                      snackPosition: SnackPosition.BOTTOM,
-                      backgroundColor: Colors.black87,
-                      colorText: Colors.white,
-                      margin: const EdgeInsets.all(12),
-                      duration: const Duration(seconds: 3),
-                    );
+                  onTap: (){
+                    //Get.toNamed(Routes.supportScreen);
                   },
-                 /* onTap: (){
-                    GuideController.instance.resetGuide();
-                    //other method
-                  /*  PrefUtils.setHasSeenGuide(false); // réinitialise la préférence
-                    final bc = Get.find<BottomBarController>();
-                    bc.openGuideForIndex(bc.selectedIndex.value, autoHide: true); // ouvre immédiatement
-                    Get.snackbar("Guide", "Guide affiché à nouveau"); */
-
-                  //other 2
-                   // PrefUtils.setShowGuide(true);
-                   // Get.offAllNamed(Routes.navigationScreen);
-                  }, */
                   child: TRoundedContainer(
                     showBorder: false,
                     backgroundColor: isDark ? TColors.dark : TColors.white,
@@ -453,10 +412,8 @@ class ProfileScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButton(
-                          onPressed: () async {
-                           // PrefUtils.setShowGuide(true);
-                           // Get.offAllNamed(Routes.navigationScreen);
-                          },
+                          onPressed: (){
+                            },
                           icon: Icon(Icons.arrow_back_ios),
                           iconSize: 25.adaptSize,
                           color: TColors.buttonSecondary,
@@ -464,16 +421,101 @@ class ProfileScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            SubTitleWidget(subtitle: "إعادة عرض الدليل", fontWeightDelta: 2, fontSizeDelta: 2,
-                              color: isDark ? TColors.whitePrimary : TColors.black),
+                            SubTitleWidget(subtitle: "اللغة", fontWeightDelta: 2, fontSizeDelta: 2,
+                                color: isDark ? TColors.whitePrimary : TColors.black),
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
-                            Icon(Icons.view_timeline_outlined,
-                              color: TColors.yellowAppDark,
+                            Icon(Icons.translate,
+                              color: Color(0xFF8B8700),
                               size: 25.adaptSize,
                             ),
                           ],
                         )
                       ],
+                    ),
+                  ),
+                ),
+
+                Visibility(
+                  visible: false,
+                  child: InkWell(
+                    onTap: () async {
+                      // 🔹 1. Réinitialiser les préférences pour forcer l’affichage du guide
+                      await PrefUtils.setHasSeenGuide(false);
+                      await PrefUtils.setShowGuide(true);
+
+                      // 🔹 2. Récupérer les contrôleurs
+                      final guideController = GuideController.instance;
+
+                      // 🔹 4. Revenir à la page d’accueil (index 0)
+                      BottomBarController.instance.changeTabIndex(0);
+
+                      // 🔹 3. Réinitialiser le guide (étape 0)
+                      guideController.currentStep.value = 0;
+                      guideController.currentGuidePage.value = 0;
+                      guideController.showGuide.value = true;
+
+                      // 🔹 5. Forcer la navigation vers la page d’accueil
+                      //Get.offAllNamed(Routes.navigationScreen);
+                     Get.offAllNamed(Routes.filterScreen, id: 1);
+
+
+                      // 🔹 6. Afficher une confirmation visuelle
+                      Get.snackbar(
+                        "Guide",
+                        "Le guide a été réinitialisé et recommence depuis le début",
+                        snackPosition: SnackPosition.BOTTOM,
+                        backgroundColor: Colors.black87,
+                        colorText: Colors.white,
+                        margin: const EdgeInsets.all(12),
+                        duration: const Duration(seconds: 3),
+                      );
+                    },
+                   /* onTap: (){
+                      GuideController.instance.resetGuide();
+                      //other method
+                    /*  PrefUtils.setHasSeenGuide(false); // réinitialise la préférence
+                      final bc = Get.find<BottomBarController>();
+                      bc.openGuideForIndex(bc.selectedIndex.value, autoHide: true); // ouvre immédiatement
+                      Get.snackbar("Guide", "Guide affiché à nouveau"); */
+
+                    //other 2
+                     // PrefUtils.setShowGuide(true);
+                     // Get.offAllNamed(Routes.navigationScreen);
+                    }, */
+                    child: TRoundedContainer(
+                      showBorder: false,
+                      backgroundColor: isDark ? TColors.dark : TColors.white,
+                      borderColor: isDark ? TColors.white : TColors.grey400,
+                      radius: 20.adaptSize,
+                      margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
+                      padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
+                      //padding: EdgeInsets.all(10.adaptSize),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            onPressed: () async {
+                             // PrefUtils.setShowGuide(true);
+                             // Get.offAllNamed(Routes.navigationScreen);
+                            },
+                            icon: Icon(Icons.arrow_back_ios),
+                            iconSize: 25.adaptSize,
+                            color: TColors.buttonSecondary,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              SubTitleWidget(subtitle: "إعادة عرض الدليل", fontWeightDelta: 2, fontSizeDelta: 2,
+                                color: isDark ? TColors.whitePrimary : TColors.black),
+                              SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
+                              Icon(Icons.view_timeline_outlined,
+                                color: TColors.yellowAppDark,
+                                size: 25.adaptSize,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),

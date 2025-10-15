@@ -43,7 +43,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
             //backgroundColor: _appTheme == 'light' ? TColors.white : appTheme.primaryColor,
             appBar: TAppBar(
               title: TitleWidget(
-                title: "ملخص",
+                title: "نبذة عني",
                 fontWeightDelta: 3,
                 color: _appTheme =='light' ? TColors.buttonSecondary : TColors.white,
               ),
@@ -113,7 +113,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             child: Text(
                               controller.fullNameError.value.isNotEmpty
                                   ? controller.fullNameError.value
-                                  : "${controller.fullNameRemaining.value}حرف متبقي ",
+                                  : "${"الحروف المتبقية"} ${controller.fullNameRemaining.value}",
                               style: TextStyle(
                                 fontSize: 15.adaptSize,
                                 color: controller.fullNameError.value.isNotEmpty
@@ -151,7 +151,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             child: Text(
                               controller.bioError.value.isNotEmpty
                                   ? controller.bioError.value
-                                  : "${controller.bioRemaining.value} حرف متبقي",
+                                  : "${"الحروف المتبقية"} ${controller.bioRemaining.value}",
                               style: TextStyle(
                                 fontSize: 15.adaptSize,
                                 color: controller.bioError.value.isNotEmpty
@@ -162,7 +162,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                           ),
 
                           SizedBox(height: TSizes.spaceBtwItems.v),
-                          FormDividerWidget(dividerText: "عمر", thikness: 1),
+                          FormDividerWidget(dividerText: "العمر", thikness: 1),
                           SizedBox(height: 10.v),
 
                           Column(
@@ -170,7 +170,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             children: [
                               // ✅ Afficher l’âge sous le slider
                               Text("${controller.currentAgeValue.value.round()} سنة",
-                                style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.bold,
+                                style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.w500,
                                     color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                               ),
                               // Slider avec gradient, label toujours visible, hauteur augmentée
@@ -212,7 +212,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             children: [
                               // ✅ Afficher l’âge sous le slider
                               Text("${controller.currentWeightValue.value.round()} كغ",
-                                style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.bold,
+                                style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.w500,
                                     color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                               ),
                               // Slider avec gradient, label toujours visible, hauteur augmentée
@@ -255,7 +255,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             children: [
                               // ✅ Afficher l’âge sous le slider
                               Text("${controller.currentHeightValue.value.round()} سم",
-                                style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.bold,
+                                style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.w500,
                                     color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                               ),
                               // Slider avec gradient, label toujours visible, hauteur augmentée
@@ -291,7 +291,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                           SizedBox(height: TSizes.spaceBtwItems.v),
 
                           SizedBox(height: TSizes.spaceBtwItems.v),
-                          FormDividerWidget(dividerText: "جنسك", thikness: 1),
+                          FormDividerWidget(dividerText: "الجنس", thikness: 1),
                           SizedBox(height: 10.v),
 
                           Padding(
@@ -321,7 +321,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                                         }),
                                       ),
                                       //TitleWidget(title: 'امراة',),
-                                      SubTitleWidget(subtitle: 'امراة', color: _appTheme =='light' ? TColors.black : TColors.white, fontSizeDelta: 2, fontWeightDelta: 2),
+                                      SubTitleWidget(subtitle: 'امراة', color: _appTheme =='light' ? TColors.black : TColors.white, fontSizeDelta: 2, fontWeightDelta: 1),
                                     ],
                                   )
                                 ),
@@ -347,7 +347,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                                           return Colors.grey;
                                         }),
                                       ),
-                                      SubTitleWidget(subtitle: 'رجل', color: _appTheme =='light' ? TColors.black : TColors.white, fontSizeDelta: 2, fontWeightDelta: 2),
+                                      SubTitleWidget(subtitle: 'رجل', color: _appTheme =='light' ? TColors.black : TColors.white, fontSizeDelta: 2, fontWeightDelta: 1),
                                       //TitleWidget(title: 'رجل',),
                                     ],
                                   )
@@ -435,7 +435,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             child: Text(
                               controller.jobError.value.isNotEmpty
                                   ? controller.jobError.value
-                                  : "${controller.jobRemaining.value} حرف متبقي",
+                                  : "${"الحروف المتبقية"} ${controller.jobRemaining.value}",
                               style: TextStyle(
                                 fontSize: 15.adaptSize,
                                 color: controller.jobError.value.isNotEmpty
@@ -447,7 +447,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                           SizedBox(height: TSizes.spaceBtwItems.v),
 
                           CustomDropDownCountry(
-                            hintText: "${'دولة'.tr} *",
+                            hintText: "${'الدولة'.tr} *",
                             items: PaysList.value,
                             selectedValue: controller.selectedPays.value,
                             onChanged: (val) => controller.selectedPays.value = val,
@@ -518,7 +518,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                               // ✅ Afficher les valeurs sous le slider
                               Text(
                                 "${controller.currentRangeValues.value.start.round()}K - ${controller.currentRangeValues.value.end.round()}K",
-                                style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.bold,
+                                style: TextStyle(fontSize: 17.adaptSize, fontWeight: FontWeight.w500,
                                     color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                               ),
 
@@ -719,7 +719,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
               //child: _buildButtonSection()
               child:
               CustomButtonContainer(
-                text:"تأكيد الحساب".tr,
+                text:"تأكيد".tr,
                 color1: TColors.primaryColorApp,
                 color2: TColors.primaryColorApp,
                 borderRadius: 10,

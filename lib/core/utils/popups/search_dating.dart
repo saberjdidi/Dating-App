@@ -51,7 +51,7 @@ class SearchDating {
                       Text(
                         "${controller.currentRangeAgeValues.value.start.round()} ${'سنة'} - ${controller.currentRangeAgeValues.value.end.round()} ${'سنة'}",
                         //"${controller.currentAgeValue.value.round()}",
-                        style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.bold,
+                        style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.w500,
                             color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                       ),
                       // Slider avec gradient, label toujours visible, hauteur augmentée
@@ -111,7 +111,7 @@ class SearchDating {
                       Text(
                         "${controller.currentRangeWeightValues.value.start.round()} ${'كغ'} - ${controller.currentRangeWeightValues.value.end.round()} ${'كغ'}",
                         //"${controller.currentWeightValue.value.round()} KG",
-                        style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.bold,
+                        style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.w500,
                             color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                       ),
                       // Slider avec gradient, label toujours visible, hauteur augmentée
@@ -172,7 +172,7 @@ class SearchDating {
                       Text(
                         "${controller.currentRangeHeightValues.value.start.round()} ${'سم'} - ${controller.currentRangeHeightValues.value.end.round()} ${'سم'}",
                         //"${controller.currentHeightValue.value.round()} CM",
-                        style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.bold,
+                        style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.w500,
                             color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
                       ),
                       // Slider avec gradient, label toujours visible, hauteur augmentée
@@ -311,7 +311,7 @@ class SearchDating {
                   CustomDropDown(
                     //textStyle: TextStyle(color: appTheme.black),
                     hintText: "${'الحالة الاجتماعية'.tr}",
-                    items: ListMaritalStatus.value,
+                    items: ListMaritalStatusFilter.value,
                     selectedValue: controller.selectedMaritalStatus.value,
                     onChanged: (value) async {
                       controller.selectedMaritalStatus.value = value;
@@ -336,7 +336,7 @@ class SearchDating {
 
                   CustomDropDown(
                     hintText: "${'نوع الزواج'.tr}",
-                    items: ListLookingFor.value,
+                    items: ListLookingForFilter.value,
                     selectedValue: controller.selectedLookingFor.value,
                     onChanged: (value) async {
                       controller.selectedLookingFor.value = value;
@@ -374,8 +374,8 @@ class SearchDating {
                   SizedBox(height: TSizes.spaceBtwItems.v), */
 
                   CustomDropDownCountry(
-                    hintText: "${'دولة'.tr} *",
-                    items: PaysList.value,
+                    hintText: "${'الدولة'.tr} *",
+                    items: PaysListFilter.value,
                     selectedValue: controller.selectedPays.value,
                     onChanged: (val) => controller.selectedPays.value = val,
                     //focusNode: controller.paysFocus,

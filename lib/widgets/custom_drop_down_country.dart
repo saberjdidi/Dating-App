@@ -116,12 +116,13 @@ class CustomDropDownCountry extends StatelessWidget {
                      // mainAxisAlignment: MainAxisAlignment.start,
                       //crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CustomImageView(
-                          imagePath: item.imagePath,
-                          height: 20.adaptSize,
-                          width: 20.adaptSize,
-                          fit: BoxFit.fill,
-                        ),
+                        if(item.name != "الکل")
+                          CustomImageView(
+                            imagePath: item.imagePath,
+                            height: 20.adaptSize,
+                            width: 20.adaptSize,
+                            fit: BoxFit.fill,
+                          ),
                         SizedBox(width: 5.adaptSize),
                         Text(
                           item.name,

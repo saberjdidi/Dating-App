@@ -152,7 +152,7 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
               focusNode: controller.emailFocus,
               onTap: () => FocusScope.of(context).requestFocus(controller.emailFocus),
               onEditingComplete: () => FocusScope.of(context).requestFocus(controller.passwordFocus),
-              hintText: "بريد إلكتروني".tr,
+              hintText: "البريد الإلكتروني".tr,
               textInputType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
               /* prefix: Container(margin: EdgeInsets.fromLTRB(20.hw, 20.v, 12.hw, 20.v),

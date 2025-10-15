@@ -29,6 +29,19 @@ class SignUpScreen extends GetView<SignUpController> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            Visibility(
+              visible: false,
+              child: Align(
+                alignment: Alignment.topRight,
+                child: IconButton(
+                    onPressed: (){
+                      SystemNavigator.pop();
+                      //Navigator.of(context).pop();
+                    },
+                    icon: Icon(Iconsax.arrow_right_1, color: _appTheme =='light' ? TColors.black : TColors.white)
+                ),
+              ),
+            ),
             const SizedBox(height: TSizes.spaceBtwSections),
             /// Slider
             CarouselSlider.builder(
@@ -84,7 +97,7 @@ class SignUpScreen extends GetView<SignUpController> {
 
             /// Button
             CustomButtonContainer(
-              text: 'تواصل عبر البريد الإلكتروني',
+              text: 'انضم الآن',
               color1: TColors.primaryColorApp,
               color2: TColors.primaryColorApp,
               borderRadius: 10,
@@ -105,7 +118,7 @@ class SignUpScreen extends GetView<SignUpController> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Flexible(child: Divider(color: _appTheme =='light' ? TColors.black54 : TColors.white, thickness: 0.3, indent: 60, endIndent: 5,)),
-                Text("أو قم بالتسجيل مع".tr,
+                Text("أو سجّل  مع".tr,
                   style:Theme.of(context).textTheme.titleMedium!.copyWith(
                     color: _appTheme =='light' ?TColors.black54 : TColors.white,
                     fontSize: 18.fSize,

@@ -1,4 +1,7 @@
+import 'package:dating_app_bilhalal/core/utils/image_constant.dart';
+import 'package:dating_app_bilhalal/core/utils/popups/full_screen_loader.dart';
 import 'package:dating_app_bilhalal/core/utils/popups/message_snackbar.dart';
+import 'package:dating_app_bilhalal/data/repositories/auth_repository.dart';
 import 'package:dating_app_bilhalal/presentation/otp_screen/otp_success_screen.dart';
 import 'package:dating_app_bilhalal/presentation/password_screen/password_success_screen.dart';
 import 'package:dating_app_bilhalal/routes/routes.dart';
@@ -9,22 +12,33 @@ import 'package:sms_autofill/sms_autofill.dart';
 class OTPController extends GetxController with GetSingleTickerProviderStateMixin {
   static OTPController get instance => Get.find();
 
+  final authRepo = AuthRepository();
+
   String sourceOTP = Get.arguments['SourceOTP'] ?? '';
   String email = Get.arguments['Email'] ?? '';
 
   AnimationController? animationController;
   RxInt levelClock = (2 * 60).obs;
+
   RxString otpCode = "".obs;
+  RxBool isOtpError = false.obs;
+  RxString errorMessage = "".obs;
+  RxBool canResend = false.obs;
 
   @override
   void onInit() {
     super.onInit();
 
     animationController = AnimationController(
-        vsync: this, duration: Duration(seconds: levelClock.value));
+      vsync: this,
+      duration: Duration(seconds: levelClock.value),
+    )..addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        canResend.value = true;
+      }
+    });
 
     animationController!.forward();
-
     listenSmsCode();
   }
 
@@ -44,6 +58,62 @@ class OTPController extends GetxController with GetSingleTickerProviderStateMixi
 
   listenSmsCode() async {
     await SmsAutoFill().listenForCode();
+  }
+
+  /// ✅ Vérifie le code OTP
+  Future<void> verifyOtpFn(BuildContext context) async {
+    if (otpCode.value.length != 6) {
+      MessageSnackBar.warningSnackBar(title: 'تنبيه', message: 'الرجاء إدخال الرمز المكون من 6 أرقام');
+      return;
+    }
+
+    FullScreenLoader.openLoadingDialog('جاري التحقق من الرمز...', ImageConstant.lottieLoading);
+
+    final result = await authRepo.verifyOtp(email: email, otp: otpCode.value);
+
+    FullScreenLoader.stopLoading();
+
+
+    MessageSnackBar.informationToast(title: 'Information : $email', message: "${result.message}");
+
+    if (result.success) {
+      isOtpError.value = false;
+      errorMessage.value = '';
+
+      MessageSnackBar.successSnackBar(title: 'تم التحقق بنجاح', message: result.message ?? '');
+
+      if(sourceOTP == "FromForgetPassword"){
+        Get.toNamed(Routes.changePasswordScreen);
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => OTPSuccessScreen()),
+        );
+      }
+    } else {
+      isOtpError.value = true;
+      //errorMessage.value = 'رمز التحقق غير صالح أو منتهي الصلاحية';
+      errorMessage.value = result.message ?? 'رمز التحقق غير صالح أو منتهي الصلاحية';
+      MessageSnackBar.errorSnackBar(title: 'خطأ', message: errorMessage.value);
+    }
+  }
+
+  /// ✅ Renvoie un nouveau OTP
+  Future<void> resendOtpFn() async {
+    FullScreenLoader.openLoadingDialog('إعادة إرسال الرمز...', ImageConstant.lottieLoading);
+
+    final result = await authRepo.resendOtp(email: email);
+
+    FullScreenLoader.stopLoading();
+
+    if (result.success) {
+      MessageSnackBar.successSnackBar(title: 'تم الإرسال', message: result.message ?? '');
+      canResend.value = false;
+      animationController?.reset();
+      animationController?.forward();
+    } else {
+      MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? 'تعذر إعادة إرسال الرمز');
+    }
   }
 
   saveOTPFn(BuildContext context) async {

@@ -28,9 +28,9 @@ class OTPSuccessScreen extends StatelessWidget {
                 Align(
                   alignment: Alignment.center,
                   child: CustomImageView(
-                    imagePath: ImageConstant.successOTPImage,
-                    height: 180.adaptSize,
-                    width: 180.adaptSize,
+                    imagePath: ImageConstant.imgPasswordSuccess,
+                   // height: 100.adaptSize,
+                   // width: 120.adaptSize,
                     fit: BoxFit.fill,
                   ),
                 ),

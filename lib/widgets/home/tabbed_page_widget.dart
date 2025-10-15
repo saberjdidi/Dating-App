@@ -58,7 +58,8 @@ class TabbedPageWidget extends StatelessWidget {
                   GradientTabbedText(
                     text: tabs[index].title,
                     fontSize: isTablet ? 24.adaptSize : isSmallPhone ? 18.adaptSize : 19.adaptSize,
-                    fontWeight: isActive ? FontWeight.bold : FontWeight.w500,
+                    fontWeight: FontWeight.w500,
+                    //fontWeight: isActive ? FontWeight.bold : FontWeight.w500,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     gradient: LinearGradient(
