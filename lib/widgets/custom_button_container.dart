@@ -16,6 +16,7 @@ class CustomButtonContainer extends StatelessWidget {
     this.onPressed,
      this.width = 400,
      this.height = 50,
+     this.child,
   });
 
   final String text;
@@ -30,6 +31,7 @@ class CustomButtonContainer extends StatelessWidget {
   VoidCallback? onPressed;
    final double? width;
    final double? height;
+   final Widget? child; // ✅ Permet d’afficher un widget (ex: loader)
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +54,9 @@ class CustomButtonContainer extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: paddingHorizontal, vertical: paddingVertical),
             child: Center(
-              child: Text( text,
+              // ✅ Si child != null → afficher le child (ex: loader)
+              // sinon → afficher le texte
+              child:child ??  Text( text,
                 style: TextStyle(
                   color: colorText,
                   fontSize: fontSize ?? 16.adaptSize,

@@ -170,7 +170,7 @@ class OTPScreen extends GetView<OTPController> {
               SizedBox(height: 40.v),
               Center(
                 child: CustomButtonContainer(
-                  text: "التالي",
+                  text:controller.isLoading.value ? "" : "التالي",
                   color1: TColors.primaryColorApp,
                   color2: TColors.primaryColorApp,
                   borderRadius: 15,
@@ -178,10 +178,22 @@ class OTPScreen extends GetView<OTPController> {
                   fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
                   height: isSmallPhone ? 80.v : 70.v,
                   width: Get.width,
-                  onPressed: () async {
+                  onPressed:controller.isLoading.value
+                      ? null // désactive le clic pendant chargement
+                      :  () async {
                     await controller.verifyOtpFn(context);
                    //await controller.saveOTPFn(context);
                   },
+                  child: controller.isLoading.value
+                      ? const SizedBox(
+                    height: 28,
+                    width: 28,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 3,
+                      color: Colors.white,
+                    ),
+                  )
+                      : null,
                 ),
               ),
               SizedBox(height: 15.v,),
@@ -206,7 +218,7 @@ class OTPScreen extends GetView<OTPController> {
                   buttonStyle: _appTheme =='light' ? CustomButtonStyles.outlineBlack : CustomButtonStyles.outlineWhite,
                   text: "إعادة إرسال OTP",
                   margin: EdgeInsets.only(top: 6.hw),
-                  borderRadius: 100.hw,
+                  borderRadius: 80.hw,
                   height: isSmallPhone ? 80.v : 70.v,
                   width: Get.width,
                   onPressed: () async {

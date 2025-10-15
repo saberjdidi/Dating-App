@@ -24,6 +24,7 @@ class OTPController extends GetxController with GetSingleTickerProviderStateMixi
   RxBool isOtpError = false.obs;
   RxString errorMessage = "".obs;
   RxBool canResend = false.obs;
+  RxBool isLoading = false.obs; // ✅ variable pour le loader du bouton
 
   @override
   void onInit() {
@@ -68,9 +69,9 @@ class OTPController extends GetxController with GetSingleTickerProviderStateMixi
     }
 
     FullScreenLoader.openLoadingDialog('جاري التحقق من الرمز...', ImageConstant.lottieLoading);
-
+    isLoading.value = true; // 🔄 active le loader
     final result = await authRepo.verifyOtp(email: email, otp: otpCode.value);
-
+    isLoading.value = false; // 🛑 stop le loader
     FullScreenLoader.stopLoading();
 
 
@@ -90,7 +91,9 @@ class OTPController extends GetxController with GetSingleTickerProviderStateMixi
           MaterialPageRoute(builder: (context) => OTPSuccessScreen()),
         );
       }
-    } else {
+    }
+    else
+    {
       isOtpError.value = true;
       //errorMessage.value = 'رمز التحقق غير صالح أو منتهي الصلاحية';
       errorMessage.value = result.message ?? 'رمز التحقق غير صالح أو منتهي الصلاحية';

@@ -33,7 +33,7 @@ class ProfileScreen extends StatelessWidget {
         return Scaffold(
           backgroundColor: isDark ? TColors.dark : TColors.white,
           appBar: TAppBar(
-            title: TitleWidget(title: "إعدادات ملفی", fontWeightDelta: 3, color: isDark ? TColors.white : TColors.buttonSecondary,),
+            title: TitleWidget(title: "الإعدادات", fontWeightDelta: 3, color: isDark ? TColors.white : TColors.buttonSecondary,),
             showAction: false,
           ),
           body: SingleChildScrollView(
