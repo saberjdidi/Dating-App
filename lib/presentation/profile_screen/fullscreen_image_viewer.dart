@@ -1,7 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dating_app_bilhalal/core/app_export.dart';
+import 'package:dating_app_bilhalal/data/models/UserModel.dart';
 import 'package:dating_app_bilhalal/widgets/circle_icon_button.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
+import 'package:dating_app_bilhalal/widgets/custom_divider.dart';
 import 'package:dating_app_bilhalal/widgets/gradient/gradient_svg_icon.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
 import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
@@ -22,6 +24,7 @@ class FullScreenImageViewer extends StatefulWidget {
 }
 
 class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
+  var _appTheme = PrefUtils.getTheme();
   final CarouselController _carouselController = CarouselController();
   late int currentIndex;
   var currentWeightValue = 10.toDouble();
@@ -184,42 +187,80 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: (){
-                            _goToPage(currentIndex + 1);
-                          },
-                          child: GradientSvgIcon(
+                    GestureDetector(
+                      onTap: (){
+                        buildDialogUsersLikes(context, 20,
+                            [
+                              UserModel(
+                                  imageProfile: ImageConstant.imgOnBoarding1,
+                                  fullName: 'نورا خالد',
+                                  age: 25,
+                                  bio: 'نموذج احترافي',
+                                  isFavoris: true,
+                                  interests: ["التسوق", "فوتوغرافيا", "اليوغا"],
+                                  images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
+                              ),
+                              UserModel(
+                                  imageProfile: ImageConstant.imgOnBoarding2,
+                                  fullName: 'نورا خالد',
+                                  age: 32,
+                                  bio: 'مبرمج',
+                                  isFavoris: true,
+                                  interests: ["كاريوكي", "التنس", "اليوغا", "طبخ", "سباحة"],
+                                  images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
+                              ),
+                              UserModel(
+                                  imageProfile: ImageConstant.imgOnBoarding3,
+                                  fullName: 'ايلاف خالد',
+                                  age: 29,
+                                  bio: 'شخص إعلامي',
+                                  isFavoris: false,
+                                  interests: ["ركض", "السفر", "قراءة", "طبخ", "سباحة"],
+                                  images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
+                              ),
+                              UserModel(
+                                  imageProfile: ImageConstant.imgOnBoarding4,
+                                  fullName: 'إسراء الجديدي',
+                                  age: 22,
+                                  bio: 'شخص إعلامي',
+                                  isFavoris: true,
+                                  interests: ["السفر", "قراءة", "طبخ", "سباحة"],
+                                  images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
+                              ),
+                            ]);
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          GradientSvgIcon(
                             assetPath: ImageConstant.iconLove,
                             size: 50.adaptSize,
                             gradient: const LinearGradient(
-                              colors: [Color(0xFFF40303), Color(0xFF8E0202)],
+                              colors: [TColors.redApp, TColors.redApp],
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
                             ),
                           ),
-                        ),
-                        SizedBox(height:2),
-                        /*
-                        CircleIconButton(
-                          size: 66.hw,
-                          effectiveSize: 66.hw,
-                          minTapSize: 66.hw,
-                          backgroundColor: TColors.greyDating.withOpacity(0.9),
-                          //margin: EdgeInsets.symmetric(horizontal: 10.hw),
-                          child: IconButton(
-                            icon: Icon(Iconsax.heart5, color: TColors.redAppLight, size: 45.hw,),
-                            onPressed: (){
-                              _goToPage(currentIndex + 1);
-                            },
+                          SizedBox(height:2),
+                          /*
+                          CircleIconButton(
+                            size: 66.hw,
+                            effectiveSize: 66.hw,
+                            minTapSize: 66.hw,
+                            backgroundColor: TColors.greyDating.withOpacity(0.9),
+                            //margin: EdgeInsets.symmetric(horizontal: 10.hw),
+                            child: IconButton(
+                              icon: Icon(Iconsax.heart5, color: TColors.redAppLight, size: 45.hw,),
+                              onPressed: (){
+                                _goToPage(currentIndex + 1);
+                              },
+                            ),
                           ),
-                        ),
-                         */
-                        SubTitleWidget(subtitle: '23', color: TColors.white, fontWeightDelta: 2,),
-                      ],
+                           */
+                          SubTitleWidget(subtitle: '23', color: TColors.white, fontWeightDelta: 2,),
+                        ],
+                      ),
                     ),
                    /* for(var image in widget.images){
                       if(image.endsWith('.mp4')){
@@ -272,6 +313,83 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
       ),
     );
   }
+
+  void buildDialogUsersLikes(BuildContext context, int likeCount, List<UserModel> users) {
+    Get.dialog(
+      Dialog(
+        insetPadding: const EdgeInsets.all(16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        backgroundColor: _appTheme == 'light' ? Colors.white : TColors.darkerGrey,
+        child: SizedBox(
+          height: 420,
+          child: Padding(
+            padding: EdgeInsets.all(18.hw),
+            child: Column(
+              //crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GradientSvgIcon(
+                      assetPath: ImageConstant.iconLove,
+                      size: 50.adaptSize,
+                      gradient: const LinearGradient(
+                        colors: [TColors.redApp, TColors.redApp],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                    ),
+                    SizedBox(height: 2),
+                    SubTitleWidget(
+                      subtitle: '$likeCount',
+                      color: TColors.black,
+                      fontWeightDelta: 2,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                CustomDividerWidget(),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: users.length,
+                    itemBuilder: (context, index) {
+                      final user = users[index];
+                      return Column(
+                        children: [
+                          SizedBox(height: 10.v),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              SubTitleWidget(
+                                subtitle: user.fullName,
+                                fontWeightDelta: 1,
+                                color: TColors.black,
+                              ),
+                              SizedBox(width: 10.v),
+                              CustomImageView(
+                                imagePath: user.imageProfile,
+                                width: 50.adaptSize,
+                                height: 50.adaptSize,
+                                radius: BorderRadius.circular(60.adaptSize),
+                              ),
+                            ],
+                          ),
+                           SizedBox(height: 10.v),
+                          CustomDividerWidget(),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
 }
 
 ///PageView

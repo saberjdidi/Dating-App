@@ -12,7 +12,7 @@ class ShaderMaskWidget extends StatelessWidget {
     return ShaderMask(
         shaderCallback: (Rect bounds) {
       return LinearGradient(
-        colors: [TColors.primaryColorApp, Colors.redAccent], // ✅ Dégradé
+        colors: [TColors.primaryColorApp, TColors.redApp], // ✅ Dégradé
       ).createShader(bounds);
     },
     child: child,

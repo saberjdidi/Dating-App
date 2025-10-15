@@ -349,7 +349,7 @@ class MessageScreen extends GetView<MessageController> {
                        child: Obx(() {
                          return IconButton(
                            icon: Icon(controller.isRecording.value ? Icons.stop : Icons.keyboard_voice_outlined,
-                               color: controller.isRecording.value ? Colors.red : TColors.blackGrey),
+                               color: controller.isRecording.value ? Colors.red : Color(0xFF6B7280)),
                            onPressed: () async => await controller.toggleRecording(),
                          );
                        }),
@@ -425,7 +425,7 @@ class MessageScreen extends GetView<MessageController> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.mic, color: Colors.white, size: 18),
+                    Icon(Icons.mic, color: TColors.white, size: 18),
                     SizedBox(width: 8),
                     Text(
                       _format(controller.recordingDuration.value),

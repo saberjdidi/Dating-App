@@ -46,8 +46,8 @@ class OTPScreen extends GetView<OTPController> {
                 alignment: Alignment.center,
                 child: CustomImageView(
                   imagePath: ImageConstant.logo,
-                  height: 180.adaptSize,
-                  width: 180.adaptSize,
+                  height: 150.adaptSize,
+                  width: 150.adaptSize,
                   fit: BoxFit.fill,
                 ),
               ),
@@ -156,7 +156,7 @@ class OTPScreen extends GetView<OTPController> {
               SizedBox(height: 50.v),
               Center(
                 child: CustomButtonContainer(
-                  text: "يكمل",
+                  text: "التالي",
                   color1: TColors.primaryColorApp,
                   color2: TColors.primaryColorApp,
                   borderRadius: 15,

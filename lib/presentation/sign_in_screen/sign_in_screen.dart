@@ -35,7 +35,6 @@ class SignInScreen extends GetView<SignInController> {
                   //padding: EdgeInsets.symmetric(horizontal: 24.hw, vertical: 11.v),
                   child: Column(
                       children: [
-                        SizedBox(height: TSizes.spaceBtwSections),
                         Visibility(
                           visible: false,
                           child: CustomImageView(
@@ -47,13 +46,24 @@ class SignInScreen extends GetView<SignInController> {
                               onTap: () {onTapImgArrowLeft();}
                           ),
                         ),
+                        SizedBox(height: 10.v),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: IconButton(
+                              onPressed: (){
+                                SystemNavigator.pop();
+                                //Navigator.of(context).pop();
+                              },
+                              icon: Icon(Iconsax.arrow_right_1, color: _appTheme =='light' ? TColors.black : TColors.white)
+                          ),
+                        ),
                         SizedBox(height: TSizes.spaceBtwSections),
                         Align(
                           alignment: Alignment.center,
                           child: CustomImageView(
                             imagePath: ImageConstant.logo,
-                            height: 200.adaptSize,
-                            width: 200.adaptSize,
+                            height: 150.adaptSize,
+                            width: 150.adaptSize,
                             fit: BoxFit.fill,
                           ),
                         ),

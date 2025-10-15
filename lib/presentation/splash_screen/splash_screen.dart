@@ -37,8 +37,8 @@ class SplashScreen extends GetWidget<SplashController> {
           children: [
             Image.asset(
               ImageConstant.logo,
-              height: 220.adaptSize,
-              width: 220.adaptSize,),
+              height: 180.adaptSize,
+              width: 180.adaptSize,),
             GradientText(
               text: "بالحلال",
               fontSize: 60.adaptSize,

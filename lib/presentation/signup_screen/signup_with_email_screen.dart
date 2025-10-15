@@ -3,6 +3,7 @@ import 'package:dating_app_bilhalal/core/utils/validators/validation.dart';
 import 'package:dating_app_bilhalal/presentation/otp_screen/otp_screen.dart';
 import 'package:dating_app_bilhalal/presentation/signup_screen/controller/signup_controller.dart';
 import 'package:dating_app_bilhalal/presentation/signup_screen/controller/signup_with_email_controller.dart';
+import 'package:dating_app_bilhalal/widgets/app_bar/appbar_widget.dart';
 import 'package:dating_app_bilhalal/widgets/custom_term_privacy_widget.dart';
 import 'package:dating_app_bilhalal/widgets/custom_text_form_field.dart';
 import 'package:dating_app_bilhalal/widgets/social_button_widget.dart';
@@ -27,6 +28,18 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
         child: Scaffold(
             resizeToAvoidBottomInset: false,
             //backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
+          /*  appBar: TAppBar(
+              showAction: true,
+              actions: [
+                IconButton(
+                    onPressed: (){
+                      SystemNavigator.pop();
+                      //Navigator.of(context).pop();
+                    },
+                    icon: Icon(Iconsax.arrow_right_1, color: _appTheme =='light' ? TColors.black : TColors.white)
+                )
+              ],
+            ), */
             body: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Form(
@@ -37,7 +50,7 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
                       //padding: EdgeInsets.symmetric(horizontal: 24.hw, vertical: 11.v),
                       child: Column(
                           children: [
-                            SizedBox(height: TSizes.spaceBtwSections),
+                            //SizedBox(height: TSizes.spaceBtwSections),
                             Visibility(
                               visible: false,
                               child: CustomImageView(
@@ -49,13 +62,24 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
                                   onTap: () {onTapImgArrowLeft();}
                               ),
                             ),
+                            SizedBox(height: 10.v),
+                            Align(
+                              alignment: Alignment.topRight,
+                              child: IconButton(
+                                  onPressed: (){
+                                    SystemNavigator.pop();
+                                    //Navigator.of(context).pop();
+                                  },
+                                  icon: Icon(Iconsax.arrow_right_1, color: _appTheme =='light' ? TColors.black : TColors.white)
+                              ),
+                            ),
                             SizedBox(height: TSizes.spaceBtwSections),
                             Align(
                               alignment: Alignment.center,
                               child: CustomImageView(
                                 imagePath: ImageConstant.logo,
-                                height: 200.adaptSize,
-                                width: 200.adaptSize,
+                                height: 150.adaptSize,
+                                width: 150.adaptSize,
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -63,7 +87,7 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
                            /* Text("اشتراک",
                                 style: Theme.of(context).textTheme.headlineSmall!.apply(color: TColors.black, fontWeightDelta: 2),
                                 textAlign: TextAlign.center), */
-                            TitleWidget(title: "اشتراک",
+                            TitleWidget(title: "الاشتراک",
                               color: _appTheme =='light' ? TColors.black : TColors.primaryColorApp, fontSizeDelta: 2,),
                             SizedBox(height: TSizes.spaceBtwSections),
                             _buildRegisterForm(context),

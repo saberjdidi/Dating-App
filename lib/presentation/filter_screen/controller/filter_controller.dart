@@ -6,6 +6,7 @@ import 'package:dating_app_bilhalal/core/utils/popups/full_screen_loader.dart';
 import 'package:dating_app_bilhalal/core/utils/popups/search_dating.dart';
 import 'package:dating_app_bilhalal/data/datasources/dropdown_local_data_source.dart';
 import 'package:dating_app_bilhalal/data/models/UserModel.dart';
+import 'package:dating_app_bilhalal/data/models/country_model.dart';
 import 'package:dating_app_bilhalal/data/models/interest_model.dart';
 import 'package:dating_app_bilhalal/data/models/selection_popup_model.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,8 @@ class FilterController extends GetxController {
   TextEditingController paysController = TextEditingController();
   final Rx<SelectionPopupModel?> selectedMaritalStatus = Rx<SelectionPopupModel?>(null);
   final Rx<SelectionPopupModel?> selectedLookingFor = Rx<SelectionPopupModel?>(null);
-  final Rx<SelectionPopupModel?> selectedPays = Rx<SelectionPopupModel?>(null);
+  //final Rx<SelectionPopupModel?> selectedPays = Rx<SelectionPopupModel?>(null);
+  final selectedPays = Rxn<CountryModel>();
 
   //RxInt sexValue = 0.obs;
   //RxDouble currentAgeValue = 20.toDouble().obs; //choice one age
@@ -70,7 +72,8 @@ class FilterController extends GetxController {
     /// ✅ Définir les valeurs par défaut
     selectedMaritalStatus.value = ListMaritalStatus.value.first;
     selectedLookingFor.value = ListLookingFor.value.first;
-    selectedPays.value = ListPays.value.first;
+    //selectedPays.value = ListPays.value.first;
+    selectedPays.value = PaysList.value.first;
     maritalStatusController.text = ListMaritalStatus.value.first.title; // "أعزب"
     lookingForController.text = ListLookingFor.value.first.title; // "زواج معلن دائم"
     paysController.text = ListPays.value.first.title; // "السعودیة"

@@ -8,6 +8,7 @@ import 'package:dating_app_bilhalal/presentation/navigation_screen/controller/bo
 import 'package:dating_app_bilhalal/widgets/account/choice-chip.dart';
 import 'package:dating_app_bilhalal/widgets/account/interest_widget.dart';
 import 'package:dating_app_bilhalal/widgets/custom_drop_down.dart';
+import 'package:dating_app_bilhalal/widgets/custom_drop_down_country.dart';
 import 'package:dating_app_bilhalal/widgets/form_divider_widget.dart';
 import 'package:dating_app_bilhalal/widgets/home/pays_widget.dart';
 import 'package:dating_app_bilhalal/widgets/multi_select_dopdown.dart';
@@ -372,6 +373,21 @@ class SearchDating {
                   ),
                   SizedBox(height: TSizes.spaceBtwItems.v), */
 
+                  CustomDropDownCountry(
+                    hintText: "${'دولة'.tr} *",
+                    items: PaysList.value,
+                    selectedValue: controller.selectedPays.value,
+                    onChanged: (val) => controller.selectedPays.value = val,
+                    //focusNode: controller.paysFocus,
+                    icon: Icon(Iconsax.arrow_down_1),
+                    borderRadius: 15.hw,
+                    contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
+                    fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
+                    hintStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
+                    textStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
+                    themeColor:_appTheme =='light' ?  appTheme.gray50 : TColors.darkerGrey,
+                  ),
+                  /*
                   CustomDropDown(
                     hintText: "${'دولة'.tr}",
                     items: ListPays.value,
@@ -394,6 +410,7 @@ class SearchDating {
                       //borderSide: BorderSide.none,
                     ),
                   ),
+                   */
 
                   SizedBox(height: TSizes.spaceBtwItems.v),
                  /* MultiSelectDropdown(

@@ -75,7 +75,7 @@ class SignUpScreen extends GetView<SignUpController> {
             ),
 
              SizedBox(height: 20.v),
-            TitleWidget(title: "اشتراک",
+            TitleWidget(title: "الاشتراک",
               color: _appTheme =='light' ? TColors.black : TColors.primaryColorApp,
               fontSizeDelta: 2,
               textAlign: TextAlign.center,),

@@ -45,8 +45,8 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
                             alignment: Alignment.center,
                             child: CustomImageView(
                               imagePath: ImageConstant.logo,
-                              height: 200.adaptSize,
-                              width: 200.adaptSize,
+                              height: 150.adaptSize,
+                              width: 150.adaptSize,
                               fit: BoxFit.fill,
                             ),
                           ),

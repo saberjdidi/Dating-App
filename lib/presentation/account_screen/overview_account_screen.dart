@@ -719,7 +719,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
               //child: _buildButtonSection()
               child:
               CustomButtonContainer(
-                text:"تم".tr,
+                text:"تأكيد الحساب".tr,
                 color1: TColors.primaryColorApp,
                 color2: TColors.primaryColorApp,
                 borderRadius: 10,

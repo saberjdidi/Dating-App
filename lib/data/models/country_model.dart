@@ -2,11 +2,11 @@ import 'package:dating_app_bilhalal/core/app_export.dart';
 
 class CountryModel {
   final String name;
-  final String imagePath;
+  final String? imagePath;
 
   CountryModel({
     required this.name,
-    required this.imagePath,
+    this.imagePath,
   });
 }
 
@@ -25,6 +25,7 @@ final countriesList = [
 
 Rx<List<CountryModel>> PaysList = Rx(
     [
+      CountryModel(name: "الکل"),
       CountryModel(name: "البحرین", imagePath: ImageConstant.paysBahrayn),
       CountryModel(name: "الامارات", imagePath: ImageConstant.paysImarat),
       CountryModel(name: "قطر", imagePath: ImageConstant.paysQatar),
