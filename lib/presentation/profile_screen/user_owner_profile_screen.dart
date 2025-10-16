@@ -107,7 +107,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(''),
-                                    TitleWidget(title: 'نورا خالد', fontWeightDelta: 3, fontSizeDelta: 2,
+                                    SubTitleWidget(fontSizeDelta: 3, fontWeightDelta: 2,subtitle: 'نورا خالد',
                                         color: _appTheme =='light' ? TColors.black : TColors.white),
 
                                     CircleIconButton(
@@ -157,7 +157,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                         color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
-                                        fontSize: isTablet ? 17.adaptSize : 16.adaptSize,
+                                        fontSize: isTablet ? 16.adaptSize : 15.adaptSize,
                                       ),
                                     ),
                                   ],
@@ -181,7 +181,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                         color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
-                                        fontSize: isTablet ? 17.adaptSize : 16.adaptSize,
+                                        fontSize: isTablet ? 16.adaptSize : 15.adaptSize,
                                       ),
                                     ),
                                   ],
@@ -193,9 +193,9 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                   color2: TColors.primaryColorApp,
                                   borderRadius: 30,
                                   colorText: TColors.white,
-                                  fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
+                                  fontSize: isTablet ? 25.adaptSize : 20.adaptSize,
                                   height: isSmallPhone ? 75.v : 65.v,
-                                  width: isTablet ? Get.width * 0.5 : Get.width * 0.65,
+                                  width: isTablet ? Get.width * 0.5 : Get.width * 0.6,
                                   onPressed: () async {
                                     Get.toNamed(Routes.overviewAccountScreen);
                                   },
@@ -213,14 +213,14 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    TitleWidget(title: "الصور / الفيديوات", color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 1, fontSizeDelta: 1),
+                                    SubTitleWidget(fontSizeDelta: 2, fontWeightDelta: 2,subtitle: "الصور / الفيديوات", color: _appTheme =='light' ? TColors.black : TColors.white),
                                     CustomButtonContainer(
                                       text:"حذف",
                                       color1: TColors.primaryColorApp,
                                       color2: TColors.primaryColorApp,
                                       borderRadius: 30,
                                       colorText: TColors.white,
-                                      fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
+                                      fontSize: isTablet ? 25.adaptSize : 20.adaptSize,
                                       height: isSmallPhone ? 65.v : isTablet ? 55.v : 40.v,
                                       width: 120.adaptSize,
                                       onPressed: () async {
@@ -290,7 +290,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                                     ),
                                                   ),
                                                   SizedBox(width: 3.adaptSize),
-                                                  SubTitleWidget(subtitle: '23 إعجابًا', color: TColors.white, fontWeightDelta: 2,),
+                                                  SubTitleWidget(subtitle: '23 إعجابًا', color: TColors.white, fontWeightDelta: 2),
                                                 ],
                                               )
                                           ),

@@ -4,19 +4,20 @@ import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/message_snackbar.dart';
 import 'package:dating_app_bilhalal/core/utils/network_manager.dart';
 import 'package:dating_app_bilhalal/core/utils/popups/full_screen_loader.dart';
+import 'package:dating_app_bilhalal/data/repositories/auth_repository.dart';
 import 'package:dating_app_bilhalal/data/repositories/authentication_repository.dart';
 import 'package:dating_app_bilhalal/presentation/navigation_screen/controller/bottom_bar_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import '../../../routes/routes.dart';
 
 class SignInController extends GetxController {
 
   final GlobalKey<FormState> formLoginKey = GlobalKey<FormState>();
 
-  //final apiClient = Get.find<ApiClient>();
+  final authRepo = AuthRepository();
 
+  RxBool isDataProcessing = false.obs;
   var isRTL = true.obs;
   //Controllers
   TextEditingController emailController = TextEditingController();
@@ -103,64 +104,66 @@ class SignInController extends GetxController {
       }
       formLoginKey.currentState!.save();
 
-    await PrefUtils.setEmail(emailController.text.trim());
+   isDataProcessing.value = true;
+   FullScreenLoader.openLoadingDialog('We are processing your information...', ImageConstant.lottieLoading);
 
-   //set Tab index of the main screen and open dialog search
-   await BottomBarController.instance.changeTabIndex(2);
-   Get.offAllNamed(Routes.navigationScreen);
-   MessageSnackBar.successSnackBar(title: 'Successfully', message: 'Login with ${emailController.text.trim()}');
-   ///Using http
-   /*
-      await apiClient.loginDeviceAuth(
-          {
-            "email": emailController.text.trim(),
-            "password": passwordController.text.trim()
-          })
-          .then((response) async {
-            var accessToken =  response.accessToken;
-              //var result = await jsonDecode(response);
-              //var accessToken =  result['token'];
-              debugPrint('accessToken : $accessToken');
-              await PrefUtils.setToken(accessToken.toString());
+   //Check internet connection
+   final isConnected = await NetworkManager.instance.isConnected();
+   if(!isConnected) {
+     //Remove Loader
+     FullScreenLoader.stopLoading();
+     return;
+   }
 
-                  ///Getting User details
-                  await apiClient.getUserDetails(PrefUtils.getToken())
-                      .then((responseUser) async {
-                       debugPrint('responseUser : $responseUser');
-                        final idUser = responseUser.id;
-                        final firstname = responseUser.firstname;
-                        final lastname = responseUser.lastname;
-                        final email = responseUser.email;
-                        final phoneNumber = responseUser.phone;
-                       ///Dynamic Data
-                        await PrefUtils.setUserId(idUser.toString());
-                        await PrefUtils.setFirstname(firstname.toString());
-                        await PrefUtils.setLastName(lastname.toString());
-                        await PrefUtils.setEmail(email.toString());
-                        await PrefUtils.setPhoneNumber(phoneNumber.toString());
-                        await PrefUtils.setLogoUser(responseUser.profileImage.toString());
+   final result = await authRepo.login(email: emailController.text.trim(), password: passwordController.text.trim());
+   //Remove Loader
+   FullScreenLoader.stopLoading();
 
-                        ///Static Data
-                        //await PrefUtils.setPhoneNumber('+21626440678');
+   if (result.success) {
+     isDataProcessing.value = false;
+     await PrefUtils.setToken(result.data!.token!);
+     await PrefUtils.setEmail(result.data!.user!.email!);
+     await PrefUtils.setUsername(result.data!.user!.username!);
+     await PrefUtils.setId(result.data!.user!.id!);
 
-                        Get.offAllNamed(Routes.navigationScreen);
-                        //Get.toNamed(Routes.otpVerificationScreen);
-                  })
-                    .onError((errorUser, stackTrace){
-                    debugPrint('Error User : $errorUser');
-                  });
-      })
-          .onError((error, stackTrace){
-            //MessageSnackBar.errorSnackBar(title: 'Warning', message: 'Invalid Credentials');
-            MessageSnackBar.errorToast(
-                title: 'Warning',
-                message: "Invalid Credentials",
-                position: SnackPosition.BOTTOM,
-                duration: 3);
-            debugPrint('error login : ${error.toString()}');
-            //Get.snackbar('Error', error.toString(), colorText: Colors.red, snackPosition: SnackPosition.BOTTOM);
-          });
-*/
+     //debugPrint('data login : ${result.data!.user!.email} - ${result.data!.user!.id} - ${result.data!.user!.username} - ${result.data?.token}');
+
+     //set Tab index of the main screen and open dialog search
+     await BottomBarController.instance.changeTabIndex(2);
+     Get.offAllNamed(Routes.navigationScreen);
+     MessageSnackBar.successSnackBar(title: 'Successfully', message: result.message ?? 'Authentification initiée');
+     debugPrint('data login : ${PrefUtils.getToken()} - ${PrefUtils.getEmail()} - ${PrefUtils.getId()} - ${PrefUtils.getUsername()}');
+   } else {
+     isDataProcessing.value = false;
+     MessageSnackBar.errorSnackBar(title: 'Erreur', message: result.message ?? 'Erreur serveur');
+   }
+    }
+    catch (exception) {
+      isDataProcessing.value = false;
+      debugPrint('Exception : ${exception.toString()}');
+      FullScreenLoader.stopLoading();
+      //Show some generic error to the user
+      MessageSnackBar.errorSnackBar(title: 'Oh Snap!', message: exception.toString());
+    } finally {
+      isDataProcessing.value = false;
+    }
+  }
+
+  loginFnStatic() async {
+    try {
+
+      final isValid = formLoginKey.currentState!.validate();
+      if (!isValid) {
+        return;
+      }
+      formLoginKey.currentState!.save();
+
+      await PrefUtils.setEmail(emailController.text.trim());
+
+      //set Tab index of the main screen and open dialog search
+      await BottomBarController.instance.changeTabIndex(2);
+      Get.offAllNamed(Routes.navigationScreen);
+      MessageSnackBar.successSnackBar(title: 'Successfully', message: 'Login with ${emailController.text.trim()}');
 
     }
     catch (exception) {

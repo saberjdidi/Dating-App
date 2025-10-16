@@ -101,7 +101,7 @@ class ChatItem extends StatelessWidget {
               Stack(
                 children: [
                   CircleAvatar(
-                    radius: isSmallPhone ? 22 : 28,
+                    radius: isSmallPhone ? 20 : 26,
                    /* backgroundImage: CustomImageView(
                       imagePath: ImageConstant.uploadImageRounded,
                       //height: 50.adaptSize,
@@ -121,16 +121,16 @@ class ChatItem extends StatelessWidget {
                     )
                 ],
               ),
-              const SizedBox(width: 12),
+              const SizedBox(width: 10),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(chat.senderFullName!, style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text(chat.senderFullName!, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.adaptSize)),
                     const SizedBox(height: 4),
                     Text(
                       chat.recentTextMessage,
-                      style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                      style: TextStyle(color: Colors.grey[600], fontSize: 16.adaptSize),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],
@@ -138,7 +138,7 @@ class ChatItem extends StatelessWidget {
               ),
               Text(
                 chat.timeAgo(),
-                style: TextStyle(color: Colors.grey, fontSize: 12),
+                style: TextStyle(color: Colors.grey, fontSize: 14.adaptSize),
               ),
             ],
           ),

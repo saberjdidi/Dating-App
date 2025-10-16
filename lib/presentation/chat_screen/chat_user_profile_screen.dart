@@ -111,7 +111,7 @@ class ChatUserProfileScreen extends GetView<UserChatProfileController> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                TitleWidget(title: 'نورا خالد', color: _appTheme =='light' ? TColors.black : TColors.white),
+                                SubTitleWidget(fontSizeDelta: 3, fontWeightDelta: 2,subtitle: 'نورا خالد', color: _appTheme =='light' ? TColors.black : TColors.white),
                                 SizedBox(height: 6.v),
                                 // bio - allow up to 2 lines then ellipsis
                                 Row(
@@ -132,7 +132,7 @@ class ChatUserProfileScreen extends GetView<UserChatProfileController> {
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                         color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
-                                        fontSize: isTablet ? 17.adaptSize : 16.adaptSize,
+                                        fontSize: isTablet ? 16.adaptSize : 15.adaptSize,
                                       ),
                                     ),
                                   ],
@@ -156,7 +156,7 @@ class ChatUserProfileScreen extends GetView<UserChatProfileController> {
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                         color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
-                                        fontSize: isTablet ? 17.adaptSize : 16.adaptSize,
+                                        fontSize: isTablet ? 16.adaptSize : 15.adaptSize,
                                       ),
                                     ),
                                   ],
@@ -171,7 +171,7 @@ class ChatUserProfileScreen extends GetView<UserChatProfileController> {
                                 ),
 
                                 SizedBox(height: TSizes.spaceBtwSections.v),
-                                SubTitleWidget(subtitle: "الوسائط المشتركة", color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 4, fontSizeDelta: 5,),
+                                SubTitleWidget(subtitle: "الوسائط المشتركة", color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 2, fontSizeDelta: 3),
                                 SizedBox(width: 10.v),
                                 TabbedPageWidget(
                                   tabs: [

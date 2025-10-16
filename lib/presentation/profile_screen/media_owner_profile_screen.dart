@@ -5,6 +5,7 @@ import 'package:dating_app_bilhalal/widgets/app_bar/appbar_widget.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
 import 'package:dating_app_bilhalal/widgets/grid_layout.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
+import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:dating_app_bilhalal/widgets/chat/video_preview_widget.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,7 @@ class MediaOwnerProfileScreen extends GetWidget<MediaOwnerProfileController> {
           key: _scaffoldKeyMediaProfile,
         //backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
         appBar: TAppBar(
-          title: TitleWidget(title: "تعديل الصور / الفيديوات", fontWeightDelta: 1, color: TColors.buttonSecondary,),
+          title: SubTitleWidget(fontSizeDelta: 5, fontWeightDelta: 2,subtitle: "تعديل الصور / الفيديوات", color: TColors.buttonSecondary,),
           showAction: true,
         ),
         body:  Padding(

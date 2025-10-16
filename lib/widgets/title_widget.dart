@@ -6,7 +6,7 @@ class TitleWidget extends StatelessWidget {
     super.key,
     required this.title,
     this.textAlign = TextAlign.left,
-    this.fontWeightDelta = 2,
+    this.fontWeightDelta = 1,
     this.fontSizeDelta = 0.0,
      this.color = TColors.black
    });

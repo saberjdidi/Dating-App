@@ -64,7 +64,7 @@ class InterestWidget extends StatelessWidget {
           children: [
             Icon(
               iconPath,
-              size: 22,
+              size: 23.adaptSize,
               color: isSelected
                   ? (activeColor
                   ? TColors.black
@@ -83,7 +83,7 @@ class InterestWidget extends StatelessWidget {
                     : (_appTheme == 'light' ? TColors.black : TColors.darkerGrey),
                 //color: isSelected ? (activeColor ? TColors.black : (_appTheme == 'light' ? TColors.black : TColors.darkerGrey)) : (_appTheme == 'light' ? TColors.black : TColors.darkerGrey),
                 //fontWeight: FontWeight.bold,
-                fontSize: 16, // ✅ taille équilibrée pour toutes les longueurs
+                fontSize: 17.adaptSize, // ✅ taille équilibrée pour toutes les longueurs
               ),
             ),
           ],

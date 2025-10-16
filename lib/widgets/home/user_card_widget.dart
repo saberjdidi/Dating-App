@@ -185,7 +185,7 @@ class UserCardWidget extends StatelessWidget {
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: isTablet ? 30.adaptSize : 26.adaptSize,
+                                      fontSize: isTablet ? 26.adaptSize : 22.adaptSize,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -205,9 +205,9 @@ class UserCardWidget extends StatelessWidget {
                                     textAlign: TextAlign.right,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: Colors.white70,
-                                      fontSize: 14,
+                                      fontSize: 15.adaptSize,
                                     ),
                                   ),
                                   SizedBox(width: 10.adaptSize),

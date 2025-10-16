@@ -144,14 +144,21 @@ class MessageScreen extends GetView<MessageController> {
                 controller.userChatModel.senderFullName!,
                 style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                   color: _appTheme =='light' ? TColors.black : TColors.white,
-                  fontSize: 22.fSize,
+                  fontSize: isTablet ? 20.adaptSize : 18.fSize,
                   fontWeight: FontWeight.bold,
                 ),
                 overflow: TextOverflow.ellipsis,
               ),
               subtitle: Row(
                 children: [
-                  SubTitleWidget(subtitle: "متصل", color: _appTheme =='light' ? TColors.gray700 : TColors.white),
+                  Text("متصل",
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      color: _appTheme =='light' ? TColors.gray700 : TColors.white,
+                      fontSize: isTablet ? 18.adaptSize : 16.fSize,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  //SubTitleWidget(subtitle: "متصل", color: _appTheme =='light' ? TColors.gray700 : TColors.white),
                   if (controller.userChatModel.isConnect) ...[
                     SizedBox(width: 3.adaptSize),
                     CircleAvatar(radius: 6, backgroundColor: Colors.green)
@@ -341,61 +348,66 @@ class MessageScreen extends GetView<MessageController> {
                  backgroundColor: _appTheme =='light' ? TColors.greyDating : TColors.dark,
                  radius: 35.adaptSize,
                  padding: EdgeInsets.symmetric(horizontal: 2.hw),
-                 child: Directionality(
-                   textDirection: TextDirection.rtl,
-                   child: Row(
-                     mainAxisAlignment: MainAxisAlignment.center,
-                     crossAxisAlignment: CrossAxisAlignment.center,
-                     children: [
-                       SizedBox(
-                         width: screenWidth * 0.1,
-                         child: Obx(() {
-                           return IconButton(
-                             icon: Icon(controller.isRecording.value ? Icons.stop : Icons.keyboard_voice_outlined,
-                                 color: controller.isRecording.value ? Colors.red : Color(0xFF6B7280)),
-                             onPressed: () async => await controller.toggleRecording(),
-                           );
-                         }),
-                       ),
-                       SizedBox(
-                         width: screenWidth * 0.55,
-                         child: TextField(
-                           controller: controller.messageController,
-                           onChanged: (value) => controller.isRTL.value = TDeviceUtils.isArabic(value),
-                           /* onChanged: (value) {
-                               // Déclenche la reconstruction pour changer la direction
-                               controller.update();
-                             }, */
-                           style: TextStyle(color: _appTheme =='light' ? TColors.black : TColors.white),
-                           cursorColor: _appTheme =='light' ? TColors.black : TColors.white,
-                           decoration: InputDecoration(
-                               hintText: "اكتب رسالة",
-                               border: InputBorder.none,
-                               hintStyle: TextStyle(color: _appTheme =='light' ? TColors.black : TColors.white)
-                           ),
+                 child: Center(
+                   child: Directionality(
+                     textDirection: TextDirection.rtl,
+                     child: Row(
+                       mainAxisAlignment: MainAxisAlignment.center,
+                       crossAxisAlignment: CrossAxisAlignment.center,
+                       children: [
+                         SizedBox(
+                           width: screenWidth * 0.1,
+                           child: Obx(() {
+                             return IconButton(
+                               icon: Icon(controller.isRecording.value ? Icons.stop : Icons.keyboard_voice_outlined,
+                                   color: controller.isRecording.value ? Colors.red : Color(0xFF6B7280)),
+                               onPressed: () async => await controller.toggleRecording(),
+                             );
+                           }),
                          ),
-                         /*
-                         Obx(() => Directionality(
-                           textDirection: controller.isRTL.value ? TextDirection.rtl : TextDirection.ltr,
+                         SizedBox(
+                           width: screenWidth * 0.55,
                            child: TextField(
                              controller: controller.messageController,
                              onChanged: (value) => controller.isRTL.value = TDeviceUtils.isArabic(value),
                              /* onChanged: (value) {
-                               // Déclenche la reconstruction pour changer la direction
-                               controller.update();
-                             }, */
+                                 // Déclenche la reconstruction pour changer la direction
+                                 controller.update();
+                               }, */
                              style: TextStyle(color: _appTheme =='light' ? TColors.black : TColors.white),
                              cursorColor: _appTheme =='light' ? TColors.black : TColors.white,
                              decoration: InputDecoration(
-                               hintText: "اكتب رسالة",
-                               border: InputBorder.none,
-                               hintStyle: TextStyle(color: _appTheme =='light' ? TColors.black : TColors.white)
+                                 hintText: "اكتب رسالة",
+                                 border: InputBorder.none,
+                                 hintStyle: TextStyle(
+                                     color: _appTheme =='light' ? TColors.black : TColors.white,
+                                 //fontSize: 18.adaptSize
+                                 )
                              ),
                            ),
-                         )),
-                          */
-                       )
-                     ],
+                           /*
+                           Obx(() => Directionality(
+                             textDirection: controller.isRTL.value ? TextDirection.rtl : TextDirection.ltr,
+                             child: TextField(
+                               controller: controller.messageController,
+                               onChanged: (value) => controller.isRTL.value = TDeviceUtils.isArabic(value),
+                               /* onChanged: (value) {
+                                 // Déclenche la reconstruction pour changer la direction
+                                 controller.update();
+                               }, */
+                               style: TextStyle(color: _appTheme =='light' ? TColors.black : TColors.white),
+                               cursorColor: _appTheme =='light' ? TColors.black : TColors.white,
+                               decoration: InputDecoration(
+                                 hintText: "اكتب رسالة",
+                                 border: InputBorder.none,
+                                 hintStyle: TextStyle(color: _appTheme =='light' ? TColors.black : TColors.white)
+                               ),
+                             ),
+                           )),
+                            */
+                         )
+                       ],
+                     ),
                    ),
                  ),
                 ),

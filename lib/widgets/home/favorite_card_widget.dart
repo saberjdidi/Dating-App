@@ -92,7 +92,7 @@ class FavoriteCardWidget extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 22.adaptSize,
+                            fontSize: 20.adaptSize,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -117,7 +117,7 @@ class FavoriteCardWidget extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 color: Colors.white70,
-                                fontSize: 15.adaptSize,
+                                fontSize: 14.adaptSize,
                               ),
                             ),
                           ],

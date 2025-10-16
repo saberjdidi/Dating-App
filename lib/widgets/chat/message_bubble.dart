@@ -120,15 +120,15 @@ class MessageBubble extends StatelessWidget {
                         children: [
                           Icon(Icons.insert_drive_file, color: Colors.blue),
                           const SizedBox(width: 8),
-                          Text(message.attachment!.name!, style: TextStyle(fontSize: 16)),
+                          Text(message.attachment!.name!, style: TextStyle(fontSize: 17.adaptSize)),
                         ],
                       ),
                   ],
                   if (message.text != null && message.text!.isNotEmpty)
-                    Text(message.text!, style: TextStyle(fontSize: 16)),
+                    Text(message.text!, style: TextStyle(fontSize: 17.adaptSize)),
                   Text(
                     "${message.createdAt.hour}:${message.createdAt.minute.toString().padLeft(2, '0')}",
-                    style: const TextStyle(fontSize: 10, color: Colors.black54),
+                    style: TextStyle(fontSize: 12.adaptSize, color: Colors.black54),
                   ),
 
                   /*

@@ -456,7 +456,7 @@ class ProfileScreen extends StatelessWidget {
 
                       // 🔹 5. Forcer la navigation vers la page d’accueil
                       //Get.offAllNamed(Routes.navigationScreen);
-                     Get.offAllNamed(Routes.filterScreen, id: 1);
+                      Get.offAllNamed(Routes.filterScreen, id: 1);
 
 
                       // 🔹 6. Afficher une confirmation visuelle
@@ -470,7 +470,7 @@ class ProfileScreen extends StatelessWidget {
                         duration: const Duration(seconds: 3),
                       );
                     },
-                   /* onTap: (){
+                    /* onTap: (){
                       GuideController.instance.resetGuide();
                       //other method
                     /*  PrefUtils.setHasSeenGuide(false); // réinitialise la préférence
@@ -495,8 +495,8 @@ class ProfileScreen extends StatelessWidget {
                         children: [
                           IconButton(
                             onPressed: () async {
-                             // PrefUtils.setShowGuide(true);
-                             // Get.offAllNamed(Routes.navigationScreen);
+                              // PrefUtils.setShowGuide(true);
+                              // Get.offAllNamed(Routes.navigationScreen);
                             },
                             icon: Icon(Icons.arrow_back_ios),
                             iconSize: 25.adaptSize,
@@ -506,7 +506,7 @@ class ProfileScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               SubTitleWidget(subtitle: "إعادة عرض الدليل", fontWeightDelta: 2, fontSizeDelta: 2,
-                                color: isDark ? TColors.whitePrimary : TColors.black),
+                                  color: isDark ? TColors.whitePrimary : TColors.black),
                               SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                               Icon(Icons.view_timeline_outlined,
                                 color: TColors.yellowAppDark,
@@ -521,10 +521,49 @@ class ProfileScreen extends StatelessWidget {
                 ),
 
                 InkWell(
-                  onTap: (){
+                  onTap: () async {
+                    await Dialogs.buildDialogDeleteAccount(isDark);
+                  },
+                  child: TRoundedContainer(
+                    showBorder: false,
+                    backgroundColor: isDark ? TColors.dark : TColors.white,
+                    borderColor: isDark ? TColors.white : TColors.grey400,
+                    radius: 20.adaptSize,
+                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
+                    padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
+                    //padding: EdgeInsets.all(10.adaptSize),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          onPressed: (){
+                          },
+                          icon: Icon(Icons.arrow_back_ios),
+                          iconSize: 25.adaptSize,
+                          color: TColors.buttonSecondary,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            SubTitleWidget(subtitle: "حذف الحساب", fontWeightDelta: 2, fontSizeDelta: 2,
+                                color: isDark ? TColors.whitePrimary : TColors.black),
+                            SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
+                            Icon(Iconsax.trash,
+                              color: Color(0xFFFF1515),
+                              size: 25.adaptSize,
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+
+                InkWell(
+                  onTap: () async {
                     //Get.offAllNamed(Routes.signInScreen);
-                    Logout.onTapLogout();
-                    //Dialogs.dialogLogout(context);
+                   // Logout.onTapLogout();
+                    await Dialogs.dialogLogout(isDark);
                   },
                   child: TRoundedContainer(
                     showBorder: false,

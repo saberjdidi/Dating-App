@@ -1,7 +1,8 @@
 import 'package:dating_app_bilhalal/core/utils/constants/api_constant.dart';
 import 'package:dating_app_bilhalal/data/api/api_client.dart';
 import 'package:dating_app_bilhalal/data/models/api_result.dart';
-import 'package:dating_app_bilhalal/data/models/auth_response.dart';
+import 'package:dating_app_bilhalal/data/models/register_response.dart';
+import 'package:dating_app_bilhalal/data/models/login_response.dart';
 import 'package:dio/dio.dart';
 
 class AuthRepository {
@@ -12,7 +13,7 @@ class AuthRepository {
   final ApiClient _client = ApiClient();
 
   /// Register
-  Future<ApiResult<AuthData>> register({required String email, required String password}) async {
+  Future<ApiResult<RegisterResponse>> register({required String email, required String password}) async {
     try {
       final body = {'email': email, 'password': password};
       final resp = await _client.post(ApiConstants.authRegister, data: body);
@@ -20,7 +21,7 @@ class AuthRepository {
       if (resp.statusCode == HttpStatusCode.created || resp.statusCode == HttpStatusCode.ok) {
         final map = resp.data as Map<String, dynamic>;
         final dataMap = map['data'] as Map<String, dynamic>?;
-        final authData = dataMap != null ? AuthData.fromJson(dataMap) : null;
+        final authData = dataMap != null ? RegisterResponse.fromJson(dataMap) : null;
         return ApiResult(success: true, message: map['message'] as String?, data: authData);
       } else {
         return ApiResult(success: false, message: resp.data.toString());
@@ -34,7 +35,7 @@ class AuthRepository {
   }
 
   /// Login
-  Future<ApiResult<AuthData>> login({required String email, required String password}) async {
+  Future<ApiResult<LoginResponse>> login({required String email, required String password}) async {
     try {
       final body = {'email': email, 'password': password};
       final resp = await _client.post(ApiConstants.authLogin, data: body);
@@ -42,7 +43,7 @@ class AuthRepository {
       if (resp.statusCode == HttpStatusCode.ok || resp.statusCode == HttpStatusCode.created) {
         final map = resp.data as Map<String, dynamic>;
         final dataMap = map['data'] as Map<String, dynamic>?;
-        final authData = dataMap != null ? AuthData.fromJson(dataMap) : null;
+        final authData = dataMap != null ? LoginResponse.fromJson(dataMap) : null;
         return ApiResult(success: true, message: map['message'] as String?, data: authData);
       } else {
         // backend retourne 4xx avec message dans body

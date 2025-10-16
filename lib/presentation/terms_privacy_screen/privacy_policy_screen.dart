@@ -34,7 +34,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
             decorationColor: TColors.black,
           ),
         ), */
-        title: TitleWidget(title: "سياسة الخصوصية", fontWeightDelta: 3,
+        title: TitleWidget(title: "سياسة الخصوصية", fontWeightDelta: 1,
             color: _appTheme =='light' ? TColors.buttonSecondary : TColors.white),
       ),
       body: Padding(

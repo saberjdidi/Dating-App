@@ -1,4 +1,5 @@
 import 'package:dating_app_bilhalal/widgets/custom_dialog.dart';
+import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../theme/app_decoration.dart';
@@ -11,7 +12,7 @@ class Dialogs {
     Get.back();
   }
 
- static dialogLogout(BuildContext context){
+/* static dialogLogout(BuildContext context){
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -26,6 +27,163 @@ class Dialogs {
               description: "Voulez vous quitter l'application".tr,
               descriptionTextStyle: CustomTextStyles.titleSmallGray400,
             )
+    );
+  } */
+  static dialogLogout(bool isDark){
+    Get.dialog(
+      Dialog(
+        insetPadding: const EdgeInsets.all(16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        backgroundColor: isDark ? TColors.darkerGrey : Colors.white,
+
+        child: SizedBox(
+          height: 150, // fixe la hauteur de ton popup
+          width: double.infinity,
+          child: Padding(
+            padding: EdgeInsets.all(18.hw),
+            child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Get.back();
+                          },
+                          child: Icon(Icons.close_outlined, size: 25, color: TColors.redApp,),
+                        ),
+                      ],
+                    ),
+                    SubTitleWidget(
+                        subtitle: 'هل تريد الخروج من التطبيق ؟',
+                        color: isDark ? TColors.white : TColors.black,
+                        fontWeightDelta: 2,
+                        fontSizeDelta: 1
+                    ),
+                    SizedBox(height: 15.v,),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          CustomButtonContainer(
+                              text:"لا",
+                              color1: TColors.redApp,
+                              color2: TColors.redApp,
+                              borderRadius: 30,
+                              colorText: TColors.white,
+                              fontSize: 20.adaptSize,
+                              height: 40.v,
+                              width: 50.adaptSize,
+                              onPressed: onTapBack,
+                              paddingVertical: 2
+                          ),
+                          CustomButtonContainer(
+                              text:"نعم",
+                              color1: TColors.primaryColorApp,
+                              color2: TColors.primaryColorApp,
+                              borderRadius: 30,
+                              colorText: TColors.white,
+                              fontSize: 20.adaptSize,
+                              height: 40.v,
+                              width: 80.adaptSize,
+                              onPressed: Logout.onTapLogout,
+                              paddingVertical: 2
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+            ),
+          ),
+        ),
+      ),
+      barrierDismissible: false, // Ferme si l'utilisateur clique à l'extérieur
+    );
+  }
+
+  static buildDialogDeleteAccount(bool isDark){
+    Get.dialog(
+      Dialog(
+        insetPadding: const EdgeInsets.all(16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        backgroundColor: isDark ? TColors.darkerGrey : Colors.white,
+
+        child: SizedBox(
+          height: 150, // fixe la hauteur de ton popup
+          width: double.infinity,
+          child: Padding(
+            padding: EdgeInsets.all(18.hw),
+            child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Get.back();
+                          },
+                          child: Icon(Icons.close_outlined, size: 25, color: TColors.redApp,),
+                        ),
+                      ],
+                    ),
+                    SubTitleWidget(
+                        subtitle: 'هل تريد حذف حسابك ؟',
+                        color: isDark ? TColors.white : TColors.black,
+                        fontWeightDelta: 2,
+                        fontSizeDelta: 1
+                    ),
+                    SizedBox(height: 15.v,),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          CustomButtonContainer(
+                              text:"لا",
+                              color1: TColors.redApp,
+                              color2: TColors.redApp,
+                              borderRadius: 30,
+                              colorText: TColors.white,
+                              fontSize: 20.adaptSize,
+                              height: 40.v,
+                              width: 50.adaptSize,
+                              onPressed: () {
+                                Get.back();
+                              },
+                              paddingVertical: 2
+                          ),
+                          CustomButtonContainer(
+                              text:"نعم",
+                              color1: TColors.primaryColorApp,
+                              color2: TColors.primaryColorApp,
+                              borderRadius: 30,
+                              colorText: TColors.white,
+                              fontSize: 20.adaptSize,
+                              height: 40.v,
+                              width: 80.adaptSize,
+                              onPressed: () {
+                                Get.back();
+                              },
+                              paddingVertical: 2
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+            ),
+          ),
+        ),
+      ),
+      barrierDismissible: true, // Ferme si l'utilisateur clique à l'extérieur
     );
   }
 /*

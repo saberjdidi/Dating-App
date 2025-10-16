@@ -4,6 +4,7 @@ import 'package:dating_app_bilhalal/widgets/app_bar/appbar_widget.dart';
 import 'package:dating_app_bilhalal/widgets/custom_text_form_field.dart';
 import 'package:dating_app_bilhalal/widgets/grid_layout.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
+import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../core/app_export.dart';
@@ -31,6 +32,8 @@ class SupportScreen extends GetView<SupportController> {
             resizeToAvoidBottomInset: false,
             //backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
             appBar: TAppBar(
+              title: TitleWidget(title: "الدعم", fontWeightDelta: 3,
+                  color: _appTheme =='light' ? TColors.buttonSecondary : TColors.white),
               showAction: true,
             ),
             body: SingleChildScrollView(

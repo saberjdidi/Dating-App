@@ -25,7 +25,7 @@ class _TermesAndConditionsScreenState extends State<TermesAndConditionsScreen> {
       appBar: TAppBar(
         //showBackArrow: true,
         //rightToLeft: true,
-        title: TitleWidget(title: "شروط الاستخدام", fontWeightDelta: 3,
+        title: TitleWidget(title: "شروط الاستخدام", fontWeightDelta: 1,
             color: _appTheme =='light' ? TColors.buttonSecondary : TColors.white),
       ),
       body: Padding(

@@ -24,6 +24,8 @@ class PrefUtils {
   static const _KeyIsBoarding = 'isBoarding';
   static const _KeyToken = 'token';
   static const _keyEmail = 'email';
+  static const _keyUsername = 'username';
+  static const _keyId = 'id';
   static const _keyEmailGoogle = 'emailGoogle';
   static const _keyEmailFacebook = 'emailFacebook';
   static const _keyFullName = 'fullName';
@@ -36,8 +38,6 @@ class PrefUtils {
   static const _KeyPhoneNumber = 'phoneNumber';
   static const _KeyAddress = 'address';
   static const _KeyBirthDate = 'birthDate';
-  static const _KeyEmailLogin = 'emailLogin';
-  static const _KeyPasswordLogin = 'passwordLogin';
   static const _KeyOnBoarding = 'onBoarding';
   static const _KeyLogoUser = 'logoUser';
 
@@ -167,7 +167,7 @@ class PrefUtils {
     await sharedPreferences!.remove(_keyEmailGoogle);
   }
 
-  ///Email
+  ///Full name
   static Future setFullName(String fullname) async =>
       await sharedPreferences!.setString(_keyFullName, fullname);
 
@@ -175,6 +175,26 @@ class PrefUtils {
 
   static Future<void> clearFullName() async {
     await sharedPreferences!.remove(_keyFullName);
+  }
+
+  ///Username
+  static Future setUsername(String username) async =>
+      await sharedPreferences!.setString(_keyUsername, username);
+
+  static String? getUsername() => sharedPreferences!.getString(_keyUsername);
+
+  static Future<void> clearUsername() async {
+    await sharedPreferences!.remove(_keyUsername);
+  }
+
+  ///Id
+  static Future setId(String id) async =>
+      await sharedPreferences!.setString(_keyId, id);
+
+  static String? getId() => sharedPreferences!.getString(_keyId);
+
+  static Future<void> clearId() async {
+    await sharedPreferences!.remove(_keyId);
   }
 
   ///FirstName
@@ -225,25 +245,6 @@ class PrefUtils {
 
   static Future<void> clearBirthDate() async {
     await sharedPreferences!.remove(_KeyBirthDate);
-  }
-
-  ///Email & Password Login
-  static Future setEmailLogin(String value) async =>
-      await sharedPreferences!.setString(_KeyEmailLogin, value);
-
-  static String? getEmailLogin() => sharedPreferences!.getString(_KeyEmailLogin);
-
-  static Future<void> clearEmailLogin() async {
-    await sharedPreferences!.remove(_KeyEmailLogin);
-  }
-
-  static Future setPasswordLogin(String password) async =>
-      await sharedPreferences!.setString(_KeyPasswordLogin, password);
-
-  static String? getPasswordLogin() => sharedPreferences!.getString(_KeyPasswordLogin);
-
-  static Future<void> clearPasswordLogin() async {
-    await sharedPreferences!.remove(_KeyPasswordLogin);
   }
 
 

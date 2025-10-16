@@ -178,7 +178,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                  crossAxisAlignment: CrossAxisAlignment.start,
                  mainAxisSize: MainAxisSize.min,
                  children: [
-                   TitleWidget(title: '${controller.userModel.fullName}، ${controller.userModel.age} عاما',
+                   SubTitleWidget(fontSizeDelta: 2, fontWeightDelta: 2,subtitle: '${controller.userModel.fullName}، ${controller.userModel.age} عاما',
                        color: _appTheme =='light' ? TColors.black : TColors.white),
                    SizedBox(height: 6.v),
                    // job - allow up to 2 lines then ellipsis
@@ -200,7 +200,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                          overflow: TextOverflow.ellipsis,
                          style: TextStyle(
                            color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
-                           fontSize: isTablet ? 17.adaptSize : 16.adaptSize,
+                           fontSize: isTablet ? 16.adaptSize : 15.adaptSize,
                          ),
                        ),
                      ],
@@ -225,7 +225,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                          overflow: TextOverflow.ellipsis,
                          style: TextStyle(
                            color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
-                           fontSize: isTablet ? 17.adaptSize : 16.adaptSize,
+                           fontSize: isTablet ? 16.adaptSize : 15.adaptSize,
                          ),
                        ),
                      ],
@@ -241,7 +241,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                    ),
 
                    SizedBox(height: 10.v),
-                   SubTitleWidget(subtitle: "بایو:", color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 4, fontSizeDelta: 5,),
+                   SubTitleWidget(subtitle: "بایو:", color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 2, fontSizeDelta: 3,),
                    ReadMoreText(
                      "اسمي جيسيكا باركر، وأستمتع بلقاء أشخاص جدد وإيجاد طرق لمساعدتهم على خوض تجربة إيجابية. اسمي جيسيكا باركر، وأستمتع بلقاء أشخاص جدد وإيجاد طرق لمساعدتهم على خوض تجربة إيجابية.",
                      trimMode: TrimMode.Line,
@@ -249,7 +249,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                      trimLength: 240,
                      //preDataText: 'avant de text',
                      //preDataTextStyle: const TextStyle(fontWeight: FontWeight.w500),
-                     style: TextStyle(fontSize: 17.adaptSize, color:  _appTheme =='light' ? TColors.black : TColors.white),
+                     style: TextStyle(fontSize: 15.adaptSize, color:  _appTheme =='light' ? TColors.black : TColors.white),
                      //style: Theme.of(context).textTheme.bodyMedium!.apply(color: _appTheme =='light' ? TColors.black : TColors.white, fontSizeDelta: 1, fontWeightDelta: 1),
                      colorClickableText: Colors.blue,
                      trimCollapsedText: 'اقرأ المزيد',
@@ -260,7 +260,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                    // SubTitleWidget(subtitle: "اسمي جيسيكا باركر، وأستمتع بلقاء أشخاص جدد وإيجاد طرق لمساعدتهم على خوض تجربة إيجابية. أستمتع بالقراءة....اقرأ المزيد", color: _appTheme =='light' ? TColors.black : TColors.white, textAlign: TextAlign.right,),
 
                    SizedBox(height: 20.v),
-                   SubTitleWidget(subtitle: "الاهتمامات", color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 4, fontSizeDelta: 5,),
+                   SubTitleWidget(subtitle: "الاهتمامات", color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 2, fontSizeDelta: 3,),
                    Wrap(
                      spacing: 8, // Espace horizontal entre les items
                      runSpacing: 8, // Espace vertical entre les lignes
@@ -341,9 +341,9 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                      children: [
                        CircleIconButton(
-                         size: isSmallPhone ? 70.hw : 65.hw,
-                         minTapSize: isSmallPhone ? 70.hw : 65.hw,
-                         effectiveSize: isSmallPhone ? 70.hw : 65.hw,
+                         size: isSmallPhone ? 65.hw : 60.hw,
+                         minTapSize: isSmallPhone ? 65.hw : 60.hw,
+                         effectiveSize: isSmallPhone ? 65.hw : 60.hw,
                          backgroundColor: _appTheme =='light' ? TColors.greyDating.withOpacity(0.5) : TColors.dark,
                          showBorder: true,
                          borderColor: _appTheme =='light' ? TColors.white : TColors.buttonSecondary,
@@ -371,9 +371,9 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                          ),
                        ),
                        CircleIconButton(
-                         size: isSmallPhone ? 70.hw : 65.hw,
-                         minTapSize: isSmallPhone ? 70.hw : 65.hw,
-                         effectiveSize: isSmallPhone ? 70.hw : 65.hw,
+                         size: isSmallPhone ? 65.hw : 60.hw,
+                         minTapSize: isSmallPhone ? 65.hw : 60.hw,
+                         effectiveSize: isSmallPhone ? 65.hw : 60.hw,
                          backgroundColor: _appTheme =='light' ? TColors.greyDating.withOpacity(0.5) : TColors.dark,
                          showBorder: true,
                          borderColor: _appTheme =='light' ? TColors.white : TColors.buttonSecondary,
