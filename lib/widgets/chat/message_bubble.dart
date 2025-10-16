@@ -9,7 +9,179 @@ class MessageBubble extends StatelessWidget {
   final MessageModel message;
   final String? profileUser;
   final String? myImageProfile;
-  const MessageBubble({super.key, required this.message, this.profileUser, this.myImageProfile});
+
+  const MessageBubble({
+    super.key,
+    required this.message,
+    this.profileUser,
+    this.myImageProfile,
+  });
+
+  bool get hasMedia {
+    final type = message.attachment?.type;
+    return type == MessageType.image ||
+        type == MessageType.video ||
+        type == MessageType.camera;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final isSender = message.senderUid == "user1";
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isTablet = screenWidth >= 600;
+
+    return Align(
+      alignment: isSender ? Alignment.centerRight : Alignment.centerLeft,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: Column(
+          crossAxisAlignment:
+          isSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+          children: [
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+              padding: hasMedia ? EdgeInsets.zero : const EdgeInsets.all(10),
+              decoration: hasMedia
+                  ? null // ❌ pas de decoration pour image/vidéo
+                  : BoxDecoration(
+                borderRadius: isSender
+                    ? BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                  bottomRight: Radius.circular(5),
+                  bottomLeft: Radius.circular(20),
+                )
+                    : BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
+                  bottomLeft: Radius.circular(5),
+                ),
+                gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: isSender
+                      ? [
+                    TColors.primaryColorApp,
+                    TColors.primaryColorApp.withOpacity(0.6),
+                  ]
+                      : [
+                    TColors.greyDating,
+                    TColors.greyDating,
+                  ],
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // === MEDIA ===
+                  if (message.attachment != null) ...[
+                    if (message.attachment!.type == MessageType.image &&
+                        message.attachment!.url != null)
+                      CustomImageView(
+                        imagePath: message.attachment!.url,
+                        height: isTablet ? 300 : 200,
+                        width: Get.width * 0.7,
+                        radius: BorderRadius.circular(10),
+                      ),
+                    if (message.attachment!.type == MessageType.image &&
+                        message.attachment!.file != null)
+                      CustomImageView(
+                        file: message.attachment!.file,
+                        height: isTablet ? 300 : 200,
+                        width: Get.width * 0.7,
+                        radius: BorderRadius.circular(10),
+                      ),
+                    if (message.attachment!.type == MessageType.video &&
+                        message.attachment!.file != null)
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: SizedBox(
+                          height: isTablet ? 300 : 200,
+                          width: Get.width * 0.7,
+                          child: VideoPreviewWidget(
+                            file: message.attachment!.file,
+                          ),
+                        ),
+                      ),
+                    if (message.attachment!.type == MessageType.camera &&
+                        message.attachment!.file != null)
+                      CustomImageView(
+                        file: message.attachment!.file,
+                        height: isTablet ? 300 : 200,
+                        width: Get.width * 0.7,
+                        radius: BorderRadius.circular(10),
+                      ),
+                    if (message.attachment!.type == MessageType.audio &&
+                        message.attachment!.file != null)
+                      SizedBox(
+                        width: Get.width * 0.7,
+                        child: AudioPlayerWidget(
+                          file: message.attachment!.file!,
+                        ),
+                      ),
+                    if (message.attachment!.type == MessageType.document &&
+                        message.attachment!.name != null)
+                      Row(
+                        children: [
+                          const Icon(Icons.insert_drive_file, color: Colors.blue),
+                          const SizedBox(width: 8),
+                          Text(
+                            message.attachment!.name!,
+                            style: TextStyle(fontSize: 16.adaptSize),
+                          ),
+                        ],
+                      ),
+                  ],
+
+                  // === TEXTE ===
+                  if (message.text != null && message.text!.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4.0),
+                      child: Text(
+                        message.text!,
+                        style: TextStyle(fontSize: 16.adaptSize),
+                      ),
+                    ),
+
+                  // === HEURE ===
+                  Padding(
+                    padding: const EdgeInsets.only(top: 2.0),
+                    child: Text(
+                      "${message.createdAt.hour}:${message.createdAt.minute.toString().padLeft(2, '0')}",
+                      style: TextStyle(
+                        fontSize: 13.adaptSize,
+                        color: Colors.black54,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // === AVATAR ===
+            Padding(
+              padding: const EdgeInsets.only(right: 3.0, left: 3.0, top: 0),
+              child: CustomImageView(
+                imagePath: isSender ? myImageProfile : profileUser,
+                width: 30,
+                height: 30,
+                radius: BorderRadius.circular(30),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+class MessageBubble2 extends StatelessWidget {
+  final MessageModel message;
+  final String? profileUser;
+  final String? myImageProfile;
+  const MessageBubble2({super.key, required this.message, this.profileUser, this.myImageProfile});
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +260,7 @@ class MessageBubble extends StatelessWidget {
                           child: VideoPreviewWidget(file: message.attachment!.file),
                         ),
                       ),
-                      /*SizedBox(
+                    /*SizedBox(
                         height: 200,
                         width: 200,
                         child: VideoPreviewWidget(file: message.attachment!.file),
@@ -108,7 +280,7 @@ class MessageBubble extends StatelessWidget {
                           child: AudioPlayerWidget(file: message.attachment!.file!)
                       ),
 
-                  /*  if (message.attachment!.type == MessageType.video && message.attachment!.url != null)
+                    /*  if (message.attachment!.type == MessageType.video && message.attachment!.url != null)
                       Container(
                         height: 150,
                         color: Colors.black12,
@@ -163,181 +335,12 @@ class MessageBubble extends StatelessWidget {
                 height: 30,
                 radius: BorderRadius.circular(30),
               ),
-             /* child: CircleAvatar(
+              /* child: CircleAvatar(
                 radius: 15,
                 backgroundImage: NetworkImage(isSender
                     ? message.senderProfile
                     : message.receiverProfile),
               ) */
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-
-class MessageBubble2 extends StatelessWidget {
-  final MessageModel message;
-  final String? profileUser;
-  final String? myImageProfile;
-
-  const MessageBubble2({
-    super.key,
-    required this.message,
-    this.profileUser,
-    this.myImageProfile,
-  });
-
-  bool get hasMedia {
-    final type = message.attachment?.type;
-    return type == MessageType.image ||
-        type == MessageType.video ||
-        type == MessageType.camera;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final isSender = message.senderUid == "user1";
-    final screenWidth = MediaQuery.of(context).size.width;
-    final isTablet = screenWidth >= 600;
-
-    return Align(
-      alignment: isSender ? Alignment.centerRight : Alignment.centerLeft,
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 10),
-        child: Column(
-          crossAxisAlignment:
-          isSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-          children: [
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-              padding: hasMedia ? EdgeInsets.zero : const EdgeInsets.all(10),
-              decoration: hasMedia
-                  ? null // ❌ pas de decoration pour image/vidéo
-                  : BoxDecoration(
-                borderRadius: isSender
-                    ? BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                  bottomRight: Radius.circular(5),
-                  bottomLeft: Radius.circular(20),
-                )
-                    : BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                  bottomLeft: Radius.circular(5),
-                ),
-                gradient: LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: isSender
-                      ? [
-                    TColors.primaryColorApp,
-                    TColors.primaryColorApp.withOpacity(0.6),
-                  ]
-                      : [
-                    TColors.greyDating,
-                    TColors.greyDating,
-                  ],
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // === MEDIA ===
-                  if (message.attachment != null) ...[
-                    if (message.attachment!.type == MessageType.image &&
-                        message.attachment!.url != null)
-                      CustomImageView(
-                        imagePath: message.attachment!.url,
-                        height: isTablet ? 300 : 200,
-                        width: Get.width * 0.7,
-                      ),
-                    if (message.attachment!.type == MessageType.image &&
-                        message.attachment!.file != null)
-                      CustomImageView(
-                        file: message.attachment!.file,
-                        height: isTablet ? 300 : 200,
-                        width: Get.width * 0.7,
-                      ),
-                    if (message.attachment!.type == MessageType.video &&
-                        message.attachment!.file != null)
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: SizedBox(
-                          height: isTablet ? 300 : 200,
-                          width: Get.width * 0.7,
-                          child: VideoPreviewWidget(
-                            file: message.attachment!.file,
-                          ),
-                        ),
-                      ),
-                    if (message.attachment!.type == MessageType.camera &&
-                        message.attachment!.file != null)
-                      CustomImageView(
-                        file: message.attachment!.file,
-                        height: isTablet ? 300 : 200,
-                        width: Get.width * 0.7,
-                      ),
-                    if (message.attachment!.type == MessageType.audio &&
-                        message.attachment!.file != null)
-                      SizedBox(
-                        width: Get.width * 0.7,
-                        child: AudioPlayerWidget(
-                          file: message.attachment!.file!,
-                        ),
-                      ),
-                    if (message.attachment!.type == MessageType.document &&
-                        message.attachment!.name != null)
-                      Row(
-                        children: [
-                          const Icon(Icons.insert_drive_file, color: Colors.blue),
-                          const SizedBox(width: 8),
-                          Text(
-                            message.attachment!.name!,
-                            style: TextStyle(fontSize: 17),
-                          ),
-                        ],
-                      ),
-                  ],
-
-                  // === TEXTE ===
-                  if (message.text != null && message.text!.isNotEmpty)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 4.0),
-                      child: Text(
-                        message.text!,
-                        style: const TextStyle(fontSize: 17),
-                      ),
-                    ),
-
-                  // === HEURE ===
-                  Padding(
-                    padding: const EdgeInsets.only(top: 2.0),
-                    child: Text(
-                      "${message.createdAt.hour}:${message.createdAt.minute.toString().padLeft(2, '0')}",
-                      style: const TextStyle(
-                        fontSize: 12,
-                        color: Colors.black54,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            // === AVATAR ===
-            Padding(
-              padding: const EdgeInsets.only(right: 3.0, left: 3.0, top: 0),
-              child: CustomImageView(
-                imagePath: isSender ? myImageProfile : profileUser,
-                width: 30,
-                height: 30,
-                radius: BorderRadius.circular(30),
-              ),
             ),
           ],
         ),

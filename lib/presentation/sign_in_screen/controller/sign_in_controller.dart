@@ -112,6 +112,7 @@ class SignInController extends GetxController {
    if(!isConnected) {
      //Remove Loader
      FullScreenLoader.stopLoading();
+     MessageSnackBar.customToast(message: 'No Internet Connection');
      return;
    }
 

@@ -5,6 +5,8 @@ import 'package:dating_app_bilhalal/data/models/register_response.dart';
 import 'package:dating_app_bilhalal/data/models/login_response.dart';
 import 'package:dio/dio.dart';
 
+import 'handle_dio_error.dart';
+
 class AuthRepository {
   static final AuthRepository _instance = AuthRepository._internal();
   factory AuthRepository() => _instance;
@@ -27,7 +29,7 @@ class AuthRepository {
         return ApiResult(success: false, message: resp.data.toString());
       }
     } on DioException catch (e) {
-      String msg = _handleDioError(e);
+      String msg = HandleDioError.handleDioError(e);
       return ApiResult(success: false, message: msg);
     } catch (e) {
       return ApiResult(success: false, message: e.toString());
@@ -52,7 +54,7 @@ class AuthRepository {
         return ApiResult(success: false, message: msg?.toString());
       }
     } on DioException catch (e) {
-      String msg = _handleDioError(e);
+      String msg = HandleDioError.handleDioError(e);
       return ApiResult(success: false, message: msg);
     } catch (e) {
       return ApiResult(success: false, message: e.toString());
@@ -77,7 +79,7 @@ class AuthRepository {
         return ApiResult(success: false, message: msg.toString());
       }
     } on DioException catch (e) {
-      return ApiResult(success: false, message: _handleDioError(e));
+      return ApiResult(success: false, message: HandleDioError.handleDioError(e));
     } catch (e) {
       return ApiResult(success: false, message: e.toString());
     }
@@ -98,13 +100,13 @@ class AuthRepository {
         return ApiResult(success: false, message: msg.toString());
       }
     } on DioException catch (e) {
-      return ApiResult(success: false, message: _handleDioError(e));
+      return ApiResult(success: false, message: HandleDioError.handleDioError(e));
     } catch (e) {
       return ApiResult(success: false, message: e.toString());
     }
   }
 
-  String _handleDioError(DioException e) {
+ /* String _handleDioError(DioException e) {
     if (e.type == DioExceptionType.connectionTimeout || e.type == DioExceptionType.receiveTimeout || e.type == DioExceptionType.sendTimeout) {
       return 'Connection timeout. Vérifie ta connexion.';
     }
@@ -118,5 +120,5 @@ class AuthRepository {
       }
     }
     return e.message!;
-  }
+  } */
 }

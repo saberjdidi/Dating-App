@@ -1,5 +1,6 @@
 // lib/data/api/api_client.dart
 import 'package:dating_app_bilhalal/core/utils/constants/api_constant.dart';
+import 'package:dating_app_bilhalal/data/api/auth_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
@@ -32,17 +33,46 @@ class ApiClient {
       ));
     }
 
+    // Auth interceptor global
+    dio.interceptors.add(AuthInterceptor());
     // Optional: add token interceptor later
     // dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) async { ... }));
   }
 
+  //POST
   Future<Response> post(String path, {Map<String, dynamic>? data, Map<String, dynamic>? queryParameters, Options? options}) async {
     return await dio.post(path, data: data, queryParameters: queryParameters, options: options);
   }
 
+  //GET
   Future<Response> get(String path, {Map<String, dynamic>? queryParameters, Options? options}) async {
     return await dio.get(path, queryParameters: queryParameters, options: options);
   }
 
-// Ajoute patch/put/delete si besoin...
+// PUT
+  Future<Response> put(String path,
+      {Map<String, dynamic>? data,
+        Map<String, dynamic>? queryParameters,
+        Options? options}) async {
+    return await dio.put(path,
+        data: data, queryParameters: queryParameters, options: options);
+  }
+
+  // PATCH
+  Future<Response> patch(String path,
+      {Map<String, dynamic>? data,
+        Map<String, dynamic>? queryParameters,
+        Options? options}) async {
+    return await dio.patch(path,
+        data: data, queryParameters: queryParameters, options: options);
+  }
+
+  // DELETE
+  Future<Response> delete(String path,
+      {Map<String, dynamic>? data,
+        Map<String, dynamic>? queryParameters,
+        Options? options}) async {
+    return await dio.delete(path,
+        data: data, queryParameters: queryParameters, options: options);
+  }
 }

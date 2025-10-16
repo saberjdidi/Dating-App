@@ -9,9 +9,12 @@ class Logout {
     //final GoogleSignIn _googleSignIn = GoogleSignIn();
     //await _googleSignIn.signOut();
     await PrefUtils.clearEmail();
+    await PrefUtils.clearToken();
+    await PrefUtils.clearId();
+    await PrefUtils.clearUsername();
     //await PrefUtils.clearFirstname();
     //await PrefUtils.clearLastName();
-    await PrefUtils.clearFullName();
+    //await PrefUtils.clearFullName();
     //await PrefUtils.clearToken();
 
     //set index with 2 to go to mainscreen

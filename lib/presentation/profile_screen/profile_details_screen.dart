@@ -65,7 +65,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                  child: IconButton(
                    icon: Icon(Icons.more_vert, color: TColors.white, size: 35.hw,),
                    onPressed: (){
-                     buildDialogSettings(context);
+                     buildDialogSettings(context, controller);
                    },
                  ),
                  /* child:  CircleIconButton(
@@ -411,7 +411,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
      );
    }
 
-   buildDialogSettings(BuildContext context){
+   buildDialogSettings(BuildContext context, ProfileDetailsController  controller){
      Get.dialog(
        Dialog(
          insetPadding: const EdgeInsets.all(16),
@@ -433,7 +433,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                        children: [
                          SubTitleWidget(
                              subtitle: 'مشاركة الملف الشخصي',
-                             color: TColors.primaryColorApp,
+                             color: _appTheme =='light' ? TColors.black : TColors.white,
                              fontWeightDelta: 2,
                              fontSizeDelta: 1
                          ),
@@ -445,19 +445,38 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
 
                    Padding(
                      padding: const EdgeInsets.symmetric(vertical: 10),
-                     child: Row(
-                       mainAxisAlignment: MainAxisAlignment.end,
-                       children: [
-                         SubTitleWidget(
-                             subtitle: 'حضر الملف الشخصي',
-                             color: TColors.primaryColorApp,
-                             fontWeightDelta: 2,
-                             fontSizeDelta: 1
-                         ),
-                         SizedBox(width: 10.hw),
-                         Icon(Iconsax.user_remove, color: _appTheme =='light' ? TColors.gray700 : TColors.white,),
+                     child: GestureDetector(
+                       onTap: (){
+                         if (!controller.isDataProcessing.value) {
+                           controller.sendReport();
+                         }
+                       },
+                       child: Row(
+                         mainAxisAlignment: MainAxisAlignment.end,
+                         children: [
+                           Obx(() => controller.isDataProcessing.value
+                     ? Container(
+                     color: Colors.black.withOpacity(0.4),
+                     child: Center(
+                       child: CircularProgressIndicator(
+                         backgroundColor: _appTheme =='light' ? Colors.white : TColors.darkerGrey,
+                         color: TColors.primaryColorApp,
+                       ),
+                       ),
+                      )
+                      : SubTitleWidget(
+                           subtitle: 'الإبلاغ',
+                           //subtitle: 'حضر الملف الشخصي',
+                           color: _appTheme =='light' ? TColors.black : TColors.white,
+                           fontWeightDelta: 2,
+                           fontSizeDelta: 1
+                       ))
+                           ,
+                           SizedBox(width: 10.hw),
+                           Icon(Iconsax.user_remove, color: _appTheme =='light' ? TColors.gray700 : TColors.white,),
 
-                       ],
+                         ],
+                       ),
                      ),
                    ),
                  ],
