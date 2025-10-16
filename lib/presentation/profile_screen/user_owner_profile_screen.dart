@@ -290,7 +290,8 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                                     ),
                                                   ),
                                                   SizedBox(width: 3.adaptSize),
-                                                  SubTitleWidget(subtitle: '23 إعجابًا', color: TColors.white, fontWeightDelta: 2),
+                                                  Text('23 إعجابًا', style: TextStyle(color: TColors.white, fontSize: 15.adaptSize, fontWeight: FontWeight.w500)),
+                                                  //SubTitleWidget(subtitle: '23 إعجابًا', color: TColors.white, fontWeightDelta: 2),
                                                 ],
                                               )
                                           ),
