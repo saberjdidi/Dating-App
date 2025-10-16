@@ -29,75 +29,80 @@ class SignUpScreen extends GetView<SignUpController> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Visibility(
-              visible: false,
-              child: Align(
-                alignment: Alignment.topRight,
-                child: IconButton(
-                    onPressed: (){
-                      SystemNavigator.pop();
-                      //Navigator.of(context).pop();
-                    },
-                    icon: Icon(Iconsax.arrow_right_1, color: _appTheme =='light' ? TColors.black : TColors.white)
-                ),
-              ),
-            ),
-            const SizedBox(height: TSizes.spaceBtwSections),
+            //const SizedBox(height: TSizes.spaceBtwSections),
             /// Slider
-            CarouselSlider.builder(
-              carouselController: controller.carouselController,
-              itemCount: ImagesDatingList.length,
-              options: CarouselOptions(
-                height: MediaQuery.of(context).size.height * 0.55,
-                viewportFraction: isTablet ? 0.6 : 0.7,
-                enlargeCenterPage: true,
-                autoPlay: true,
-                onPageChanged: (index, reason) {
-                  controller.updatePageIndicator(index);
-                },
-              ),
-              itemBuilder: (context, index, realIndex) {
-                final data = ImagesDatingList[index];
-                final bool isActive = index == controller.currentPageIndex.value; // ← utilisé ici
+            Stack(
+              children: [
+                CarouselSlider.builder(
+                  carouselController: controller.carouselController,
+                  itemCount: ImagesDatingList.length,
+                  options: CarouselOptions(
+                    height: MediaQuery.of(context).size.height * 0.6,
+                    viewportFraction: isTablet ? 0.6 : 0.7,
+                    enlargeCenterPage: true,
+                    autoPlay: true,
+                    onPageChanged: (index, reason) {
+                      controller.updatePageIndicator(index);
+                    },
+                  ),
+                  itemBuilder: (context, index, realIndex) {
+                    final data = ImagesDatingList[index];
+                    final bool isActive = index == controller.currentPageIndex.value; // ← utilisé ici
 
-                return TweenAnimationBuilder<double>(
-                  tween: Tween(begin: 1, end: isActive ? 1.0 : 0.85),
-                  duration: const Duration(milliseconds: 200),
-                  builder: (context, scale, child) {
-                    return Transform.scale(
-                      scale: scale,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: Stack(
-                          fit: StackFit.expand,
-                          children: [
-                            Image.asset(data.image!, fit: BoxFit.cover),
-                           /* if (!isActive)
+                    return TweenAnimationBuilder<double>(
+                      tween: Tween(begin: 1, end: isActive ? 1.0 : 0.85),
+                      duration: const Duration(milliseconds: 200),
+                      builder: (context, scale, child) {
+                        return Transform.scale(
+                          scale: scale,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(15),
+                            child: Stack(
+                              fit: StackFit.expand,
+                              children: [
+                                Image.asset(data.image!, fit: BoxFit.cover),
+                                /* if (!isActive)
                               BackdropFilter(
                                 filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                                 child: Container(color: Colors.black.withOpacity(0)),
                               ), */
-                            // autres widgets
-                          ],
-                        ),
-                      ),
+                                // autres widgets
+                              ],
+                            ),
+                          ),
+                        );
+                      },
                     );
                   },
-                );
-              },
+                ),
+                Positioned(
+                  top: 10,
+                  right: 10,
+                  child: IconButton(
+                      onPressed: (){
+                        SystemNavigator.pop();
+                        //Navigator.of(context).pop();
+                      },
+                      icon: Icon(Iconsax.arrow_right_1, color: _appTheme =='light' ? TColors.black : TColors.white)
+                  )
+                ),
+              ],
             ),
 
              SizedBox(height: 20.v),
-            TitleWidget(title: "الاشتراک",
-              color: _appTheme =='light' ? TColors.black : TColors.primaryColorApp,
-              fontSizeDelta: 2,
-              textAlign: TextAlign.center,),
+            Visibility(
+              visible: false,
+              child: TitleWidget(title: "الاشتراک",
+                color: _appTheme =='light' ? TColors.black : TColors.primaryColorApp,
+                fontSizeDelta: 2,
+                textAlign: TextAlign.center,),
+            ),
 
             SizedBox(height: 20.v),
 
             /// Button
             CustomButtonContainer(
-              text: 'انضم الآن',
+              text: 'إنشاء حساب',
               color1: TColors.primaryColorApp,
               color2: TColors.primaryColorApp,
               borderRadius: 10,

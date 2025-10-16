@@ -335,6 +335,7 @@ class MessageScreen extends GetView<MessageController> {
                 SizedBox(width: screenWidth * 0.02),
       
                 TRoundedContainer(
+                  height: 65.adaptSize,
                   showBorder: true,
                   borderColor: _appTheme =='light' ? TColors.greyDating : TColors.white,
                  backgroundColor: _appTheme =='light' ? TColors.greyDating : TColors.dark,
@@ -343,6 +344,8 @@ class MessageScreen extends GetView<MessageController> {
                  child: Directionality(
                    textDirection: TextDirection.rtl,
                    child: Row(
+                     mainAxisAlignment: MainAxisAlignment.center,
+                     crossAxisAlignment: CrossAxisAlignment.center,
                      children: [
                        SizedBox(
                          width: screenWidth * 0.1,

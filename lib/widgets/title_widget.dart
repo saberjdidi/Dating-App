@@ -22,7 +22,7 @@ class TitleWidget extends StatelessWidget {
     var _appTheme = PrefUtils.getTheme();
 
     return Text(title,
-        style: Theme.of(context).textTheme.headlineMedium!.apply(
+        style: Theme.of(context).textTheme.headlineSmall!.apply(
           color: color,
            /* color: _appTheme =='light'
                 ? color

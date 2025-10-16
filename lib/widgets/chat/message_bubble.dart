@@ -57,6 +57,7 @@ class MessageBubble extends StatelessWidget {
                   ],
                 ),
               ),
+              //decoration: (message.text != null) ?  BoxDecoration(borderRadius: isSender...) : BoxDecoration(color: appTheme.blueGray900,),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

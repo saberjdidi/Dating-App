@@ -358,22 +358,29 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
                       return Column(
                         children: [
                           SizedBox(height: 10.v),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              SubTitleWidget(
-                                subtitle: user.fullName,
-                                fontWeightDelta: 1,
-                                color: TColors.black,
-                              ),
-                              SizedBox(width: 10.v),
-                              CustomImageView(
-                                imagePath: user.imageProfile,
-                                width: 50.adaptSize,
-                                height: 50.adaptSize,
-                                radius: BorderRadius.circular(60.adaptSize),
-                              ),
-                            ],
+                          GestureDetector(
+                            onTap: (){
+                              Get.toNamed(Routes.profileDetailsScreen, arguments: {
+                              "UserModel" : user
+                              });
+                              },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                SubTitleWidget(
+                                  subtitle: user.fullName,
+                                  fontWeightDelta: 1,
+                                  color: TColors.black,
+                                ),
+                                SizedBox(width: 10.v),
+                                CustomImageView(
+                                  imagePath: user.imageProfile,
+                                  width: 50.adaptSize,
+                                  height: 50.adaptSize,
+                                  radius: BorderRadius.circular(60.adaptSize),
+                                ),
+                              ],
+                            ),
                           ),
                            SizedBox(height: 10.v),
                           CustomDividerWidget(),

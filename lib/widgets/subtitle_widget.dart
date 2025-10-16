@@ -21,7 +21,7 @@ class SubTitleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
         subtitle,
-        style: Theme.of(context).textTheme.bodyMedium!
+        style: Theme.of(context).textTheme.bodySmall!
             .apply(color: color, fontSizeDelta: fontSizeDelta, fontWeightDelta: fontWeightDelta),
       textAlign: textAlign,
     );

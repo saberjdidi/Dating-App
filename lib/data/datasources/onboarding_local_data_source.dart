@@ -10,7 +10,7 @@ List<OnboardingModel> onBoardingList = [
   ),
   OnboardingModel(
       title: "تجربتك الفريدة",
-      body: "عش تجربتك الفريد في ايجاد نصفك الآخر",
+      body: "عش تجربتك الفريدة في ايجاد نصفك الآخر",
       image: ImageConstant.imgOnBoarding2
   ),
   OnboardingModel(
