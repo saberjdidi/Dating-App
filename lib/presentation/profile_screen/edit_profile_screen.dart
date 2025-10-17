@@ -45,7 +45,7 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
             //backgroundColor: _appTheme == 'light' ? TColors.white : appTheme.primaryColor,
             appBar: TAppBar(
               title: TitleWidget(
-                title: "تعديل الملف",
+                title: "ملفي",
                 fontWeightDelta: 3,
                 color: _appTheme =='light' ? TColors.buttonSecondary : TColors.white,
               ),

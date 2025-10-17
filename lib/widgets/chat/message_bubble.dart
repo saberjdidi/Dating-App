@@ -202,7 +202,7 @@ class MessageBubble2 extends StatelessWidget {
           children: [
             Container(
               margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.all(3),
               decoration: BoxDecoration(
                 borderRadius: isSender
                     ? BorderRadius.only(

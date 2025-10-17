@@ -196,7 +196,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                     color2: TColors.primaryColorApp,
                                     borderRadius: 30,
                                     colorText: TColors.white,
-                                    fontSize: isTablet ? 25.adaptSize : 20.adaptSize,
+                                    fontSize: isTablet ? 25.adaptSize : 21.adaptSize,
                                     height: isSmallPhone ? 75.v : 65.v,
                                     width: isTablet ? Get.width * 0.5 : Get.width * 0.6,
                                     onPressed: () async {
@@ -220,12 +220,12 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                     children: [
                                       SubTitleWidget(fontSizeDelta: 2, fontWeightDelta: 2,subtitle: "الصور / الفيديوات", color: _appTheme =='light' ? TColors.black : TColors.white),
                                       CustomButtonContainer(
-                                          text:"حذف",
+                                          text:"تعديل",
                                           color1: TColors.primaryColorApp,
                                           color2: TColors.primaryColorApp,
                                           borderRadius: 30,
                                           colorText: TColors.white,
-                                          fontSize: isTablet ? 25.adaptSize : 20.adaptSize,
+                                          fontSize: isTablet ? 25.adaptSize : 21.adaptSize,
                                           height: isSmallPhone ? 65.v : isTablet ? 55.v : 40.v,
                                           width: 120.adaptSize,
                                           onPressed: () async {

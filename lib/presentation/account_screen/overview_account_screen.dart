@@ -43,7 +43,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
             //backgroundColor: _appTheme == 'light' ? TColors.white : appTheme.primaryColor,
             appBar: TAppBar(
               title: TitleWidget(
-                title: "نبذة عني",
+                title: "ملفي",
                 fontWeightDelta: 3,
                 color: _appTheme =='light' ? TColors.buttonSecondary : TColors.white,
               ),
