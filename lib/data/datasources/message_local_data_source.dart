@@ -15,6 +15,7 @@ class MessageLocalDataSource {
         receiverProfile: ImageConstant.profile6,
         text: "Salut Bob!",
         createdAt: DateTime.now().subtract(Duration(minutes: 5)),
+        isSeen: true
       ),
       MessageModel(
         messageId: "2",
@@ -26,6 +27,7 @@ class MessageLocalDataSource {
         receiverProfile: ImageConstant.profile8,
         text: "Salut Alice, ça va?",
         createdAt: DateTime.now().subtract(Duration(minutes: 3)),
+          isSeen: true
       ),
       MessageModel(
         messageId: "3",

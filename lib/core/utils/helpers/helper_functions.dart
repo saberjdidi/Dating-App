@@ -150,4 +150,71 @@ class THelperFunctions {
     }
     return wrappedList;
   }
+
+  /// Convert Arabic social state to backend enum
+  static String getSocialStateEnum(String arabicValue) {
+    switch (arabicValue.trim()) {
+      case 'أعزب':
+        return 'single';
+      case 'متزوج':
+        return 'married';
+      case 'مطلق':
+      case 'مُطلّق':
+        return 'divorced';
+      case 'أرمل':
+        return 'widowed';
+      default:
+        return 'other';
+    }
+  }
+
+  /// Convert backend enum to Arabic
+  static String getSocialStateArabic(String englishValue) {
+    switch (englishValue.trim()) {
+      case 'single':
+        return 'أعزب';
+      case 'married':
+        return 'متزوج';
+      case 'divorced':
+        return 'مطلق';
+      case 'widowed':
+        return 'أرمل';
+      default:
+        return 'آخر';
+    }
+  }
+
+  /// Convert Arabic marriage type to backend enum
+  static String getMarriageTypeEnum(String arabicValue) {
+    switch (arabicValue.trim()) {
+      case 'الصداقة':
+        return 'friend';
+      case 'مواعدة':
+        return 'date';
+      case 'معيشة':
+        return 'living_partner';
+      case 'زواج':
+      case 'زواج معلن دائم':
+      case 'زواج سري دائم':
+        return 'marriage';
+      default:
+        return 'other';
+    }
+  }
+
+  /// Convert backend enum to Arabic (for display)
+  static String getMarriageTypeArabic(String englishValue) {
+    switch (englishValue.trim()) {
+      case 'friend':
+        return 'الصداقة';
+      case 'date':
+        return 'مواعدة';
+      case 'living_partner':
+        return 'معيشة';
+      case 'marriage':
+        return 'زواج';
+      default:
+        return 'آخر';
+    }
+  }
 }

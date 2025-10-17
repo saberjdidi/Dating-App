@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:dating_app_bilhalal/core/app_export.dart';
+import 'package:dating_app_bilhalal/core/utils/helpers/dropdown_functions.dart';
 import 'package:dating_app_bilhalal/core/utils/network_manager.dart';
 import 'package:dating_app_bilhalal/core/utils/permissions_helper.dart';
 import 'package:dating_app_bilhalal/data/datasources/dropdown_local_data_source.dart';
@@ -41,7 +42,6 @@ class EditProfileController extends GetxController {
   FocusNode lookingForFocus = FocusNode();
   FocusNode paysFocus = FocusNode();
 
-  RxInt sexValue = 0.obs;
   RxDouble currentAgeValue = 20.toDouble().obs;
   RxDouble currentWeightValue = 50.toDouble().obs;
   RxDouble currentHeightValue = 170.toDouble().obs;
@@ -136,6 +136,7 @@ class EditProfileController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    // Charger données de l’utilisateur
     fullNameController.text = userInfo.username! ?? '';
     bioController.text = userInfo.profile!.description ?? '';
     jobController.text = userInfo.profile!.jobTitle ?? '';
@@ -143,9 +144,26 @@ class EditProfileController extends GetxController {
     currentHeightValue.value = userInfo.height != null ? userInfo.height!.toDouble() : 0;
     currentWeightValue.value = userInfo.weight != null ? userInfo.weight!.toDouble() : 0;
     //currentRangeValues.value = RangeValues(double.parse(userInfo.profile!.salaryRangeMin.toString()), double.parse(userInfo.profile!.salaryRangeMax.toString()));
-    sexValue.value = userInfo.gender != null ? userInfo.gender! : -1;
     //selectedMaritalStatus.value = ListMaritalStatus.value.first;
-    //selectedMaritalStatus.value = userInfo.profile!.socialState != null ? SelectionPopupModel(title: userInfo.profile!.socialState!, id: 1) : SelectionPopupModel(title: "");
+
+    final profile = userInfo.profile;
+    if (profile != null) {
+      // --- Social State ---
+      final socialArabic = THelperFunctions.getSocialStateArabic(userInfo.profile?.socialState ?? '');
+      maritalStatusController.text = socialArabic;
+
+      final socialItem = ListMaritalStatus.value.firstWhereOrNull(
+              (item) => item.title == socialArabic);
+      selectedMaritalStatus.value = socialItem;
+
+      // --- Marriage Type ---
+      final marriageArabic = THelperFunctions.getMarriageTypeArabic(userInfo.profile?.marriageType ?? '');
+      lookingForController.text = marriageArabic;
+
+      final marriageItem = ListLookingFor.value.firstWhereOrNull(
+              (item) => item.title == marriageArabic);
+      selectedLookingFor.value = marriageItem;
+    }
   }
 
   @override
@@ -260,13 +278,13 @@ class EditProfileController extends GetxController {
           height: int.parse(currentHeightValue.value.round().toString()),
           weight: int.parse(currentWeightValue.value.round().toString()),
           bio: bioController.text.trim(),
-          socialState: maritalStatusController.text.trim(),
-          marriageType: lookingForController.text.trim(),
+          socialState: THelperFunctions.getSocialStateEnum(maritalStatusController.text), //maritalStatusController.text.trim(),
+          marriageType: THelperFunctions.getMarriageTypeEnum(lookingForController.text), //lookingForController.text.trim(),
           jobTitle: jobController.text.trim(),
           salaryRangeMin: currentRangeValues.value.start.round().toString(),
           salaryRangeMax: currentRangeValues.value.end.round().toString(),
-          country: paysController.text.trim(),
-          skinColor: selectedColor.value
+          country: "Tunis", //paysController.text.trim(),
+          skinColor: "olive"//selectedColor.value
         );
 
      /* final result2 = await profileRepository.updateProfile({

@@ -16,8 +16,8 @@ import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
-class MessageScreen extends GetView<MessageController> {
-  MessageScreen({super.key});
+class MessageScreen2 extends GetView<MessageController> {
+  MessageScreen2({super.key});
 
   final settingsController = Get.put(SettingsController());
   var _appTheme = PrefUtils.getTheme();
@@ -289,29 +289,33 @@ class MessageScreen extends GetView<MessageController> {
               }
               return SizedBox.shrink();
             }),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: screenWidth * 0.12,
-                  child: CircleIconButton(
-                    size: 60.adaptSize,
-                    minTapSize: 60.adaptSize,
-                    effectiveSize: 60.adaptSize,
-                    backgroundColor: _appTheme =='light' ? TColors.greyDating : TColors.blackGrey,
-                    child: IconButton(
-                        icon: Icon(Icons.add, color: _appTheme =='light' ? TColors.buttonSecondary : TColors.white, size: 30.adaptSize,),
-                        onPressed: () {
-                          controller.showAttachmentOptions(context);
-                        }),
+
+            Obx(() {
+              final bool hasText = controller.currentText.isNotEmpty || controller.isFocused.value;
+
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: screenWidth * 0.12,
+                    child: CircleIconButton(
+                      size: 60.adaptSize,
+                      minTapSize: 60.adaptSize,
+                      effectiveSize: 60.adaptSize,
+                      backgroundColor: _appTheme =='light' ? TColors.greyDating : TColors.blackGrey,
+                      child: IconButton(
+                          icon: Icon(Icons.add, color: _appTheme =='light' ? TColors.buttonSecondary : TColors.white, size: 30.adaptSize,),
+                          onPressed: () {
+                            controller.showAttachmentOptions(context);
+                          }),
+                    ),
                   ),
-                ),
 
-                // Bouton toggle (un clic start/stop)
+                  // Bouton toggle (un clic start/stop)
 
-                // Long press mic (record)
-                /*
+                  // Long press mic (record)
+                  /*
                 GestureDetector(
                   onLongPressStart: (_) async {
                     await controller.startRecording();
@@ -339,72 +343,72 @@ class MessageScreen extends GetView<MessageController> {
                 ),
                 */
 
-                SizedBox(width: screenWidth * 0.02),
+                  SizedBox(width: screenWidth * 0.02),
 
-                TRoundedContainer(
-                  //height: hasText ? null : 60.adaptSize, //hauteur dynamic
-                  height: controller.currentText.isEmpty && !controller.isFocused.value ? 60.adaptSize : null,
-                  //height: 60.adaptSize,
-                  showBorder: true,
-                  borderColor: _appTheme =='light' ? TColors.greyDating : TColors.white,
-                  backgroundColor: _appTheme =='light' ? TColors.greyDating : TColors.dark,
-                  radius: 35.adaptSize,
-                  padding: EdgeInsets.symmetric(horizontal: 2.hw, vertical: 0),
-                  child: Center(
-                    child: Directionality(
-                      textDirection: TextDirection.rtl,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                              width: screenWidth * 0.1,
-                              child: Obx(() => IconButton(
-                                icon: Icon(controller.isRecording.value ? Icons.stop : Icons.keyboard_voice_outlined,
-                                  color: controller.isRecording.value ? Colors.red : Color(0xFF6B7280),
-                                  size: 30.adaptSize,),
-                                onPressed: () async => await controller.toggleRecording(),
-                              ))
-                          ),
-                          SizedBox(
-                            width: screenWidth * 0.55,
-                            child: ConstrainedBox(
-                              constraints: BoxConstraints(
-                                //minHeight: controller.minHeight.adaptSize,  // hauteur minimale du champ
-                                //maxHeight: controller.maxHeight.adaptSize, // hauteur maximale avant scroll
-                                minHeight: 60.adaptSize, // hauteur minimale du champ
-                                maxHeight: 150.adaptSize, // hauteur maximale avant scroll
-                              ),
-                              child: Scrollbar(
-                                child: TextField(
-                                  controller: controller.messageController,
-                                  //focusNode: controller.focusNode,
-                                  onChanged: (value){
-                                    controller.isRTL.value = TDeviceUtils.isArabic(value);
-                                    controller.currentText.value = value; // Pour mise à jour dynamique du height
-                                  },
-                                  style: TextStyle(
-                                    color: _appTheme == 'light' ? TColors.black : TColors.white,
-                                  ),
-                                  cursorColor: _appTheme == 'light' ? TColors.black : TColors.white,
-                                  keyboardType: TextInputType.multiline,
-                                  textInputAction: TextInputAction.newline,
-                                  textAlignVertical: TextAlignVertical.center,
-                                  minLines: 1, // commence sur une ligne
-                                  maxLines: null, // s’agrandit automatiquement
-                                  decoration: InputDecoration(
-                                    hintText: "اكتب رسالة",
-                                    border: InputBorder.none,
-                                    isDense: true,
-                                    hintStyle: TextStyle(
+                  TRoundedContainer(
+                    height: hasText ? null : 60.adaptSize, //hauteur dynamic
+                    //height: controller.currentText.isEmpty && !controller.isFocused.value ? 60.adaptSize : null,
+                    //height: 60.adaptSize,
+                    showBorder: true,
+                    borderColor: _appTheme =='light' ? TColors.greyDating : TColors.white,
+                    backgroundColor: _appTheme =='light' ? TColors.greyDating : TColors.dark,
+                    radius: 35.adaptSize,
+                    padding: EdgeInsets.symmetric(horizontal: 2.hw, vertical: 0),
+                    child: Center(
+                      child: Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                                width: screenWidth * 0.1,
+                                child: Obx(() => IconButton(
+                                  icon: Icon(controller.isRecording.value ? Icons.stop : Icons.keyboard_voice_outlined,
+                                    color: controller.isRecording.value ? Colors.red : Color(0xFF6B7280),
+                                    size: 30.adaptSize,),
+                                  onPressed: () async => await controller.toggleRecording(),
+                                ))
+                            ),
+                            SizedBox(
+                              width: screenWidth * 0.55,
+                              child: ConstrainedBox(
+                                constraints: BoxConstraints(
+                                  //minHeight: controller.minHeight.adaptSize,  // hauteur minimale du champ
+                                  //maxHeight: controller.maxHeight.adaptSize, // hauteur maximale avant scroll
+                                  minHeight: 60.adaptSize, // hauteur minimale du champ
+                                  maxHeight: 150.adaptSize, // hauteur maximale avant scroll
+                                ),
+                                child: Scrollbar(
+                                  child: TextField(
+                                    controller: controller.messageController,
+                                    focusNode: controller.focusNode,
+                                    onChanged: (value){
+                                      controller.isRTL.value = TDeviceUtils.isArabic(value);
+                                      controller.currentText.value = value; // Pour mise à jour dynamique du height
+                                    },
+                                    style: TextStyle(
                                       color: _appTheme == 'light' ? TColors.black : TColors.white,
                                     ),
-                                    contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                                    cursorColor: _appTheme == 'light' ? TColors.black : TColors.white,
+                                    keyboardType: TextInputType.multiline,
+                                    textInputAction: TextInputAction.newline,
+                                    textAlignVertical: TextAlignVertical.center,
+                                    minLines: 1, // commence sur une ligne
+                                    maxLines: null, // s’agrandit automatiquement
+                                    decoration: InputDecoration(
+                                      hintText: "اكتب رسالة",
+                                      border: InputBorder.none,
+                                      isDense: true,
+                                      hintStyle: TextStyle(
+                                        color: _appTheme == 'light' ? TColors.black : TColors.white,
+                                      ),
+                                      contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            /*
+                              /*
                            child: TextField(
                              controller: controller.messageController,
                              onChanged: (value) => controller.isRTL.value = TDeviceUtils.isArabic(value),
@@ -425,7 +429,7 @@ class MessageScreen extends GetView<MessageController> {
                              textAlignVertical: TextAlignVertical.center,
                            ),
                             */
-                            /*
+                              /*
                            Obx(() => Directionality(
                              textDirection: controller.isRTL.value ? TextDirection.rtl : TextDirection.ltr,
                              child: TextField(
@@ -445,14 +449,14 @@ class MessageScreen extends GetView<MessageController> {
                              ),
                            )),
                             */
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
 
-                /* Expanded(
+                  /* Expanded(
                   child: CustomTextFormField(
                     controller: controller.messageController,
                     hintText: "اكتب رسالة",
@@ -467,22 +471,23 @@ class MessageScreen extends GetView<MessageController> {
                     ),
                   ),
                 ), */
-                SizedBox(width: screenWidth * 0.02),
+                  SizedBox(width: screenWidth * 0.02),
 
-                SizedBox(
-                  width: screenWidth * 0.12,
-                  child: CustomImageView(
-                    imagePath: ImageConstant.imgSend,
-                    //width: 60.adaptSize,
-                    //height: 60.adaptSize,
-                    // radius: BorderRadius.circular(60.adaptSize),
-                    onTap: () async {
-                      await controller.sendMessage();
-                    },
+                  SizedBox(
+                    width: screenWidth * 0.12,
+                    child: CustomImageView(
+                      imagePath: ImageConstant.imgSend,
+                      //width: 60.adaptSize,
+                      //height: 60.adaptSize,
+                      // radius: BorderRadius.circular(60.adaptSize),
+                      onTap: () async {
+                        await controller.sendMessage();
+                      },
+                    ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              );
+            }),
       
             // Small recording overlay while recording
             Obx(() {

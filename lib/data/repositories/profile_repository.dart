@@ -68,6 +68,8 @@ class ProfileRepository {
         "skin_tone_hex": skinColor
       };
 
+      debugPrint("body edi profile  : $body");
+
       final resp = await _client.put('${ApiConstants.user}/profile', data: body);
 
       if (resp.statusCode == HttpStatusCode.ok) {

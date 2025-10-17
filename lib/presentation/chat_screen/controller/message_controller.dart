@@ -22,6 +22,11 @@ class MessageController extends GetxController {
 
   ChatModel userChatModel  = Get.arguments['ChatDiscussion'] ?? ChatModel.empty();
   final TextEditingController messageController = TextEditingController();
+  final FocusNode focusNode = FocusNode();
+
+  final RxBool isFocused = false.obs;
+  final RxString currentText = ''.obs;
+
   var messages = <MessageModel>[].obs;
 
   var isRTL = false.obs;
@@ -292,6 +297,7 @@ class MessageController extends GetxController {
     _recordTick?.cancel();
     sharedPlayer.dispose();
     record.dispose();
+    focusNode.dispose();
     super.onClose();
   }
   ///Record Audio End
@@ -300,7 +306,16 @@ class MessageController extends GetxController {
   void onInit() {
     super.onInit();
     loadMessages();
-    messageController.addListener(_adjustHeight);
+
+    // Quand le curseur entre/sort du champ
+    focusNode.addListener(() {
+      isFocused.value = focusNode.hasFocus;
+    });
+
+    // Quand le texte change
+    messageController.addListener(() {
+      currentText.value = messageController.text.trim();
+    });
   }
 
   void loadMessages() {
@@ -603,14 +618,6 @@ class MessageController extends GetxController {
   }
 ///Contact End
 
-  final RxDouble containerHeight = 60.adaptSize.obs; // 👈 hauteur dynamique
-  final double minHeight = 60.0;
-  final double maxHeight = 150.0;
-  void _adjustHeight() {
-    // Calcule la hauteur estimée du texte
-    final int lines = '\n'.allMatches(messageController.text).length + 1;
-    final double newHeight = (minHeight + (lines - 1) * 25).clamp(minHeight, maxHeight);
-    containerHeight.value = newHeight;
-  }
+
 }
 

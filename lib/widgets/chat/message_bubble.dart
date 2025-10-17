@@ -33,25 +33,28 @@ class MessageBubble extends StatelessWidget {
     return Align(
       alignment: isSender ? Alignment.centerRight : Alignment.centerLeft,
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 10),
+        padding: const EdgeInsets.only(bottom: 8, right: 8, left: 8),
         child: Column(
           crossAxisAlignment:
           isSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
+            // === MESSAGE BUBBLE ===
             Container(
-              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-              padding: hasMedia ? EdgeInsets.zero : const EdgeInsets.all(10),
+              margin: const EdgeInsets.symmetric(vertical: 3, horizontal: 4),
+              padding: hasMedia
+                  ? EdgeInsets.zero
+                  : const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
               decoration: hasMedia
-                  ? null // ❌ pas de decoration pour image/vidéo
+                  ? null
                   : BoxDecoration(
                 borderRadius: isSender
-                    ? BorderRadius.only(
+                    ? const BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
                   bottomRight: Radius.circular(5),
                   bottomLeft: Radius.circular(20),
                 )
-                    : BorderRadius.only(
+                    : const BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
                   bottomRight: Radius.circular(20),
@@ -137,36 +140,56 @@ class MessageBubble extends StatelessWidget {
                   // === TEXTE ===
                   if (message.text != null && message.text!.isNotEmpty)
                     Padding(
-                      padding: const EdgeInsets.only(top: 4.0),
+                      padding: const EdgeInsets.only(top: 2.0),
                       child: Text(
                         message.text!,
-                        style: TextStyle(fontSize: 16.adaptSize),
+                        style: TextStyle(
+                          fontSize: 15.adaptSize,
+                          color: isSender ? Colors.white : Colors.black,
+                        ),
                       ),
                     ),
+                ],
+              ),
+            ),
 
-                  // === HEURE ===
-                  Padding(
-                    padding: const EdgeInsets.only(top: 2.0),
-                    child: Text(
-                      "${message.createdAt.hour}:${message.createdAt.minute.toString().padLeft(2, '0')}",
-                      style: TextStyle(
-                        fontSize: 13.adaptSize,
-                        color: Colors.black54,
-                      ),
+            // === HEURE + ICÔNE VU ===
+            Padding(
+              padding: const EdgeInsets.only(top: 2.0, left: 6, right: 6),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment:
+                isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
+                children: [
+                  Text(
+                    "${message.createdAt.hour}:${message.createdAt.minute.toString().padLeft(2, '0')}",
+                    style: TextStyle(
+                      fontSize: 12.adaptSize,
+                      color: Colors.grey[600],
                     ),
                   ),
+                  if (isSender) ...[
+                    const SizedBox(width: 4),
+                    Icon(
+                      Icons.done_all,
+                      size: 18.adaptSize,
+                      color: message.isSeen == true
+                          ? Colors.blueAccent // ✅ vu
+                          : Colors.grey, // ⏳ non vu
+                    ),
+                  ],
                 ],
               ),
             ),
 
             // === AVATAR ===
             Padding(
-              padding: const EdgeInsets.only(right: 3.0, left: 3.0, top: 0),
+              padding: const EdgeInsets.only(right: 3.0, left: 3.0, top: 2),
               child: CustomImageView(
                 imagePath: isSender ? myImageProfile : profileUser,
-                width: 30,
-                height: 30,
-                radius: BorderRadius.circular(30),
+                width: 25,
+                height: 25,
+                radius: BorderRadius.circular(25),
               ),
             ),
           ],
@@ -175,6 +198,7 @@ class MessageBubble extends StatelessWidget {
     );
   }
 }
+
 
 
 class MessageBubble2 extends StatelessWidget {
