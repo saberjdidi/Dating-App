@@ -194,7 +194,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                        ),
                        SizedBox(width: 10.adaptSize),
                        Text(
-                         controller.userModel.bio,
+                         controller.userModel.bio!,
                          textAlign: TextAlign.right,
                          maxLines: 2,
                          overflow: TextOverflow.ellipsis,
@@ -359,9 +359,11 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                          size: isSmallPhone ? 85.hw : 70.hw,
                          minTapSize: isSmallPhone ? 85.hw : 70.hw,
                          effectiveSize: isSmallPhone ? 85.hw : 70.hw,
-                         backgroundColor: TColors.greyDating.withOpacity(0.5),
+                         backgroundColor: _appTheme =='light' ? TColors.greyDating.withOpacity(0.5) : TColors.dark,
                          showBorder: true,
-                         borderColor: TColors.primaryColorApp,
+                         borderColor: _appTheme =='light' ? TColors.white : TColors.buttonSecondary,
+                         //borderColor: TColors.primaryColorApp,
+                         //backgroundColor: TColors.greyDating.withOpacity(0.5),
                          child: CustomImageView(
                            imagePath: ImageConstant.iconChat,
                            color: TColors.primaryColorApp,
@@ -451,31 +453,27 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                            controller.sendReport();
                          }
                        },
-                       child: Row(
-                         mainAxisAlignment: MainAxisAlignment.end,
-                         children: [
-                           Obx(() => controller.isDataProcessing.value
-                     ? Container(
-                     color: Colors.black.withOpacity(0.4),
-                     child: Center(
-                       child: CircularProgressIndicator(
-                         backgroundColor: _appTheme =='light' ? Colors.white : TColors.darkerGrey,
-                         color: TColors.primaryColorApp,
-                       ),
-                       ),
-                      )
-                      : SubTitleWidget(
-                           subtitle: 'الإبلاغ',
-                           //subtitle: 'حضر الملف الشخصي',
-                           color: _appTheme =='light' ? TColors.black : TColors.white,
-                           fontWeightDelta: 2,
-                           fontSizeDelta: 1
-                       ))
-                           ,
-                           SizedBox(width: 10.hw),
-                           Icon(Iconsax.user_remove, color: _appTheme =='light' ? TColors.gray700 : TColors.white,),
+                       child: Obx(() => controller.isDataProcessing.value
+                           ? CircularProgressIndicator(
+                             backgroundColor: _appTheme =='light' ? Colors.white : TColors.darkerGrey,
+                             color: TColors.primaryColorApp,
+                              )
+                           :
+                           Row(
+                             mainAxisAlignment: MainAxisAlignment.end,
+                             children: [
+                               SubTitleWidget(
+                                   subtitle: 'الإبلاغ',
+                                   //subtitle: 'حضر الملف الشخصي',
+                                   color: _appTheme =='light' ? TColors.black : TColors.white,
+                                   fontWeightDelta: 2,
+                                   fontSizeDelta: 1
+                               ),
+                               SizedBox(width: 10.hw),
+                               Icon(Iconsax.user_remove, color: _appTheme =='light' ? TColors.gray700 : TColors.white,),
 
-                         ],
+                             ],
+                           )
                        ),
                      ),
                    ),

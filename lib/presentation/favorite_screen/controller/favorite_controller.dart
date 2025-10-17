@@ -1,6 +1,6 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/popups/full_screen_loader.dart';
-import 'package:dating_app_bilhalal/data/models/UserModel.dart';
+import 'package:dating_app_bilhalal/data/models/user_model.dart';
 import 'package:flutter/material.dart';
 
 class FavoriteController extends GetxController {

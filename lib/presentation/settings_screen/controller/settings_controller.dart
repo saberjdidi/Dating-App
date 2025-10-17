@@ -1,6 +1,6 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/permissions_helper.dart';
-import 'package:dating_app_bilhalal/data/models/UserModel.dart';
+import 'package:dating_app_bilhalal/data/models/user_model.dart';
 
 class SettingsController extends GetxController {
   static SettingsController get instance => Get.find();

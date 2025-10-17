@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dating_app_bilhalal/core/app_export.dart';
-import 'package:dating_app_bilhalal/data/models/UserModel.dart';
+import 'package:dating_app_bilhalal/data/models/user_model.dart';
 import 'package:dating_app_bilhalal/widgets/circle_icon_button.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
 import 'package:dating_app_bilhalal/widgets/custom_divider.dart';
@@ -368,7 +368,7 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 SubTitleWidget(
-                                  subtitle: user.fullName,
+                                  subtitle: user.fullName!,
                                   fontWeightDelta: 1,
                                   color: TColors.black,
                                 ),

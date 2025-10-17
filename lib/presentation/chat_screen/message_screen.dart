@@ -342,12 +342,13 @@ class MessageScreen extends GetView<MessageController> {
                 SizedBox(width: screenWidth * 0.02),
       
                 TRoundedContainer(
-                  height: 65.adaptSize,
+                  height: controller.containerHeight.value, //hauteur dynamic
+                  //height: 60.adaptSize,
                   showBorder: true,
                   borderColor: _appTheme =='light' ? TColors.greyDating : TColors.white,
                  backgroundColor: _appTheme =='light' ? TColors.greyDating : TColors.dark,
                  radius: 35.adaptSize,
-                 padding: EdgeInsets.symmetric(horizontal: 2.hw),
+                 padding: EdgeInsets.symmetric(horizontal: 2.hw, vertical: 0),
                  child: Center(
                    child: Directionality(
                      textDirection: TextDirection.rtl,
@@ -360,13 +361,49 @@ class MessageScreen extends GetView<MessageController> {
                            child: Obx(() {
                              return IconButton(
                                icon: Icon(controller.isRecording.value ? Icons.stop : Icons.keyboard_voice_outlined,
-                                   color: controller.isRecording.value ? Colors.red : Color(0xFF6B7280)),
+                                   color: controller.isRecording.value ? Colors.red : Color(0xFF6B7280),
+                                 size: 30.adaptSize,),
                                onPressed: () async => await controller.toggleRecording(),
                              );
                            }),
                          ),
                          SizedBox(
                            width: screenWidth * 0.55,
+                           child: Expanded(
+                             child: ConstrainedBox(
+                               constraints: BoxConstraints(
+                                 minHeight: controller.minHeight.value,  // hauteur minimale du champ
+                                 maxHeight: controller.maxHeight.value, // hauteur maximale avant scroll
+                                 //minHeight: 60.adaptSize, // hauteur minimale du champ
+                                 //maxHeight: 150.adaptSize, // hauteur maximale avant scroll
+                               ),
+                               child: Scrollbar(
+                                 child: TextField(
+                                   controller: controller.messageController,
+                                   onChanged: (value) => controller.isRTL.value = TDeviceUtils.isArabic(value),
+                                   style: TextStyle(
+                                     color: _appTheme == 'light' ? TColors.black : TColors.white,
+                                   ),
+                                   cursorColor: _appTheme == 'light' ? TColors.black : TColors.white,
+                                   keyboardType: TextInputType.multiline,
+                                   textInputAction: TextInputAction.newline,
+                                   textAlignVertical: TextAlignVertical.center,
+                                   minLines: 1, // commence sur une ligne
+                                   maxLines: null, // s’agrandit automatiquement
+                                   decoration: InputDecoration(
+                                     hintText: "اكتب رسالة",
+                                     border: InputBorder.none,
+                                     isDense: true,
+                                     hintStyle: TextStyle(
+                                       color: _appTheme == 'light' ? TColors.black : TColors.white,
+                                     ),
+                                     contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                                   ),
+                                 ),
+                               ),
+                             ),
+                           ),
+                           /*
                            child: TextField(
                              controller: controller.messageController,
                              onChanged: (value) => controller.isRTL.value = TDeviceUtils.isArabic(value),
@@ -384,7 +421,9 @@ class MessageScreen extends GetView<MessageController> {
                                  //fontSize: 18.adaptSize
                                  )
                              ),
+                             textAlignVertical: TextAlignVertical.center,
                            ),
+                            */
                            /*
                            Obx(() => Directionality(
                              textDirection: controller.isRTL.value ? TextDirection.rtl : TextDirection.ltr,
@@ -411,7 +450,7 @@ class MessageScreen extends GetView<MessageController> {
                    ),
                  ),
                 ),
-      
+
                /* Expanded(
                   child: CustomTextFormField(
                     controller: controller.messageController,
@@ -433,9 +472,9 @@ class MessageScreen extends GetView<MessageController> {
                   width: screenWidth * 0.12,
                   child: CustomImageView(
                     imagePath: ImageConstant.imgSend,
-                    //width: 50.adaptSize,
-                    //height: 50.adaptSize,
-                    //radius: BorderRadius.circular(50.adaptSize),
+                    width: 60.adaptSize,
+                    height: 60.adaptSize,
+                    radius: BorderRadius.circular(60.adaptSize),
                     onTap: () async {
                       await controller.sendMessage();
                     },

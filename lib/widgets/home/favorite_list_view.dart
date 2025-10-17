@@ -1,4 +1,4 @@
-import 'package:dating_app_bilhalal/data/models/UserModel.dart';
+import 'package:dating_app_bilhalal/data/models/user_model.dart';
 import 'package:dating_app_bilhalal/data/models/chat_model.dart';
 import 'package:dating_app_bilhalal/widgets/chat/chat_item.dart';
 import 'package:dating_app_bilhalal/widgets/home/favorite_card_widget.dart';

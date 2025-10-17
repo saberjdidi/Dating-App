@@ -105,7 +105,7 @@ class CustomSearchView extends StatelessWidget {
         hintStyle: hintStyle ?? CustomTextStyles.bodyMediumTextFormFieldGrey,
         prefixIcon: prefix ??
             Container(
-              margin: EdgeInsets.fromLTRB(20.hw, 18.v, 12.hw, 18.v),
+              margin: EdgeInsets.fromLTRB(16.hw, 10.v, 8.hw, 10.v),
               child: Icon(Iconsax.search_normal_1),
             ),
         prefixIconConstraints: prefixConstraints ??
@@ -129,22 +129,22 @@ class CustomSearchView extends StatelessWidget {
               maxHeight: 56.v,
             ), */
         isDense: true,
-        contentPadding: contentPadding ?? EdgeInsets.symmetric(vertical: 10.v),
+        contentPadding: contentPadding ?? EdgeInsets.symmetric(vertical: 7.v),
         fillColor: fillColor ?? (PrefUtils.getTheme() =='light' ? TColors.white : appTheme.gray700),
         filled: filled,
         border: borderDecoration ??
             OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12.hw),
+              borderRadius: BorderRadius.circular(20.hw),
               borderSide: BorderSide(color: TColors.grey500, width: 1)
             ),
         enabledBorder: borderDecoration ??
             OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12.hw),
+              borderRadius: BorderRadius.circular(20.hw),
               borderSide: BorderSide(color: TColors.grey500, width: 1)
             ),
         focusedBorder: borderDecoration ??
             OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12.hw),
+              borderRadius: BorderRadius.circular(20.hw),
               borderSide: BorderSide(color: TColors.grey500, width: 1),
               //borderSide: BorderSide.none,
             ),

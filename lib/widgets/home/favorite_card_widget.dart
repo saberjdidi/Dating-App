@@ -1,5 +1,5 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
-import 'package:dating_app_bilhalal/data/models/UserModel.dart';
+import 'package:dating_app_bilhalal/data/models/user_model.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
 import 'package:dating_app_bilhalal/widgets/gradient/gradient_svg_icon.dart';
 import 'package:dating_app_bilhalal/widgets/home/favorite_icon.dart';
@@ -111,7 +111,7 @@ class FavoriteCardWidget extends StatelessWidget {
                             ),
                             SizedBox(width: 5.adaptSize),
                             Text(
-                              user.bio,
+                              user.bio!,
                               textAlign: TextAlign.right,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,

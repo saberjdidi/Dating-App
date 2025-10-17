@@ -288,6 +288,7 @@ class MessageController extends GetxController {
 
   @override
   void onClose() {
+    messageController.dispose();
     _recordTick?.cancel();
     sharedPlayer.dispose();
     record.dispose();
@@ -299,6 +300,7 @@ class MessageController extends GetxController {
   void onInit() {
     super.onInit();
     loadMessages();
+    messageController.addListener(_adjustHeight);
   }
 
   void loadMessages() {
@@ -601,5 +603,14 @@ class MessageController extends GetxController {
   }
 ///Contact End
 
+  final RxDouble containerHeight = 60.adaptSize.obs; // 👈 hauteur dynamique
+  final RxDouble minHeight = 60.adaptSize.obs;
+  final RxDouble maxHeight = 150.adaptSize.obs;
+  void _adjustHeight() {
+    // Calcule la hauteur estimée du texte
+    final int lines = '\n'.allMatches(messageController.text).length + 1;
+    final double newHeight = (minHeight.value + (lines - 1) * 25).clamp(minHeight.value, maxHeight.value);
+    containerHeight.value = newHeight;
+  }
 }
 

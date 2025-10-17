@@ -50,7 +50,7 @@ class FavoriteScreen extends StatelessWidget {
                 onChanged: controller.onSearchChanged,
                 autofocus: false,
                 borderDecoration: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.hw),
+                    borderRadius: BorderRadius.circular(25.hw),
                     borderSide: BorderSide(color: TColors.greyDating, width: 1)
                 ),
               ),

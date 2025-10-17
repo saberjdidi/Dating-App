@@ -1,5 +1,5 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
-import 'package:dating_app_bilhalal/data/models/UserModel.dart';
+import 'package:dating_app_bilhalal/data/models/user_model.dart';
 
 class UserChatProfileController extends GetxController {
   static UserChatProfileController get instance => Get.find();
