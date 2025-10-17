@@ -26,6 +26,7 @@ class Routes {
 
   static const String profileScreen = '/profile_screen';
   static const String userOwnerProfileScreen = '/user_owner_profile_screen';
+  static const String editProfileScreen = '/edit_profile_screen';
   static const String profileDetailsScreen = '/profile_details_screen';
   static const String updateProfileScreen = '/update_profile_screen';
   static const String mediaOwnerProfileScreen = '/media_owner_profile_screen';

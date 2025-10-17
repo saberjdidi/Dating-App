@@ -3,7 +3,7 @@ import 'package:dating_app_bilhalal/data/models/profile_model.dart';
 import 'stats_model.dart';
 
 class UserModel {
-  int? id;
+  String? id;
   String? username;
   String? email;
   int? age;
@@ -12,8 +12,8 @@ class UserModel {
   int? gender;
   String? mainProfile;
   String? mainProfileType;
-  String? createdAt;
-  String? updatedAt;
+  //String? createdAt;
+  //String? updatedAt;
   bool? isActive;
   String? googleId;
   ProfileModel? profile;
@@ -37,8 +37,8 @@ class UserModel {
     this.gender,
     this.mainProfile,
     this.mainProfileType,
-    this.createdAt,
-    this.updatedAt,
+    //this.createdAt,
+    //this.updatedAt,
     this.isActive,
     this.googleId,
     this.profile,
@@ -64,8 +64,8 @@ class UserModel {
     gender = json['gender'];
     mainProfile = json['main_profile'];
     mainProfileType = json['main_profile_type'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
+    //createdAt = json['created_at'];
+    //updatedAt = json['updated_at'];
     isActive = json['is_active'];
     googleId = json['google_id'];
     profile = json['profile'] != null ? new ProfileModel.fromJson(json['profile']) : null;
@@ -83,8 +83,8 @@ class UserModel {
     data['gender'] = this.gender;
     data['main_profile'] = this.mainProfile;
     data['main_profile_type'] = this.mainProfileType;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
+    //data['created_at'] = this.createdAt;
+    //data['updated_at'] = this.updatedAt;
     data['is_active'] = this.isActive;
     data['google_id'] = this.googleId;
     if (this.profile != null) {

@@ -26,6 +26,7 @@ import 'package:dating_app_bilhalal/presentation/password_screen/binding/passwor
 import 'package:dating_app_bilhalal/presentation/password_screen/change_password_screen.dart';
 import 'package:dating_app_bilhalal/presentation/password_screen/forget_password_screen.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/binding/profile_binding.dart';
+import 'package:dating_app_bilhalal/presentation/profile_screen/edit_profile_screen.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/media_owner_profile_screen.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/profile_details_screen.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/profile_screen.dart';
@@ -186,6 +187,13 @@ class AppRoutes {
     GetPage(
       name: Routes.userOwnerProfileScreen,
       page: () => UserOwnerProfileScreen(),
+      bindings: [
+        ProfileBinding(),
+      ],
+    ),
+    GetPage(
+      name: Routes.editProfileScreen,
+      page: () => EditProfileScreen(),
       bindings: [
         ProfileBinding(),
       ],

@@ -4,6 +4,7 @@ import 'package:dating_app_bilhalal/data/datasources/dropdown_local_data_source.
 import 'package:dating_app_bilhalal/data/models/country_model.dart';
 import 'package:dating_app_bilhalal/data/models/interest_model.dart';
 import 'package:dating_app_bilhalal/presentation/account_screen/controller/create_account_controller.dart';
+import 'package:dating_app_bilhalal/presentation/profile_screen/controller/edit_profile_controller.dart';
 import 'package:dating_app_bilhalal/widgets/account/choice-chip.dart';
 import 'package:dating_app_bilhalal/widgets/account/interest_widget.dart';
 import 'package:dating_app_bilhalal/widgets/account/profile_image_stack.dart';
@@ -20,10 +21,10 @@ import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
-class OverviewAccountScreen extends GetWidget<CreateAccountController> {
-  OverviewAccountScreen({super.key});
+class EditProfileScreen extends GetWidget<EditProfileController> {
+  EditProfileScreen({super.key});
 
-  final GlobalKey<ScaffoldState> _scaffoldKeyOverviewAccount = GlobalKey<
+  final GlobalKey<ScaffoldState> _scaffoldKeyEditProfile = GlobalKey<
       ScaffoldState>();
   var _appTheme = PrefUtils.getTheme();
 
@@ -37,29 +38,17 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
     return SafeArea(
         top: false,
         child: Form(
-          key: controller.formOverviewAccountKey,
+          key: controller.formEditProfileKey,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Scaffold(
+            key: _scaffoldKeyEditProfile,
             //backgroundColor: _appTheme == 'light' ? TColors.white : appTheme.primaryColor,
             appBar: TAppBar(
               title: TitleWidget(
-                title: "نبذة عني",
+                title: "تعديل الملف",
                 fontWeightDelta: 3,
                 color: _appTheme =='light' ? TColors.buttonSecondary : TColors.white,
               ),
-             /* title: Text('ملخص',
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .headlineSmall!
-                    .copyWith(
-                  color: TColors.black,
-                  fontSize: 22.fSize,
-                  fontWeight: FontWeight.bold,
-                  //decoration: TextDecoration.underline,
-                  decorationColor: TColors.black,
-                ),
-              ), */
             ),
             body: Padding(
               padding: const EdgeInsets.all(TSizes.spaceBtwItems),
@@ -70,14 +59,14 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Center(
+                        /*  Center(
                             child: ProfileImageStack(
                               defaultImage: ImageConstant.userProfile,
                               uploadIcon: ImageConstant.uplodUserProfile,
                               controller: controller,
                               size: 120.adaptSize,
                             ),
-                          ),
+                          ), */
                           SizedBox(height: TSizes.spaceBtwItems),
                           CustomTextFormField(
                             controller: controller.fullNameController,
@@ -280,6 +269,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                                     label: controller.currentHeightValue.value.round().toString(),
                                     onChanged: (value) {
                                       controller.currentHeightValue.value = value;
+                                      debugPrint('Height value : ${controller.currentHeightValue.value.round()}');
                                     },
                                     activeColor: Colors.white, // ✅ Couleur appliquée par gradient
                                     inactiveColor: Colors.white.withOpacity(0.3),
@@ -362,11 +352,12 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             hintText: "${'الحالة الاجتماعية'.tr} *",
                             items: ListMaritalStatus.value,
                             selectedValue: controller.selectedMaritalStatus.value,
-                            onChanged: (val) => controller.selectedMaritalStatus.value = val,
-                           /* onChanged: (value) async {
+                            //onChanged: (val) => controller.selectedMaritalStatus.value = val,
+                            onChanged: (value) async {
+                              controller.selectedMaritalStatus.value = value;
                               controller.maritalStatusController.text = value.title;
                               debugPrint('marital status : ${controller.maritalStatusController.text}');
-                            }, */
+                            },
                             validator: (value) {
                               if (value == null) {
                                 return "الحالة الاجتماعية إجباري";
@@ -389,11 +380,12 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             hintText: "${'نوع الزواج'.tr} *",
                             items: ListLookingFor.value,
                             selectedValue: controller.selectedLookingFor.value,
-                            onChanged: (val) => controller.selectedLookingFor.value = val,
-                           /* onChanged: (value) async {
+                            //onChanged: (val) => controller.selectedLookingFor.value = val,
+                            onChanged: (value) async {
+                              controller.selectedLookingFor.value = value;
                               controller.lookingForController.text = value.title;
                               debugPrint('looking for : ${controller.lookingForController.text}');
-                            }, */
+                            },
                             validator: (value) {
                               if (value == null) {
                                 return "نوع الزواج إجباري";
@@ -450,11 +442,12 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             hintText: "${'الدولة'.tr} *",
                             items: PaysList.value,
                             selectedValue: controller.selectedPays.value,
-                            onChanged: (val) => controller.selectedPays.value = val,
-                            /* onChanged: (value) async {
-                              controller.paysController.text = value.title;
+                            //onChanged: (val) => controller.selectedPays.value = val,
+                             onChanged: (value) async {
+                               controller.selectedPays.value = value;
+                              controller.paysController.text = value.name;
                               debugPrint('pays : ${controller.paysController.text}');
-                            }, */
+                            },
                             validator: (value) {
                               if (value == null) {
                                 return "الدولة إجباري";
@@ -470,25 +463,6 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             textStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
                             themeColor:_appTheme =='light' ?  appTheme.gray50 : TColors.darkerGrey,
                           ),
-                         /* CustomDropDown(
-                            fillColor: TColors.white,
-                            hintStyle: CustomTextStyles.bodyMediumTextFormField,
-                            hintText: "${'دولة'.tr} *",
-                            items: ListPays.value,
-                            selectedValue: controller.selectedPays.value,
-                            onChanged: (val) => controller.selectedPays.value = val,
-                            validator: (value) {
-                              if (value == null) {
-                                return "الدولة مطلوبة";
-                              }
-                              return null;
-                            },
-                            themeColor: appTheme.gray50,
-                            focusNode: controller.paysFocus,
-                            icon: Icon(Iconsax.arrow_down_1),
-                            borderRadius: 15.hw,
-                            contentPadding: EdgeInsets.only(top: 21.v, right: 30.hw, left: 30.hw, bottom: 21.v),
-                          ), */
 
                           SizedBox(height: TSizes.spaceBtwItems.v),
                           FormDividerWidget(dividerText: "لون البشرة", thikness: 1),
@@ -548,7 +522,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                                     ),
                                     onChanged: (RangeValues values) {
                                       controller.currentRangeValues.value = values;
-                                      debugPrint("range salaire : ${controller.currentRangeValues.value}");
+                                      debugPrint("range salaire : ${controller.currentRangeValues.value.start.round()} - ${controller.currentRangeValues.value.end.round()}");
                                     },
                                     activeColor: Colors.white, // ✅ Gradient appliqué via ShaderMask
                                     inactiveColor: Colors.white.withOpacity(0.3),
@@ -596,42 +570,6 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                               );
                             }).toList(),
                           ),
-                          /* Wrap(
-                              spacing: 8, // Espace horizontal entre les items
-                              runSpacing: 8, // Espace vertical entre les lignes
-                              alignment: WrapAlignment.start,
-                              children: interestsList.map((interest) {
-                                final isSelected = controller.selectedInterests.contains(interest.name);
-                                return InterestWidget(
-                                  text: interest.name,
-                                  iconPath: interest.icon,
-                                  isSelected: isSelected,
-                                  onTap: () => controller.toggleInterest(interest.name, context),
-                                  verticalPadding: 20.v,
-                                );
-                              }).toList()
-                          ),
-                         GridView.count(
-                              crossAxisCount: isTablet ? 3 : 2, // ✅ Deux colonnes fixes
-                              mainAxisSpacing: 2,
-                              crossAxisSpacing: 3,
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(), // Empêche le scroll dans un Column
-                              childAspectRatio: 2, // ✅ contrôle la largeur/hauteur
-                              children: interestsList.map((interest) {
-                                final isSelected = controller.selectedInterests.contains(interest.name);
-                                return Align(
-                                  alignment: Alignment.center, // ✅ Empêche de remplir toute la colonne
-                                  child: InterestWidget(
-                                    text: interest.name,
-                                    iconPath: interest.icon,
-                                    isSelected: isSelected,
-                                    onTap: () => controller.toggleInterest(interest.name, context),
-                                    verticalPadding: 20.v,
-                                  ),
-                                );
-                              }).toList()
-                          ), */
 
                           SizedBox(height: TSizes.spaceBtwItems.v),
 
@@ -691,16 +629,6 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                                           controller.removeMedia(index);
                                         },
                                       ),
-                                    /*  child: CircularContainer(
-                                        width: 35.adaptSize,
-                                        height: 35.adaptSize,
-                                        radius: 35.adaptSize,
-                                        backgroundColor: TColors.lightGrey,
-                                        child: IconButton(
-                                          icon: Icon(Icons.close, color: Colors.red, size: 15.adaptSize,),
-                                          onPressed: () => controller.removeMedia(index - 1),
-                                        ),
-                                      ), */
                                     ),
                                   ],
                                 ),
@@ -717,9 +645,19 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                   left: TSizes.defaultSpace.hw,
                   right: TSizes.defaultSpace.hw),
               //child: _buildButtonSection()
-              child:
-              CustomButtonContainer(
-                text:"تأكيد".tr,
+              child: Obx(() => controller.isDataProcessing.value
+                  ? const SizedBox(
+                height: 25,
+                width: 25,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      strokeWidth: 3,
+                      color: TColors.primaryColorApp,
+                    ),
+                  ),
+                )
+                  : CustomButtonContainer(
+                text:"حفظ".tr,
                 color1: TColors.primaryColorApp,
                 color2: TColors.primaryColorApp,
                 borderRadius: 10,
@@ -731,6 +669,8 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                   controller.saveBtn();
                 },
               ),
+              )
+
             ),
           ),
         )

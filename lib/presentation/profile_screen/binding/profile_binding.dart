@@ -1,5 +1,6 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/presentation/filter_screen/controller/filter_controller.dart';
+import 'package:dating_app_bilhalal/presentation/profile_screen/controller/edit_profile_controller.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/controller/media_owner_profile_controller.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/controller/profile_controller.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/controller/profile_details_controller.dart';
@@ -16,5 +17,6 @@ class ProfileBinding extends Bindings {
     Get.lazyPut(() => ProfileDetailsController());
     Get.lazyPut(() => UserOwnerProfileController());
     Get.lazyPut(() => MediaOwnerProfileController());
+    Get.lazyPut(() => EditProfileController());
   }
 }

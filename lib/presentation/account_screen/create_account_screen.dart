@@ -796,7 +796,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                   onTap: () => controller.toggleInterest(interest.name, context),
                   verticalPadding: 13.v,
                   showRandomColor: isSelected, // ✅ afficher la couleur seulement si sélectionné
-                  randomList: randomColor != null ? [randomColor] : controller.randomColorList,
+                  randomList: randomColor != null ? [randomColor] : THelperFunctions.randomColorList,
                 );
               }).toList(),
             ),

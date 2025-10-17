@@ -23,7 +23,7 @@ class ProfileDetailsController extends GetxController {
   Future<void> sendReport() async {
     try {
       isDataProcessing.value = true;
-      //FullScreenLoader.openLoadingDialog('إعادة إرسال الرمز...', ImageConstant.lottieLoading);
+      //FullScreenLoader.openLoadingDialog('Loading...', ImageConstant.lottieLoading);
 
       //Check internet connection
       final isConnected = await NetworkManager.instance.isConnected();

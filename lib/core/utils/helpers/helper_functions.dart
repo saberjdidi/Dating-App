@@ -70,6 +70,15 @@ class THelperFunctions {
     }
   }
 
+  static List<Color> randomColorList = const [
+    Color(0xFFF3E179), // jaune clair
+    Color(0xFFE1BEE7), // violet clair
+    Color(0xFF7AC5EC), // bleu clair
+    Color(0xFF7AE77F), // vert clair
+    Color(0xF9F3D19A), // orange clair
+    Color(0xFFF5BFC7), // rose clair
+  ];
+
   static void showSnackBar(String message) {
     ScaffoldMessenger.of(Get.context!).showSnackBar(
       SnackBar(content: Text(message)),

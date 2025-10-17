@@ -3,28 +3,24 @@ import 'dart:math';
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/network_manager.dart';
 import 'package:dating_app_bilhalal/core/utils/permissions_helper.dart';
+import 'package:dating_app_bilhalal/data/datasources/dropdown_local_data_source.dart';
 import 'package:dating_app_bilhalal/data/models/country_model.dart';
 import 'package:dating_app_bilhalal/data/models/selection_popup_model.dart';
+import 'package:dating_app_bilhalal/data/models/user_model.dart';
+import 'package:dating_app_bilhalal/data/repositories/profile_repository.dart';
 import 'package:dating_app_bilhalal/widgets/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class CreateAccountController extends GetxController {
+class EditProfileController extends GetxController {
   RxInt currentIndexStepper = 0.obs;
   var isRTL = true.obs;
 
-  final GlobalKey<FormState> formCreateAccountKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> formOverviewAccountKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formEditProfileKey = GlobalKey<FormState>();
 
-  ///ImStepper
-  // REQUIRED: USED TO CONTROL THE STEPPER.
-  RxInt activeStep = 0.obs; // Initial step set to 0.
-  // OPTIONAL: can be set directly.
-  RxInt dotCount = 4.obs;
-
-  //final apiClient = Get.find<ApiClient>();
-
-  //final TextCounterController nameCounterController = Get.put(TextCounterController(100));
+  UserModel userInfo  = Get.arguments['UserInfo'] ?? UserModel.empty();
+  final profileRepository = ProfileRepository();
+  RxBool isDataProcessing = false.obs;
 
   TextEditingController fullNameController = TextEditingController();
   TextEditingController bioController = TextEditingController();
@@ -61,15 +57,6 @@ class CreateAccountController extends GetxController {
   // Map pour mémoriser la couleur random de chaque intérêt sélectionné
   final selectedInterestColors = <String, Color>{}.obs;
 
-  /*final List<Color> randomColorList = const [
-    Color(0xFFF3E179), // jaune clair
-    Color(0xFFE1BEE7), // violet clair
-    Color(0xFF7AC5EC), // bleu clair
-    Color(0xFF7AE77F), // vert clair
-    Color(0xF9F3D19A), // orange clair
-    Color(0xFFF5BFC7), // rose clair
-  ]; */
-
   void toggleInterestWithColor(String interest, BuildContext context) {
     if (selectedInterests.contains(interest)) {
       selectedInterests.remove(interest);
@@ -91,7 +78,7 @@ class CreateAccountController extends GetxController {
 
   var selectedInterests = <String>[].obs;
 
-   toggleInterest(String interest, BuildContext context) {
+  toggleInterest(String interest, BuildContext context) {
     if (selectedInterests.contains(interest)) {
       selectedInterests.remove(interest);
     } else {
@@ -149,6 +136,16 @@ class CreateAccountController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    fullNameController.text = userInfo.username! ?? '';
+    bioController.text = userInfo.profile!.description ?? '';
+    jobController.text = userInfo.profile!.jobTitle ?? '';
+    currentAgeValue.value = userInfo.age != null ? userInfo.age!.toDouble() : 0;
+    currentHeightValue.value = userInfo.height != null ? userInfo.height!.toDouble() : 0;
+    currentWeightValue.value = userInfo.weight != null ? userInfo.weight!.toDouble() : 0;
+    //currentRangeValues.value = RangeValues(double.parse(userInfo.profile!.salaryRangeMin.toString()), double.parse(userInfo.profile!.salaryRangeMax.toString()));
+    sexValue.value = userInfo.gender != null ? userInfo.gender! : -1;
+    //selectedMaritalStatus.value = ListMaritalStatus.value.first;
+    //selectedMaritalStatus.value = userInfo.profile!.socialState != null ? SelectionPopupModel(title: userInfo.profile!.socialState!, id: 1) : SelectionPopupModel(title: "");
   }
 
   @override
@@ -224,7 +221,7 @@ class CreateAccountController extends GetxController {
     selectedImage.value = null;
   }
 
- /* void _submitForm() {
+  /* void _submitForm() {
     final imageFile = selectedImage.value;
     if (imageFile != null) {
       print("Image prête à envoyer : ${imageFile.path}");
@@ -237,137 +234,91 @@ class CreateAccountController extends GetxController {
 
 
 
-  saveBtn() async {
-    if(formOverviewAccountKey.currentState!.validate()){
-      try {
-        debugPrint('We are processing your information');
-        //Start Loading
-        //FullScreenLoader.openLoadingDialog('We are processing your information...', ImageConstant.lottieTrophy);
-
-        //Check internet connection
-        final isConnected = await NetworkManager.instance.isConnected();
-        if(!isConnected) {
-          //Remove Loader
-          //FullScreenLoader.stopLoading();
-          return;
-        }
-
-        /* final isValid = formSignUpKey.currentState!.validate();
+  Future<void> saveBtn() async {
+    try {
+      final isValid = formEditProfileKey.currentState!.validate();
       if (!isValid) {
         return;
       }
-      formSignUpKey.currentState!.save(); */
-        if(!formOverviewAccountKey.currentState!.validate()) {
-          //Remove Loader
-          //FullScreenLoader.stopLoading();
-          return;
-        }
+      formEditProfileKey.currentState!.save();
 
-        //Register user in the Firebase authentication & save user data in the Firebase
-        // await AuthenticationRepository.instance.registerWithEmailAndPassword(emailController.text.trim(), passwordController.text.trim());
+      isDataProcessing.value = true;
+      //FullScreenLoader.openLoadingDialog('Loading...', ImageConstant.lottieLoading);
 
+      //Check internet connection
+      final isConnected = await NetworkManager.instance.isConnected();
+      if(!isConnected) {
+        isDataProcessing.value = false;
         //Remove Loader
         //FullScreenLoader.stopLoading();
-
-        Get.offAllNamed(Routes.successAccountScreen);
-
-        //Show success message
-        MessageSnackBar.successSnackBar(title: 'Successfully', message: 'Your account has been created!');
-
+        MessageSnackBar.customToast(message: 'No Internet Connection');
+        return;
       }
-      catch (exception) {
-        debugPrint('Exception : ${exception.toString()}');
-        //FullScreenLoader.stopLoading();
 
-        //Show some generic error to the user
-        MessageSnackBar.errorSnackBar(title: 'Oh Snap!', message: exception.toString());
-      } finally {
-        //isDataProcessing.value = false;
-      }
-    }
-    /*
-    debugPrint('-----------------saveBtn');
-    //if(formSignUpKey.currentState!.validate()){}
-    if(formSignUpStepperKey.currentState!.validate()){
-      debugPrint('firstname : ${firstNameController.text.trim()}');
-      debugPrint('lastname : ${lastNameController.text.trim()}');
-      debugPrint('phone : ${phoneController.text.trim()}');
-      debugPrint('city : ${villeController.text.trim()}');
-      debugPrint('zipcode : ${codePostalController.text.trim()}');
-      debugPrint('state : ${regionController.text.trim()}');
-      debugPrint('address : ${addressController.text.trim()}');
-      debugPrint('password : ${passwordController.text.trim()}');
-      debugPrint('email : ${emailController.text.trim()}');
-      debugPrint('token : ${tokenParameter.toString()}');
-      try {
-        await apiClient.registerUser(
-            {
-              "firstname": firstNameController.text.trim(),
-              "lastname": lastNameController.text.trim(),
-              "phone": phoneController.text.trim(),
-              "city": villeController.text.trim(),
-              "zipcode": codePostalController.text.trim(),
-              "state": regionController.text.trim(),
-              "address": addressController.text.trim(),
-              "password": passwordController.text.trim(),
-              "company_name": "",
-              "tsp_number": "",
-              "tvq_number": "",
-              "type_id": "",
-              "id_file_url": "",
-              "idFile": [],
-              "accept_conditions": true,
-              "email": emailController.text.trim(),
-              "token": tokenParameter.toString()
-            })
-            .then((value) async {
-          await PrefUtils.setTokenVerifAccount(tokenParameter.toString());
-          debugPrint('value : ${value}');
-          Get.offAndToNamed(Routes.signUpSuccessScreen, arguments: {
-            "EmailAccount" : emailController.text.trim(),
-            "PasswordAccount": passwordController.text.trim()
-          });
-          //MessageSnackBar.successSnackBar(title: 'Successfully', message: 'User created successfully.');
-          MessageSnackBar.informationToast(
-              title: 'Successfully',
-              message: "User created successfully.",
-              position: SnackPosition.BOTTOM,
-              duration: 3);
-        })
-            .onError((error, stackTrace){
-          debugPrint('error register : ${error.toString()}');
-          if(error.toString() == '404' || error == 404){
-            //MessageSnackBar.errorSnackBar(title: 'Erreur', message: "Impossible de trouver d'utilisateur correspondant au lien de vérification. Veuillez vérifier les informations fournies et réessayer.");
-            MessageSnackBar.errorToast(
-                title: 'Erreur',
-                message: "Impossible de trouver d'utilisateur correspondant au lien de vérification. Veuillez vérifier les informations fournies et réessayer.",
-                position: SnackPosition.BOTTOM,
-                duration: 3);
-          }
-          else {
-            //MessageSnackBar.errorSnackBar(title: 'Erreur', message: error.toString());
-            MessageSnackBar.errorToast(
-                title: 'Erreur',
-                message: error.toString(),
-                position: SnackPosition.BOTTOM,
-                duration: 3);
-          }
-        });
-      }
-      catch (e) {
-        MessageSnackBar.errorToast(
-            title: 'Exception',
-            message: e.toString(),
-            position: SnackPosition.BOTTOM,
-            duration: 3);
-        //MessageSnackBar.errorSnackBar(title: 'Exception', message: e.toString());
-        //isDataProcessing(false);
-        //ShowSnackBar.snackBar("Exception", exception.toString(), Colors.red);
-      } finally {
-        //isDataProcessing.value = false;
+      final result = await profileRepository.updateProfile(
+          username: fullNameController.text.trim(),
+          height: int.parse(currentHeightValue.value.round().toString()),
+          weight: int.parse(currentWeightValue.value.round().toString()),
+          bio: bioController.text.trim(),
+          socialState: maritalStatusController.text.trim(),
+          marriageType: lookingForController.text.trim(),
+          jobTitle: jobController.text.trim(),
+          salaryRangeMin: currentRangeValues.value.start.round().toString(),
+          salaryRangeMax: currentRangeValues.value.end.round().toString(),
+          country: paysController.text.trim(),
+          skinColor: selectedColor.value
+        );
+
+     /* final result2 = await profileRepository.updateProfile({
+        "username": fullNameController.text.trim(),
+        "height": int.parse(currentHeightValue.value.round().toString()),
+        "weight": int.parse(currentWeightValue.value.round().toString()),
+        "description": bioController.text.trim(),
+        "social_state": maritalStatusController.text.trim(),
+        "marriage_type": lookingForController.text.trim(),
+        "job_title": jobController.text.trim(),
+        "salary_range_min": currentRangeValues.value.start.round().toString(),
+        "salary_range_max": currentRangeValues.value.end.round().toString(),
+        "country": paysController.text.trim(),
+        "skin_tone_hex": selectedColor
+      }); */
+      /*
+          {
+              "username": "Saber Jdidi",
+              "height": 180,
+              "weight": 75,
+              "description": "Software engineer",
+              "social_state": "single",
+              "marriage_type": "marriage",
+              "job_title": "Backend Developer",
+              "salary_range_min": "3000",
+              "salary_range_max": "6000",
+              "country": "Egypt",
+              "skin_tone_hex": "olive"
+            }
+           */
+
+      //FullScreenLoader.stopLoading();
+
+      if (result.success) {
+        Get.back();
+        MessageSnackBar.successSnackBar(title: 'تم', message: result.message ?? '');
+        isDataProcessing.value = false;
+      } else {
+
+        MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? 'An error occured');
+        isDataProcessing.value = false;
       }
     }
-    */
+    catch (exception) {
+      isDataProcessing.value = false;
+      debugPrint('Exception : ${exception.toString()}');
+      //FullScreenLoader.stopLoading();
+      //Show some generic error to the user
+      MessageSnackBar.errorSnackBar(title: 'Oh Snap!', message: exception.toString());
+    } finally {
+      isDataProcessing.value = false;
+    }
   }
 
 }
