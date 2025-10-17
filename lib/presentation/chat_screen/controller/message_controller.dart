@@ -604,12 +604,12 @@ class MessageController extends GetxController {
 ///Contact End
 
   final RxDouble containerHeight = 60.adaptSize.obs; // 👈 hauteur dynamique
-  final RxDouble minHeight = 60.adaptSize.obs;
-  final RxDouble maxHeight = 150.adaptSize.obs;
+  final double minHeight = 60.0;
+  final double maxHeight = 150.0;
   void _adjustHeight() {
     // Calcule la hauteur estimée du texte
     final int lines = '\n'.allMatches(messageController.text).length + 1;
-    final double newHeight = (minHeight.value + (lines - 1) * 25).clamp(minHeight.value, maxHeight.value);
+    final double newHeight = (minHeight + (lines - 1) * 25).clamp(minHeight, maxHeight);
     containerHeight.value = newHeight;
   }
 }

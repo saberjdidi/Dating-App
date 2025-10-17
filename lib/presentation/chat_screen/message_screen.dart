@@ -342,7 +342,7 @@ class MessageScreen extends GetView<MessageController> {
                 SizedBox(width: screenWidth * 0.02),
       
                 TRoundedContainer(
-                  height: controller.containerHeight.value, //hauteur dynamic
+                  //height: controller.containerHeight.value, //hauteur dynamic
                   //height: 60.adaptSize,
                   showBorder: true,
                   borderColor: _appTheme =='light' ? TColors.greyDating : TColors.white,
@@ -372,10 +372,10 @@ class MessageScreen extends GetView<MessageController> {
                            child: Expanded(
                              child: ConstrainedBox(
                                constraints: BoxConstraints(
-                                 minHeight: controller.minHeight.value,  // hauteur minimale du champ
-                                 maxHeight: controller.maxHeight.value, // hauteur maximale avant scroll
-                                 //minHeight: 60.adaptSize, // hauteur minimale du champ
-                                 //maxHeight: 150.adaptSize, // hauteur maximale avant scroll
+                                 //minHeight: controller.minHeight.adaptSize,  // hauteur minimale du champ
+                                 //maxHeight: controller.maxHeight.adaptSize, // hauteur maximale avant scroll
+                                 minHeight: 60.adaptSize, // hauteur minimale du champ
+                                 maxHeight: 150.adaptSize, // hauteur maximale avant scroll
                                ),
                                child: Scrollbar(
                                  child: TextField(
