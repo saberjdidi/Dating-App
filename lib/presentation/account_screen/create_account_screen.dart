@@ -362,8 +362,8 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                       padding: EdgeInsets.symmetric(horizontal: 35.v, vertical: 13.v),
                       child: Row(
                         children: [
-                          Radio<int>(
-                            value: 0,
+                          Radio<String>(
+                            value: 'female',
                             groupValue: controller.sexValue.value,
                             onChanged: (value) {
                               controller.sexValue.value = value!;
@@ -391,8 +391,8 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                       padding: EdgeInsets.symmetric(horizontal: 35.v, vertical: 13.v),
                       child: Row(
                         children: [
-                          Radio<int>(
-                            value: 1,
+                          Radio<String>(
+                            value: 'male',
                             groupValue: controller.sexValue.value,
                             onChanged: (value) {
                               controller.sexValue.value = value!;
@@ -459,7 +459,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                     ),
                     child: Slider(
                       value: controller.currentAgeValue.value,
-                      min: 0,
+                      min: 18,
                       max: 100,
                       divisions: 100,
                       label: controller.currentAgeValue.value.round().toString(),
@@ -501,7 +501,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                     ),
                     child: Slider(
                       value: controller.currentWeightValue.value,
-                      min: 0,
+                      min: 40,
                       max: 140,
                       divisions: 140,
                       label: controller.currentWeightValue.value.round().toString(),
@@ -590,11 +590,12 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               hintText: "${'الحالة الاجتماعية'.tr} *",
               items: ListMaritalStatus.value,
               selectedValue: controller.selectedMaritalStatus.value,
-              onChanged: (val) => controller.selectedMaritalStatus.value = val,
-              /* onChanged: (value) async {
-                              controller.maritalStatusController.text = value.title;
-                              debugPrint('marital status : ${controller.maritalStatusController.text}');
-                 }, */
+              //onChanged: (val) => controller.selectedMaritalStatus.value = val,
+              onChanged: (value) async {
+                controller.selectedMaritalStatus.value = value;
+                controller.maritalStatusController.text = value.title;
+                debugPrint('marital status : ${controller.maritalStatusController.text}');
+              },
               focusNode: controller.maritalStatusFocus,
               borderRadius: 15.hw,
               icon: Icon(Iconsax.arrow_down_1),
@@ -612,11 +613,12 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               hintText: "${'نوع الزواج'.tr} *",
               items: ListLookingFor.value,
               selectedValue: controller.selectedLookingFor.value,
-              onChanged: (val) => controller.selectedLookingFor.value = val,
-            /*  onChanged: (value) async {
+              //onChanged: (val) => controller.selectedLookingFor.value = val,
+              onChanged: (value) async {
+                controller.selectedLookingFor.value = value;
                 controller.lookingForController.text = value.title;
                 debugPrint('looking for : ${controller.lookingForController.text}');
-              }, */
+              },
               focusNode: controller.lookingForFocus,
               icon: Icon(Iconsax.arrow_down_1),
               borderRadius: 15.hw,
@@ -669,11 +671,12 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               hintText: "${'الدولة'.tr} *",
               items: PaysList.value,
               selectedValue: controller.selectedPays.value,
-              onChanged: (val) => controller.selectedPays.value = val,
-             /* onChanged: (value) async {
-                controller.paysController.text = value.title;
+              //onChanged: (val) => controller.selectedPays.value = val,
+              onChanged: (value) async {
+                controller.selectedPays.value = value;
+                controller.paysController.text = value.name;
                 debugPrint('pays : ${controller.paysController.text}');
-              }, */
+              },
               focusNode: controller.paysFocus,
               icon: Icon(Iconsax.arrow_down_1),
               borderRadius: 15.hw,

@@ -40,7 +40,7 @@ class ApiClient {
   }
 
   //POST
-  Future<Response> post(String path, {Map<String, dynamic>? data, Map<String, dynamic>? queryParameters, Options? options}) async {
+  Future<Response> post(String path, {dynamic data, Map<String, dynamic>? queryParameters, Options? options}) async {
     return await dio.post(path, data: data, queryParameters: queryParameters, options: options);
   }
 
@@ -51,7 +51,7 @@ class ApiClient {
 
 // PUT
   Future<Response> put(String path,
-      {Map<String, dynamic>? data,
+      {dynamic data,
         Map<String, dynamic>? queryParameters,
         Options? options}) async {
     return await dio.put(path,
@@ -60,7 +60,7 @@ class ApiClient {
 
   // PATCH
   Future<Response> patch(String path,
-      {Map<String, dynamic>? data,
+      {dynamic data,
         Map<String, dynamic>? queryParameters,
         Options? options}) async {
     return await dio.patch(path,
@@ -69,7 +69,7 @@ class ApiClient {
 
   // DELETE
   Future<Response> delete(String path,
-      {Map<String, dynamic>? data,
+      {dynamic data,
         Map<String, dynamic>? queryParameters,
         Options? options}) async {
     return await dio.delete(path,

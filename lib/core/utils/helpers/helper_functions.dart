@@ -7,21 +7,21 @@ class THelperFunctions {
   static Color? getColor(String value) {
     /// Define your product specific colors here and it will match the attribute colors and show specific 🟠🟡🟢🔵🟣🟤
 
-    if (value == 'skinColor1') {
+    if (value == 'Fair') {
       return TColors.skinColor1;
-    } else if (value == 'skinColor2') {
+    } else if (value == 'Light') {
       return TColors.skinColor2;
-    } else if (value == 'skinColor3') {
+    } else if (value == 'Light2') {
       return TColors.skinColor3;
-    } else if (value == 'skinColor4') {
+    } else if (value == 'Medium') {
       return TColors.skinColor4;
-    } else if (value == 'skinColor5') {
+    } else if (value == 'Olive') {
       return TColors.skinColor5;
-    } else if (value == 'skinColor6') {
+    } else if (value == 'Brown') {
       return TColors.skinColor6;
-    } else if (value == 'skinColor7') {
+    } else if (value == 'Tan') {
       return TColors.skinColor7;
-    } else if (value == 'skinColor8') {
+    } else if (value == 'Deep') {
       return TColors.skinColor8;
     }
     else if (value == 'filterColorCallVideo1') {
@@ -151,6 +151,7 @@ class THelperFunctions {
     return wrappedList;
   }
 
+  /// ======== ❤️ MARITAL STATUS (SocialState) ========
   /// Convert Arabic social state to backend enum
   static String getSocialStateEnum(String arabicValue) {
     switch (arabicValue.trim()) {
@@ -184,6 +185,7 @@ class THelperFunctions {
     }
   }
 
+  /// ======== 💍 LOOKING FOR (Marriage Type) ========
   /// Convert Arabic marriage type to backend enum
   static String getMarriageTypeEnum(String arabicValue) {
     switch (arabicValue.trim()) {
@@ -213,6 +215,148 @@ class THelperFunctions {
         return 'معيشة';
       case 'marriage':
         return 'زواج';
+      default:
+        return 'آخر';
+    }
+  }
+
+  /// ======== 🏳️ COUNTRY ========
+  /// Convert Arabic social state to backend enum
+  static String getCountryEnum(String arabicValue) {
+    switch (arabicValue.trim()) {
+      case 'الكل':
+        return 'All';
+      case 'تونس':
+        return 'Tunisia';
+      case 'البحرین':
+        return 'Bahrain';
+      case 'الامارات':
+        return 'UAE';
+      case 'قطر':
+        return 'Qatar';
+      case 'الکویت':
+        return 'Kuwait';
+      case 'السعودیة':
+        return 'Saudi Arabia';
+      case 'العراق':
+        return 'Iraq';
+      case 'عمان':
+        return 'Oman';
+      case 'المغرب':
+        return 'Morocco';
+      case 'لبنان':
+        return 'Lebanon';
+      default:
+        return 'Other';
+    }
+  }
+
+  /// Convert backend enum to Arabic (for display)
+  static String getCountryArabic(String englishValue) {
+    switch (englishValue.trim()) {
+      case 'All':
+      case 'all':
+        return 'الكل';
+      case 'Tunisia':
+      case 'Tunis':
+        return 'تونس';
+      case 'Bahrain':
+        return 'البحرین';
+      case 'UAE':
+      case 'uae':
+        return 'الامارات';
+      case 'Qatar':
+        return 'قطر';
+      case 'Kuwait':
+        return 'الکویت';
+      case 'Saudi Arabia':
+        return 'السعودیة';
+      case 'Iraq':
+        return 'العراق';
+      case 'Oman':
+        return 'عمان';
+      case 'Morocco':
+        return 'المغرب';
+      case 'Lebanon':
+        return 'لبنان';
+      default:
+        return 'آخر';
+    }
+  }
+
+  /// ======== 🎯 INTERESTS ========
+
+  /// Convert Arabic interest to English (for sending to backend)
+  static String getInterestEnum(String arabicValue) {
+    switch (arabicValue.trim()) {
+      case 'التسوق':
+        return 'Shopping';
+      case 'فوتوغرافيا':
+        return 'Photography';
+      case 'اليوغا':
+        return 'Yoga';
+      case 'كاريوكي':
+        return 'Karaoke';
+      case 'التنس':
+        return 'Tennis';
+      case 'طبخ':
+        return 'Cooking';
+      case 'سباحة':
+        return 'Swimming';
+      case 'ركض':
+        return 'Running';
+      case 'السفر':
+        return 'Travel';
+      case 'فن':
+        return 'Art';
+      case 'موسيقى':
+        return 'Music';
+      case 'أقصى':
+        return 'Luxury';
+      case 'ألعاب الفيديو':
+        return 'Video Games';
+      case 'قراءة':
+        return 'Reading';
+      case 'كرة القدم':
+        return 'Football';
+      default:
+        return 'Other';
+    }
+  }
+
+  /// Convert English interest to Arabic (for displaying)
+  static String getInterestArabic(String englishValue) {
+    switch (englishValue.trim()) {
+      case 'Shopping':
+        return 'التسوق';
+      case 'Photography':
+        return 'فوتوغرافيا';
+      case 'Yoga':
+        return 'اليوغا';
+      case 'Karaoke':
+        return 'كاريوكي';
+      case 'Tennis':
+        return 'التنس';
+      case 'Cooking':
+        return 'طبخ';
+      case 'Swimming':
+        return 'سباحة';
+      case 'Running':
+        return 'ركض';
+      case 'Travel':
+        return 'السفر';
+      case 'Art':
+        return 'فن';
+      case 'Music':
+        return 'موسيقى';
+      case 'Luxury':
+        return 'أقصى';
+      case 'Video Games':
+        return 'ألعاب الفيديو';
+      case 'Reading':
+        return 'قراءة';
+      case 'Football':
+        return 'كرة القدم';
       default:
         return 'آخر';
     }

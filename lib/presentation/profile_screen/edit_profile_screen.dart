@@ -178,7 +178,7 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                                   ),
                                   child: Slider(
                                     value: controller.currentAgeValue.value,
-                                    min: 0,
+                                    min: 18,
                                     max: 100,
                                     divisions: 100,
                                     label: controller.currentAgeValue.value.round().toString(),
@@ -220,7 +220,7 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                                   ),
                                   child: Slider(
                                     value: controller.currentWeightValue.value,
-                                    min: 0,
+                                    min: 40,
                                     max: 140,
                                     divisions: 140,
                                     label: controller.currentWeightValue.value.round().toString(),
@@ -381,12 +381,13 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                               controller.paysController.text = value.name;
                               debugPrint('pays : ${controller.paysController.text}');
                             },
-                            validator: (value) {
+                            enabled: false,
+                            /* validator: (value) {
                               if (value == null) {
                                 return "الدولة إجباري";
                               }
                               return null;
-                            },
+                            }, */
                             focusNode: controller.paysFocus,
                             icon: Icon(Iconsax.arrow_down_1),
                             borderRadius: 15.hw,
@@ -580,8 +581,8 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
               //child: _buildButtonSection()
               child: Obx(() => controller.isDataProcessing.value
                   ? const SizedBox(
-                height: 25,
-                width: 25,
+                height: 20,
+                width: 20,
                   child: Center(
                     child: CircularProgressIndicator(
                       strokeWidth: 3,

@@ -1,4 +1,5 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
+import 'package:dating_app_bilhalal/data/models/media_model.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/controller/user_owner_profile_controller.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/fullscreen_image_viewer.dart';
 import 'package:dating_app_bilhalal/widgets/chat/user_stats_widget.dart';
@@ -210,7 +211,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                     height: "${controller.user.value!.height} cm",
                                     weight: "${controller.user.value!.weight} kg",
                                     salary: "${controller.user.value!.profile!.salaryRangeMin}K - ${controller.user.value!.profile!.salaryRangeMax}K",
-                                    skinColor: "skinColor3",
+                                    skinColor: "${controller.user.value!.profile!.skinToneHex}",//"skinColor3",
                                     iconSize: 30,
                                   ),
 
@@ -247,63 +248,159 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                     inactiveColor: _appTheme =='light' ? TColors.black : TColors.white,
                                   ),
                                   SizedBox(height: 5.v),
-                                  GridLayout(
-                                    itemCount: controller.ListImages.value.length,
-                                    mainAxisExtent: isTablet ? 220.adaptSize : 180.adaptSize,
-                                    crossAxisCount: 3,
-                                    itemBuilder: (context, index) {
-                                      final image = controller.ListImages.value[index]; // -1 car le 1er est upload
-                                      return TRoundedContainer(
-                                        showBorder: true,
-                                        backgroundColor: TColors.white,
-                                        borderColor: TColors.greyDating,
-                                        radius: 12,
-                                        padding: EdgeInsets.all(1),
-                                        child: Stack(
-                                          children: [
-                                            CustomImageView(
-                                              //file: file,
-                                              imagePath: image,
-                                              //imagePath: file.path, // très important: .path car File
-                                              height: Get.height,
-                                              width: Get.width,
-                                              fit: BoxFit.cover,
-                                              radius: BorderRadius.circular(10),
-                                              onTap: (){
-                                                Get.to(() => FullScreenImageViewer(
-                                                  images: controller.ListImages.value,
-                                                  initialIndex: index,
-                                                ));
-                                              },
-                                            ),
-                                            Positioned(
-                                                bottom: 5,
-                                                right: 5,
-                                                child: Row(
-                                                  children: [
-                                                    CircularContainer(
-                                                      width: isTablet ? 40.adaptSize : 27,
-                                                      height:  isTablet ? 40.adaptSize : 27,
-                                                      radius:  isTablet ? 40.adaptSize : 27,
-                                                      backgroundColor: TColors.greyDating.withOpacity(0.9),
-                                                      //margin: EdgeInsets.symmetric(horizontal: 10.hw),
-                                                      child: IconButton(
-                                                        icon: Icon(Iconsax.heart5, color: TColors.redAppLight, size:  isTablet ? 20.adaptSize : 12),
-                                                        onPressed: (){
+                                  Obx(() {
+                                    if (controller.isDataProcessing.value) {
+                                      return const Center(child: CircularProgressIndicator());
+                                    }
 
-                                                        },
+                                    //final images = controller.mediaList.where((m) => m.mediaType == 'image').map((m) => m.mediaUrl).toList();
+
+                                    // 🔹 Sélection du contenu selon l’onglet actif
+                                    final tabIndex = controller.selectedTab.value; // à ajouter dans ton controller si pas encore
+                                    List<MediaModel> filteredMedia;
+
+                                    if (tabIndex == 1) {
+
+                                      filteredMedia = controller.mediaList
+                                          .where((m) => m.mediaType == 'image')
+                                          .toList();
+                                    } else if (tabIndex == 2) {
+                                      filteredMedia = controller.mediaList
+                                          .where((m) => m.mediaType == 'video')
+                                          .toList();
+                                    } else {
+                                      filteredMedia = controller.mediaList; // tous
+                                    }
+
+                                    if (filteredMedia.isEmpty) {
+                                      return const Center(child: Text('لا توجد بيانات بعد'));
+                                    }
+
+                                    return GridLayout(
+                                      itemCount: filteredMedia.length,
+                                      mainAxisExtent: isTablet ? 220.adaptSize : 180.adaptSize,
+                                      crossAxisCount: 3,
+                                      itemBuilder: (context, index) {
+                                        final media = filteredMedia[index];
+                                        return TRoundedContainer(
+                                          showBorder: true,
+                                          backgroundColor: TColors.white,
+                                          borderColor: TColors.greyDating,
+                                          radius: 12,
+                                          padding: EdgeInsets.all(1),
+                                          child: Stack(
+                                            children: [
+                                              CustomImageView(
+                                                imagePath: media.mediaUrl,
+                                                height: Get.height,
+                                                width: Get.width,
+                                                fit: BoxFit.cover,
+                                                radius: BorderRadius.circular(10),
+                                                onTap: () {
+                                                  Get.to(() => FullScreenImageViewer(
+                                                    images: filteredMedia
+                                                        .where((m) => m.mediaType == 'image')
+                                                        .map((m) => m.mediaUrl)
+                                                        .toList(),
+                                                    initialIndex: index,
+                                                  ));
+                                                },
+                                              ),
+                                              // ❤️ Bouton favoris + compteur
+                                              // ✅ Affiche seulement si favouriteCount > 0
+                                              if (media.favouriteCount > 0) ...[
+                                                Positioned(
+                                                    bottom: 5,
+                                                    right: 5,
+                                                    child: Row(
+                                                      children: [
+                                                        CircularContainer(
+                                                          width: isTablet ? 40.adaptSize : 27,
+                                                          height:  isTablet ? 40.adaptSize : 27,
+                                                          radius:  isTablet ? 40.adaptSize : 27,
+                                                          backgroundColor: TColors.greyDating.withOpacity(0.9),
+                                                          //margin: EdgeInsets.symmetric(horizontal: 10.hw),
+                                                          child: IconButton(
+                                                            icon: Icon(Iconsax.heart5, color: TColors.redAppLight, size:  isTablet ? 20.adaptSize : 12),
+                                                            onPressed: (){
+
+                                                            },
+                                                          ),
+                                                        ),
+                                                        SizedBox(width: 3.adaptSize),
+                                                        Text(' إعجابًا${media.favouriteCount}', style: TextStyle(color: TColors.white, fontSize: 15.adaptSize, fontWeight: FontWeight.w500)),
+                                                      ],
+                                                    )
+                                                ),
+                                              ]
+
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }),
+                                  //Static Media
+                                  Visibility(
+                                    visible: false,
+                                    child: GridLayout(
+                                      itemCount: controller.ListImages.value.length,
+                                      mainAxisExtent: isTablet ? 220.adaptSize : 180.adaptSize,
+                                      crossAxisCount: 3,
+                                      itemBuilder: (context, index) {
+                                        final image = controller.ListImages.value[index]; // -1 car le 1er est upload
+                                        return TRoundedContainer(
+                                          showBorder: true,
+                                          backgroundColor: TColors.white,
+                                          borderColor: TColors.greyDating,
+                                          radius: 12,
+                                          padding: EdgeInsets.all(1),
+                                          child: Stack(
+                                            children: [
+                                              CustomImageView(
+                                                //file: file,
+                                                imagePath: image,
+                                                //imagePath: file.path, // très important: .path car File
+                                                height: Get.height,
+                                                width: Get.width,
+                                                fit: BoxFit.cover,
+                                                radius: BorderRadius.circular(10),
+                                                onTap: (){
+                                                  Get.to(() => FullScreenImageViewer(
+                                                    images: controller.ListImages.value,
+                                                    initialIndex: index,
+                                                  ));
+                                                },
+                                              ),
+                                              Positioned(
+                                                  bottom: 5,
+                                                  right: 5,
+                                                  child: Row(
+                                                    children: [
+                                                      CircularContainer(
+                                                        width: isTablet ? 40.adaptSize : 27,
+                                                        height:  isTablet ? 40.adaptSize : 27,
+                                                        radius:  isTablet ? 40.adaptSize : 27,
+                                                        backgroundColor: TColors.greyDating.withOpacity(0.9),
+                                                        //margin: EdgeInsets.symmetric(horizontal: 10.hw),
+                                                        child: IconButton(
+                                                          icon: Icon(Iconsax.heart5, color: TColors.redAppLight, size:  isTablet ? 20.adaptSize : 12),
+                                                          onPressed: (){
+
+                                                          },
+                                                        ),
                                                       ),
-                                                    ),
-                                                    SizedBox(width: 3.adaptSize),
-                                                    Text('23 إعجابًا', style: TextStyle(color: TColors.white, fontSize: 15.adaptSize, fontWeight: FontWeight.w500)),
-                                                    //SubTitleWidget(subtitle: '23 إعجابًا', color: TColors.white, fontWeightDelta: 2),
-                                                  ],
-                                                )
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    },
+                                                      SizedBox(width: 3.adaptSize),
+                                                      Text('23 إعجابًا', style: TextStyle(color: TColors.white, fontSize: 15.adaptSize, fontWeight: FontWeight.w500)),
+                                                      //SubTitleWidget(subtitle: '23 إعجابًا', color: TColors.white, fontWeightDelta: 2),
+                                                    ],
+                                                  )
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    ),
                                   ),
 
                                   SizedBox(height: TSizes.spaceBtwSections.v),

@@ -26,6 +26,7 @@ class PrefUtils {
   static const _keyEmail = 'email';
   static const _keyUsername = 'username';
   static const _keyId = 'id';
+  static const _keyImageProfile = 'imageProfile';
   static const _keyEmailGoogle = 'emailGoogle';
   static const _keyEmailFacebook = 'emailFacebook';
   static const _keyFullName = 'fullName';
@@ -195,6 +196,16 @@ class PrefUtils {
 
   static Future<void> clearId() async {
     await sharedPreferences!.remove(_keyId);
+  }
+
+
+  static Future setImageProfile(String url) async =>
+      await sharedPreferences!.setString(_keyImageProfile, url);
+
+  static String? getImageProfile() => sharedPreferences!.getString(_keyImageProfile);
+
+  static Future<void> clearImageProfile() async {
+    await sharedPreferences!.remove(_keyImageProfile);
   }
 
   ///FirstName

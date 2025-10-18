@@ -34,6 +34,7 @@ Rx<List<CountryModel>> PaysList = Rx(
       CountryModel(name: "العراق", imagePath: ImageConstant.paysIraq),
       CountryModel(name: "عمان", imagePath: ImageConstant.paysOman),
       CountryModel(name: "المغرب", imagePath: ImageConstant.paysMarroc),
+      CountryModel(name: "لبنان", imagePath: ImageConstant.paysLubnan),
     ]
 );
 
@@ -49,5 +50,6 @@ Rx<List<CountryModel>> PaysListFilter = Rx(
       CountryModel(name: "العراق", imagePath: ImageConstant.paysIraq),
       CountryModel(name: "عمان", imagePath: ImageConstant.paysOman),
       CountryModel(name: "المغرب", imagePath: ImageConstant.paysMarroc),
+      CountryModel(name: "لبنان", imagePath: ImageConstant.paysLubnan),
     ]
 );

@@ -66,6 +66,7 @@ class ImageConstant {
   static String paysArabeSaoudite = '$imagePath/pays_saoudite.svg';
   static String paysOman = '$imagePath/pays_oman.svg';
   static String paysMarroc = '$imagePath/pays_marroc.svg';
+  static String paysLubnan = '$imagePath/pays_lubnan.svg';
 
   ///Profile
   static String profile1 = '$imagePath/profiles/profile1.png';

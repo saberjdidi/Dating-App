@@ -31,9 +31,9 @@ class AnimationLoaderWidget extends StatelessWidget {
           Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.hw),
           child: Text(text,
-            style: Theme.of(context).textTheme.titleMedium!
+            style: Theme.of(context).textTheme.bodyMedium!
                 .apply(color:_appTheme =='dark' ? TColors.white : TColors.black,
-                fontSizeDelta: 2, fontWeightDelta: 2),
+                fontSizeDelta: 2, fontWeightDelta: 1),
             textAlign: TextAlign.center,
           )),
            SizedBox(height: 24.v),

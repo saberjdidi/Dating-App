@@ -68,12 +68,18 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
               },
             ),
             itemBuilder: (context, index, realIndex) {
-              return Image.asset(
-                widget.images[index],
+              return CustomImageView(
+                imagePath: widget.images[index],
                 fit: BoxFit.cover,
                 width: double.infinity,
                 height: double.infinity,
               );
+             /* return Image.asset(
+                widget.images[index],
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: double.infinity,
+              ); */
             },
           ),
 

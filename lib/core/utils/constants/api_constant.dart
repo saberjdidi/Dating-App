@@ -15,6 +15,8 @@ class ApiConstants {
 
   //Profile
   static const String profileReport = 'reports';
+  //User
+  static const String media = 'media';
 }
 
 class HttpStatusCode {

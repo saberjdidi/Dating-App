@@ -76,10 +76,12 @@ class ProfileScreen extends StatelessWidget {
                               color: isDark ? TColors.whitePrimary : TColors.black,),
                             SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
                             CustomImageView(
-                              imagePath: ImageConstant.profile8,
-                              width: 40.adaptSize,
-                              height: 40.adaptSize,
-                              radius: BorderRadius.circular(60.adaptSize),
+                              imagePath: (PrefUtils.getImageProfile() != null && PrefUtils.getImageProfile()!.isNotEmpty)
+                                  ? PrefUtils.getImageProfile()
+                                  : ImageConstant.profile8,
+                              width: 50.adaptSize,
+                              height: 50.adaptSize,
+                              radius: BorderRadius.circular(70.adaptSize),
                             )
                           ],
                         )

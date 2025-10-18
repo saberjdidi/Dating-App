@@ -16,12 +16,15 @@ final isTablet = shortestSide < 1000;
 return Scaffold(
   //backgroundColor: TColors.white,
   body: Center(
-    child: AnimationLoaderWidget(
-      text: 'شكرا لك على إكمال الملف الشخصي',
-      animation: ImageConstant.lottieTrophy,
-      showAction: false,
-      //actionText: 'Let\'s fill it',
-      //onActionPressed: (){},
+    child: Directionality(
+      textDirection: TextDirection.rtl,
+      child: AnimationLoaderWidget(
+        text: 'تهانينا! ملفك الشخصي مكتمل.',
+        animation: ImageConstant.lottieTrophy,
+        showAction: false,
+        //actionText: 'Let\'s fill it',
+        //onActionPressed: (){},
+      ),
     ),
   ),
 );

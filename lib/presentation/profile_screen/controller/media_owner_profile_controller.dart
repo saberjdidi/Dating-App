@@ -1,8 +1,11 @@
 import 'dart:io';
 
 import 'package:dating_app_bilhalal/core/app_export.dart';
+import 'package:dating_app_bilhalal/core/utils/network_manager.dart';
 import 'package:dating_app_bilhalal/core/utils/permissions_helper.dart';
 import 'package:dating_app_bilhalal/data/models/attachment_model.dart';
+import 'package:dating_app_bilhalal/data/models/media_model.dart';
+import 'package:dating_app_bilhalal/data/repositories/media_repository.dart';
 import 'package:dating_app_bilhalal/widgets/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,7 +13,11 @@ import 'package:image_picker/image_picker.dart';
 class MediaOwnerProfileController extends GetxController {
   static MediaOwnerProfileController get instance => Get.find();
 
-  final GlobalKey<FormState> formMediaProfileKey = GlobalKey<FormState>();
+  final mediaRepository = MediaRepository();
+  //RxList<MediaModel> mediaList = <MediaModel>[].obs;// ✅ depuis serveur
+  RxList<File> selectedMedia = <File>[].obs;          // ✅ fichiers locaux
+  RxBool isDataProcessing = false.obs;
+  RxList<MediaModel> allMedia = <MediaModel>[].obs;
 
   Rx<List<String>> ListImages = Rx(
       [
@@ -19,21 +26,133 @@ class MediaOwnerProfileController extends GetxController {
   );
 
   final ImagePicker _picker = ImagePicker();
-  final RxList<AttachmentModel> allMedia = <AttachmentModel>[].obs;
-  final RxList<File> selectedMedia = <File>[].obs;
+  //final RxList<AttachmentModel> allMedia = <AttachmentModel>[].obs;
 
   @override
   void onInit() {
     super.onInit();
 
-    allMedia.addAll([
+    getAllMedia();
+
+   /* allMedia.addAll([
       AttachmentModel(type: MessageType.image, url: ImageConstant.profile2),
       AttachmentModel(type: MessageType.image, url: ImageConstant.profile7),
-    ]);
+    ]); */
   }
 
+  Future<void> getAllMedia() async {
+    try {
+      isDataProcessing.value = true;
 
+      final isConnected = await NetworkManager.instance.isConnected();
+      if (!isConnected) {
+        isDataProcessing.value = false;
+        MessageSnackBar.customToast(message: 'Pas de connexion Internet');
+        return;
+      }
 
+      final result = await mediaRepository.getAllMedia();
+
+      if (result.success) {
+        allMedia.assignAll(result.data ?? []);
+        debugPrint('✅ ${allMedia.length} médias chargés');
+      } else {
+        MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? '');
+      }
+    } catch (e) {
+      MessageSnackBar.errorSnackBar(title: 'خطأ', message: e.toString());
+    } finally {
+      isDataProcessing.value = false;
+    }
+  }
+
+  /// 🔹 Supprimer un média
+  Future<void> deleteMedia(String id) async {
+    final result = await mediaRepository.deleteMedia(id);
+    if (result.success) {
+      allMedia.removeWhere((m) => m.id == id);
+      MessageSnackBar.successSnackBar(title: 'تم', message: result.message ?? 'تم حذف الوسائط بنجاح');
+    } else {
+      MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? 'فشل حذف الوسائط');
+    }
+  }
+
+  Future<void> removeMedia(int index) async {
+    final media = allMedia[index];
+    if (media.file != null) {
+      // ✅ local
+      allMedia.removeAt(index);
+    } else {
+      // ✅ distant
+      final result = await mediaRepository.deleteMedia(media.id);
+      if (result.success) {
+        allMedia.removeAt(index);
+        MessageSnackBar.successSnackBar(title: 'تم', message: result.message ?? 'تم الحذف');
+      } else {
+        MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? '');
+      }
+    }
+  }
+
+  /// ✅ Upload des nouveaux médias
+  Future<void> createMedia() async {
+    // ✅ Vérifier qu'au moins une image a été ajoutée
+    if (selectedMedia.isEmpty) {
+      MessageSnackBar.customToast(message: 'الرجاء تحميل صورة واحدة على الأقل');
+      return;
+    }
+    try {
+      isDataProcessing.value = true;
+
+      // ✅ Vérifier la connexion internet
+      final isConnected = await NetworkManager.instance.isConnected();
+      if(!isConnected) {
+        isDataProcessing.value = false;
+        MessageSnackBar.customToast(message: 'No Internet Connection');
+        return;
+      }
+
+      for (int i = 0; i < selectedMedia.length; i++) {
+        final file = selectedMedia[i];
+        final uploadResult = await mediaRepository.uploadOneMedia(file);
+
+        if (!uploadResult.success) {
+          isDataProcessing.value = false;
+          // ⚠️ Si erreur : afficher un message d’erreur pour ce fichier
+          MessageSnackBar.errorSnackBar(
+            title: 'خطأ',
+            message: 'فشل تحميل الصورة رقم ${i + 1}: ${uploadResult.message ?? ''}',
+          );
+        }
+       /* else {
+          MessageSnackBar.successSnackBar(
+            title: 'تم',
+            message: 'تم تحميل الصورة رقم ${i + 1} بنجاح',
+          );
+        } */
+
+        // ✅ Si c’est le dernier fichier ET upload réussi → afficher message de succès
+        if (uploadResult.success && i == selectedMedia.length - 1) {
+          Get.offAllNamed(Routes.successAccountScreen);
+          isDataProcessing.value = false;
+          MessageSnackBar.successSnackBar(title: 'تم', message: uploadResult.message ?? 'تم تحميل جميع الصور بنجاح',);
+        }
+        selectedMedia.clear(); // ✅ vider la liste locale après succès
+        await getAllMedia();   // ✅ rafraîchir depuis le serveur
+      }
+    }
+    catch (exception) {
+      isDataProcessing.value = false;
+      debugPrint('Exception : ${exception.toString()}');
+      //FullScreenLoader.stopLoading();
+      //Show some generic error to the user
+      MessageSnackBar.errorSnackBar(title: 'Oh Snap!', message: exception.toString());
+    } finally {
+      isDataProcessing.value = false;
+    }
+  }
+
+  /// ✅ Choisir média (photo ou vidéo)
   Future<void> showBottomSheetMedia(BuildContext context) async {
     final ImagePicker picker = ImagePicker();
     final pickedFile = await showModalBottomSheet<XFile?>(
@@ -63,6 +182,7 @@ class MediaOwnerProfileController extends GetxController {
     );
   }
 
+  /// ✅ Pick depuis la galerie/caméra
   Future<void> pickMedia(BuildContext context, ImageSource source) async {
     final hasPermission = await PermissionsHelper.requestMediaPermissions();
     if (!hasPermission) {
@@ -70,13 +190,7 @@ class MediaOwnerProfileController extends GetxController {
       return;
     }
 
-    ///Personalize Files in model
-    //Limiter à 5 fichiers ajoutés en plus des existants
-    final newFilesCount = allMedia.where((e) => e.file != null).length;
-    XFile? file;
-
-    if(newFilesCount >= 5){
-      // Afficher le dialog si dépasse 5
+    if (selectedMedia.length >= 5) {
       showMaxPhotosDialog(context);
       return;
     }
@@ -88,42 +202,25 @@ class MediaOwnerProfileController extends GetxController {
       showMaxPhotosDialog(context);
       return;
     }
-
-    if(source == ImageSource.camera) {
+    XFile? file;
+    if (source == ImageSource.camera) {
       file = await _picker.pickImage(source: ImageSource.camera);
-
     } else {
       file = await _picker.pickMedia();
-
     }
 
     if (file != null) {
-      final isVideo = file.path.endsWith(".mp4") || file.path.endsWith(".mov") || file.path.endsWith(".avi") || file.path.endsWith(".wmv");
-      allMedia.add(AttachmentModel(type: isVideo ? MessageType.video : MessageType.image, file: File(file.path)));
-
-      selectedMedia.add(File(file.path));
+      selectedMedia.add(File(file.path)); // ✅ ajout local instantané
     }
-
-    //pick multi files
-  /*  final List<XFile>? files = await _picker.pickMultiImage();
-
-    if (files!.length >= 5) {
-      // Afficher le dialog si dépasse 5
-      showMaxPhotosDialog(context);
-      return;
-    }
-
-    if (files != null) {
-      selectedMedia.addAll(files.map((f) => File(f.path)));
-    } */
   }
 
-  void removeMedia(int index) {
+  /// ✅ Supprimer localement un média sélectionné avant upload
+ /* void removeMedia(int index) {
     allMedia.removeAt(index);
     selectedMedia.removeAt(index);
-  }
+  } */
 
-  /// Méthode pour afficher le dialog
+  /// ✅ Dialog quand dépasse la limite
   void showMaxPhotosDialog(BuildContext context) {
     showDialog(
       context: context,

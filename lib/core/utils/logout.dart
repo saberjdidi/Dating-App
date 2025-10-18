@@ -12,6 +12,7 @@ class Logout {
     await PrefUtils.clearToken();
     await PrefUtils.clearId();
     await PrefUtils.clearUsername();
+    await PrefUtils.clearImageProfile();
     //await PrefUtils.clearFirstname();
     //await PrefUtils.clearLastName();
     //await PrefUtils.clearFullName();

@@ -14,7 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditProfileController extends GetxController {
-  RxInt currentIndexStepper = 0.obs;
   var isRTL = true.obs;
 
   final GlobalKey<FormState> formEditProfileKey = GlobalKey<FormState>();
@@ -42,7 +41,7 @@ class EditProfileController extends GetxController {
   FocusNode lookingForFocus = FocusNode();
   FocusNode paysFocus = FocusNode();
 
-  RxDouble currentAgeValue = 20.toDouble().obs;
+  RxDouble currentAgeValue = 25.toDouble().obs;
   RxDouble currentWeightValue = 50.toDouble().obs;
   RxDouble currentHeightValue = 170.toDouble().obs;
   var currentRangeValues = const RangeValues(177, 300).obs;
@@ -50,7 +49,7 @@ class EditProfileController extends GetxController {
   RxString selectedColor = ''.obs;
   selectColor(String color) {
     selectedColor.value = color;
-    debugPrint('color : $color');
+    debugPrint('Couleur sélectionnée : $color');
   }
 
   ///Interest Start
@@ -121,11 +120,11 @@ class EditProfileController extends GetxController {
     }
   }
 
-  RxInt jobRemaining = 50.obs;
+  RxInt jobRemaining = 20.obs;
   RxString jobError = "".obs;
   void onJobChanged(String value) {
-    jobRemaining.value = 50 - value.length;
-    if (value.length > 50) {
+    jobRemaining.value = 20 - value.length;
+    if (value.length > 20) {
       jobError.value = "الاسم الكامل لا يمكن أن يتجاوز 50 حرف.";
     } else {
       jobError.value = "";
@@ -137,32 +136,61 @@ class EditProfileController extends GetxController {
   void onInit() {
     super.onInit();
     // Charger données de l’utilisateur
-    fullNameController.text = userInfo.username! ?? '';
-    bioController.text = userInfo.profile!.description ?? '';
-    jobController.text = userInfo.profile!.jobTitle ?? '';
-    currentAgeValue.value = userInfo.age != null ? userInfo.age!.toDouble() : 0;
-    currentHeightValue.value = userInfo.height != null ? userInfo.height!.toDouble() : 0;
-    currentWeightValue.value = userInfo.weight != null ? userInfo.weight!.toDouble() : 0;
-    //currentRangeValues.value = RangeValues(double.parse(userInfo.profile!.salaryRangeMin.toString()), double.parse(userInfo.profile!.salaryRangeMax.toString()));
-    //selectedMaritalStatus.value = ListMaritalStatus.value.first;
+    getInformationUser();
+  }
 
-    final profile = userInfo.profile;
-    if (profile != null) {
-      // --- Social State ---
-      final socialArabic = THelperFunctions.getSocialStateArabic(userInfo.profile?.socialState ?? '');
-      maritalStatusController.text = socialArabic;
+  getInformationUser(){
+    try {
+      fullNameController.text = userInfo.username! ?? '';
+      bioController.text = userInfo.profile!.description ?? '';
+      jobController.text = userInfo.profile!.jobTitle ?? '';
+      currentAgeValue.value = userInfo.age != null ? (userInfo.age! < 18 ? 18 : userInfo.age!.toDouble()) : 20;
+      currentHeightValue.value = userInfo.height != null ? userInfo.height!.toDouble() : 0;
+      currentWeightValue.value = userInfo.weight != null ? userInfo.weight!.toDouble() : 0;
+      selectedColor.value = userInfo.profile!.skinToneHex! ?? '';
 
-      final socialItem = ListMaritalStatus.value.firstWhereOrNull(
-              (item) => item.title == socialArabic);
-      selectedMaritalStatus.value = socialItem;
+      final profile = userInfo.profile;
+      if (profile != null) {
+        // --- Social State ---
+        final socialArabic = THelperFunctions.getSocialStateArabic(userInfo.profile?.socialState ?? '');
+        maritalStatusController.text = socialArabic;
 
-      // --- Marriage Type ---
-      final marriageArabic = THelperFunctions.getMarriageTypeArabic(userInfo.profile?.marriageType ?? '');
-      lookingForController.text = marriageArabic;
+        final socialItem = ListMaritalStatus.value.firstWhereOrNull(
+                (item) => item.title == socialArabic);
+        selectedMaritalStatus.value = socialItem;
 
-      final marriageItem = ListLookingFor.value.firstWhereOrNull(
-              (item) => item.title == marriageArabic);
-      selectedLookingFor.value = marriageItem;
+        // --- Marriage Type ---
+        final marriageArabic = THelperFunctions.getMarriageTypeArabic(userInfo.profile?.marriageType ?? '');
+        lookingForController.text = marriageArabic;
+
+        final marriageItem = ListLookingFor.value.firstWhereOrNull(
+                (item) => item.title == marriageArabic);
+        selectedLookingFor.value = marriageItem;
+
+        // --- Country ---
+        final countryArabic = THelperFunctions.getCountryArabic(userInfo.profile?.country ?? '');
+        paysController.text = countryArabic;
+
+        final countryItem = PaysList.value.firstWhereOrNull(
+                (item) => item.name == countryArabic);
+        selectedPays.value = countryItem;
+      }
+
+      // ✅ Charger les salaires min/max
+      final minSalary = double.tryParse(userInfo.profile?.salaryRangeMin ?? '') ?? 177;
+      final maxSalary = double.tryParse(userInfo.profile?.salaryRangeMax ?? '') ?? 300;
+
+      // ✅ Si min > max, on inverse pour éviter erreur
+      if (minSalary > maxSalary) {
+        currentRangeValues.value = RangeValues(maxSalary, minSalary);
+      } else {
+        currentRangeValues.value = RangeValues(minSalary, maxSalary);
+      }
+
+      debugPrint("✅ Loaded salary range: $minSalary - $maxSalary");
+    } catch (e) {
+      debugPrint("⚠️ Error parsing salary range: $e");
+      currentRangeValues.value = const RangeValues(177, 300);
     }
   }
 
@@ -283,8 +311,8 @@ class EditProfileController extends GetxController {
           jobTitle: jobController.text.trim(),
           salaryRangeMin: currentRangeValues.value.start.round().toString(),
           salaryRangeMax: currentRangeValues.value.end.round().toString(),
-          country: "Tunis", //paysController.text.trim(),
-          skinColor: "olive"//selectedColor.value
+          country: userInfo.profile!.country!,//THelperFunctions.getCountryEnum(paysController.text), //paysController.text.trim(),
+          skinColor: selectedColor.value, // ✅ couleur sélectionnée //"Tan"//selectedColor.value
         );
 
      /* final result2 = await profileRepository.updateProfile({

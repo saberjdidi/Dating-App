@@ -32,4 +32,5 @@ final interestsList = [
   InterestModel(name: "أقصى", icon: Icons.diamond_outlined),
   InterestModel(name: "ألعاب الفيديو", icon: Iconsax.game),
   InterestModel(name: "قراءة", icon: Iconsax.book_1),
+  InterestModel(name: "كرة القدم", icon: Icons.sports_basketball_rounded),
 ];

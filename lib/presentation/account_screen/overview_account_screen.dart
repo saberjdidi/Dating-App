@@ -189,7 +189,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                                   ),
                                   child: Slider(
                                     value: controller.currentAgeValue.value,
-                                    min: 0,
+                                    min: 18,
                                     max: 100,
                                     divisions: 100,
                                     label: controller.currentAgeValue.value.round().toString(),
@@ -231,7 +231,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                                   ),
                                   child: Slider(
                                     value: controller.currentWeightValue.value,
-                                    min: 0,
+                                    min: 40,
                                     max: 140,
                                     divisions: 140,
                                     label: controller.currentWeightValue.value.round().toString(),
@@ -306,8 +306,8 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                                     padding: EdgeInsets.symmetric(horizontal: 35.v, vertical: 13.v),
                                   child: Row(
                                     children: [
-                                      Radio<int>(
-                                        value: 0,
+                                      Radio<String>(
+                                        value: 'female',
                                         groupValue: controller.sexValue.value,
                                         onChanged: (value) {
                                           controller.sexValue.value = value!;
@@ -333,8 +333,8 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                                     padding: EdgeInsets.symmetric(horizontal: 35.v, vertical: 13.v),
                                   child: Row(
                                     children: [
-                                      Radio<int>(
-                                        value: 1,
+                                      Radio<String>(
+                                        value: 'male',
                                         groupValue: controller.sexValue.value,
                                         onChanged: (value) {
                                           controller.sexValue.value = value!;
@@ -362,11 +362,12 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             hintText: "${'الحالة الاجتماعية'.tr} *",
                             items: ListMaritalStatus.value,
                             selectedValue: controller.selectedMaritalStatus.value,
-                            onChanged: (val) => controller.selectedMaritalStatus.value = val,
-                           /* onChanged: (value) async {
+                            //onChanged: (val) => controller.selectedMaritalStatus.value = val,
+                            onChanged: (value) async {
+                              controller.selectedMaritalStatus.value = value;
                               controller.maritalStatusController.text = value.title;
                               debugPrint('marital status : ${controller.maritalStatusController.text}');
-                            }, */
+                            },
                             validator: (value) {
                               if (value == null) {
                                 return "الحالة الاجتماعية إجباري";
@@ -389,11 +390,12 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             hintText: "${'نوع الزواج'.tr} *",
                             items: ListLookingFor.value,
                             selectedValue: controller.selectedLookingFor.value,
-                            onChanged: (val) => controller.selectedLookingFor.value = val,
-                           /* onChanged: (value) async {
+                            //onChanged: (val) => controller.selectedLookingFor.value = val,
+                            onChanged: (value) async {
+                              controller.selectedLookingFor.value = value;
                               controller.lookingForController.text = value.title;
                               debugPrint('looking for : ${controller.lookingForController.text}');
-                            }, */
+                            },
                             validator: (value) {
                               if (value == null) {
                                 return "نوع الزواج إجباري";
@@ -450,11 +452,12 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                             hintText: "${'الدولة'.tr} *",
                             items: PaysList.value,
                             selectedValue: controller.selectedPays.value,
-                            onChanged: (val) => controller.selectedPays.value = val,
-                            /* onChanged: (value) async {
-                              controller.paysController.text = value.title;
+                            //onChanged: (val) => controller.selectedPays.value = val,
+                             onChanged: (value) async {
+                               controller.selectedPays.value = value;
+                              controller.paysController.text = value.name;
                               debugPrint('pays : ${controller.paysController.text}');
-                            }, */
+                            },
                             validator: (value) {
                               if (value == null) {
                                 return "الدولة إجباري";
@@ -718,7 +721,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                   right: TSizes.defaultSpace.hw),
               //child: _buildButtonSection()
               child:
-              CustomButtonContainer(
+              Obx(() => CustomButtonContainer(
                 text:"تأكيد".tr,
                 color1: TColors.primaryColorApp,
                 color2: TColors.primaryColorApp,
@@ -727,10 +730,23 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                 fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
                 height: isSmallPhone ? 80.v : 70.v,
                 width: screenWidth * 0.7,
-                onPressed: () async {
-                  controller.saveBtn();
+                onPressed:controller.isDataProcessing.value
+                    ? null // désactive le clic pendant chargement
+                    :  () async {
+                  controller.createAccount();
                 },
-              ),
+                // onPressed: () async {controller.createAccount();},
+                child: controller.isDataProcessing.value
+                    ? const SizedBox(
+                  height: 28,
+                  width: 28,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 3,
+                    color: Colors.white,
+                  ),
+                )
+                    : null,
+              )),
             ),
           ),
         )

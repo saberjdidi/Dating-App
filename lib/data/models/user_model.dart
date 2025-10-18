@@ -9,7 +9,7 @@ class UserModel {
   int? age;
   int? height;
   int? weight;
-  int? gender;
+  String? gender;
   String? mainProfile;
   String? mainProfileType;
   //String? createdAt;

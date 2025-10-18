@@ -26,9 +26,6 @@ class MediaOwnerProfileScreen extends GetWidget<MediaOwnerProfileController> {
 
     return SafeArea(
         top: false,
-        child: Form(
-        key: controller.formMediaProfileKey,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Scaffold(
           key: _scaffoldKeyMediaProfile,
         //backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
@@ -38,159 +35,122 @@ class MediaOwnerProfileScreen extends GetWidget<MediaOwnerProfileController> {
         ),
         body:  Padding(
           padding: EdgeInsets.all(8.adaptSize),
-          child: Obx(() => Directionality(
-            textDirection: TextDirection.rtl,
-            child: GridLayout(
-              itemCount: controller.allMedia.length + 1, // +1 pour l'upload
-              mainAxisExtent: isTablet ? 220.adaptSize : 180.adaptSize,
-              crossAxisCount: 3,
-              itemBuilder: (context, index) {
-                if (index == 0) {
-                  // L'icône upload
-                  return TRoundedContainer(
-                    showBorder: false,
-                    backgroundColor: TColors.white,
-                    borderColor: TColors.greyDating,
-                    radius: 12,
-                    padding: EdgeInsets.all(1),
-                    child: CustomImageView(
-                      imagePath: ImageConstant.uploadImage,
-                      height: 100.adaptSize,
-                      width: 100.adaptSize,
-                      fit: BoxFit.fill,
-                      onTap: () async {
-                        await controller.showBottomSheetMedia(context);
-                        //buildImagePickerOptions(context);
-                        //await controller.pickMedia(context);
-                      },
-                    ),
-                  );
-                } else {
-                  final media = controller.allMedia[index - 1]; // -1 car le 1er est upload
-                  return TRoundedContainer(
-                    showBorder: true,
-                    backgroundColor: TColors.white,
-                    borderColor: TColors.greyDating,
-                    radius: 12,
-                    padding: EdgeInsets.all(1),
-                    child: Stack(
-                      children: [
-                        if(media.type == MessageType.image)
-                          media.file != null
-                          ? CustomImageView(
+          child: Obx((){
+            if (controller.isDataProcessing.value) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            return Directionality(
+              textDirection: TextDirection.rtl,
+              child: GridLayout(
+                itemCount: controller.allMedia.length + 1, // +1 pour l'upload
+                mainAxisExtent: isTablet ? 220.adaptSize : 180.adaptSize,
+                crossAxisCount: 3,
+                itemBuilder: (context, index) {
+                  if (index == 0) {
+                    // ✅ Bouton Upload
+                    return TRoundedContainer(
+                      showBorder: false,
+                      backgroundColor: TColors.white,
+                      borderColor: TColors.greyDating,
+                      radius: 12,
+                      padding: EdgeInsets.all(1),
+                      child: CustomImageView(
+                        imagePath: ImageConstant.uploadImage,
+                        height: 100.adaptSize,
+                        width: 100.adaptSize,
+                        fit: BoxFit.fill,
+                        onTap: () async {
+                          await controller.showBottomSheetMedia(context);
+                        },
+                      ),
+                    );
+                  } else {
+
+                    final media = controller.allMedia[index - 1]; // -1 car le 1er est upload
+                    final isVideo = media.mediaType == 'video';
+
+                    return TRoundedContainer(
+                      showBorder: true,
+                      backgroundColor: TColors.white,
+                      borderColor: TColors.greyDating,
+                      radius: 12,
+                      padding: EdgeInsets.all(1),
+                      child: Stack(
+                        children: [
+                            // ✅ Image
+                            if (media.mediaType == "image")
+                            media.file != null
+                            ? CustomImageView(
                             file: media.file,
                             imagePath: null,
                             height: Get.height,
                             width: Get.width,
                             fit: BoxFit.cover,
                             radius: BorderRadius.circular(10),
-                          )
-                        : CustomImageView(
-                            imagePath: media.url,
+                            )
+                                : CustomImageView(
+                              imagePath: media.mediaUrl,
                             height: Get.height,
                             width: Get.width,
                             fit: BoxFit.cover,
                             radius: BorderRadius.circular(10),
-                          ),
-
-                        if(media.type == MessageType.video)
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: SizedBox(
-                              height: Get.height,
-                              //height: 150, // Taille fixe
-                              width: double.infinity,
-                              child: VideoPreviewWidget(file: media.file),
                             ),
-                          ),
-                          //VideoPreviewWidget(file: media.file),
 
-                        Positioned(
-                          right: 1,
-                          top: 1,
-                          child: CustomImageView(
-                            imagePath: ImageConstant.removeImage,
-                            width: 30.adaptSize,
-                            height: 30.adaptSize,
-                            radius: BorderRadius.circular(30.adaptSize),
-                            fit: BoxFit.cover,
-                            onTap: (){
-                              controller.removeMedia(index - 1);
-                            },
-                          )
-                        ),
-                      ],
-                    ),
-                  );
-                }
-              },
-            ),
-           /* child: GridLayout(
-              itemCount: controller.selectedMedia.length + 1, // +1 pour l'upload
-              mainAxisExtent: isTablet ? 220.adaptSize : 180.adaptSize,
-              crossAxisCount: 3,
-              itemBuilder: (context, index) {
-                if (index == 0) {
-                  // L'icône upload
-                  return TRoundedContainer(
-                    showBorder: false,
-                    backgroundColor: TColors.white,
-                    borderColor: TColors.greyDating,
-                    radius: 12,
-                    padding: EdgeInsets.all(1),
-                    child: CustomImageView(
-                      imagePath: ImageConstant.uploadImage,
-                      height: 100.adaptSize,
-                      width: 100.adaptSize,
-                      fit: BoxFit.fill,
-                      onTap: () async {
-                        await controller.showBottomSheetMedia(context);
-                        //buildImagePickerOptions(context);
-                        //await controller.pickMedia(context);
-                      },
-                    ),
-                  );
-                } else {
-                  final file = controller.selectedMedia[index - 1]; // -1 car le 1er est upload
-                  return TRoundedContainer(
-                    showBorder: true,
-                    backgroundColor: TColors.white,
-                    borderColor: TColors.greyDating,
-                    radius: 12,
-                    padding: EdgeInsets.all(1),
-                    child: Stack(
-                      children: [
-                        // Utiliser CustomImageView au lieu de Image.file
-                        CustomImageView(
-                          file: file,
-                          imagePath: null,
-                          //imagePath: file.path, // très important: .path car File
-                          height: Get.height,
-                          width: Get.width,
-                          fit: BoxFit.cover,
-                          radius: BorderRadius.circular(10),
-                        ),
-                        Positioned(
-                            right: 1,
-                            top: 1,
-                            child: CustomImageView(
-                              imagePath: ImageConstant.removeImage,
-                              width: 30.adaptSize,
-                              height: 30.adaptSize,
-                              radius: BorderRadius.circular(30.adaptSize),
-                              fit: BoxFit.cover,
-                              onTap: (){
-                                controller.removeMedia(index - 1);
-                              },
+                          // ✅ Vidéo
+                          if (media.mediaType == "video")
+                            media.file != null
+                                ? ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: SizedBox(
+                                height: Get.height,
+                                width: double.infinity,
+                                child: VideoPreviewWidget(file: media.file),
+                              ),
                             )
-                        ),
-                      ],
-                    ),
-                  );
-                }
-              },
-            ) */
-          )),
+                                : ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: SizedBox(
+                                height: Get.height,
+                                width: double.infinity,
+                                child: VideoPreviewWidget(url: media.mediaUrl),
+                              ),
+                            ),
+                         /* ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: isVideo
+                                ? VideoPreviewWidget(url: media.mediaUrl)
+                                : CustomImageView(
+                              imagePath: media.mediaUrl,
+                              height: double.infinity,
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                            ),
+                          ), */
+
+                          Positioned(
+                              right: 1,
+                              top: 1,
+                              child: CustomImageView(
+                                imagePath: ImageConstant.removeImage,
+                                width: 30.adaptSize,
+                                height: 30.adaptSize,
+                                radius: BorderRadius.circular(30.adaptSize),
+                                fit: BoxFit.cover,
+                                onTap: () {
+                                  controller.removeMedia(index - 1);
+                                },
+                                //onTap: () => controller.deleteMedia(media.id),
+                              )
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                },
+              ),
+            );
+          }),
         ),
           bottomNavigationBar: Padding(
             padding: EdgeInsets.only(bottom: TSizes.spaceBtwSections.v, left: TSizes.spaceBtwItems.hw, right: TSizes.spaceBtwItems.hw),
@@ -205,37 +165,12 @@ class MediaOwnerProfileScreen extends GetWidget<MediaOwnerProfileController> {
               fontSize: 30.adaptSize,
               height: isTablet ? 80.v : 70.v,
               onPressed: () async {
-                //dialogVerifyAccount(context);
+                controller.createMedia();
               },
             ),
           ),
-    )
-    )
+            )
     );
   }
 
-   Widget buildImagePickerOptions(BuildContext context) {
-     return SafeArea(
-       child: Wrap(
-         children: [
-           ListTile(
-             leading: const Icon(Icons.photo),
-             title: const Text("Gallery"),
-             onTap: () async {
-               await controller.pickMedia(context, ImageSource.gallery);
-               Navigator.pop(context);
-             },
-           ),
-           ListTile(
-             leading: const Icon(Icons.camera_alt),
-             title: const Text("Camera"),
-             onTap: () async {
-               await controller.pickMedia(context, ImageSource.camera);
-               Navigator.pop(context);
-             },
-           ),
-         ],
-       ),
-     );
-   }
 }

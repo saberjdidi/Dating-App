@@ -1,11 +1,11 @@
-class LoginResponse {
-  UserLogin? user;
+class AuthResponse {
+  UserAuth? user;
   String? token;
 
-  LoginResponse({this.user, this.token});
+  AuthResponse({this.user, this.token});
 
-  LoginResponse.fromJson(Map<String, dynamic> json) {
-    user = json['user'] != null ? new UserLogin.fromJson(json['user']) : null;
+  AuthResponse.fromJson(Map<String, dynamic> json) {
+    user = json['user'] != null ? new UserAuth.fromJson(json['user']) : null;
     token = json['token'];
   }
 
@@ -19,14 +19,14 @@ class LoginResponse {
   }
 }
 
-class UserLogin {
+class UserAuth {
   String? id;
   String? email;
   String? username;
 
-  UserLogin({this.id, this.email, this.username});
+  UserAuth({this.id, this.email, this.username});
 
-  UserLogin.fromJson(Map<String, dynamic> json) {
+  UserAuth.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     email = json['email'];
     username = json['username'];

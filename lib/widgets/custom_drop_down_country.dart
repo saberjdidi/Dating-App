@@ -28,6 +28,7 @@ class CustomDropDownCountry extends StatelessWidget {
     this.fillColor,
     this.themeColor,
     this.filled = true,
+    this.enabled = true,
     this.validator,
     this.onChanged,
     this.selectedValue,
@@ -73,6 +74,8 @@ class CustomDropDownCountry extends StatelessWidget {
 
   final bool? filled;
 
+  final bool enabled;
+
   //final FormFieldValidator<String>? validator;
   final FormFieldValidator<CountryModel>? validator;
 
@@ -106,6 +109,7 @@ class CustomDropDownCountry extends StatelessWidget {
               return DropdownMenuItem<CountryModel>(
                 //value: selectedValue,
                 value: item,
+                enabled: enabled,
                 alignment: Alignment.centerRight,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.v),

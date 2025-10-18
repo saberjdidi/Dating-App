@@ -60,6 +60,7 @@ class SignUpWithEmailController extends GetxController {
       if(!isConnected) {
         //Remove Loader
         FullScreenLoader.stopLoading();
+        MessageSnackBar.customToast(message: 'No Internet Connection');
         return;
       }
 
@@ -71,7 +72,8 @@ class SignUpWithEmailController extends GetxController {
 
       if (result.success) {
         // sauvegarde email ou naviguer vers OTP
-        await PrefUtils.setEmail(emailController.text.trim());
+        await PrefUtils.setToken(result.data!.token!);
+        await PrefUtils.setEmail(result.data!.user!.email!);
         Get.toNamed(Routes.otpScreen, arguments: {
           "SourceOTP" : "FromSignup",
           "Email" : emailController.text.trim(),
@@ -80,6 +82,14 @@ class SignUpWithEmailController extends GetxController {
       } else {
         MessageSnackBar.errorSnackBar(title: 'Erreur', message: result.message ?? 'Erreur serveur');
       }
+      /*
+       Get.toNamed(Routes.otpScreen, arguments: {
+        "SourceOTP" : "FromSignup",
+        "Email" : emailController.text.trim(),
+      });
+      await PrefUtils.setToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxNCIsImVtYWlsIjoic2FiZXJqZGlkaTRAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NjA3OTk1MTQsImV4cCI6MTc2MTQwNDMxNH0.F6EcG81HhkriXCy1pHwn1fccN-OQYG-APGV6ajuOFxg");
+      await PrefUtils.setEmail(emailController.text.trim());
+       */
     }
     catch (exception) {
       debugPrint('Exception : ${exception.toString()}');

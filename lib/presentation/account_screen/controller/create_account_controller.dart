@@ -5,6 +5,8 @@ import 'package:dating_app_bilhalal/core/utils/network_manager.dart';
 import 'package:dating_app_bilhalal/core/utils/permissions_helper.dart';
 import 'package:dating_app_bilhalal/data/models/country_model.dart';
 import 'package:dating_app_bilhalal/data/models/selection_popup_model.dart';
+import 'package:dating_app_bilhalal/data/repositories/media_repository.dart';
+import 'package:dating_app_bilhalal/data/repositories/profile_repository.dart';
 import 'package:dating_app_bilhalal/widgets/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -15,6 +17,9 @@ class CreateAccountController extends GetxController {
 
   final GlobalKey<FormState> formCreateAccountKey = GlobalKey<FormState>();
   final GlobalKey<FormState> formOverviewAccountKey = GlobalKey<FormState>();
+  final ProfileRepository profileRepository = ProfileRepository();
+  final MediaRepository mediaRepository = MediaRepository();
+  RxBool isDataProcessing = false.obs;
 
   ///ImStepper
   // REQUIRED: USED TO CONTROL THE STEPPER.
@@ -45,7 +50,7 @@ class CreateAccountController extends GetxController {
   FocusNode lookingForFocus = FocusNode();
   FocusNode paysFocus = FocusNode();
 
-  RxInt sexValue = 0.obs;
+  RxString sexValue = 'male'.obs;
   RxDouble currentAgeValue = 20.toDouble().obs;
   RxDouble currentWeightValue = 50.toDouble().obs;
   RxDouble currentHeightValue = 170.toDouble().obs;
@@ -134,11 +139,11 @@ class CreateAccountController extends GetxController {
     }
   }
 
-  RxInt jobRemaining = 50.obs;
+  RxInt jobRemaining = 20.obs;
   RxString jobError = "".obs;
   void onJobChanged(String value) {
-    jobRemaining.value = 50 - value.length;
-    if (value.length > 50) {
+    jobRemaining.value = 20 - value.length;
+    if (value.length > 20) {
       jobError.value = "الاسم الكامل لا يمكن أن يتجاوز 50 حرف.";
     } else {
       jobError.value = "";
@@ -236,6 +241,139 @@ class CreateAccountController extends GetxController {
   ///Upload user profile end
 
 
+  Future<void> createAccount() async {
+    try {
+      final isValid = formOverviewAccountKey.currentState!.validate();
+      if (!isValid) {
+        return;
+      }
+      formOverviewAccountKey.currentState!.save();
+
+      // ✅ Vérifier si l’utilisateur a sélectionné des intérêts
+      if (selectedInterests.isEmpty) {
+        MessageSnackBar.customToast(message: 'الرجاء اختيار على الأقل اهتمام واحد');
+        return;
+      }
+
+      // ✅ Vérifier qu'au moins une image a été ajoutée
+      if (selectedMedia.isEmpty) {
+        MessageSnackBar.customToast(message: 'الرجاء تحميل صورة واحدة على الأقل');
+        return;
+      }
+
+      // ✅ Vérifier l'image de profile
+      if (selectedImage.value == null) {
+        MessageSnackBar.customToast(message: 'الرجاء تحميل صورة الملف');
+        return;
+      }
+
+      isDataProcessing.value = true;
+      //FullScreenLoader.openLoadingDialog('Loading...', ImageConstant.lottieLoading);
+
+      // ✅ Vérifier la connexion internet
+      final isConnected = await NetworkManager.instance.isConnected();
+      if(!isConnected) {
+        isDataProcessing.value = false;
+        //Remove Loader
+        //FullScreenLoader.stopLoading();
+        MessageSnackBar.customToast(message: 'No Internet Connection');
+        return;
+      }
+
+      // ✅ Convertir les intérêts en anglais avant l’envoi
+      final hobbiesInEnglish = selectedInterests
+          .map((arabic) => THelperFunctions.getInterestEnum(arabic))
+          .toList();
+
+      // ✅ Créer le compte
+      final result = await profileRepository.createAccount(
+        username: fullNameController.text.trim(),
+        bio: bioController.text.trim(),
+        gender: sexValue.value,
+        age: int.parse(currentAgeValue.value.round().toString()),
+        height: int.parse(currentHeightValue.value.round().toString()),
+        weight: int.parse(currentWeightValue.value.round().toString()),
+        socialState: THelperFunctions.getSocialStateEnum(maritalStatusController.text), //maritalStatusController.text.trim(),
+        marriageType: THelperFunctions.getMarriageTypeEnum(lookingForController.text), //lookingForController.text.trim(),
+        jobTitle: jobController.text.trim(),
+        salaryRangeMin: currentRangeValues.value.start.round().toString(),
+        salaryRangeMax: currentRangeValues.value.end.round().toString(),
+        country: THelperFunctions.getCountryEnum(paysController.text), //paysController.text.trim(),
+        skinColor: selectedColor.value, // ✅ couleur sélectionnée //"Tan"//selectedColor.value
+        hobbies: hobbiesInEnglish, // ✅ envoyé en anglais
+      );
+
+      final userProfileResult = await mediaRepository.uploadProfileImage(selectedImage.value);
+      if (userProfileResult.success) {
+        MessageSnackBar.successSnackBar(title: 'تم', message: 'تم تحميل صورة الملف بنجاح');
+        //isDataProcessing.value = false;
+        final profileUrl = userProfileResult.data?['user']?['main_profile_url'];
+        debugPrint("profileUrl : $profileUrl");
+        if (profileUrl != null) {
+          await PrefUtils.setImageProfile(profileUrl);
+        }
+      } else {
+        MessageSnackBar.errorSnackBar(title: 'خطأ', message: userProfileResult.message ?? '');
+        isDataProcessing.value = false;
+      }
+
+
+
+      if (result.success) {
+        //Get.offAllNamed(Routes.successAccountScreen);
+        MessageSnackBar.successSnackBar(title: 'تم', message: result.message ?? '');
+        //isDataProcessing.value = false;
+        // ✅ Upload toutes les images sélectionnées une par une
+        for (int i = 0; i < selectedMedia.length; i++) {
+          final file = selectedMedia[i];
+          final uploadResult = await mediaRepository.uploadOneMedia(file);
+
+          if (!uploadResult.success) {
+            isDataProcessing.value = false;
+            // ⚠️ Si erreur : afficher un message d’erreur pour ce fichier
+            MessageSnackBar.errorSnackBar(
+              title: 'خطأ',
+              message: 'فشل تحميل الصورة رقم ${i + 1}: ${uploadResult.message ?? ''}',
+            );
+          }
+
+          // ✅ Si c’est le dernier fichier ET upload réussi → afficher message de succès
+          if (uploadResult.success && i == selectedMedia.length - 1) {
+            Get.offAllNamed(Routes.successAccountScreen);
+            isDataProcessing.value = false;
+            MessageSnackBar.successSnackBar(title: 'تم', message: uploadResult.message ?? 'تم تحميل جميع الصور بنجاح',);
+          }
+        }
+      } else {
+        MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? 'An error occured');
+        isDataProcessing.value = false;
+      }
+
+      // ✅ Upload la première image
+      //final firstFile = selectedMedia.first;
+      //final uploadResult = await mediaRepository.uploadOneMedia(firstFile);
+      // ✅ Upload plusieurs images
+      /* final uploadResult = await mediaRepository.uploadMultiMedia(selectedMedia);
+        if (uploadResult.success) {
+          //Get.offAllNamed(Routes.successAccountScreen);
+          MessageSnackBar.successSnackBar(title: 'تم', message: uploadResult.message ?? 'تم تحميل الصور بنجاح');
+          isDataProcessing.value = false;
+        } else {
+          MessageSnackBar.errorSnackBar(title: 'خطأ', message: uploadResult.message ?? '');
+          isDataProcessing.value = false;
+        } */
+
+    }
+    catch (exception) {
+      isDataProcessing.value = false;
+      debugPrint('Exception : ${exception.toString()}');
+      //FullScreenLoader.stopLoading();
+      //Show some generic error to the user
+      MessageSnackBar.errorSnackBar(title: 'Oh Snap!', message: exception.toString());
+    } finally {
+      isDataProcessing.value = false;
+    }
+  }
 
   saveBtn() async {
     if(formOverviewAccountKey.currentState!.validate()){
@@ -285,89 +423,6 @@ class CreateAccountController extends GetxController {
         //isDataProcessing.value = false;
       }
     }
-    /*
-    debugPrint('-----------------saveBtn');
-    //if(formSignUpKey.currentState!.validate()){}
-    if(formSignUpStepperKey.currentState!.validate()){
-      debugPrint('firstname : ${firstNameController.text.trim()}');
-      debugPrint('lastname : ${lastNameController.text.trim()}');
-      debugPrint('phone : ${phoneController.text.trim()}');
-      debugPrint('city : ${villeController.text.trim()}');
-      debugPrint('zipcode : ${codePostalController.text.trim()}');
-      debugPrint('state : ${regionController.text.trim()}');
-      debugPrint('address : ${addressController.text.trim()}');
-      debugPrint('password : ${passwordController.text.trim()}');
-      debugPrint('email : ${emailController.text.trim()}');
-      debugPrint('token : ${tokenParameter.toString()}');
-      try {
-        await apiClient.registerUser(
-            {
-              "firstname": firstNameController.text.trim(),
-              "lastname": lastNameController.text.trim(),
-              "phone": phoneController.text.trim(),
-              "city": villeController.text.trim(),
-              "zipcode": codePostalController.text.trim(),
-              "state": regionController.text.trim(),
-              "address": addressController.text.trim(),
-              "password": passwordController.text.trim(),
-              "company_name": "",
-              "tsp_number": "",
-              "tvq_number": "",
-              "type_id": "",
-              "id_file_url": "",
-              "idFile": [],
-              "accept_conditions": true,
-              "email": emailController.text.trim(),
-              "token": tokenParameter.toString()
-            })
-            .then((value) async {
-          await PrefUtils.setTokenVerifAccount(tokenParameter.toString());
-          debugPrint('value : ${value}');
-          Get.offAndToNamed(Routes.signUpSuccessScreen, arguments: {
-            "EmailAccount" : emailController.text.trim(),
-            "PasswordAccount": passwordController.text.trim()
-          });
-          //MessageSnackBar.successSnackBar(title: 'Successfully', message: 'User created successfully.');
-          MessageSnackBar.informationToast(
-              title: 'Successfully',
-              message: "User created successfully.",
-              position: SnackPosition.BOTTOM,
-              duration: 3);
-        })
-            .onError((error, stackTrace){
-          debugPrint('error register : ${error.toString()}');
-          if(error.toString() == '404' || error == 404){
-            //MessageSnackBar.errorSnackBar(title: 'Erreur', message: "Impossible de trouver d'utilisateur correspondant au lien de vérification. Veuillez vérifier les informations fournies et réessayer.");
-            MessageSnackBar.errorToast(
-                title: 'Erreur',
-                message: "Impossible de trouver d'utilisateur correspondant au lien de vérification. Veuillez vérifier les informations fournies et réessayer.",
-                position: SnackPosition.BOTTOM,
-                duration: 3);
-          }
-          else {
-            //MessageSnackBar.errorSnackBar(title: 'Erreur', message: error.toString());
-            MessageSnackBar.errorToast(
-                title: 'Erreur',
-                message: error.toString(),
-                position: SnackPosition.BOTTOM,
-                duration: 3);
-          }
-        });
-      }
-      catch (e) {
-        MessageSnackBar.errorToast(
-            title: 'Exception',
-            message: e.toString(),
-            position: SnackPosition.BOTTOM,
-            duration: 3);
-        //MessageSnackBar.errorSnackBar(title: 'Exception', message: e.toString());
-        //isDataProcessing(false);
-        //ShowSnackBar.snackBar("Exception", exception.toString(), Colors.red);
-      } finally {
-        //isDataProcessing.value = false;
-      }
-    }
-    */
   }
 
 }

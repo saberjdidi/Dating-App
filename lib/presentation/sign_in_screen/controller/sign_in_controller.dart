@@ -6,6 +6,7 @@ import 'package:dating_app_bilhalal/core/utils/network_manager.dart';
 import 'package:dating_app_bilhalal/core/utils/popups/full_screen_loader.dart';
 import 'package:dating_app_bilhalal/data/repositories/auth_repository.dart';
 import 'package:dating_app_bilhalal/data/repositories/authentication_repository.dart';
+import 'package:dating_app_bilhalal/data/repositories/profile_repository.dart';
 import 'package:dating_app_bilhalal/presentation/navigation_screen/controller/bottom_bar_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -134,6 +135,16 @@ class SignInController extends GetxController {
      Get.offAllNamed(Routes.navigationScreen);
      MessageSnackBar.successSnackBar(title: 'Successfully', message: result.message ?? 'Authentification initiée');
      debugPrint('data login : ${PrefUtils.getToken()} - ${PrefUtils.getEmail()} - ${PrefUtils.getId()} - ${PrefUtils.getUsername()}');
+
+     //Profile image
+     final profileResult = await ProfileRepository().myProfile();
+     if (profileResult.success) {
+       var urlProfile = profileResult.data!.mainProfile ?? "";
+       await PrefUtils.setImageProfile(urlProfile);
+       debugPrint("URL Profile : ${PrefUtils.getImageProfile()}");
+     } else {
+       MessageSnackBar.errorSnackBar(title: 'خطأ', message: profileResult.message ?? 'An error occured');
+     }
    } else {
      isDataProcessing.value = false;
      MessageSnackBar.errorSnackBar(title: 'Erreur', message: result.message ?? 'Erreur serveur');
