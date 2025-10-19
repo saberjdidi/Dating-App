@@ -8,6 +8,7 @@ import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
 import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:dating_app_bilhalal/widgets/chat/video_preview_widget.dart';
+import 'package:dating_app_bilhalal/widgets/video_preview_gallery.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -109,18 +110,11 @@ class MediaOwnerProfileScreen extends GetWidget<MediaOwnerProfileController> {
 
                           // ✅ Vidéo
                           if (media.mediaType == "video")
-                            SizedBox(
-                              width: Get.width,
-                              height:  Get.height,
-                              child: AspectRatio(
-                                aspectRatio: 16 / 9,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: VideoPreviewWidget(
-                                    file: media.file,
-                                    url: media.file == null ? media.mediaUrl : null,
-                                  ),
-                                ),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: VideoPreviewGallery(
+                                file: media.file,
+                                url: media.file == null ? media.mediaUrl : null,
                               ),
                             ),
                            /* media.file != null

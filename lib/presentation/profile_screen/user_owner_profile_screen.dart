@@ -10,6 +10,7 @@ import 'package:dating_app_bilhalal/widgets/home/tabbed_page_widget.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
 import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
+import 'package:dating_app_bilhalal/widgets/video_preview_gallery.dart';
 import 'package:flutter/material.dart';
 
 class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
@@ -105,6 +106,28 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                             child: Obx((){
                               if (controller.isDataProcessing.value) {
                                 return const Center(child: CircularProgressIndicator(color: TColors.primaryColorApp,));
+                              }
+
+                              //final images = controller.mediaList.where((m) => m.mediaType == 'image').map((m) => m.mediaUrl).toList();
+
+                              // 🔹 Sélection du contenu selon l’onglet actif
+                              final tabIndex = controller.selectedTab.value; // à ajouter dans ton controller si pas encore
+                              List<MediaModel> filteredMedia;
+
+                              if (tabIndex == 1) {
+                                filteredMedia = controller.mediaList
+                                    .where((m) => m.mediaType == 'image')
+                                    .toList();
+                              } else if (tabIndex == 2) {
+                                filteredMedia = controller.mediaList
+                                    .where((m) => m.mediaType == 'video')
+                                    .toList();
+                              } else {
+                                filteredMedia = controller.mediaList; // tous
+                              }
+
+                              if (filteredMedia.isEmpty) {
+                                return const Center(child: Text('لا توجد بيانات بعد'));
                               }
 
                               // ✅ Vérifie si user est null avant d'y accéder
@@ -260,7 +283,88 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                     inactiveColor: _appTheme =='light' ? TColors.black : TColors.white,
                                   ),
                                   SizedBox(height: 5.v),
-                                  Obx(() {
+                              if (filteredMedia.isEmpty)
+                               Center(child: Text('لا توجد بيانات بعد')),
+
+                                  RefreshIndicator(
+                                    onRefresh: controller.getAllMedia,
+                                    child: GridLayout(
+                                      itemCount: filteredMedia.length,
+                                      mainAxisExtent: isTablet ? 220.adaptSize : 180.adaptSize,
+                                      crossAxisCount: 3,
+                                      itemBuilder: (context, index) {
+                                        final media = filteredMedia[index];
+                                        final isVideo = media.mediaType == 'video';
+                                        return TRoundedContainer(
+                                          showBorder: true,
+                                          backgroundColor: TColors.white,
+                                          borderColor: TColors.greyDating,
+                                          radius: 12,
+                                          padding: EdgeInsets.all(1),
+                                          child: Stack(
+                                            children: [
+                                              // ✅ Image
+                                              if (!isVideo)
+                                                CustomImageView(
+                                                  imagePath: media.mediaUrl,
+                                                  height: Get.height,
+                                                  width: Get.width,
+                                                  fit: BoxFit.cover,
+                                                  radius: BorderRadius.circular(10),
+                                                  onTap: () {
+                                                    Get.to(() => FullScreenImageViewer(
+                                                      images: filteredMedia
+                                                          .where((m) => m.mediaType == 'image')
+                                                          .map((m) => m.mediaUrl)
+                                                          .toList(),
+                                                      initialIndex: index,
+                                                    ));
+                                                  },
+                                                ),
+                                              // ✅ Vidéo
+                                              if (isVideo)
+                                                ClipRRect(
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  child: VideoPreviewGallery(
+                                                    url: media.mediaUrl,
+                                                  ),
+                                                ),
+                                              // ❤️ Bouton favoris + compteur
+                                              // ✅ Affiche seulement si favouriteCount > 0
+                                              if (media.favouriteCount > 0) ...[
+                                                Positioned(
+                                                    bottom: 5,
+                                                    right: 5,
+                                                    child: Row(
+                                                      children: [
+                                                        CircularContainer(
+                                                          width: isTablet ? 40.adaptSize : 27,
+                                                          height:  isTablet ? 40.adaptSize : 27,
+                                                          radius:  isTablet ? 40.adaptSize : 27,
+                                                          backgroundColor: TColors.greyDating.withOpacity(0.9),
+                                                          //margin: EdgeInsets.symmetric(horizontal: 10.hw),
+                                                          child: IconButton(
+                                                            icon: Icon(Iconsax.heart5, color: TColors.redAppLight, size:  isTablet ? 20.adaptSize : 12),
+                                                            onPressed: (){
+
+                                                            },
+                                                          ),
+                                                        ),
+                                                        SizedBox(width: 3.adaptSize),
+                                                        Text(' إعجابًا${media.favouriteCount}', style: TextStyle(color: TColors.white, fontSize: 15.adaptSize, fontWeight: FontWeight.w500)),
+                                                      ],
+                                                    )
+                                                ),
+                                              ]
+
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+
+                                 /* Obx(() {
                                     if (controller.isDataProcessing.value) {
                                       return const Center(child: CircularProgressIndicator());
                                     }
@@ -351,7 +455,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                         );
                                       },
                                     );
-                                  }),
+                                  }), */
                                   //Static Media
                               /*
                                   Visibility(

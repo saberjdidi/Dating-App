@@ -3,11 +3,6 @@ import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-import 'dart:io';
-import 'package:chewie/chewie.dart';
-import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
-
 class VideoPreviewWidget extends StatefulWidget {
   final File? file;
   final String? url;
@@ -79,27 +74,6 @@ class _VideoPreviewWidgetState extends State<VideoPreviewWidget> {
       return const Center(child: CircularProgressIndicator());
     }
 
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return SizedBox(
-          width: constraints.maxWidth,
-          height: constraints.maxWidth * (1 / (_controller!.value.aspectRatio)),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Chewie(controller: _chewieController!),
-          ),
-        );
-      },
-    );
-  }
-
-  /*
-  @override
-  Widget build(BuildContext context) {
-    if (_controller == null || !_controller!.value.isInitialized) {
-      return const Center(child: CircularProgressIndicator());
-    }
-
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: AspectRatio(
@@ -107,7 +81,7 @@ class _VideoPreviewWidgetState extends State<VideoPreviewWidget> {
         child: Chewie(controller: _chewieController!),
       ),
     );
-  } */
+  }
 }
 
 

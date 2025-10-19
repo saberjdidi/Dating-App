@@ -13,13 +13,13 @@ class UserOwnerProfileController extends GetxController {
   final Rx<UserModel?> user = Rx<UserModel?>(null);
   final profileRepository = ProfileRepository();
   RxBool isDataProcessing = false.obs;
-  var selectedTab = 0.obs;
 
   ///Media
   final mediaRepository = MediaRepository();
   RxList<MediaModel> mediaList = <MediaModel>[].obs;
   //Rx<List<String>> ListImages = Rx([ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]);
 
+  var selectedTab = 0.obs;
   void onTabChanged(int index) {
     selectedTab.value = index;
   }
