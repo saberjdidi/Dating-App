@@ -31,34 +31,32 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
           //backgroundColor: PrefUtils.getTheme() =='light' ? TColors.lightContainer : TColors.darkerGrey,
             resizeToAvoidBottomInset: false,
 
-            body: Obx((){
-              if (controller.isDataProcessing.value) {
-                return const Center(child: CircularProgressIndicator(color: TColors.primaryColorApp,));
-              }
-
-              return Stack(
-                children: [
-                  // background image (fills)
-                  Positioned.fill(
-                    child: CustomImageView(
-                      imagePath: ImageConstant.profile8,
-                      //height: 200.adaptSize,
-                      //width: 200.adaptSize,
-                      fit: BoxFit.cover,
-                    ),
+            body: Stack(
+              children: [
+                // background image (fills)
+                Positioned.fill(
+                  child: CustomImageView(
+                    imagePath: (PrefUtils.getImageProfile() != null && PrefUtils.getImageProfile()!.isNotEmpty)
+                        ? PrefUtils.getImageProfile()
+                        : ImageConstant.profile8,
+                    //imagePath: ImageConstant.profile8,
+                    //height: 200.adaptSize,
+                    //width: 200.adaptSize,
+                    fit: BoxFit.cover,
                   ),
+                ),
 
-                  // Image en haut à droite
-                  Positioned(
-                    top: 20,
-                    right: 20,
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_forward_outlined, color: TColors.white, size: 35.hw),
-                      onPressed: (){
-                        Navigator.pop(context);
-                      },
-                    ),
-                    /* child: CircleIconButton(
+                // Image en haut à droite
+                Positioned(
+                  top: 20,
+                  right: 20,
+                  child: IconButton(
+                    icon: Icon(Icons.arrow_forward_outlined, color: TColors.white, size: 35.hw),
+                    onPressed: (){
+                      Navigator.pop(context);
+                    },
+                  ),
+                  /* child: CircleIconButton(
                       size: 60.hw,
                       effectiveSize: 60.hw,
                       minTapSize: 60.hw,
@@ -70,8 +68,8 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                         },
                       )
                   ), */
-                  ),
-                  /*  Positioned(
+                ),
+                /*  Positioned(
                     top: 20,
                     right: 20,
                     child: CircularContainer(
@@ -88,23 +86,37 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                     )
                 ), */
 
-                  // Conteneur avec infos utilisateur
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: TRoundedContainer(
-                        backgroundColor: _appTheme =='light' ? TColors.white : TColors.dark,
-                        width: double.infinity,
-                        height: screenheight * 0.6,
-                        radius: 50.adaptSize,
-                        isBorderRadiusTop: true,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: TSizes.spaceBtwItems.hw,
-                          vertical: TSizes.spaceBtwItems.v,
-                        ),
-                        child: Directionality(
-                            textDirection: TextDirection.rtl,
-                            child: SingleChildScrollView(
-                              child: Column(
+                // Conteneur avec infos utilisateur
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: TRoundedContainer(
+                      backgroundColor: _appTheme =='light' ? TColors.white : TColors.dark,
+                      width: double.infinity,
+                      height: screenheight * 0.6,
+                      radius: 50.adaptSize,
+                      isBorderRadiusTop: true,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: TSizes.spaceBtwItems.hw,
+                        vertical: TSizes.spaceBtwItems.v,
+                      ),
+                      child: Directionality(
+                          textDirection: TextDirection.rtl,
+                          child: SingleChildScrollView(
+                            child: Obx((){
+                              if (controller.isDataProcessing.value) {
+                                return const Center(child: CircularProgressIndicator(color: TColors.primaryColorApp,));
+                              }
+
+                              // ✅ Vérifie si user est null avant d'y accéder
+                              if (controller.user.value == null) {
+                                return Center(child: Text("جارٍ تحميل الملف الشخصي...",
+                                style: TextStyle(color:  _appTheme =='light' ? TColors.black : TColors.white,
+                                fontSize: 18.adaptSize, fontWeight: FontWeight.w500),));
+                              }
+
+                              final user = controller.user.value!;
+
+                              return Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
@@ -112,7 +124,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(''),
-                                      SubTitleWidget(subtitle: '${controller.user.value!.username}', //subtitle: 'نورا خالد',
+                                      SubTitleWidget(subtitle: user.username ?? '', //subtitle: 'نورا خالد',
                                           fontSizeDelta: 3, fontWeightDelta: 2,
                                           color: _appTheme =='light' ? TColors.black : TColors.white),
 
@@ -156,7 +168,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                         fit: BoxFit.cover,
                                       ),
                                       SizedBox(width: 10.adaptSize),
-                                      Text('${controller.user.value!.profile!.jobTitle}' ,//"نموذج احترافي",
+                                      Text(user.profile!.jobTitle ?? '',//"نموذج احترافي",
                                         textAlign: TextAlign.right,
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
@@ -179,7 +191,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                         fit: BoxFit.cover,
                                       ),
                                       SizedBox(width: 10.adaptSize),
-                                      Text('${controller.user.value!.profile!.country}', //"المملكة العربية السعودية",
+                                      Text(user.profile!.country ?? '' , //"المملكة العربية السعودية",
                                         textAlign: TextAlign.right,
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
@@ -341,6 +353,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                     );
                                   }),
                                   //Static Media
+                              /*
                                   Visibility(
                                     visible: false,
                                     child: GridLayout(
@@ -402,18 +415,19 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                       },
                                     ),
                                   ),
+                                  */
 
                                   SizedBox(height: TSizes.spaceBtwSections.v),
 
                                 ],
-                              ),
-                            )
-                        )
-                    ),
+                              );
+                            }),
+                          )
+                      )
                   ),
-                ],
-              );
-            })
+                ),
+              ],
+            )
         )
     );
   }

@@ -55,7 +55,7 @@ class ChangePasswordController extends GetxController {
      return;
    }
 
-   final result = await authRepo.resetPassword(email: email, otp: OTP, newPassword: '');
+   final result = await authRepo.resetPassword(email: email, otp: OTP, newPassword: newPasswordController.text.trim());
    if (result.success) {
      MessageSnackBar.successSnackBar(title: 'تم التحقق بنجاح', message: result.message ?? '');
      isDataProcessing.value = false;

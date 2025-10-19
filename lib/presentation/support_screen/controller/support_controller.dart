@@ -97,6 +97,8 @@ class SupportController extends GetxController {
       }
    formSupportKey.currentState!.save();
 
+   isDataProcessing.value = true;
+
    //Check internet connection
    final isConnected = await NetworkManager.instance.isConnected();
    if(!isConnected) {
@@ -105,7 +107,31 @@ class SupportController extends GetxController {
      return;
    }
 
-   final result = await mediaRepository
+   //Add many Media
+   for (int i = 0; i < selectedMedia.length; i++) {
+     final file = selectedMedia[i];
+     final result = await mediaRepository
+         .addSupport(file: file, subject: subjectController.text.trim(), message: messageController.text.trim());
+
+     if (!result.success) {
+       MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? '');
+       isDataProcessing.value = false;
+     }
+
+     // ✅ Si c’est le dernier fichier ET upload réussi → afficher message de succès
+     if (result.success && i == selectedMedia.length - 1) {
+       MessageSnackBar.successSnackBar(title: 'تم', message: result.message ?? 'تم إرسال رسالة الدعم بنجاح');
+       isDataProcessing.value = false;
+       final attachment = result.data?['attachment_url'];
+       debugPrint("attachment : $attachment");
+       subjectController.clear();
+       messageController.clear();
+       selectedMedia.clear();
+     }
+   }
+
+   //Add One media
+  /* final result = await mediaRepository
        .addSupport(file: selectedMedia.first, subject: subjectController.text.trim(), message: messageController.text.trim());
    if (result.success) {
      MessageSnackBar.successSnackBar(title: 'تم', message: result.message ?? 'تم إرسال رسالة الدعم بنجاح');
@@ -115,7 +141,7 @@ class SupportController extends GetxController {
    } else {
      MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? '');
      isDataProcessing.value = false;
-   }
+   } */
 
     }
     catch (exception) {

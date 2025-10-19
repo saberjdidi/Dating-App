@@ -175,13 +175,13 @@ class MediaOwnerProfileScreen extends GetWidget<MediaOwnerProfileController> {
               colorText: TColors.white,
               fontSize: 30.adaptSize,
               height: isTablet ? 80.v : 70.v,
-              onPressed:controller.isDataProcessing.value
+              onPressed:controller.isDataCreateProcessing.value
                   ? null // désactive le clic pendant chargement
                   :  () async {
                 controller.createMedia();
               },
               // onPressed: () async {controller.createAccount();},
-              child: controller.isDataProcessing.value
+              child: controller.isDataCreateProcessing.value
                   ? const SizedBox(
                 height: 28,
                 width: 28,

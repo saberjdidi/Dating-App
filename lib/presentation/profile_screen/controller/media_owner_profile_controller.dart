@@ -6,6 +6,7 @@ import 'package:dating_app_bilhalal/core/utils/permissions_helper.dart';
 import 'package:dating_app_bilhalal/data/models/attachment_model.dart';
 import 'package:dating_app_bilhalal/data/models/media_model.dart';
 import 'package:dating_app_bilhalal/data/repositories/media_repository.dart';
+import 'package:dating_app_bilhalal/presentation/profile_screen/controller/user_owner_profile_controller.dart';
 import 'package:dating_app_bilhalal/widgets/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -17,6 +18,7 @@ class MediaOwnerProfileController extends GetxController {
   //RxList<MediaModel> mediaList = <MediaModel>[].obs;// ✅ depuis serveur
   //RxList<File> selectedMedia = <File>[].obs;          // ✅ fichiers locaux
   RxBool isDataProcessing = false.obs;
+  RxBool isDataCreateProcessing = false.obs;
   RxList<MediaModel> allMedia = <MediaModel>[].obs;
 
   Rx<List<String>> ListImages = Rx(
@@ -97,6 +99,9 @@ class MediaOwnerProfileController extends GetxController {
       if (result.success) {
         allMedia.removeAt(index);
         MessageSnackBar.successSnackBar(title: 'تم', message: result.message ?? 'تم الحذف');
+        // 🔹 Actualiser le profil après modification
+        final userProfileCtrl = Get.find<UserOwnerProfileController>();
+        await userProfileCtrl.getAllMedia();
       } else {
         MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? '');
       }
@@ -112,12 +117,12 @@ class MediaOwnerProfileController extends GetxController {
       return;
     }
     try {
-      isDataProcessing.value = true;
+      isDataCreateProcessing.value = true;
 
       // ✅ Vérifier la connexion internet
       final isConnected = await NetworkManager.instance.isConnected();
       if(!isConnected) {
-        isDataProcessing.value = false;
+        isDataCreateProcessing.value = false;
         MessageSnackBar.customToast(message: 'No Internet Connection');
         return;
       }
@@ -127,7 +132,7 @@ class MediaOwnerProfileController extends GetxController {
         final uploadResult = await mediaRepository.uploadOneMedia(file);
 
         if (!uploadResult.success) {
-          isDataProcessing.value = false;
+          isDataCreateProcessing.value = false;
           // ⚠️ Si erreur : afficher un message d’erreur pour ce fichier
           MessageSnackBar.errorSnackBar(
             title: 'خطأ',
@@ -143,7 +148,11 @@ class MediaOwnerProfileController extends GetxController {
 
         // ✅ Si c’est le dernier fichier ET upload réussi → afficher message de succès
         if (uploadResult.success && i == localFiles.length - 1) {
-          isDataProcessing.value = false;
+          // 🔹 Actualiser le profil après modification
+          final userProfileCtrl = Get.find<UserOwnerProfileController>();
+          await userProfileCtrl.getAllMedia();
+          Get.back();
+          isDataCreateProcessing.value = false;
           MessageSnackBar.successSnackBar(title: 'تم', message: uploadResult.message ?? 'تم تحميل الصور بنجاح',);
         }
         // ✅ Rafraîchir la liste depuis serveur
@@ -151,13 +160,13 @@ class MediaOwnerProfileController extends GetxController {
       }
     }
     catch (exception) {
-      isDataProcessing.value = false;
+      isDataCreateProcessing.value = false;
       debugPrint('❌ Exception : ${exception.toString()}');
       //FullScreenLoader.stopLoading();
       //Show some generic error to the user
       MessageSnackBar.errorSnackBar(title: 'Oh Snap!', message: exception.toString());
     } finally {
-      isDataProcessing.value = false;
+      isDataCreateProcessing.value = false;
     }
   }
 

@@ -18,11 +18,7 @@ class UserOwnerProfileController extends GetxController {
   ///Media
   final mediaRepository = MediaRepository();
   RxList<MediaModel> mediaList = <MediaModel>[].obs;
-  Rx<List<String>> ListImages = Rx(
-      [
-        ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7
-      ]
-  );
+  //Rx<List<String>> ListImages = Rx([ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]);
 
   void onTabChanged(int index) {
     selectedTab.value = index;

@@ -13,6 +13,8 @@ import 'package:dating_app_bilhalal/widgets/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import 'user_owner_profile_controller.dart';
+
 class EditProfileController extends GetxController {
   var isRTL = true.obs;
 
@@ -351,6 +353,10 @@ class EditProfileController extends GetxController {
       //FullScreenLoader.stopLoading();
 
       if (result.success) {
+        // 🔹 Actualiser le profil après modification
+        final userProfileCtrl = Get.find<UserOwnerProfileController>();
+        await userProfileCtrl.getMyProfile();
+
         Get.back();
         MessageSnackBar.successSnackBar(title: 'تم', message: result.message ?? '');
         isDataProcessing.value = false;

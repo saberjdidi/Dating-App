@@ -7,6 +7,7 @@ import 'package:dating_app_bilhalal/widgets/app_bar/appbar_widget.dart';
 import 'package:dating_app_bilhalal/widgets/custom_term_privacy_widget.dart';
 import 'package:dating_app_bilhalal/widgets/custom_text_form_field.dart';
 import 'package:dating_app_bilhalal/widgets/social_button_widget.dart';
+import 'package:dating_app_bilhalal/widgets/swip_back_wrapper.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,111 +26,114 @@ class SignUpWithEmailScreen extends GetView<SignUpWithEmailController> {
 
     return SafeArea(
       top: false,
-        child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            //backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
-          /*  appBar: TAppBar(
-              showAction: true,
-              actions: [
-                IconButton(
-                    onPressed: (){
-                      SystemNavigator.pop();
-                      //Navigator.of(context).pop();
-                    },
-                    icon: Icon(Iconsax.arrow_right_1, color: _appTheme =='light' ? TColors.black : TColors.white)
-                )
-              ],
-            ), */
-            body: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Form(
-                  key: controller.formSignUpKey,
-                  child: Container(
-                      width: double.maxFinite,
-                      padding: EdgeInsets.only(left: 24.hw, right: 24.hw, top: 11.v, bottom: MediaQuery.of(context).viewInsets.bottom + 11.v),
-                      //padding: EdgeInsets.symmetric(horizontal: 24.hw, vertical: 11.v),
-                      child: Column(
-                          children: [
-                            //SizedBox(height: TSizes.spaceBtwSections),
-                            Visibility(
-                              visible: false,
-                              child: CustomImageView(
-                                  imagePath: _appTheme =='dark'
-                                      ? ImageConstant.imgArrowLeftWhite : ImageConstant.imgArrowLeftBlack,
-                                  height: 28.adaptSize,
-                                  width: 28.adaptSize,
-                                  alignment: Alignment.centerLeft,
-                                  onTap: () {onTapImgArrowLeft();}
+        child: SwipeBackWrapper(
+          actionType: SwipeBackAction.systemPop,
+          child: Scaffold(
+              resizeToAvoidBottomInset: false,
+              //backgroundColor: _appTheme =='light' ? TColors.white : appTheme.primaryColor,
+            /*  appBar: TAppBar(
+                showAction: true,
+                actions: [
+                  IconButton(
+                      onPressed: (){
+                        SystemNavigator.pop();
+                        //Navigator.of(context).pop();
+                      },
+                      icon: Icon(Iconsax.arrow_right_1, color: _appTheme =='light' ? TColors.black : TColors.white)
+                  )
+                ],
+              ), */
+              body: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Form(
+                    key: controller.formSignUpKey,
+                    child: Container(
+                        width: double.maxFinite,
+                        padding: EdgeInsets.only(left: 24.hw, right: 24.hw, top: 11.v, bottom: MediaQuery.of(context).viewInsets.bottom + 11.v),
+                        //padding: EdgeInsets.symmetric(horizontal: 24.hw, vertical: 11.v),
+                        child: Column(
+                            children: [
+                              //SizedBox(height: TSizes.spaceBtwSections),
+                              Visibility(
+                                visible: false,
+                                child: CustomImageView(
+                                    imagePath: _appTheme =='dark'
+                                        ? ImageConstant.imgArrowLeftWhite : ImageConstant.imgArrowLeftBlack,
+                                    height: 28.adaptSize,
+                                    width: 28.adaptSize,
+                                    alignment: Alignment.centerLeft,
+                                    onTap: () {onTapImgArrowLeft();}
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 10.v),
-                            Align(
-                              alignment: Alignment.topRight,
-                              child: IconButton(
-                                  onPressed: (){
-                                    SystemNavigator.pop();
-                                    //Navigator.of(context).pop();
-                                  },
-                                  icon: Icon(Iconsax.arrow_right_1, color: _appTheme =='light' ? TColors.black : TColors.white)
+                              SizedBox(height: 10.v),
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: IconButton(
+                                    onPressed: (){
+                                      SystemNavigator.pop();
+                                      //Navigator.of(context).pop();
+                                    },
+                                    icon: Icon(Iconsax.arrow_right_1, color: _appTheme =='light' ? TColors.black : TColors.white)
+                                ),
                               ),
-                            ),
-                            SizedBox(height: TSizes.spaceBtwSections),
-                            Align(
-                              alignment: Alignment.center,
-                              child: CustomImageView(
-                                imagePath: ImageConstant.logo,
-                                height: 150.adaptSize,
-                                width: 150.adaptSize,
-                                fit: BoxFit.fill,
+                              SizedBox(height: TSizes.spaceBtwSections),
+                              Align(
+                                alignment: Alignment.center,
+                                child: CustomImageView(
+                                  imagePath: ImageConstant.logo,
+                                  height: 150.adaptSize,
+                                  width: 150.adaptSize,
+                                  fit: BoxFit.fill,
+                                ),
                               ),
-                            ),
-                            SizedBox(height: TSizes.spaceBtwItems),
-                           /* Text("اشتراک",
-                                style: Theme.of(context).textTheme.headlineSmall!.apply(color: TColors.black, fontWeightDelta: 2),
-                                textAlign: TextAlign.center), */
-                            TitleWidget(title: "الاشتراک",
-                              color: _appTheme =='light' ? TColors.black : TColors.primaryColorApp, fontSizeDelta: 2,),
-                            SizedBox(height: TSizes.spaceBtwSections),
-                            _buildRegisterForm(context),
-                            SizedBox(height: 10.v),
+                              SizedBox(height: TSizes.spaceBtwItems),
+                             /* Text("اشتراک",
+                                  style: Theme.of(context).textTheme.headlineSmall!.apply(color: TColors.black, fontWeightDelta: 2),
+                                  textAlign: TextAlign.center), */
+                              TitleWidget(title: "الاشتراک",
+                                color: _appTheme =='light' ? TColors.black : TColors.primaryColorApp, fontSizeDelta: 2,),
+                              SizedBox(height: TSizes.spaceBtwSections),
+                              _buildRegisterForm(context),
+                              SizedBox(height: 10.v),
 
-                            CustomTermPrivacyWidget(),
-                            //_buildOrDivider(),
-                            //SizedBox(height: 30.v),
-                            /*  Column(
-                              //mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(padding: EdgeInsets.only(bottom: 1.v),
-                                      child: Text("lbl_dont_have_account".tr,
-                                          style:  isTablet
-                                              ? Theme.of(context).textTheme.titleMedium!.apply(color: TColors.gray700)
-                                              : CustomTextStyles.bodyMediumTextFormFieldGrey)
-                                  ),
-                                  GestureDetector(
-                                      onTap: () {
-                                        onTapTxtSignUp();
-                                      },
-                                      child: Padding(padding: EdgeInsets.only(left: 8.hw),
-                                          child: Text("lbl_signup_now".tr,
-                                            //style: CustomTextStyles.titleMediumBlueVPT
-                                            style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                                              color: TColors.blueVPT,
-                                              fontSize: 16.fSize,
-                                              fontWeight: FontWeight.w600,
-                                              decoration: TextDecoration.underline,
-                                              decorationColor: TColors.blueVPT,
-                                            ),
-                                          )
-                                      )
-                                  )
-                                ]
-                            ), */
-                            SizedBox(height: 5.v)
-                          ]
-                      ))
-              ),
-            )));
+                              CustomTermPrivacyWidget(),
+                              //_buildOrDivider(),
+                              //SizedBox(height: 30.v),
+                              /*  Column(
+                                //mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Padding(padding: EdgeInsets.only(bottom: 1.v),
+                                        child: Text("lbl_dont_have_account".tr,
+                                            style:  isTablet
+                                                ? Theme.of(context).textTheme.titleMedium!.apply(color: TColors.gray700)
+                                                : CustomTextStyles.bodyMediumTextFormFieldGrey)
+                                    ),
+                                    GestureDetector(
+                                        onTap: () {
+                                          onTapTxtSignUp();
+                                        },
+                                        child: Padding(padding: EdgeInsets.only(left: 8.hw),
+                                            child: Text("lbl_signup_now".tr,
+                                              //style: CustomTextStyles.titleMediumBlueVPT
+                                              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                                                color: TColors.blueVPT,
+                                                fontSize: 16.fSize,
+                                                fontWeight: FontWeight.w600,
+                                                decoration: TextDecoration.underline,
+                                                decorationColor: TColors.blueVPT,
+                                              ),
+                                            )
+                                        )
+                                    )
+                                  ]
+                              ), */
+                              SizedBox(height: 5.v)
+                            ]
+                        ))
+                ),
+              )),
+        ));
   }
 
   /// Section Widget
