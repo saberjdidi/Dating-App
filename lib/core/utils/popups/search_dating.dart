@@ -70,9 +70,9 @@ class SearchDating {
                           ),
                           child: RangeSlider(
                             values: controller.currentRangeAgeValues.value,
-                            min: 20,
+                            min: 18,
                             max: 100,
-                            divisions: 70,
+                            divisions: 100,
                             labels: RangeLabels(
                               controller.currentRangeAgeValues.value.start.round().toString(),
                               controller.currentRangeAgeValues.value.end.round().toString(),

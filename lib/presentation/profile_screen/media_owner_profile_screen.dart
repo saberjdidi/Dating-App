@@ -79,7 +79,6 @@ class MediaOwnerProfileScreen extends GetWidget<MediaOwnerProfileController> {
                       child: Stack(
                         children: [
                             // ✅ Image
-                            if (media.mediaType == "image")
                               if (media.mediaType == "image")
                                 CustomImageView(
                                   file: media.file,
@@ -89,7 +88,9 @@ class MediaOwnerProfileScreen extends GetWidget<MediaOwnerProfileController> {
                                   fit: BoxFit.cover,
                                   radius: BorderRadius.circular(10),
                                 ),
-                          /*  media.file != null
+                          /*
+                            if (media.mediaType == "image")
+                          media.file != null
                             ? CustomImageView(
                             file: media.file,
                             imagePath: null,

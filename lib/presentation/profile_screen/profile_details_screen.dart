@@ -236,7 +236,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                      height: "172 cm",
                      weight: "60 kg",
                      salary: "110K - 600K",
-                     skinColor: "skinColor3",
+                     skinColor: "Olive",
                      iconSize: 30,
                    ),
 

@@ -35,8 +35,8 @@ class FilterController extends GetxController {
   //RxDouble currentAgeValue = 20.toDouble().obs; //choice one age
   var currentRangeAgeValues = const RangeValues(20, 40).obs; // choice range of ages
   //RxDouble currentWeightValue = 50.toDouble().obs;
-  var currentRangeWeightValues = const RangeValues(20, 100).obs;
-  RxDouble currentHeightValue = 170.toDouble().obs;
+  var currentRangeWeightValues = const RangeValues(40, 100).obs;
+  //RxDouble currentHeightValue = 170.toDouble().obs;
   var currentRangeHeightValues = const RangeValues(100, 200).obs;
   //color
   RxString selectedColor = ''.obs;
