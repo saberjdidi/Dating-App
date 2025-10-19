@@ -159,4 +159,37 @@ class MediaRepository {
     }
   }
 
+  //Profile Image
+  Future<ApiResult<Map<String, dynamic>>> addSupport({File? file, required String subject, required message}) async {
+    try {
+      final fileName = file!.path.split('/').last;
+
+      final formData = FormData.fromMap({
+        'topic': subject,
+        'message': message,
+        'file': await MultipartFile.fromFile(file.path, filename: fileName),
+      });
+
+      final resp = await _client.post(
+        ApiConstants.support,
+        data: formData,
+        options: Options(contentType: 'multipart/form-data'),
+      );
+
+      if (resp.statusCode == HttpStatusCode.ok || resp.statusCode == HttpStatusCode.created) {
+        final map = resp.data as Map<String, dynamic>;
+        return ApiResult(success: true, message: map['message'] as String?, data: map['data'] as Map<String, dynamic>?);
+      } else {
+        final map = resp.data;
+        final msg = (map is Map && map['message'] != null) ? map['message'] : resp.statusMessage;
+        return ApiResult(success: false, message: msg?.toString());
+      }
+    } on DioException catch (e) {
+      final msg = HandleDioError.handleDioError(e);
+      return ApiResult(success: false, message: msg);
+    } catch (e) {
+      return ApiResult(success: false, message: e.toString());
+    }
+  }
+
 }

@@ -9,7 +9,7 @@ class MediaModel {
   final String createdAt;
   final String updatedAt;
   final int favouriteCount;
-  final File? file; // local path or remote URL
+  final File? file; // local path
 
   MediaModel({
     required this.id,

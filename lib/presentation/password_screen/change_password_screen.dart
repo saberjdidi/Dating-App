@@ -63,7 +63,7 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
                             Directionality(
                               textDirection: TextDirection.rtl,
                               child: CustomTextFormField(
-                                controller: controller.passwordController,
+                                controller: controller.newPasswordController,
                                 hintText: "كلمة المرور".tr,
                                 textInputType: TextInputType.visiblePassword,
                                 textInputAction: TextInputAction.next,
@@ -81,7 +81,7 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
                             Directionality(
                               textDirection: TextDirection.rtl,
                               child: CustomTextFormField(
-                                controller: controller.confirmPasswordController,
+                                controller: controller.confirmNewPasswordController,
                                 hintText: "تأكيد كلمة المرور".tr,
                                 textInputAction: TextInputAction.done,
                                 textInputType: TextInputType.visiblePassword,
@@ -108,8 +108,7 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
               bottomNavigationBar: Padding(
                 padding: EdgeInsets.only(bottom: TSizes.spaceBtwSections.v * 3, left: TSizes.spaceBtwItems.hw, right: TSizes.spaceBtwItems.hw),
                 //child: _buildButtonSection()
-                child:
-                CustomButtonContainer(
+                child:Obx(() => CustomButtonContainer(
                   text:"إعادة تعيين كلمة المرور".tr,
                   color1: TColors.primaryColorApp,
                   color2: TColors.primaryColorApp,
@@ -118,10 +117,22 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
                   fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
                   height: isSmallPhone ? 80.v : 70.v,
                   width: Get.width,
-                  onPressed: () async {
-                    controller.passwordFn(context);
-                  },
-                ),
+                  onPressed: controller.isDataProcessing.value
+                      ? null // désactive le clic pendant chargement
+                      : () async {
+                          controller.resetPasswordFn(context);
+                        },
+                  child: controller.isDataProcessing.value
+                      ? const SizedBox(
+                        height: 28,
+                        width: 28,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 3,
+                          color: Colors.white,
+                          ),
+                          )
+                      : null,
+                )),
               ),
             ),
           ),

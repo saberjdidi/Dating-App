@@ -14,7 +14,8 @@ import '../../../routes/routes.dart';
 
 class SignInController extends GetxController {
 
-  final GlobalKey<FormState> formLoginKey = GlobalKey<FormState>();
+  //final GlobalKey<FormState> formLoginKey = GlobalKey<FormState>();
+  final formLoginKey = GlobalKey<FormState>().obs;
 
   final authRepo = AuthRepository();
 
@@ -47,7 +48,7 @@ class SignInController extends GetxController {
   }
 
   /// Email and Password Sign In
-  Future<void> emailAndPasswordSignIn() async {
+ /* Future<void> emailAndPasswordSignIn() async {
     try {
       //Start Loading
       FullScreenLoader.openLoadingDialog('Logging you in...', ImageConstant.lottieTrophy);
@@ -90,20 +91,20 @@ class SignInController extends GetxController {
       //Show some generic error to the user
       MessageSnackBar.errorSnackBar(title: 'Oh Snap!', message: e.toString());
     }
-    /* finally {
+     finally {
       //Remove Loader
-      TFullScreenLoader.stopLoading();
-    } */
-  }
+       FullScreenLoader.stopLoading();
+    }
+  } */
 
   loginFn() async {
     try {
 
-   final isValid = formLoginKey.currentState!.validate();
+   final isValid = formLoginKey.value.currentState!.validate();
       if (!isValid) {
         return;
       }
-      formLoginKey.currentState!.save();
+      formLoginKey.value.currentState!.save();
 
    isDataProcessing.value = true;
    FullScreenLoader.openLoadingDialog('We are processing your information...', ImageConstant.lottieLoading);
@@ -147,7 +148,7 @@ class SignInController extends GetxController {
      }
    } else {
      isDataProcessing.value = false;
-     MessageSnackBar.errorSnackBar(title: 'Erreur', message: result.message ?? 'Erreur serveur');
+     MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? 'Erreur serveur');
    }
     }
     catch (exception) {
@@ -161,7 +162,7 @@ class SignInController extends GetxController {
     }
   }
 
-  loginFnStatic() async {
+ /* loginFnStatic() async {
     try {
 
       final isValid = formLoginKey.currentState!.validate();
@@ -183,6 +184,6 @@ class SignInController extends GetxController {
     } finally {
       //isDataProcessing.value = false;
     }
-  }
+  } */
 
 }

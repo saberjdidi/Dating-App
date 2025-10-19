@@ -28,6 +28,17 @@ class _VideoPreviewWidgetState extends State<VideoPreviewWidget> {
     _initializePlayer();
   }
 
+  @override
+  void didUpdateWidget(covariant VideoPreviewWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // 👉 Réinitialiser seulement si le fichier ou l'URL ont changé
+    if (oldWidget.file?.path != widget.file?.path ||
+        oldWidget.url != widget.url) {
+      _disposePlayer();
+      _initializePlayer();
+    }
+  }
+
   Future<void> _initializePlayer() async {
     if (widget.file != null) {
       _controller = VideoPlayerController.file(widget.file!);
@@ -45,8 +56,21 @@ class _VideoPreviewWidgetState extends State<VideoPreviewWidget> {
         allowMuting: true,
         aspectRatio: _controller!.value.aspectRatio,
       );
-      setState(() {});
+      if (mounted) setState(() {});
     }
+  }
+
+  void _disposePlayer() {
+    _controller?.dispose();
+    _chewieController?.dispose();
+    _controller = null;
+    _chewieController = null;
+  }
+
+  @override
+  void dispose() {
+    _disposePlayer();
+    super.dispose();
   }
 
   @override
@@ -55,19 +79,37 @@ class _VideoPreviewWidgetState extends State<VideoPreviewWidget> {
       return const Center(child: CircularProgressIndicator());
     }
 
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
-      child: Chewie(controller: _chewieController!),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return SizedBox(
+          width: constraints.maxWidth,
+          height: constraints.maxWidth * (1 / (_controller!.value.aspectRatio)),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Chewie(controller: _chewieController!),
+          ),
+        );
+      },
     );
   }
 
+  /*
   @override
-  void dispose() {
-    _controller?.dispose();
-    _chewieController?.dispose();
-    super.dispose();
-  }
+  Widget build(BuildContext context) {
+    if (_controller == null || !_controller!.value.isInitialized) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10),
+      child: AspectRatio(
+        aspectRatio: _controller!.value.aspectRatio,
+        child: Chewie(controller: _chewieController!),
+      ),
+    );
+  } */
 }
+
 
 
 /*

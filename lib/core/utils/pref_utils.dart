@@ -26,6 +26,7 @@ class PrefUtils {
   static const _keyEmail = 'email';
   static const _keyUsername = 'username';
   static const _keyId = 'id';
+  static const _keyOTP = 'OTP';
   static const _keyImageProfile = 'imageProfile';
   static const _keyEmailGoogle = 'emailGoogle';
   static const _keyEmailFacebook = 'emailFacebook';
@@ -196,6 +197,15 @@ class PrefUtils {
 
   static Future<void> clearId() async {
     await sharedPreferences!.remove(_keyId);
+  }
+  ///OTP
+  static Future setOTP(String otp) async =>
+      await sharedPreferences!.setString(_keyOTP, otp);
+
+  static String? getOTP() => sharedPreferences!.getString(_keyOTP);
+
+  static Future<void> clearOTP() async {
+    await sharedPreferences!.remove(_keyOTP);
   }
 
 

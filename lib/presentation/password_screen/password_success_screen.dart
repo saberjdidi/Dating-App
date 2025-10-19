@@ -1,4 +1,5 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
+import 'package:dating_app_bilhalal/core/utils/logout.dart';
 import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,8 @@ class PassswordSuccessScreen extends StatelessWidget {
                     width: Get.width,
                     textAlign: TextAlign.center,
                     onPressed: () async {
-                      Get.offAllNamed(Routes.navigationScreen);
+                       Logout.onTapLogout();
+                      //Get.offAllNamed(Routes.navigationScreen);
                     },
                   ),
                 ),

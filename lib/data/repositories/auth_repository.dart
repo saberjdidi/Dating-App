@@ -105,6 +105,52 @@ class AuthRepository {
     }
   }
 
+  /// ✅ Forget Password
+  Future<ApiResult<void>> forgetPassword({required String email}) async {
+    try {
+      final body = {'email': email};
+      final resp = await _client.post(ApiConstants.authForgetPassword, data: body);
+
+      if (resp.statusCode == HttpStatusCode.ok || resp.statusCode == HttpStatusCode.created) {
+        final map = resp.data as Map<String, dynamic>;
+        return ApiResult(success: map['success'] ?? false, message: map['message']?.toString());
+      } else {
+        final map = resp.data;
+        final msg = (map is Map && map['message'] != null) ? map['message'] : 'Erreur Password';
+        return ApiResult(success: false, message: msg.toString());
+      }
+    } on DioException catch (e) {
+      return ApiResult(success: false, message: HandleDioError.handleDioError(e));
+    } catch (e) {
+      return ApiResult(success: false, message: e.toString());
+    }
+  }
+
+  /// ✅ Reset Password
+  Future<ApiResult<void>> resetPassword({required String email, required String otp, required String newPassword}) async {
+    try {
+      final body = {
+        "email": email,
+        "otp": otp,
+        "newPassword": newPassword
+      };
+      final resp = await _client.post(ApiConstants.authResetPassword, data: body);
+
+      if (resp.statusCode == HttpStatusCode.ok || resp.statusCode == HttpStatusCode.created) {
+        final map = resp.data as Map<String, dynamic>;
+        return ApiResult(success: map['success'] ?? false, message: map['message']?.toString());
+      } else {
+        final map = resp.data;
+        final msg = (map is Map && map['message'] != null) ? map['message'] : 'Erreur Password';
+        return ApiResult(success: false, message: msg.toString());
+      }
+    } on DioException catch (e) {
+      return ApiResult(success: false, message: HandleDioError.handleDioError(e));
+    } catch (e) {
+      return ApiResult(success: false, message: e.toString());
+    }
+  }
+
  /* String _handleDioError(DioException e) {
     if (e.type == DioExceptionType.connectionTimeout || e.type == DioExceptionType.receiveTimeout || e.type == DioExceptionType.sendTimeout) {
       return 'Connection timeout. Vérifie ta connexion.';

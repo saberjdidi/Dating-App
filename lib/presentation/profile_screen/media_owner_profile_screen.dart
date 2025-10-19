@@ -80,7 +80,16 @@ class MediaOwnerProfileScreen extends GetWidget<MediaOwnerProfileController> {
                         children: [
                             // ✅ Image
                             if (media.mediaType == "image")
-                            media.file != null
+                              if (media.mediaType == "image")
+                                CustomImageView(
+                                  file: media.file,
+                                  imagePath: media.file == null ? media.mediaUrl : null,
+                                  height: Get.height,
+                                  width: Get.width,
+                                  fit: BoxFit.cover,
+                                  radius: BorderRadius.circular(10),
+                                ),
+                          /*  media.file != null
                             ? CustomImageView(
                             file: media.file,
                             imagePath: null,
@@ -95,17 +104,31 @@ class MediaOwnerProfileScreen extends GetWidget<MediaOwnerProfileController> {
                             width: Get.width,
                             fit: BoxFit.cover,
                             radius: BorderRadius.circular(10),
-                            ),
+                            ), */
 
                           // ✅ Vidéo
                           if (media.mediaType == "video")
-                            media.file != null
+                            SizedBox(
+                              width: Get.width,
+                              height:  Get.height,
+                              child: AspectRatio(
+                                aspectRatio: 16 / 9,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: VideoPreviewWidget(
+                                    file: media.file,
+                                    url: media.file == null ? media.mediaUrl : null,
+                                  ),
+                                ),
+                              ),
+                            ),
+                           /* media.file != null
                                 ? ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: SizedBox(
-                                height: Get.height,
-                                width: double.infinity,
-                                child: VideoPreviewWidget(file: media.file),
+                                height: 200, //height: Get.height,
+                                width: MediaQuery.of(context).size.width * 0.9,//width: double.infinity,
+                                child: VideoPreviewWidget(file: media.file, url: null,),
                               ),
                             )
                                 : ClipRRect(
@@ -115,18 +138,7 @@ class MediaOwnerProfileScreen extends GetWidget<MediaOwnerProfileController> {
                                 width: double.infinity,
                                 child: VideoPreviewWidget(url: media.mediaUrl),
                               ),
-                            ),
-                         /* ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: isVideo
-                                ? VideoPreviewWidget(url: media.mediaUrl)
-                                : CustomImageView(
-                              imagePath: media.mediaUrl,
-                              height: double.infinity,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
-                            ),
-                          ), */
+                            ), */
 
                           Positioned(
                               right: 1,
@@ -155,8 +167,7 @@ class MediaOwnerProfileScreen extends GetWidget<MediaOwnerProfileController> {
           bottomNavigationBar: Padding(
             padding: EdgeInsets.only(bottom: TSizes.spaceBtwSections.v, left: TSizes.spaceBtwItems.hw, right: TSizes.spaceBtwItems.hw),
             //child: _buildButtonSection()
-            child:
-            CustomButtonContainer(
+            child:  Obx(() => CustomButtonContainer(
               text:"حفظ".tr,
               color1: TColors.primaryColorApp,
               color2: TColors.primaryColorApp,
@@ -164,10 +175,23 @@ class MediaOwnerProfileScreen extends GetWidget<MediaOwnerProfileController> {
               colorText: TColors.white,
               fontSize: 30.adaptSize,
               height: isTablet ? 80.v : 70.v,
-              onPressed: () async {
+              onPressed:controller.isDataProcessing.value
+                  ? null // désactive le clic pendant chargement
+                  :  () async {
                 controller.createMedia();
               },
-            ),
+              // onPressed: () async {controller.createAccount();},
+              child: controller.isDataProcessing.value
+                  ? const SizedBox(
+                height: 28,
+                width: 28,
+                child: CircularProgressIndicator(
+                  strokeWidth: 3,
+                  color: Colors.white,
+                ),
+              )
+                  : null,
+            )),
           ),
             )
     );

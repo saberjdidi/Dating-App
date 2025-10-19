@@ -81,7 +81,7 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
                           SizedBox(height: TSizes.spaceBtwSections.adaptSize * 2),
                           Directionality(
                             textDirection: TextDirection.rtl,
-                            child: CustomButtonContainer(
+                            child: Obx(() => CustomButtonContainer(
                               text:"يرسل OTP".tr,
                               color1: TColors.primaryColorApp,
                               color2: TColors.primaryColorApp,
@@ -90,10 +90,22 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
                               fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
                               height: isSmallPhone ? 80.v : 70.v,
                               width: Get.width,
-                              onPressed: () async {
+                              onPressed: controller.isDataProcessing.value
+                                  ? null // désactive le clic pendant chargement
+                                  : () async {
                                 controller.forgetPasswordFn();
                               },
-                            ),
+                              child: controller.isDataProcessing.value
+                                ? const SizedBox(
+                              height: 28,
+                              width: 28,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 3,
+                                color: Colors.white,
+                              ),
+                            )
+                                : null,
+                            )),
                           )
                         ]
                     ))

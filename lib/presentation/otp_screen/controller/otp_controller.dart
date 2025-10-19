@@ -1,6 +1,7 @@
 import 'package:dating_app_bilhalal/core/utils/image_constant.dart';
 import 'package:dating_app_bilhalal/core/utils/popups/full_screen_loader.dart';
 import 'package:dating_app_bilhalal/core/utils/popups/message_snackbar.dart';
+import 'package:dating_app_bilhalal/core/utils/pref_utils.dart';
 import 'package:dating_app_bilhalal/data/repositories/auth_repository.dart';
 import 'package:dating_app_bilhalal/presentation/otp_screen/otp_success_screen.dart';
 import 'package:dating_app_bilhalal/presentation/password_screen/password_success_screen.dart';
@@ -80,11 +81,15 @@ class OTPController extends GetxController with GetSingleTickerProviderStateMixi
     if (result.success) {
       isOtpError.value = false;
       errorMessage.value = '';
+      await PrefUtils.setOTP(otpCode.value);
 
       MessageSnackBar.successSnackBar(title: 'تم التحقق بنجاح', message: result.message ?? '');
 
       if(sourceOTP == "FromForgetPassword"){
-        Get.toNamed(Routes.changePasswordScreen);
+        Get.toNamed(Routes.changePasswordScreen, arguments: {
+          "OTP" : otpCode.value,
+          "Email" : email,
+        });
       } else {
         Navigator.push(
           context,
@@ -119,7 +124,7 @@ class OTPController extends GetxController with GetSingleTickerProviderStateMixi
     }
   }
 
-  saveOTPFn(BuildContext context) async {
+  /*saveOTPFn(BuildContext context) async {
     try {
       if(otpCode.value.length == 6){
         if(sourceOTP == "FromForgetPassword"){
@@ -141,5 +146,5 @@ class OTPController extends GetxController with GetSingleTickerProviderStateMixi
     } finally {
       //isDataProcessing.value = false;
     }
-  }
+  } */
 }

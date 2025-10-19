@@ -135,7 +135,14 @@ class ProfileScreen extends StatelessWidget {
 
                 InkWell(
                   onTap: (){
-                    Get.toNamed(Routes.changePasswordScreen);
+                    Get.toNamed(Routes.changePasswordScreen, arguments: {
+                      "OTP" : (PrefUtils.getOTP() != null && PrefUtils.getOTP()!.isNotEmpty)
+                          ? PrefUtils.getOTP()
+                          : "123456",
+                      "Email" : (PrefUtils.getEmail() != null && PrefUtils.getEmail()!.isNotEmpty)
+                          ? PrefUtils.getEmail()
+                          : "admin@gmail.com",
+                    });
                   },
                   child: TRoundedContainer(
                     showBorder: false,
@@ -149,7 +156,7 @@ class ProfileScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButton(
-                          onPressed: (){Get.toNamed(Routes.changePasswordScreen);},
+                          onPressed: (){},
                           icon: Icon(Icons.arrow_back_ios),
                           iconSize: 25.adaptSize,
                           color: TColors.buttonSecondary,

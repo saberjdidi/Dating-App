@@ -15,7 +15,7 @@ class MediaOwnerProfileController extends GetxController {
 
   final mediaRepository = MediaRepository();
   //RxList<MediaModel> mediaList = <MediaModel>[].obs;// ✅ depuis serveur
-  RxList<File> selectedMedia = <File>[].obs;          // ✅ fichiers locaux
+  //RxList<File> selectedMedia = <File>[].obs;          // ✅ fichiers locaux
   RxBool isDataProcessing = false.obs;
   RxList<MediaModel> allMedia = <MediaModel>[].obs;
 
@@ -54,7 +54,14 @@ class MediaOwnerProfileController extends GetxController {
       final result = await mediaRepository.getAllMedia();
 
       if (result.success) {
-        allMedia.assignAll(result.data ?? []);
+        // On garde les fichiers locaux déjà ajoutés
+        final localMedia = allMedia.where((m) => m.file != null).toList();
+
+        allMedia
+          ..clear()
+          ..addAll(localMedia) // garder les locaux
+          ..addAll(result.data ?? []); // ajouter ceux du serveur
+        //allMedia.assignAll(result.data ?? []);
         debugPrint('✅ ${allMedia.length} médias chargés');
       } else {
         MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? '');
@@ -77,13 +84,15 @@ class MediaOwnerProfileController extends GetxController {
     }
   }
 
+  /// 🔹 Supprimer un média (local ou serveur)
   Future<void> removeMedia(int index) async {
     final media = allMedia[index];
     if (media.file != null) {
-      // ✅ local
+      // ✅ Local seulement
       allMedia.removeAt(index);
+      return;
     } else {
-      // ✅ distant
+      // ✅ Supprimer côté serveur
       final result = await mediaRepository.deleteMedia(media.id);
       if (result.success) {
         allMedia.removeAt(index);
@@ -96,8 +105,9 @@ class MediaOwnerProfileController extends GetxController {
 
   /// ✅ Upload des nouveaux médias
   Future<void> createMedia() async {
+    final localFiles = allMedia.where((m) => m.file != null).toList();
     // ✅ Vérifier qu'au moins une image a été ajoutée
-    if (selectedMedia.isEmpty) {
+    if (localFiles.isEmpty) {
       MessageSnackBar.customToast(message: 'الرجاء تحميل صورة واحدة على الأقل');
       return;
     }
@@ -112,8 +122,8 @@ class MediaOwnerProfileController extends GetxController {
         return;
       }
 
-      for (int i = 0; i < selectedMedia.length; i++) {
-        final file = selectedMedia[i];
+      for (int i = 0; i < localFiles.length; i++) {
+        final file = localFiles[i].file!;
         final uploadResult = await mediaRepository.uploadOneMedia(file);
 
         if (!uploadResult.success) {
@@ -132,18 +142,17 @@ class MediaOwnerProfileController extends GetxController {
         } */
 
         // ✅ Si c’est le dernier fichier ET upload réussi → afficher message de succès
-        if (uploadResult.success && i == selectedMedia.length - 1) {
-          Get.offAllNamed(Routes.successAccountScreen);
+        if (uploadResult.success && i == localFiles.length - 1) {
           isDataProcessing.value = false;
-          MessageSnackBar.successSnackBar(title: 'تم', message: uploadResult.message ?? 'تم تحميل جميع الصور بنجاح',);
+          MessageSnackBar.successSnackBar(title: 'تم', message: uploadResult.message ?? 'تم تحميل الصور بنجاح',);
         }
-        selectedMedia.clear(); // ✅ vider la liste locale après succès
-        await getAllMedia();   // ✅ rafraîchir depuis le serveur
+        // ✅ Rafraîchir la liste depuis serveur
+        await getAllMedia();
       }
     }
     catch (exception) {
       isDataProcessing.value = false;
-      debugPrint('Exception : ${exception.toString()}');
+      debugPrint('❌ Exception : ${exception.toString()}');
       //FullScreenLoader.stopLoading();
       //Show some generic error to the user
       MessageSnackBar.errorSnackBar(title: 'Oh Snap!', message: exception.toString());
@@ -182,43 +191,14 @@ class MediaOwnerProfileController extends GetxController {
     );
   }
 
-  /// ✅ Pick depuis la galerie/caméra
-  Future<void> pickMedia(BuildContext context, ImageSource source) async {
-    final hasPermission = await PermissionsHelper.requestMediaPermissions();
-    if (!hasPermission) {
-      Get.snackbar("Permission Denied", "You need to grant permissions to continue.");
-      return;
+  /// ✅ Déterminer le type du média
+  String _getMediaType(String path) {
+    final ext = path.toLowerCase();
+    if (ext.endsWith('.mp4') || ext.endsWith('.mov') || ext.endsWith('.avi')) {
+      return 'video';
     }
-
-    if (selectedMedia.length >= 5) {
-      showMaxPhotosDialog(context);
-      return;
-    }
-
-
-    ///Personalize Files without model
-    if (selectedMedia.length >= 5) {
-      // Afficher le dialog si dépasse 5
-      showMaxPhotosDialog(context);
-      return;
-    }
-    XFile? file;
-    if (source == ImageSource.camera) {
-      file = await _picker.pickImage(source: ImageSource.camera);
-    } else {
-      file = await _picker.pickMedia();
-    }
-
-    if (file != null) {
-      selectedMedia.add(File(file.path)); // ✅ ajout local instantané
-    }
+    return 'image';
   }
-
-  /// ✅ Supprimer localement un média sélectionné avant upload
- /* void removeMedia(int index) {
-    allMedia.removeAt(index);
-    selectedMedia.removeAt(index);
-  } */
 
   /// ✅ Dialog quand dépasse la limite
   void showMaxPhotosDialog(BuildContext context) {
@@ -239,5 +219,59 @@ class MediaOwnerProfileController extends GetxController {
       ),
     );
   }
+
+  /// ✅ Pick depuis la galerie/caméra
+  Future<void> pickMedia(BuildContext context, ImageSource source) async {
+    final hasPermission = await PermissionsHelper.requestMediaPermissions();
+    if (!hasPermission) {
+      Get.snackbar(
+          "Permission Denied", "You need to grant permissions to continue.");
+      return;
+    }
+
+    if (allMedia
+        .where((m) => m.file != null)
+        .length >= 5) {
+      showMaxPhotosDialog(context);
+      return;
+    }
+
+    XFile? file;
+    if (source == ImageSource.camera) {
+      file = await _picker.pickImage(source: ImageSource.camera);
+    } else {
+      file = await _picker.pickMedia();
+    }
+
+    if (file != null) {
+      // ✅ Vérifie si ce fichier est déjà présent (évite doublon)
+      final alreadyExists = allMedia.any((m) => m.file?.path == file!.path);
+      if (alreadyExists) return;
+
+      final newMedia = MediaModel(
+        id: '',
+        // pas encore d'id (local)
+        userId: '',
+        mediaType: _getMediaType(file.path),
+        mediaKey: '',
+        mediaUrl: '',
+        createdAt: '',
+        updatedAt: '',
+        favouriteCount: 0,
+        file: File(file.path),
+      );
+
+      allMedia.insert(0, newMedia); // afficher en premier
+    }
+  }
+
+
+  /// ✅ Supprimer localement un média sélectionné avant upload
+ /* void removeMedia(int index) {
+    allMedia.removeAt(index);
+    selectedMedia.removeAt(index);
+  } */
+
+
 
 }

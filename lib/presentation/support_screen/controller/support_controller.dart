@@ -1,6 +1,9 @@
 import 'dart:io';
 
+import 'package:dating_app_bilhalal/core/utils/message_snackbar.dart';
+import 'package:dating_app_bilhalal/core/utils/network_manager.dart';
 import 'package:dating_app_bilhalal/core/utils/permissions_helper.dart';
+import 'package:dating_app_bilhalal/data/repositories/media_repository.dart';
 import 'package:dating_app_bilhalal/presentation/password_screen/password_success_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +13,8 @@ class SupportController extends GetxController {
   static SupportController get instance => Get.find();
   var isRTL = true.obs;
   final GlobalKey<FormState> formSupportKey = GlobalKey<FormState>();
+  final MediaRepository mediaRepository = MediaRepository();
+  RxBool isDataProcessing = false.obs;
 
   TextEditingController subjectController = TextEditingController();
   TextEditingController messageController = TextEditingController();
@@ -92,13 +97,32 @@ class SupportController extends GetxController {
       }
    formSupportKey.currentState!.save();
 
+   //Check internet connection
+   final isConnected = await NetworkManager.instance.isConnected();
+   if(!isConnected) {
+     isDataProcessing.value = false;
+     MessageSnackBar.customToast(message: 'No Internet Connection');
+     return;
+   }
 
+   final result = await mediaRepository
+       .addSupport(file: selectedMedia.first, subject: subjectController.text.trim(), message: messageController.text.trim());
+   if (result.success) {
+     MessageSnackBar.successSnackBar(title: 'تم', message: result.message ?? 'تم إرسال رسالة الدعم بنجاح');
+     //isDataProcessing.value = false;
+     final attachment = result.data?['attachment_url'];
+     debugPrint("attachment : $attachment");
+   } else {
+     MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? '');
+     isDataProcessing.value = false;
+   }
 
     }
     catch (exception) {
+      isDataProcessing.value = false;
       debugPrint('Exception : ${exception.toString()}');
     } finally {
-      //isDataProcessing.value = false;
+      isDataProcessing.value = false;
     }
   }
 }

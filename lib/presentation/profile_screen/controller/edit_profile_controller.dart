@@ -150,23 +150,26 @@ class EditProfileController extends GetxController {
       selectedColor.value = userInfo.profile!.skinToneHex! ?? '';
 
       final profile = userInfo.profile;
-      if (profile != null) {
+      debugPrint("user Info : ${userInfo.profile?.socialState}");
+     // if (profile != null) {}
         // --- Social State ---
         final socialArabic = THelperFunctions.getSocialStateArabic(userInfo.profile?.socialState ?? '');
         maritalStatusController.text = socialArabic;
+        debugPrint("socialArabic : ${socialArabic}");
 
-        final socialItem = ListMaritalStatus.value.firstWhereOrNull(
-                (item) => item.title == socialArabic);
+        final socialItem = ListMaritalStatus.value.firstWhereOrNull((item) => item.title == userInfo.profile?.socialState);
+        //final socialItem = ListMaritalStatus.value.firstWhereOrNull((item) => item.title == socialArabic);
         selectedMaritalStatus.value = socialItem;
 
         // --- Marriage Type ---
         final marriageArabic = THelperFunctions.getMarriageTypeArabic(userInfo.profile?.marriageType ?? '');
         lookingForController.text = marriageArabic;
 
-        final marriageItem = ListLookingFor.value.firstWhereOrNull(
-                (item) => item.title == marriageArabic);
-        selectedLookingFor.value = marriageItem;
 
+        final marriageItem = ListLookingFor.value.firstWhereOrNull((item) => item.title == userInfo.profile?.marriageType);
+        //final marriageItem = ListLookingFor.value.firstWhereOrNull((item) => item.title == marriageArabic);
+        selectedLookingFor.value = marriageItem;
+        debugPrint("marriageItem : ${marriageItem!.title}");
         // --- Country ---
         final countryArabic = THelperFunctions.getCountryArabic(userInfo.profile?.country ?? '');
         paysController.text = countryArabic;
@@ -174,7 +177,8 @@ class EditProfileController extends GetxController {
         final countryItem = PaysList.value.firstWhereOrNull(
                 (item) => item.name == countryArabic);
         selectedPays.value = countryItem;
-      }
+        debugPrint("countryItem : ${countryItem!.name}");
+
 
       // ✅ Charger les salaires min/max
       final minSalary = double.tryParse(userInfo.profile?.salaryRangeMin ?? '') ?? 177;

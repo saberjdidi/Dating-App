@@ -5,6 +5,8 @@ class ApiConstants {
   //Authentication
   static const String authRegister = 'auth/register';
   static const String authLogin = 'auth/login';
+  static const String authForgetPassword = 'auth/forgot-password';
+  static const String authResetPassword = 'auth/reset-password';
 
   //OTP
   static const String verifyOtp = 'auth/verify-otp';
@@ -15,8 +17,12 @@ class ApiConstants {
 
   //Profile
   static const String profileReport = 'reports';
-  //User
+
+  //Media
   static const String media = 'media';
+
+  //Media
+  static const String support = 'support/messages';
 }
 
 class HttpStatusCode {

@@ -16,6 +16,7 @@ import 'package:flutter/services.dart';
 class SignUpScreen extends GetView<SignUpController> {
   SignUpScreen({super.key});
 
+  final GlobalKey<ScaffoldState> _scaffoldKeySignup = GlobalKey<ScaffoldState>();
   var _appTheme = PrefUtils.getTheme();
 
   @override
@@ -26,6 +27,7 @@ class SignUpScreen extends GetView<SignUpController> {
     var isTablet = screenWidth >= 600;
 
     return Scaffold(
+      key: _scaffoldKeySignup,
       body: SingleChildScrollView(
         child: Column(
           children: [
