@@ -1,5 +1,6 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/network_manager.dart';
+import 'package:dating_app_bilhalal/data/models/interest_model.dart';
 import 'package:dating_app_bilhalal/data/models/media_model.dart';
 import 'package:dating_app_bilhalal/data/models/user_model.dart';
 import 'package:dating_app_bilhalal/data/repositories/media_repository.dart';
@@ -10,8 +11,9 @@ class UserOwnerProfileController extends GetxController {
   static UserOwnerProfileController get instance => Get.find();
 
   //UserModel userModel  = Get.arguments['UserModel'] ?? UserModel.empty();
-  final Rx<UserModel?> user = Rx<UserModel?>(null);
   final profileRepository = ProfileRepository();
+  final Rx<UserModel?> user = Rx<UserModel?>(null);
+  RxList<InterestModel> hobbiesList = <InterestModel>[].obs;
   RxBool isDataProcessing = false.obs;
 
   ///Media
@@ -30,6 +32,7 @@ class UserOwnerProfileController extends GetxController {
     super.onInit();
     getMyProfile();
     getAllMedia();
+    getMyHobbies();
   }
 
   ///Methods
@@ -83,6 +86,33 @@ class UserOwnerProfileController extends GetxController {
       if (result.success) {
         mediaList.assignAll(result.data ?? []);
         debugPrint('✅ ${mediaList.length} médias chargés');
+      } else {
+        MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? '');
+      }
+    } catch (e) {
+      MessageSnackBar.errorSnackBar(title: 'خطأ', message: e.toString());
+    } finally {
+      isDataProcessing.value = false;
+    }
+  }
+
+  /// Méthode pour récupérer les interets
+  Future<void> getMyHobbies() async {
+    try {
+      isDataProcessing.value = true;
+
+      final isConnected = await NetworkManager.instance.isConnected();
+      if (!isConnected) {
+        isDataProcessing.value = false;
+        MessageSnackBar.customToast(message: 'Pas de connexion Internet');
+        return;
+      }
+
+      final result = await profileRepository.getMyHobbies();
+
+      if (result.success) {
+        hobbiesList.assignAll(result.data ?? []);
+        debugPrint('✅ ${mediaList.length} hobbies chargés');
       } else {
         MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? '');
       }

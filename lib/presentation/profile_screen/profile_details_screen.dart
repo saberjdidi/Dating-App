@@ -9,6 +9,7 @@ import 'package:dating_app_bilhalal/widgets/circular_container.dart';
 import 'package:dating_app_bilhalal/widgets/grid_layout.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
 import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
+import 'package:dating_app_bilhalal/widgets/swip_back_wrapper.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -29,127 +30,129 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
 
     return SafeArea(
         top: false,
-        child: Scaffold(
-          //backgroundColor: PrefUtils().getThemeData() =='light' ? TColors.lightContainer : TColors.darkerGrey,
-          resizeToAvoidBottomInset: false,
-          body: GestureDetector(
-            // ✅ Tape sur l’image → inverse l’état
-            onTap: controller.toggleUserInfo,
+        child: SwipeBackWrapper(
+          child: Scaffold(
+            //backgroundColor: PrefUtils().getThemeData() =='light' ? TColors.lightContainer : TColors.darkerGrey,
+            resizeToAvoidBottomInset: false,
+            body: GestureDetector(
+              // ✅ Tape sur l’image → inverse l’état
+              onTap: controller.toggleUserInfo,
 
-            // ✅ Glissement vertical pour montrer/cacher
-            onVerticalDragUpdate: (details) {
-              if (details.primaryDelta != null && details.primaryDelta! > 10) {
-                // 🔽 swipe down → cache
-                controller.hideUserInfo();
-              } else if (details.primaryDelta != null && details.primaryDelta! < -10) {
-                // 🔼 swipe up → affiche
-                controller.showInfo();
-              }
-            },
-            child: Stack(
-              children: [
-                // background image (fills)
-                Positioned.fill(
-                  child: CustomImageView(
-                    imagePath: controller.userModel.imageProfile,
-                    //height: 200.adaptSize,
-                    //width: 200.adaptSize,
-                    fit: BoxFit.cover,
+              // ✅ Glissement vertical pour montrer/cacher
+              onVerticalDragUpdate: (details) {
+                if (details.primaryDelta != null && details.primaryDelta! > 10) {
+                  // 🔽 swipe down → cache
+                  controller.hideUserInfo();
+                } else if (details.primaryDelta != null && details.primaryDelta! < -10) {
+                  // 🔼 swipe up → affiche
+                  controller.showInfo();
+                }
+              },
+              child: Stack(
+                children: [
+                  // background image (fills)
+                  Positioned.fill(
+                    child: CustomImageView(
+                      imagePath: controller.userModel.imageProfile,
+                      //height: 200.adaptSize,
+                      //width: 200.adaptSize,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
 
-                // Image en haut à gauche
-                Positioned(
-                  top: 20,
-                  left: 20,
-                 child: IconButton(
-                   icon: Icon(Icons.more_vert, color: TColors.white, size: 35.hw,),
-                   onPressed: (){
-                     buildDialogSettings(context, controller);
-                   },
-                 ),
-                 /* child:  CircleIconButton(
-                    size: isSmallPhone ? 70.hw : isTablet ? 65.hw : 60.hw,
-                    effectiveSize: isSmallPhone ? 70.hw : 60.hw,
-                    minTapSize: 60.hw,
-                    backgroundColor: TColors.greyDating.withOpacity(0.5),
-                    child: IconButton(
-                      icon: Icon(Icons.share_outlined, color: TColors.white, size: 40.hw,),
-                      onPressed: (){
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ) */
-                ),
-
-                // Image en haut à droite
-                Positioned(
-                  top: 20,
-                  right: 20,
-                 child: IconButton(
-                   icon: Icon(Icons.arrow_forward_outlined, color: TColors.white, size: 35.hw,),
-                   onPressed: (){
-                     Navigator.pop(context);
-                   },
-                 ),
-                 /* child: CircleIconButton(
-                    size: isSmallPhone ? 70.hw : 60.hw,
-                    effectiveSize: isSmallPhone ? 70.hw : 60.hw,
-                    minTapSize: 60.hw,
-                    backgroundColor: TColors.greyDating.withOpacity(0.5),
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_forward_outlined, color: TColors.white, size: 40.hw,),
-                      onPressed: (){
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ) */
-                ),
-
-
-                /// ✅ Conteneur animé avec GetX
-                Obx(() => AnimatedPositioned(
-                  duration: const Duration(milliseconds: 400),
-                  curve: Curves.easeInOut,
-                  bottom: controller.showUserInfo.value ? 0 : -screenHeight * 0.6,
-                  left: 0,
-                  right: 0,
-                    child: _buildUserInfo(context)
-                 /* child: Container(
-                    height: screenHeight * 0.6,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(40),
-                        topRight: Radius.circular(40),
+                  // Image en haut à gauche
+                  Positioned(
+                    top: 20,
+                    left: 20,
+                   child: IconButton(
+                     icon: Icon(Icons.more_vert, color: TColors.white, size: 35.hw,),
+                     onPressed: () async {
+                      await Dialogs.buildDialogSettings(context, controller);
+                     },
+                   ),
+                   /* child:  CircleIconButton(
+                      size: isSmallPhone ? 70.hw : isTablet ? 65.hw : 60.hw,
+                      effectiveSize: isSmallPhone ? 70.hw : 60.hw,
+                      minTapSize: 60.hw,
+                      backgroundColor: TColors.greyDating.withOpacity(0.5),
+                      child: IconButton(
+                        icon: Icon(Icons.share_outlined, color: TColors.white, size: 40.hw,),
+                        onPressed: (){
+                          Navigator.pop(context);
+                        },
                       ),
-                      gradient: LinearGradient(
-                        colors: appTheme == 'light'
-                            ? [Colors.white, Colors.grey.shade200]
-                            : [Colors.black.withOpacity(0.8), Colors.black],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
+                    ) */
+                  ),
+
+                  // Image en haut à droite
+                  Positioned(
+                    top: 20,
+                    right: 20,
+                   child: IconButton(
+                     icon: Icon(Icons.arrow_forward_outlined, color: TColors.white, size: 35.hw,),
+                     onPressed: (){
+                       Navigator.pop(context);
+                     },
+                   ),
+                   /* child: CircleIconButton(
+                      size: isSmallPhone ? 70.hw : 60.hw,
+                      effectiveSize: isSmallPhone ? 70.hw : 60.hw,
+                      minTapSize: 60.hw,
+                      backgroundColor: TColors.greyDating.withOpacity(0.5),
+                      child: IconButton(
+                        icon: Icon(Icons.arrow_forward_outlined, color: TColors.white, size: 40.hw,),
+                        onPressed: (){
+                          Navigator.pop(context);
+                        },
                       ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          offset: const Offset(0, -4),
-                          blurRadius: 10,
+                    ) */
+                  ),
+
+
+                  /// ✅ Conteneur animé avec GetX
+                  Obx(() => AnimatedPositioned(
+                    duration: const Duration(milliseconds: 400),
+                    curve: Curves.easeInOut,
+                    bottom: controller.showUserInfo.value ? 0 : -screenHeight * 0.6,
+                    left: 0,
+                    right: 0,
+                      child: _buildUserInfo(context)
+                   /* child: Container(
+                      height: screenHeight * 0.6,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(40),
+                          topRight: Radius.circular(40),
                         ),
-                      ],
-                    ),
-                    padding: const EdgeInsets.all(20),
-                    child: _buildUserInfo(context),
+                        gradient: LinearGradient(
+                          colors: appTheme == 'light'
+                              ? [Colors.white, Colors.grey.shade200]
+                              : [Colors.black.withOpacity(0.8), Colors.black],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            offset: const Offset(0, -4),
+                            blurRadius: 10,
+                          ),
+                        ],
+                      ),
+                      padding: const EdgeInsets.all(20),
+                      child: _buildUserInfo(context),
+                    ), */
+                  )),
+                  // Conteneur avec infos utilisateur
+                 /* Align(
+                    alignment: Alignment.bottomCenter,
+                    child: _buildUserInfo , //here
                   ), */
-                )),
-                // Conteneur avec infos utilisateur
-               /* Align(
-                  alignment: Alignment.bottomCenter,
-                  child: _buildUserInfo , //here
-                ), */
-              ],
-            ),
-          )
+                ],
+              ),
+            )
+          ),
         )
     );
   }
@@ -413,77 +416,5 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
      );
    }
 
-   buildDialogSettings(BuildContext context, ProfileDetailsController  controller){
-     Get.dialog(
-       Dialog(
-         insetPadding: const EdgeInsets.all(16),
-         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-         backgroundColor: _appTheme =='light' ? Colors.white : TColors.darkerGrey,
 
-         child: SizedBox(
-           height: 150, // fixe la hauteur de ton popup
-           width: double.infinity,
-           child: Padding(
-             padding: EdgeInsets.all(18.hw),
-             child: SingleChildScrollView(
-               child: Column(
-                 children: [
-                   Padding(
-                     padding: EdgeInsets.symmetric(vertical: 10),
-                     child: Row(
-                       mainAxisAlignment: MainAxisAlignment.end,
-                       children: [
-                         SubTitleWidget(
-                             subtitle: 'مشاركة الملف الشخصي',
-                             color: _appTheme =='light' ? TColors.black : TColors.white,
-                             fontWeightDelta: 2,
-                             fontSizeDelta: 1
-                         ),
-                         SizedBox(width: 10.hw),
-                         Icon(Icons.share_outlined, color: _appTheme =='light' ? TColors.gray700 : TColors.white,),
-                       ],
-                     ),
-                   ),
-
-                   Padding(
-                     padding: const EdgeInsets.symmetric(vertical: 10),
-                     child: GestureDetector(
-                       onTap: (){
-                         if (!controller.isDataProcessing.value) {
-                           controller.sendReport();
-                         }
-                       },
-                       child: Obx(() => controller.isDataProcessing.value
-                           ? CircularProgressIndicator(
-                             backgroundColor: _appTheme =='light' ? Colors.white : TColors.darkerGrey,
-                             color: TColors.primaryColorApp,
-                              )
-                           :
-                           Row(
-                             mainAxisAlignment: MainAxisAlignment.end,
-                             children: [
-                               SubTitleWidget(
-                                   subtitle: 'الإبلاغ',
-                                   //subtitle: 'حضر الملف الشخصي',
-                                   color: _appTheme =='light' ? TColors.black : TColors.white,
-                                   fontWeightDelta: 2,
-                                   fontSizeDelta: 1
-                               ),
-                               SizedBox(width: 10.hw),
-                               Icon(Iconsax.user_remove, color: _appTheme =='light' ? TColors.gray700 : TColors.white,),
-
-                             ],
-                           )
-                       ),
-                     ),
-                   ),
-                 ],
-               )
-             ),
-           ),
-         ),
-       ),
-       barrierDismissible: true, // Ferme si l'utilisateur clique à l'extérieur
-     );
-   }
 }

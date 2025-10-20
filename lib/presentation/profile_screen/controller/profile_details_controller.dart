@@ -17,7 +17,17 @@ class ProfileDetailsController extends GetxController {
   void hideUserInfo() => showUserInfo.value = false;
   void showInfo() => showUserInfo.value = true;
 
-
+  //Tabbed Page
+  var selectedTab = 0.obs;
+  void onTabChanged(int index) {
+    selectedTab.value = index;
+  }
+  ///Static list for images in profile message
+  Rx<List<String>> ListImages = Rx(
+      [
+        ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7
+      ]
+  );
 
   ///Methods
   Future<void> sendReport() async {

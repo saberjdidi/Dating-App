@@ -2,18 +2,43 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 class InterestModel {
-  final String name;
-  final IconData icon;
+  String? id;
+   String? name;
+  IconData? icon;
+  String? createdAt;
+  String? updatedAt;
   //final String icon;
-  InterestModel({required this.name, required this.icon});
+  InterestModel({
+    this.id,
+     this.name,
+     this.icon,
+    this.createdAt,
+    this.updatedAt
+  });
 
   // Fonction pour obtenir l'icône à partir du nom
-  static IconData getIconByName(String name) {
+  static IconData getIconByName(String? name) {
     try {
-      return interestsList.firstWhere((e) => e.name == name).icon;
+      return interestsList.firstWhere((e) => e.name == name).icon!;
     } catch (e) {
       return Icons.help_outline; // Icône par défaut si non trouvé
     }
+  }
+
+  InterestModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    return data;
   }
 }
 
@@ -29,8 +54,11 @@ final interestsList = [
   InterestModel(name: "السفر", icon: Iconsax.trade),
   InterestModel(name: "فن", icon: Iconsax.magicpen),
   InterestModel(name: "موسيقى", icon: Iconsax.music),
-  InterestModel(name: "أقصى", icon: Icons.diamond_outlined),
+  //InterestModel(name: "أقصى", icon: Icons.diamond_outlined),
   InterestModel(name: "ألعاب الفيديو", icon: Iconsax.game),
   InterestModel(name: "قراءة", icon: Iconsax.book_1),
-  InterestModel(name: "كرة القدم", icon: Icons.sports_basketball_rounded),
+  InterestModel(name: "كرة القدم", icon: Icons.sports_score_outlined),
+  InterestModel(name: "الشطرنج", icon: Icons.spoke),
+  InterestModel(name: "الاسترخاء", icon: Icons.chair_outlined),
+  InterestModel(name: "الرفاهية", icon: Icons.luggage_outlined),
 ];

@@ -1,6 +1,7 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/validators/validation.dart';
 import 'package:dating_app_bilhalal/data/models/message_model.dart';
+import 'package:dating_app_bilhalal/data/models/user_model.dart';
 import 'package:dating_app_bilhalal/presentation/chat_screen/controller/message_controller.dart';
 import 'package:dating_app_bilhalal/presentation/settings_screen/controller/settings_controller.dart';
 import 'package:dating_app_bilhalal/presentation/settings_screen/settings_screen.dart';
@@ -172,9 +173,10 @@ class MessageScreen extends GetView<MessageController> {
                 radius: BorderRadius.circular(isSmallPhone ? 60.adaptSize : 50.adaptSize),
                 onTap: () async {
                   Get.toNamed(Routes.chatUserProfileScreen,
-                      //arguments: {"UserModel" : user}
+                      arguments: {"UserModel" : UserModel.empty()}
                   );
                 },
+
               ),
             ),
           ),

@@ -29,6 +29,7 @@ Rx<List<SelectionPopupModel>> ListLookingFor = Rx(
       SelectionPopupModel(id:1,title:"مواعدة"),
       SelectionPopupModel(id:2,title:"زواج"),
       SelectionPopupModel(id:3,title:"معيشة"),
+      SelectionPopupModel(id:3,title:"معيشة"),
       SelectionPopupModel(id:4,title:"الصداقة")
     ]
 );

@@ -167,7 +167,7 @@ class AppRoutes {
       name: Routes.chatUserProfileScreen,
       page: () => ChatUserProfileScreen(),
       bindings: [
-        DiscussionBinding(),
+        ProfileBinding(),
       ],
     ),
     GetPage(

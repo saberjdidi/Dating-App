@@ -1,6 +1,8 @@
 import 'package:dating_app_bilhalal/core/utils/initial_bindings.dart';
 import 'package:dating_app_bilhalal/data/repositories/authentication_repository.dart';
 import 'package:dating_app_bilhalal/firebase_options.dart';
+import 'package:dating_app_bilhalal/localization/app_localization.dart';
+import 'package:dating_app_bilhalal/localization/translation_controller.dart';
 import 'package:dating_app_bilhalal/routes/app_routes.dart';
 import 'package:dating_app_bilhalal/presentation/splash_screen/controller/splash_redirect_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -68,6 +70,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    TranslationController translationController = Get.put(TranslationController());
+
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       //locale: DevicePreview.locale(context), //For testing preview device

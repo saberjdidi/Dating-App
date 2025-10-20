@@ -1,6 +1,7 @@
 import 'package:dating_app_bilhalal/core/utils/constants/api_constant.dart';
 import 'package:dating_app_bilhalal/data/api/api_client.dart';
 import 'package:dating_app_bilhalal/data/models/api_result.dart';
+import 'package:dating_app_bilhalal/data/models/interest_model.dart';
 import 'package:dating_app_bilhalal/data/models/user_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -169,6 +170,30 @@ class ProfileRepository {
       }
     } on DioException catch (e) {
       return ApiResult(success: false, message: HandleDioError.handleDioError(e));
+    } catch (e) {
+      return ApiResult(success: false, message: e.toString());
+    }
+  }
+
+  Future<ApiResult<List<InterestModel>>> getMyHobbies({int page = 1, int pageSize = 30}) async {
+    try {
+      final resp = await _client.get(
+        ApiConstants.hobbies,
+        queryParameters: {'page': page, 'pageSize': pageSize},
+      );
+
+      if (resp.statusCode == HttpStatusCode.ok) {
+        final map = resp.data as Map<String, dynamic>;
+        final data = map['data']?['items'] as List<dynamic>? ?? [];
+        final hobbies = data.map((e) => InterestModel.fromJson(e)).toList();
+
+        return ApiResult(success: true, data: hobbies, message: map['message']);
+      } else {
+        return ApiResult(success: false, message: resp.statusMessage);
+      }
+    } on DioException catch (e) {
+      final msg = HandleDioError.handleDioError(e);
+      return ApiResult(success: false, message: msg);
     } catch (e) {
       return ApiResult(success: false, message: e.toString());
     }

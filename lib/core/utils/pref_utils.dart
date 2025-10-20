@@ -83,9 +83,9 @@ class PrefUtils {
 
   static String? getLangue() {
     try {
-      return sharedPreferences!.getString(_KeyLangue) ?? 'fr'; // Provide a default value
+      return sharedPreferences!.getString(_KeyLangue) ?? 'ar'; // Provide a default value
     } catch (e) {
-      return 'fr';
+      return 'ar';
     }
   }
   //static String? getLangue() => sharedPreferences!.getString(_KeyLangue);

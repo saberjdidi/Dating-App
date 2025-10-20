@@ -37,460 +37,547 @@ class ProfileScreen extends StatelessWidget {
             showAction: false,
           ),
           body: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: TSizes.spaceBtwItems.v),
-                InkWell(
-                  onTap: (){
-                    Get.toNamed(Routes.userOwnerProfileScreen,
-                      //arguments: {"UserModel" : user}
-                    );
-                  },
-                  child: TRoundedContainer(
-                    showBorder: false,
-                    backgroundColor: isDark ? TColors.dark : TColors.white,
-                    borderColor: isDark ? TColors.white : TColors.grey400,
-                    radius: 20.adaptSize,
-                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
-                    //margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 7.adaptSize),
-                    padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
-                    //padding: EdgeInsets.all(10.adaptSize),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          onPressed: (){
-                            Get.toNamed(Routes.userOwnerProfileScreen,
-                              //arguments: {"UserModel" : user}
-                            );
-                          },
-                          icon: Icon(Icons.arrow_back_ios),
-                          iconSize: 25.adaptSize,
-                          color: TColors.buttonSecondary,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            //TitleWidget(title: "ملفي الشخصي", fontWeightDelta: 1),
-                            SubTitleWidget(subtitle: "ملفي الشخصي", fontWeightDelta: 2, fontSizeDelta: 2,
-                              color: isDark ? TColors.whitePrimary : TColors.black,),
-                            SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
-                            CustomImageView(
-                              imagePath: (PrefUtils.getImageProfile() != null && PrefUtils.getImageProfile()!.isNotEmpty)
-                                  ? PrefUtils.getImageProfile()
-                                  : ImageConstant.profile8,
-                              width: 50.adaptSize,
-                              height: 50.adaptSize,
-                              radius: BorderRadius.circular(70.adaptSize),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-
-                InkWell(
-                  onTap: (){
-                    Get.toNamed(Routes.settingsScreen);
-                  },
-                  child: TRoundedContainer(
-                    showBorder: false,
-                    backgroundColor: isDark ? TColors.dark : TColors.white,
-                    borderColor: isDark ? TColors.white : TColors.grey400,
-                    radius: 20.adaptSize,
-                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
-                    padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
-                    //padding: EdgeInsets.all(10.adaptSize),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          onPressed: (){
-                            Get.toNamed(Routes.settingsScreen);
-                          },
-                          icon: Icon(Icons.arrow_back_ios),
-                          iconSize: 25.adaptSize,
-                          color: TColors.buttonSecondary,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            SubTitleWidget(subtitle: "إعدادات الاتصال", fontWeightDelta: 2, fontSizeDelta: 2,
-                              color: isDark ? TColors.whitePrimary : TColors.black),
-                            SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
-                            CustomImageView(
-                              imagePath: ImageConstant.imgSettingsCalling,
-                              color: Color(0xFF32BD00),
-                              width: 25.adaptSize,
-                              height: 25.adaptSize,
-                              //radius: BorderRadius.circular(40.adaptSize),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-
-                InkWell(
-                  onTap: (){
-                    Get.toNamed(Routes.changePasswordScreen, arguments: {
-                      "OTP" : (PrefUtils.getOTP() != null && PrefUtils.getOTP()!.isNotEmpty)
-                          ? PrefUtils.getOTP()
-                          : "123456",
-                      "Email" : (PrefUtils.getEmail() != null && PrefUtils.getEmail()!.isNotEmpty)
-                          ? PrefUtils.getEmail()
-                          : "admin@gmail.com",
-                    });
-                  },
-                  child: TRoundedContainer(
-                    showBorder: false,
-                    backgroundColor: isDark ? TColors.dark : TColors.white,
-                    borderColor: isDark ? TColors.white : TColors.grey400,
-                    radius: 20.adaptSize,
-                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
-                    padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
-                    //padding: EdgeInsets.all(10.adaptSize),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          onPressed: (){},
-                          icon: Icon(Icons.arrow_back_ios),
-                          iconSize: 25.adaptSize,
-                          color: TColors.buttonSecondary,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            SubTitleWidget(subtitle: "تغيير كلمة المرور", fontWeightDelta: 2, fontSizeDelta: 2,
-                              color: isDark ? TColors.whitePrimary : TColors.black),
-                            SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
-                            CustomImageView(
-                              imagePath: ImageConstant.imgPassword,
-                              color: Color(0xFF8B8700),
-                              width: 25.adaptSize,
-                              height: 25.adaptSize,
-                              //radius: BorderRadius.circular(40.adaptSize),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-
-                InkWell(
-                  onTap: () async {
-                    //Get.toNamed(Routes.subscribeScreen);
-                    final savedPlan = await PrefUtils.getSubscriptionPlan();
-                    if (savedPlan == null) {
-                      Get.toNamed(Routes.subscribeScreen);
-                    } else {
-                      Get.toNamed(Routes.updateSubscribeScreen);
-                    }
-                  },
-                  child: TRoundedContainer(
-                    showBorder: false,
-                    backgroundColor: isDark ? TColors.dark : TColors.white,
-                    borderColor: isDark ? TColors.white : TColors.grey400,
-                    radius: 20.adaptSize,
-                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
-                    padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
-                    //padding: EdgeInsets.all(10.adaptSize),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          onPressed: (){
-                            Get.toNamed(Routes.subscribeScreen);
-                          },
-                          icon: Icon(Icons.arrow_back_ios),
-                          iconSize: 25.adaptSize,
-                          color: TColors.buttonSecondary,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            SubTitleWidget(subtitle: "الاشتراك", fontWeightDelta: 2, fontSizeDelta: 2,
-                              color: isDark ? TColors.whitePrimary : TColors.black),
-                            SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
-                            CustomImageView(
-                              imagePath: ImageConstant.imgSubscription,
-                              color: Color(0xFF0DB015),
-                              width: 25.adaptSize,
-                              height: 25.adaptSize,
-                              // radius: BorderRadius.circular(40.adaptSize),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-
-                InkWell(
-                  onTap: (){
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => TermesAndConditionsScreen()));
-                  },
-                  child: TRoundedContainer(
-                    showBorder: false,
-                    backgroundColor: isDark ? TColors.dark : TColors.white,
-                    borderColor: isDark ? TColors.white : TColors.grey400,
-                    radius: 20.adaptSize,
-                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
-                    padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
-                    //padding: EdgeInsets.all(10.adaptSize),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          onPressed: (){
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => TermesAndConditionsScreen()));
-                          },
-                          icon: Icon(Icons.arrow_back_ios),
-                          iconSize: 25.adaptSize,
-                          color: TColors.buttonSecondary,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            SubTitleWidget(subtitle: "شروط الاستخدام", fontWeightDelta: 2, fontSizeDelta: 2,
-                              color: isDark ? TColors.whitePrimary : TColors.black),
-                            SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
-                            CustomImageView(
-                              imagePath: ImageConstant.imgTerms,
-                              color: Color(0xFF1230F3),
-                              width: 25.adaptSize,
-                              height: 25.adaptSize,
-                              //radius: BorderRadius.circular(40.adaptSize),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-
-                InkWell(
-                  onTap: (){
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => PrivacyPolicyScreen()));
-                  },
-                  child: TRoundedContainer(
-                    showBorder: false,
-                    backgroundColor: isDark ? TColors.dark : TColors.white,
-                    borderColor: isDark ? TColors.white : TColors.grey400,
-                    radius: 20.adaptSize,
-                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
-                    padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
-                    //padding: EdgeInsets.all(10.adaptSize),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          onPressed: (){
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => PrivacyPolicyScreen()));
-                          },
-                          icon: Icon(Icons.arrow_back_ios),
-                          iconSize: 25.adaptSize,
-                          color: TColors.buttonSecondary,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            SubTitleWidget(subtitle: "سياسة الخصوصية", fontWeightDelta: 2, fontSizeDelta: 2,
-                              color: isDark ? TColors.whitePrimary : TColors.black),
-                            SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
-                            CustomImageView(
-                              imagePath: ImageConstant.imgPrivacyPolicy,
-                              color: Color(0xFF15F0E2),
-                              width: 25.adaptSize,
-                              height: 25.adaptSize,
-                              //radius: BorderRadius.circular(40.adaptSize),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-
-                InkWell(
-                  onTap: () {
-                    ThemeController.instance.toggleTheme();
-                  },
-                  child: TRoundedContainer(
-                    showBorder: false,
-                    backgroundColor: isDark ? TColors.dark : TColors.white,
-                    borderColor: isDark ? TColors.white : TColors.grey400,
-                    radius: 20.adaptSize,
-                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical:0),
-                    padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
-                    //padding: EdgeInsets.all(10.adaptSize),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Switch(
-                          value: isDark,
-                          onChanged: (value){
-                            ThemeController.instance.toggleTheme();
-                          },
-                          activeColor: TColors.white,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            SubTitleWidget(
-                              subtitle: isDark ? "المظهر الداكن" : "المظهر الفاتح",
-                              fontWeightDelta: 2,
-                              fontSizeDelta: 2,
-                              color: isDark ? TColors.whitePrimary : TColors.black
-                            ),
-                            SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
-                            Icon(
-                              isDark ? Icons.dark_mode : Icons.light_mode,
-                              color: isDark ? TColors.buttonSecondary : Color(0xFFFFFC00),
-                              //color: isDark ? Colors.amber : Colors.blueGrey,
-                              size: 25.adaptSize,
-                            ),
-                          ],
-                        ),
-                        //Icon(Icons.arrow_back_ios, color: TColors.buttonSecondary),
-                      ],
-                    ),
-                  ),
-                ),
-
-                InkWell(
-                  onTap: (){
-                    Get.toNamed(Routes.supportScreen);
-                  },
-                  child: TRoundedContainer(
-                    showBorder: false,
-                    backgroundColor: isDark ? TColors.dark : TColors.white,
-                    borderColor: isDark ? TColors.white : TColors.grey400,
-                    radius: 20.adaptSize,
-                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
-                    padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
-                    //padding: EdgeInsets.all(10.adaptSize),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          onPressed: (){
-                            Get.toNamed(Routes.supportScreen);
-                            },
-                          icon: Icon(Icons.arrow_back_ios),
-                          iconSize: 25.adaptSize,
-                          color: TColors.buttonSecondary,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            SubTitleWidget(subtitle: "الدعم", fontWeightDelta: 2, fontSizeDelta: 2,
-                                color: isDark ? TColors.whitePrimary : TColors.black),
-                            SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
-                            CustomImageView(
-                              imagePath: ImageConstant.imgSupport,
-                              color: Color(0xFF121CE3),
-                              width: 25.adaptSize,
-                              height: 25.adaptSize,
-                              //radius: BorderRadius.circular(40.adaptSize),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-
-                InkWell(
-                  onTap: (){
-                    //Get.toNamed(Routes.supportScreen);
-                  },
-                  child: TRoundedContainer(
-                    showBorder: false,
-                    backgroundColor: isDark ? TColors.dark : TColors.white,
-                    borderColor: isDark ? TColors.white : TColors.grey400,
-                    radius: 20.adaptSize,
-                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
-                    padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
-                    //padding: EdgeInsets.all(10.adaptSize),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          onPressed: (){
-                            },
-                          icon: Icon(Icons.arrow_back_ios),
-                          iconSize: 25.adaptSize,
-                          color: TColors.buttonSecondary,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            SubTitleWidget(subtitle: "اللغة", fontWeightDelta: 2, fontSizeDelta: 2,
-                                color: isDark ? TColors.whitePrimary : TColors.black),
-                            SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
-                            Icon(Icons.translate,
-                              color: Color(0xFF8B8700),
-                              size: 25.adaptSize,
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-
-                Visibility(
-                  visible: false,
-                  child: InkWell(
-                    onTap: () async {
-                      // 🔹 1. Réinitialiser les préférences pour forcer l’affichage du guide
-                      await PrefUtils.setHasSeenGuide(false);
-                      await PrefUtils.setShowGuide(true);
-
-                      // 🔹 2. Récupérer les contrôleurs
-                      final guideController = GuideController.instance;
-
-                      // 🔹 4. Revenir à la page d’accueil (index 0)
-                      BottomBarController.instance.changeTabIndex(0);
-
-                      // 🔹 3. Réinitialiser le guide (étape 0)
-                      guideController.currentStep.value = 0;
-                      guideController.currentGuidePage.value = 0;
-                      guideController.showGuide.value = true;
-
-                      // 🔹 5. Forcer la navigation vers la page d’accueil
-                      //Get.offAllNamed(Routes.navigationScreen);
-                      Get.offAllNamed(Routes.filterScreen, id: 1);
-
-
-                      // 🔹 6. Afficher une confirmation visuelle
-                      Get.snackbar(
-                        "Guide",
-                        "Le guide a été réinitialisé et recommence depuis le début",
-                        snackPosition: SnackPosition.BOTTOM,
-                        backgroundColor: Colors.black87,
-                        colorText: Colors.white,
-                        margin: const EdgeInsets.all(12),
-                        duration: const Duration(seconds: 3),
+            child: Directionality(
+              textDirection: TextDirection.ltr,
+              //textDirection: PrefUtils.getLangue() == 'ar' ? TextDirection.ltr : TextDirection.rtl,
+              child: Column(
+                children: [
+                  SizedBox(height: TSizes.spaceBtwItems.v),
+                  InkWell(
+                    onTap: (){
+                      Get.toNamed(Routes.userOwnerProfileScreen,
+                        //arguments: {"UserModel" : user}
                       );
                     },
-                    /* onTap: (){
-                      GuideController.instance.resetGuide();
-                      //other method
-                    /*  PrefUtils.setHasSeenGuide(false); // réinitialise la préférence
-                      final bc = Get.find<BottomBarController>();
-                      bc.openGuideForIndex(bc.selectedIndex.value, autoHide: true); // ouvre immédiatement
-                      Get.snackbar("Guide", "Guide affiché à nouveau"); */
+                    child: TRoundedContainer(
+                      showBorder: false,
+                      backgroundColor: isDark ? TColors.dark : TColors.white,
+                      borderColor: isDark ? TColors.white : TColors.grey400,
+                      radius: 20.adaptSize,
+                      margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
+                      //margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 7.adaptSize),
+                      padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
+                      //padding: EdgeInsets.all(10.adaptSize),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            onPressed: (){
+                              Get.toNamed(Routes.userOwnerProfileScreen,
+                                //arguments: {"UserModel" : user}
+                              );
+                            },
+                            icon: Icon(Icons.arrow_back_ios),
+                            iconSize: 25.adaptSize,
+                            color: TColors.buttonSecondary,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              //TitleWidget(title: "ملفي الشخصي", fontWeightDelta: 1),
+                              SubTitleWidget(subtitle: "ملفي الشخصي", //"lbl_my_profile".tr,
+                                fontWeightDelta: 2, fontSizeDelta: 2,
+                                color: isDark ? TColors.whitePrimary : TColors.black,),
+                              SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
+                              CustomImageView(
+                                imagePath: (PrefUtils.getImageProfile() != null && PrefUtils.getImageProfile()!.isNotEmpty)
+                                    ? PrefUtils.getImageProfile()
+                                    : ImageConstant.profile8,
+                                width: 50.adaptSize,
+                                height: 50.adaptSize,
+                                radius: BorderRadius.circular(70.adaptSize),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
 
-                    //other 2
-                     // PrefUtils.setShowGuide(true);
-                     // Get.offAllNamed(Routes.navigationScreen);
-                    }, */
+                  InkWell(
+                    onTap: (){
+                      Get.toNamed(Routes.settingsScreen);
+                    },
+                    child: TRoundedContainer(
+                      showBorder: false,
+                      backgroundColor: isDark ? TColors.dark : TColors.white,
+                      borderColor: isDark ? TColors.white : TColors.grey400,
+                      radius: 20.adaptSize,
+                      margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
+                      padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
+                      //padding: EdgeInsets.all(10.adaptSize),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            onPressed: (){
+                              Get.toNamed(Routes.settingsScreen);
+                            },
+                            icon: Icon(Icons.arrow_back_ios),
+                            iconSize: 25.adaptSize,
+                            color: TColors.buttonSecondary,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              SubTitleWidget(subtitle: "إعدادات الاتصال", fontWeightDelta: 2, fontSizeDelta: 2,
+                                color: isDark ? TColors.whitePrimary : TColors.black),
+                              SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
+                              CustomImageView(
+                                imagePath: ImageConstant.imgSettingsCalling,
+                                color: Color(0xFF32BD00),
+                                width: 25.adaptSize,
+                                height: 25.adaptSize,
+                                //radius: BorderRadius.circular(40.adaptSize),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  InkWell(
+                    onTap: (){
+                      Get.toNamed(Routes.changePasswordScreen, arguments: {
+                        "OTP" : (PrefUtils.getOTP() != null && PrefUtils.getOTP()!.isNotEmpty)
+                            ? PrefUtils.getOTP()
+                            : "123456",
+                        "Email" : (PrefUtils.getEmail() != null && PrefUtils.getEmail()!.isNotEmpty)
+                            ? PrefUtils.getEmail()
+                            : "admin@gmail.com",
+                      });
+                    },
+                    child: TRoundedContainer(
+                      showBorder: false,
+                      backgroundColor: isDark ? TColors.dark : TColors.white,
+                      borderColor: isDark ? TColors.white : TColors.grey400,
+                      radius: 20.adaptSize,
+                      margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
+                      padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
+                      //padding: EdgeInsets.all(10.adaptSize),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            onPressed: (){},
+                            icon: Icon(Icons.arrow_back_ios),
+                            iconSize: 25.adaptSize,
+                            color: TColors.buttonSecondary,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              SubTitleWidget(subtitle: "تغيير كلمة المرور", fontWeightDelta: 2, fontSizeDelta: 2,
+                                color: isDark ? TColors.whitePrimary : TColors.black),
+                              SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
+                              CustomImageView(
+                                imagePath: ImageConstant.imgPassword,
+                                color: Color(0xFF8B8700),
+                                width: 25.adaptSize,
+                                height: 25.adaptSize,
+                                //radius: BorderRadius.circular(40.adaptSize),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  InkWell(
+                    onTap: () async {
+                      //Get.toNamed(Routes.subscribeScreen);
+                      final savedPlan = await PrefUtils.getSubscriptionPlan();
+                      if (savedPlan == null) {
+                        Get.toNamed(Routes.subscribeScreen);
+                      } else {
+                        Get.toNamed(Routes.updateSubscribeScreen);
+                      }
+                    },
+                    child: TRoundedContainer(
+                      showBorder: false,
+                      backgroundColor: isDark ? TColors.dark : TColors.white,
+                      borderColor: isDark ? TColors.white : TColors.grey400,
+                      radius: 20.adaptSize,
+                      margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
+                      padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
+                      //padding: EdgeInsets.all(10.adaptSize),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            onPressed: (){
+                              Get.toNamed(Routes.subscribeScreen);
+                            },
+                            icon: Icon(Icons.arrow_back_ios),
+                            iconSize: 25.adaptSize,
+                            color: TColors.buttonSecondary,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              SubTitleWidget(subtitle: "الاشتراك", fontWeightDelta: 2, fontSizeDelta: 2,
+                                color: isDark ? TColors.whitePrimary : TColors.black),
+                              SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
+                              CustomImageView(
+                                imagePath: ImageConstant.imgSubscription,
+                                color: Color(0xFF0DB015),
+                                width: 25.adaptSize,
+                                height: 25.adaptSize,
+                                // radius: BorderRadius.circular(40.adaptSize),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  InkWell(
+                    onTap: (){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => TermesAndConditionsScreen()));
+                    },
+                    child: TRoundedContainer(
+                      showBorder: false,
+                      backgroundColor: isDark ? TColors.dark : TColors.white,
+                      borderColor: isDark ? TColors.white : TColors.grey400,
+                      radius: 20.adaptSize,
+                      margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
+                      padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
+                      //padding: EdgeInsets.all(10.adaptSize),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            onPressed: (){
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => TermesAndConditionsScreen()));
+                            },
+                            icon: Icon(Icons.arrow_back_ios),
+                            iconSize: 25.adaptSize,
+                            color: TColors.buttonSecondary,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              SubTitleWidget(subtitle: "شروط الاستخدام", fontWeightDelta: 2, fontSizeDelta: 2,
+                                color: isDark ? TColors.whitePrimary : TColors.black),
+                              SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
+                              CustomImageView(
+                                imagePath: ImageConstant.imgTerms,
+                                color: Color(0xFF1230F3),
+                                width: 25.adaptSize,
+                                height: 25.adaptSize,
+                                //radius: BorderRadius.circular(40.adaptSize),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  InkWell(
+                    onTap: (){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => PrivacyPolicyScreen()));
+                    },
+                    child: TRoundedContainer(
+                      showBorder: false,
+                      backgroundColor: isDark ? TColors.dark : TColors.white,
+                      borderColor: isDark ? TColors.white : TColors.grey400,
+                      radius: 20.adaptSize,
+                      margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
+                      padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
+                      //padding: EdgeInsets.all(10.adaptSize),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            onPressed: (){
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => PrivacyPolicyScreen()));
+                            },
+                            icon: Icon(Icons.arrow_back_ios),
+                            iconSize: 25.adaptSize,
+                            color: TColors.buttonSecondary,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              SubTitleWidget(subtitle: "سياسة الخصوصية", fontWeightDelta: 2, fontSizeDelta: 2,
+                                color: isDark ? TColors.whitePrimary : TColors.black),
+                              SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
+                              CustomImageView(
+                                imagePath: ImageConstant.imgPrivacyPolicy,
+                                color: Color(0xFF15F0E2),
+                                width: 25.adaptSize,
+                                height: 25.adaptSize,
+                                //radius: BorderRadius.circular(40.adaptSize),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  InkWell(
+                    onTap: () {
+                      ThemeController.instance.toggleTheme();
+                    },
+                    child: TRoundedContainer(
+                      showBorder: false,
+                      backgroundColor: isDark ? TColors.dark : TColors.white,
+                      borderColor: isDark ? TColors.white : TColors.grey400,
+                      radius: 20.adaptSize,
+                      margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical:0),
+                      padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
+                      //padding: EdgeInsets.all(10.adaptSize),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Switch(
+                            value: isDark,
+                            onChanged: (value){
+                              ThemeController.instance.toggleTheme();
+                            },
+                            activeColor: TColors.white,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              SubTitleWidget(
+                                subtitle: isDark ? "المظهر الداكن" : "المظهر الفاتح",
+                                fontWeightDelta: 2,
+                                fontSizeDelta: 2,
+                                color: isDark ? TColors.whitePrimary : TColors.black
+                              ),
+                              SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
+                              Icon(
+                                isDark ? Icons.dark_mode : Icons.light_mode,
+                                color: isDark ? TColors.buttonSecondary : Color(0xFFFFFC00),
+                                //color: isDark ? Colors.amber : Colors.blueGrey,
+                                size: 25.adaptSize,
+                              ),
+                            ],
+                          ),
+                          //Icon(Icons.arrow_back_ios, color: TColors.buttonSecondary),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  InkWell(
+                    onTap: (){
+                      Get.toNamed(Routes.supportScreen);
+                    },
+                    child: TRoundedContainer(
+                      showBorder: false,
+                      backgroundColor: isDark ? TColors.dark : TColors.white,
+                      borderColor: isDark ? TColors.white : TColors.grey400,
+                      radius: 20.adaptSize,
+                      margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
+                      padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
+                      //padding: EdgeInsets.all(10.adaptSize),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            onPressed: (){
+                              Get.toNamed(Routes.supportScreen);
+                              },
+                            icon: Icon(Icons.arrow_back_ios),
+                            iconSize: 25.adaptSize,
+                            color: TColors.buttonSecondary,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              SubTitleWidget(subtitle: "الدعم", fontWeightDelta: 2, fontSizeDelta: 2,
+                                  color: isDark ? TColors.whitePrimary : TColors.black),
+                              SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
+                              CustomImageView(
+                                imagePath: ImageConstant.imgSupport,
+                                color: Color(0xFF121CE3),
+                                width: 25.adaptSize,
+                                height: 25.adaptSize,
+                                //radius: BorderRadius.circular(40.adaptSize),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  InkWell(
+                    onTap: (){
+                      //Get.toNamed(Routes.supportScreen);
+                    },
+                    child: TRoundedContainer(
+                      showBorder: false,
+                      backgroundColor: isDark ? TColors.dark : TColors.white,
+                      borderColor: isDark ? TColors.white : TColors.grey400,
+                      radius: 20.adaptSize,
+                      margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
+                      padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
+                      //padding: EdgeInsets.all(10.adaptSize),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            onPressed: (){
+                              },
+                            icon: Icon(Icons.arrow_back_ios),
+                            iconSize: 25.adaptSize,
+                            color: TColors.buttonSecondary,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              SubTitleWidget(subtitle: "اللغة", fontWeightDelta: 2, fontSizeDelta: 2,
+                                  color: isDark ? TColors.whitePrimary : TColors.black),
+                              SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
+                              Icon(Icons.translate,
+                                color: Color(0xFF8B8700),
+                                size: 25.adaptSize,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  Visibility(
+                    visible: false,
+                    child: InkWell(
+                      onTap: () async {
+                        // 🔹 1. Réinitialiser les préférences pour forcer l’affichage du guide
+                        await PrefUtils.setHasSeenGuide(false);
+                        await PrefUtils.setShowGuide(true);
+
+                        // 🔹 2. Récupérer les contrôleurs
+                        final guideController = GuideController.instance;
+
+                        // 🔹 4. Revenir à la page d’accueil (index 0)
+                        BottomBarController.instance.changeTabIndex(0);
+
+                        // 🔹 3. Réinitialiser le guide (étape 0)
+                        guideController.currentStep.value = 0;
+                        guideController.currentGuidePage.value = 0;
+                        guideController.showGuide.value = true;
+
+                        // 🔹 5. Forcer la navigation vers la page d’accueil
+                        //Get.offAllNamed(Routes.navigationScreen);
+                        Get.offAllNamed(Routes.filterScreen, id: 1);
+
+
+                        // 🔹 6. Afficher une confirmation visuelle
+                        Get.snackbar(
+                          "Guide",
+                          "Le guide a été réinitialisé et recommence depuis le début",
+                          snackPosition: SnackPosition.BOTTOM,
+                          backgroundColor: Colors.black87,
+                          colorText: Colors.white,
+                          margin: const EdgeInsets.all(12),
+                          duration: const Duration(seconds: 3),
+                        );
+                      },
+                      /* onTap: (){
+                        GuideController.instance.resetGuide();
+                        //other method
+                      /*  PrefUtils.setHasSeenGuide(false); // réinitialise la préférence
+                        final bc = Get.find<BottomBarController>();
+                        bc.openGuideForIndex(bc.selectedIndex.value, autoHide: true); // ouvre immédiatement
+                        Get.snackbar("Guide", "Guide affiché à nouveau"); */
+
+                      //other 2
+                       // PrefUtils.setShowGuide(true);
+                       // Get.offAllNamed(Routes.navigationScreen);
+                      }, */
+                      child: TRoundedContainer(
+                        showBorder: false,
+                        backgroundColor: isDark ? TColors.dark : TColors.white,
+                        borderColor: isDark ? TColors.white : TColors.grey400,
+                        radius: 20.adaptSize,
+                        margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
+                        padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
+                        //padding: EdgeInsets.all(10.adaptSize),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(
+                              onPressed: () async {
+                                // PrefUtils.setShowGuide(true);
+                                // Get.offAllNamed(Routes.navigationScreen);
+                              },
+                              icon: Icon(Icons.arrow_back_ios),
+                              iconSize: 25.adaptSize,
+                              color: TColors.buttonSecondary,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                SubTitleWidget(subtitle: "إعادة عرض الدليل", fontWeightDelta: 2, fontSizeDelta: 2,
+                                    color: isDark ? TColors.whitePrimary : TColors.black),
+                                SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
+                                Icon(Icons.view_timeline_outlined,
+                                  color: TColors.yellowAppDark,
+                                  size: 25.adaptSize,
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  InkWell(
+                    onTap: () async {
+                      await Dialogs.buildDialogDeleteAccount(isDark);
+                    },
+                    child: TRoundedContainer(
+                      showBorder: false,
+                      backgroundColor: isDark ? TColors.dark : TColors.white,
+                      borderColor: isDark ? TColors.white : TColors.grey400,
+                      radius: 20.adaptSize,
+                      margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
+                      padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
+                      //padding: EdgeInsets.all(10.adaptSize),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            onPressed: (){
+                            },
+                            icon: Icon(Icons.arrow_back_ios),
+                            iconSize: 25.adaptSize,
+                            color: TColors.buttonSecondary,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              SubTitleWidget(subtitle: "حذف الحساب", fontWeightDelta: 2, fontSizeDelta: 2,
+                                  color: isDark ? TColors.whitePrimary : TColors.black),
+                              SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
+                              Icon(Iconsax.trash,
+                                color: Color(0xFFFF1515),
+                                size: 25.adaptSize,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  InkWell(
+                    onTap: () async {
+                      //Get.offAllNamed(Routes.signInScreen);
+                     // Logout.onTapLogout();
+                      await Dialogs.dialogLogout(isDark);
+                    },
                     child: TRoundedContainer(
                       showBorder: false,
                       backgroundColor: isDark ? TColors.dark : TColors.white,
@@ -504,8 +591,8 @@ class ProfileScreen extends StatelessWidget {
                         children: [
                           IconButton(
                             onPressed: () async {
-                              // PrefUtils.setShowGuide(true);
-                              // Get.offAllNamed(Routes.navigationScreen);
+                              Logout.onTapLogout();
+                             //await Dialogs.dialogLogout(context);
                             },
                             icon: Icon(Icons.arrow_back_ios),
                             iconSize: 25.adaptSize,
@@ -514,106 +601,24 @@ class ProfileScreen extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              SubTitleWidget(subtitle: "إعادة عرض الدليل", fontWeightDelta: 2, fontSizeDelta: 2,
-                                  color: isDark ? TColors.whitePrimary : TColors.black),
+                              SubTitleWidget(subtitle: "تسجيل الخروج", fontWeightDelta: 2, fontSizeDelta: 2,
+                                color: isDark ? TColors.whitePrimary : TColors.black),
                               SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
-                              Icon(Icons.view_timeline_outlined,
-                                color: TColors.yellowAppDark,
-                                size: 25.adaptSize,
-                              ),
+                              CustomImageView(
+                                imagePath: ImageConstant.imgLogout,
+                                color: Color(0xFFDB161B),
+                                width: 25.adaptSize,
+                                height: 25.adaptSize,
+                                // radius: BorderRadius.circular(40.adaptSize),
+                              )
                             ],
                           )
                         ],
                       ),
                     ),
                   ),
-                ),
-
-                InkWell(
-                  onTap: () async {
-                    await Dialogs.buildDialogDeleteAccount(isDark);
-                  },
-                  child: TRoundedContainer(
-                    showBorder: false,
-                    backgroundColor: isDark ? TColors.dark : TColors.white,
-                    borderColor: isDark ? TColors.white : TColors.grey400,
-                    radius: 20.adaptSize,
-                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
-                    padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
-                    //padding: EdgeInsets.all(10.adaptSize),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          onPressed: (){
-                          },
-                          icon: Icon(Icons.arrow_back_ios),
-                          iconSize: 25.adaptSize,
-                          color: TColors.buttonSecondary,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            SubTitleWidget(subtitle: "حذف الحساب", fontWeightDelta: 2, fontSizeDelta: 2,
-                                color: isDark ? TColors.whitePrimary : TColors.black),
-                            SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
-                            Icon(Iconsax.trash,
-                              color: Color(0xFFFF1515),
-                              size: 25.adaptSize,
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-
-                InkWell(
-                  onTap: () async {
-                    //Get.offAllNamed(Routes.signInScreen);
-                   // Logout.onTapLogout();
-                    await Dialogs.dialogLogout(isDark);
-                  },
-                  child: TRoundedContainer(
-                    showBorder: false,
-                    backgroundColor: isDark ? TColors.dark : TColors.white,
-                    borderColor: isDark ? TColors.white : TColors.grey400,
-                    radius: 20.adaptSize,
-                    margin: EdgeInsets.symmetric(horizontal: 12.adaptSize, vertical: 0),
-                    padding: EdgeInsets.symmetric(horizontal: 10.adaptSize, vertical: 5.adaptSize),
-                    //padding: EdgeInsets.all(10.adaptSize),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          onPressed: () async {
-                            Logout.onTapLogout();
-                           //await Dialogs.dialogLogout(context);
-                          },
-                          icon: Icon(Icons.arrow_back_ios),
-                          iconSize: 25.adaptSize,
-                          color: TColors.buttonSecondary,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            SubTitleWidget(subtitle: "تسجيل الخروج", fontWeightDelta: 2, fontSizeDelta: 2,
-                              color: isDark ? TColors.whitePrimary : TColors.black),
-                            SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
-                            CustomImageView(
-                              imagePath: ImageConstant.imgLogout,
-                              color: Color(0xFFDB161B),
-                              width: 25.adaptSize,
-                              height: 25.adaptSize,
-                              // radius: BorderRadius.circular(40.adaptSize),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );

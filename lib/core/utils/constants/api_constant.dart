@@ -23,6 +23,9 @@ class ApiConstants {
 
   //Media
   static const String support = 'support/messages';
+
+  //Media
+  static const String hobbies = 'hobbies';
 }
 
 class HttpStatusCode {

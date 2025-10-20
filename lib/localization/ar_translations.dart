@@ -1,0 +1,75 @@
+final Map<String, String> ar = {
+  "empty_data": "Données vides",
+  "lbl_wait": "الرجاء الانتظار لحظة",
+
+  // Sign Up (Blank) Screen
+  "lbl_sign_in": "Se Connecter",
+  "lbl_sign_up": "S'inscrire",
+  "msg_don_t_have_an_account": "Vous n'avez pas de compte ?",
+  "msg_already_have_an": "Vous avez déjà un compte?",
+  "msg_create_your_account": "Créez votre compte?",
+  "msg_forgot_the_password": "Mot de passe oublié ?",
+  "msg_change_password": "Changer son mot de passe",
+
+  // Profile Settings Screen
+  "lbl_dark_theme": "Thème sombre",
+  "lbl_light_theme": "Thème Lumière",
+  "lbl_my_profile": "ملفي الشخصي",
+
+  //Hobbies
+  "shopping": "التسوق",
+  "photography": "فوتوغرافيا",
+  "yoga": "اليوغا",
+  "karaoke": "كاريوكي",
+  "tennis": "التنس",
+  "cooking": "طبخ",
+  "swimming": "سباحة",
+  "running": "ركض",
+  "travel": "السفر",
+  "art": "فن",
+  "music": "موسيقى",
+  "gaming": "ألعاب الفيديو",
+  "reading": "قراءة",
+  "football": "كرة القدم",
+  "chess": "الشطرنج",
+  "chilling": "الاسترخاء",
+  "luxury": "الرفاهية",
+  "other": "آخر",
+
+// Network Error String
+  "msg_network_err": "Network Error",
+  "msg_something_went_wrong": "Something Went Wrong!",
+
+  // Validation Error String
+  "err_msg_please_enter_valid_email": "Adresse e-mail est obligatoire",
+  "err_msg_please_enter_valid_password": "Mot de passe est obligatoire",
+  "err_msg_please_enter_valid_text": "Please enter valid text",
+  "err_msg_please_enter_valid_phone_number": "Please enter valid phone number",
+
+  //signup & signin
+  "termes_and_conditions": "J\'ai lu et j\'accepte les termes et les conditions d\'utilisation",
+
+  "lbl_save": "Sauvegarder",
+  "lbl_previous": "Précédent",
+  "lbl_next": "Suivant",
+  "lbl_cancel": "Annuler",
+  "lbl_skip": "Skip",
+  "lb_finish": "Terminer",
+  "lb_search": "Rechercher",
+  "lb_filter": "Filtre",
+  "lb_retour": "Retour",
+  "lb_savoir_plus": "En savoir plus",
+  "lb_voir_tout": "Voir tout",
+  "lb_continu": "Continuer",
+  "lb_confirmer": "Confirmer",
+  "lb_modifier": "Modifier",
+  "lb_enlever": "Enlever",
+  "lb_envoyer": "Envoyer",
+  "lb_active": "Activé",
+  "lb_valider": "Valider",
+  "lbl_renvoyer": "Renvoyer",
+  "lbl_commencer": "Commencer",
+  "lbl_passer": "Passer",
+  "lbl_yes": "Oui",
+  "lbl_no": "Non",
+};

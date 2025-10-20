@@ -150,7 +150,7 @@ class MultiSelectDropdown extends StatelessWidget {
                             checkColor: Colors.white,
                           )),
                           Expanded(
-                            child: Text(item.name, overflow: TextOverflow.ellipsis),
+                            child: Text(item.name!, overflow: TextOverflow.ellipsis),
                           ),
                         ],
                       ),

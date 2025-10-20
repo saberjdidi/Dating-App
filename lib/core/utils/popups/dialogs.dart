@@ -1,4 +1,8 @@
+import 'package:dating_app_bilhalal/data/models/user_model.dart';
+import 'package:dating_app_bilhalal/presentation/profile_screen/controller/profile_details_controller.dart';
 import 'package:dating_app_bilhalal/widgets/custom_dialog.dart';
+import 'package:dating_app_bilhalal/widgets/custom_divider.dart';
+import 'package:dating_app_bilhalal/widgets/gradient/gradient_svg_icon.dart';
 import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -259,6 +263,164 @@ class Dialogs {
    );
  } */
 
+  static buildDialogSettings(BuildContext context, ProfileDetailsController  controller){
+    var _appTheme = PrefUtils.getTheme();
+    Get.dialog(
+      Dialog(
+        insetPadding: const EdgeInsets.all(16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        backgroundColor: _appTheme =='light' ? Colors.white : TColors.darkerGrey,
+
+        child: SizedBox(
+          height: 150, // fixe la hauteur de ton popup
+          width: double.infinity,
+          child: Padding(
+            padding: EdgeInsets.all(18.hw),
+            child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          SubTitleWidget(
+                              subtitle: 'مشاركة الملف الشخصي',
+                              color: _appTheme =='light' ? TColors.black : TColors.white,
+                              fontWeightDelta: 2,
+                              fontSizeDelta: 1
+                          ),
+                          SizedBox(width: 10.hw),
+                          Icon(Icons.share_outlined, color: _appTheme =='light' ? TColors.gray700 : TColors.white,),
+                        ],
+                      ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: GestureDetector(
+                        onTap: (){
+                          if (!controller.isDataProcessing.value) {
+                            controller.sendReport();
+                          }
+                        },
+                        child: Obx(() => controller.isDataProcessing.value
+                            ? CircularProgressIndicator(
+                          backgroundColor: _appTheme =='light' ? Colors.white : TColors.darkerGrey,
+                          color: TColors.primaryColorApp,
+                        )
+                            :
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            SubTitleWidget(
+                                subtitle: 'الإبلاغ',
+                                //subtitle: 'حضر الملف الشخصي',
+                                color: _appTheme =='light' ? TColors.black : TColors.white,
+                                fontWeightDelta: 2,
+                                fontSizeDelta: 1
+                            ),
+                            SizedBox(width: 10.hw),
+                            Icon(Iconsax.user_remove, color: _appTheme =='light' ? TColors.gray700 : TColors.white,),
+
+                          ],
+                        )
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+            ),
+          ),
+        ),
+      ),
+      barrierDismissible: true, // Ferme si l'utilisateur clique à l'extérieur
+    );
+  }
+
+  static buildDialogUsersLikes(BuildContext context, int likeCount, List<UserModel> users) {
+    var _appTheme = PrefUtils.getTheme();
+    Get.dialog(
+      Dialog(
+        insetPadding: const EdgeInsets.all(16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        backgroundColor: _appTheme == 'light' ? Colors.white : TColors.darkerGrey,
+        child: SizedBox(
+          height: 420,
+          child: Padding(
+            padding: EdgeInsets.all(18.hw),
+            child: Column(
+              //crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GradientSvgIcon(
+                      assetPath: ImageConstant.iconLove,
+                      size: 50.adaptSize,
+                      gradient: const LinearGradient(
+                        colors: [TColors.redApp, TColors.redApp],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                    ),
+                    SizedBox(height: 2),
+                    SubTitleWidget(
+                      subtitle: '$likeCount',
+                      color: TColors.black,
+                      fontWeightDelta: 2,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                CustomDividerWidget(),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: users.length,
+                    itemBuilder: (context, index) {
+                      final user = users[index];
+                      return Column(
+                        children: [
+                          SizedBox(height: 10.v),
+                          GestureDetector(
+                            onTap: (){
+                              Get.toNamed(Routes.profileDetailsScreen, arguments: {
+                                "UserModel" : user
+                              });
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                SubTitleWidget(
+                                  subtitle: user.fullName!,
+                                  fontWeightDelta: 1,
+                                  color: TColors.black,
+                                ),
+                                SizedBox(width: 10.v),
+                                CustomImageView(
+                                  imagePath: user.imageProfile,
+                                  width: 50.adaptSize,
+                                  height: 50.adaptSize,
+                                  radius: BorderRadius.circular(60.adaptSize),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10.v),
+                          CustomDividerWidget(),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 
  static customDialog(BuildContext context, Widget child, {visibleBtnClose = true}) {
    var _appTheme = PrefUtils.getTheme();

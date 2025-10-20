@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dating_app_bilhalal/core/app_export.dart';
+import 'package:dating_app_bilhalal/data/models/media_model.dart';
 import 'package:dating_app_bilhalal/data/models/user_model.dart';
 import 'package:dating_app_bilhalal/widgets/circle_icon_button.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
@@ -7,23 +8,24 @@ import 'package:dating_app_bilhalal/widgets/custom_divider.dart';
 import 'package:dating_app_bilhalal/widgets/gradient/gradient_svg_icon.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
 import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
+import 'package:dating_app_bilhalal/widgets/video_preview_gallery.dart';
 import 'package:flutter/material.dart';
 
-class FullScreenImageViewer extends StatefulWidget {
-  final List<String> images;
+class FullScreenMediaViewer extends StatefulWidget {
+  final RxList<MediaModel> medias;
   final int initialIndex;
 
-  const FullScreenImageViewer({
+  const FullScreenMediaViewer({
     Key? key,
-    required this.images,
+    required this.medias,
     required this.initialIndex,
   }) : super(key: key);
 
   @override
-  _FullScreenImageViewerState createState() => _FullScreenImageViewerState();
+  _FullScreenMediaViewerState createState() => _FullScreenMediaViewerState();
 }
 
-class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
+class _FullScreenMediaViewerState extends State<FullScreenMediaViewer> {
   var _appTheme = PrefUtils.getTheme();
   final CarouselController _carouselController = CarouselController();
   late int currentIndex;
@@ -55,7 +57,7 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
           /// ✅ Carousel plein écran
           CarouselSlider.builder(
             carouselController: _carouselController,
-            itemCount: widget.images.length,
+            itemCount: widget.medias.length,
             options: CarouselOptions(
               height: MediaQuery.of(context).size.height,
               viewportFraction: 1,
@@ -68,18 +70,27 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
               },
             ),
             itemBuilder: (context, index, realIndex) {
-              return CustomImageView(
-                imagePath: widget.images[index],
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: double.infinity,
-              );
-             /* return Image.asset(
+              final media = widget.medias[index];
+              final isVideo = media.mediaType == 'video';
+
+              if (isVideo) {
+                return VideoPreviewGallery(
+                  url: media.mediaUrl,
+                );
+              } else {
+                return CustomImageView(
+                  imagePath: media.mediaUrl,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: double.infinity,
+                );
+                /* return Image.asset(
                 widget.images[index],
                 fit: BoxFit.cover,
                 width: double.infinity,
                 height: double.infinity,
               ); */
+              }
             },
           ),
 
@@ -93,18 +104,6 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
                Navigator.pop(context);
              },
            ),
-           /* child: CircleIconButton(
-              size: 60.adaptSize,
-              effectiveSize: 60.adaptSize,
-              minTapSize: 55.adaptSize,
-                backgroundColor: TColors.greyDating.withOpacity(0.9),
-                child: IconButton(
-                  icon: Icon(Icons.close, color: TColors.grey400.withOpacity(1), size: 35.adaptSize,),
-                  onPressed: (){
-                    Navigator.pop(context);
-                  },
-                ),
-              ) */
           ),
 
           /// ✅ Flèche gauche
@@ -118,22 +117,10 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
                 _goToPage(currentIndex - 1);
               },
             ),
-            /*  child: CircleIconButton(
-                size: 60.adaptSize,
-                effectiveSize: 60.adaptSize,
-                minTapSize: 60.adaptSize,
-                  backgroundColor: TColors.greyDating.withOpacity(0.9),
-                  child: IconButton(
-                    icon: Icon(Icons.arrow_back, color: TColors.grey400.withOpacity(1), size: 35.adaptSize,),
-                    onPressed: (){
-                      _goToPage(currentIndex - 1);
-                    },
-                  ),
-                ) */
             ),
 
           /// ✅ Flèche droite
-          if (currentIndex < widget.images.length - 1)
+          if (currentIndex < widget.medias.length - 1)
             Positioned(
               right: 10,
               top: MediaQuery.of(context).size.height / 2 - 30,
@@ -143,18 +130,6 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
                  _goToPage(currentIndex + 1);
                },
              ),
-             /* child: CircleIconButton(
-                size: 60.adaptSize,
-                effectiveSize: 60.adaptSize,
-                minTapSize: 60.adaptSize,
-                  backgroundColor: TColors.greyDating.withOpacity(0.9),
-                  child: IconButton(
-                    icon: Icon(Icons.arrow_forward, color: TColors.grey400.withOpacity(1), size: 35.adaptSize,),
-                    onPressed: (){
-                      _goToPage(currentIndex + 1);
-                    },
-                  ),
-                ) */
             ),
 
           Align(
@@ -175,17 +150,6 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
                     stops: const [0.0, 0.4, 0.7, 1.0],
                   )
               ),
-              /*
-              child: TRoundedContainer(
-                      width: double.infinity,
-                      height: isSmallPhone ? (screenheight * 0.17) : (screenheight * 0.14),
-                      backgroundColor: Colors.black.withOpacity(0.5),
-                      radius: 1.adaptSize,
-                      isBorderRadiusTop: true,
-                      padding: EdgeInsets.symmetric(
-                      horizontal: TSizes.spaceBtwItems.hw,
-                      vertical: 10.v),
-               */
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                 child: Column(
@@ -249,21 +213,6 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
                             ),
                           ),
                           SizedBox(height:2),
-                          /*
-                          CircleIconButton(
-                            size: 66.hw,
-                            effectiveSize: 66.hw,
-                            minTapSize: 66.hw,
-                            backgroundColor: TColors.greyDating.withOpacity(0.9),
-                            //margin: EdgeInsets.symmetric(horizontal: 10.hw),
-                            child: IconButton(
-                              icon: Icon(Iconsax.heart5, color: TColors.redAppLight, size: 45.hw,),
-                              onPressed: (){
-                                _goToPage(currentIndex + 1);
-                              },
-                            ),
-                          ),
-                           */
                           SubTitleWidget(subtitle: '23', color: TColors.white, fontWeightDelta: 2,),
                         ],
                       ),
@@ -320,92 +269,6 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
     );
   }
 
+
+
 }
-
-///PageView
-/*
-class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
-  late PageController _pageController;
-  late int currentIndex;
-
-  @override
-  void initState() {
-    super.initState();
-    currentIndex = widget.initialIndex;
-    _pageController = PageController(initialPage: currentIndex);
-  }
-
-  void _goToPage(int index) {
-    if (index >= 0 && index < widget.images.length) {
-      _pageController.jumpToPage(index);
-      setState(() => currentIndex = index);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: Stack(
-        children: [
-          // Images avec swipe
-          Positioned.fill(
-            child: PageView.builder(
-              controller: _pageController,
-              onPageChanged: (index) => setState(() => currentIndex = index),
-              itemCount: widget.images.length,
-              itemBuilder: (context, index) {
-                return InteractiveViewer(
-                    panEnabled: true,
-                    child: CustomImageView(
-                      imagePath: widget.images[index],
-                      width: Get.width,
-                      height: Get.height,
-                      fit: BoxFit.contain,
-                    )
-                  /* Image.network(
-                    widget.images[index],
-                    fit: BoxFit.contain,
-                  ), */
-                );
-              },
-            ),
-          ),
-
-          // Bouton fermer
-          Positioned(
-            top: 40,
-            right: 20,
-            child: IconButton(
-              icon: Icon(Icons.close, color: Colors.white, size: 30),
-              onPressed: () => Navigator.pop(context),
-            ),
-          ),
-
-          // Flèche gauche
-          if (currentIndex > 0)
-            Positioned(
-              left: 10,
-              top: MediaQuery.of(context).size.height / 2 - 30,
-              child: IconButton(
-                icon: Icon(Icons.arrow_back_ios, color: Colors.white, size: 40),
-                onPressed: () => _goToPage(currentIndex - 1),
-              ),
-            ),
-
-          // Flèche droite
-          if (currentIndex < widget.images.length - 1)
-            Positioned(
-              right: 10,
-              top: MediaQuery.of(context).size.height / 2 - 30,
-              child: IconButton(
-                icon: Icon(Icons.arrow_forward_ios, color: Colors.white, size: 40),
-                onPressed: () => _goToPage(currentIndex + 1),
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-}
-*/

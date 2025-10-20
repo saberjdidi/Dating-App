@@ -311,7 +311,7 @@ class THelperFunctions {
         return 'Art';
       case 'موسيقى':
         return 'Music';
-      case 'أقصى':
+      case 'الرفاهية':
         return 'Luxury';
       case 'ألعاب الفيديو':
         return 'Video Games';
@@ -319,6 +319,10 @@ class THelperFunctions {
         return 'Reading';
       case 'كرة القدم':
         return 'Football';
+      case 'الشطرنج':
+        return 'Chess';
+      case 'الاسترخاء':
+        return 'Chilling';
       default:
         return 'Other';
     }
@@ -328,35 +332,56 @@ class THelperFunctions {
   static String getInterestArabic(String englishValue) {
     switch (englishValue.trim()) {
       case 'Shopping':
+      case 'shopping':
         return 'التسوق';
       case 'Photography':
+      case 'photography':
         return 'فوتوغرافيا';
       case 'Yoga':
+      case 'yoga':
         return 'اليوغا';
       case 'Karaoke':
+      case 'karaoke':
         return 'كاريوكي';
       case 'Tennis':
+      case 'tennis':
         return 'التنس';
       case 'Cooking':
+      case 'cooking':
         return 'طبخ';
       case 'Swimming':
+      case 'swimming':
         return 'سباحة';
       case 'Running':
+      case 'running':
         return 'ركض';
       case 'Travel':
+      case 'travel':
         return 'السفر';
       case 'Art':
+      case 'art':
         return 'فن';
       case 'Music':
+      case 'music':
         return 'موسيقى';
-      case 'Luxury':
-        return 'أقصى';
       case 'Video Games':
+      case 'gaming':
         return 'ألعاب الفيديو';
       case 'Reading':
+      case 'reading':
         return 'قراءة';
       case 'Football':
+      case 'football':
         return 'كرة القدم';
+      case 'Chess':
+      case 'chess':
+        return 'الشطرنج';
+      case 'Chilling':
+      case 'chilling':
+        return 'الاسترخاء';
+      case 'Luxury':
+      case 'luxury':
+        return 'الرفاهية';
       default:
         return 'آخر';
     }

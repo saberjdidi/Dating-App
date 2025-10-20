@@ -493,11 +493,11 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                               final randomColor =
                               controller.selectedInterestColors[interest.name]; // ✅ couleur mémorisée
                               return InterestWidget(
-                                text: interest.name,
-                                iconPath: interest.icon,
+                                text: interest.name!,
+                                iconPath: interest.icon!,
                                 isSelected: isSelected,
                                 activeColor: true,
-                                onTap: () => controller.toggleInterest(interest.name, context),
+                                onTap: () => controller.toggleInterest(interest.name!, context),
                                 verticalPadding: 13.v,
                                 showRandomColor: isSelected, // ✅ afficher la couleur seulement si sélectionné
                                 randomList: randomColor != null ? [randomColor] : THelperFunctions.randomColorList,

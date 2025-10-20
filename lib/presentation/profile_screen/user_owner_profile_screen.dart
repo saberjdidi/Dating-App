@@ -1,7 +1,10 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
+import 'package:dating_app_bilhalal/data/models/interest_model.dart';
 import 'package:dating_app_bilhalal/data/models/media_model.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/controller/user_owner_profile_controller.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/fullscreen_image_viewer.dart';
+import 'package:dating_app_bilhalal/presentation/profile_screen/fullscreen_media_viewer.dart';
+import 'package:dating_app_bilhalal/widgets/account/interest_widget.dart';
 import 'package:dating_app_bilhalal/widgets/chat/user_stats_widget.dart';
 import 'package:dating_app_bilhalal/widgets/circle_icon_button.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
@@ -251,6 +254,27 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                   ),
 
                                   SizedBox(height: TSizes.spaceBtwSections.v),
+                                  Wrap(
+                                    spacing: 5,
+                                    runSpacing: 5,
+                                    children: controller.hobbiesList.map((interest) {
+                                      return InterestWidget(
+                                        text: THelperFunctions.getInterestArabic(interest.name!),
+                                        //text: interest.name!,
+                                        iconPath: InterestModel.getIconByName(THelperFunctions.getInterestArabic(interest.name!)),
+                                        //iconPath: InterestModel.getIconByName(interest.name!),
+                                        //iconPath: interest.icon!,
+                                        isSelected: true,
+                                        activeColor: true,
+                                        verticalPadding: 13.v,
+                                        showRandomColor: true, // ✅ afficher la couleur seulement si sélectionné
+                                        randomList: THelperFunctions.randomColorList,
+                                        onTap: () {  },
+                                      );
+                                    }).toList(),
+                                  ),
+
+                                  SizedBox(height: TSizes.spaceBtwSections.v),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
@@ -312,11 +336,8 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                                   fit: BoxFit.cover,
                                                   radius: BorderRadius.circular(10),
                                                   onTap: () {
-                                                    Get.to(() => FullScreenImageViewer(
-                                                      images: filteredMedia
-                                                          .where((m) => m.mediaType == 'image')
-                                                          .map((m) => m.mediaUrl)
-                                                          .toList(),
+                                                    Get.to(() => FullScreenMediaViewer(
+                                                      medias: controller.mediaList,
                                                       initialIndex: index,
                                                     ));
                                                   },
