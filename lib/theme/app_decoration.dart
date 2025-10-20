@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 
 class AppDecoration {
   // Fill decorations
-  static BoxDecoration get fillBlueGray => BoxDecoration(
-        color: appTheme.blueGray900,
-      );
   static BoxDecoration get fillGray => BoxDecoration(
         color: appTheme.gray700,
       );

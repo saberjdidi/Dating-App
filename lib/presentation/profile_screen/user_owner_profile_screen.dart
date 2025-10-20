@@ -70,11 +70,14 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                     Positioned(
                       top: 20,
                       right: 20,
-                      child: IconButton(
-                        icon: Icon(Icons.arrow_forward_outlined, color: TColors.white, size: 35.hw),
-                        onPressed: (){
-                          Navigator.pop(context);
-                        },
+                      child:  Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: IconButton(
+                          icon: Icon(Icons.arrow_forward_outlined, color: TColors.white, size: 35.hw),
+                          onPressed: (){
+                            Navigator.pop(context);
+                          },
+                        ),
                       ),
                       /* child: CircleIconButton(
                           size: 60.hw,

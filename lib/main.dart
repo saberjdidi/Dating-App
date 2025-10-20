@@ -4,11 +4,9 @@ import 'package:dating_app_bilhalal/firebase_options.dart';
 import 'package:dating_app_bilhalal/localization/app_localization.dart';
 import 'package:dating_app_bilhalal/localization/translation_controller.dart';
 import 'package:dating_app_bilhalal/routes/app_routes.dart';
-import 'package:dating_app_bilhalal/presentation/splash_screen/controller/splash_redirect_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-//import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/app_export.dart';
@@ -23,9 +21,6 @@ void main() async  {
   // Initialise SharedPreferences AVANT de construire l'app
   await PrefUtils.init();
   //await GetStorage.init();
-  /* await SharedPreferences.getInstance().then((prefs) {
-    PrefUtils.sharedPreferences = prefs;
-  }); */
 
   /// Initialize Firebase & Authentication Repository
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform).then(
@@ -52,8 +47,6 @@ void main() async  {
     ),
   );
 
-  //Get.put(SplashRedirectController()); //using when use flutter_native_splash
-
   runApp(const MyApp());
   // Supprime le splash après que l'app soit prête
   //FlutterNativeSplash.remove();
@@ -77,17 +70,12 @@ class MyApp extends StatelessWidget {
       //locale: DevicePreview.locale(context), //For testing preview device
       //builder: DevicePreview.appBuilder, //For testing preview device
       theme: ThemeHelper().getCurrentTheme(),
-      //translations: AppLocalization(),
-      //locale: translationController.language,
+      translations: AppLocalization(),
+      locale: translationController.language,
       title: 'بالحلال',
       initialBinding: InitialBindings(),
-      //home: const Scaffold(backgroundColor: TColors.yellowAppDark, body: Center(child: CircularProgressIndicator(color: TColors.white,),),),
-      //home: const SplashRedirect(), // On commence par la redirection
-      initialRoute: Routes.initialRoute, //utilise si on utilise splashscreen/splashcontroller
+      initialRoute: Routes.initialRoute,
       getPages: AppRoutes.pages,
-     /* builder: (context, child) {
-        return MyAppWithDeepLinkHandling(child: child, initialUri: initialUri);
-      }, */
     );
   }
 }

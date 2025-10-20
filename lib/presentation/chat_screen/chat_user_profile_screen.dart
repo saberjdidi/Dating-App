@@ -82,11 +82,14 @@ class ChatUserProfileScreen extends GetView<ProfileDetailsController> {
                      Positioned(
                        top: 20,
                        right: 20,
-                       child: IconButton(
-                         icon: Icon(Icons.arrow_forward_outlined, color: TColors.white, size: 35.hw,),
-                         onPressed: (){
-                           Navigator.pop(context);
-                         },
+                       child:  Directionality(
+                         textDirection: TextDirection.ltr,
+                         child: IconButton(
+                           icon: Icon(Icons.arrow_forward_outlined, color: TColors.white, size: 35.hw,),
+                           onPressed: (){
+                             Navigator.pop(context);
+                           },
+                         ),
                        ),
                        /* child: CircleIconButton(
                       size: isSmallPhone ? 70.hw : 60.hw,

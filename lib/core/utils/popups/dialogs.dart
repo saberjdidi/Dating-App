@@ -1,4 +1,5 @@
 import 'package:dating_app_bilhalal/data/models/user_model.dart';
+import 'package:dating_app_bilhalal/localization/translation_controller.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/controller/profile_details_controller.dart';
 import 'package:dating_app_bilhalal/widgets/custom_dialog.dart';
 import 'package:dating_app_bilhalal/widgets/custom_divider.dart';
@@ -34,6 +35,7 @@ class Dialogs {
     );
   } */
   static dialogLogout(bool isDark){
+    var isArabe = PrefUtils.getLangue() == 'ar';
     Get.dialog(
       Dialog(
         insetPadding: const EdgeInsets.all(16),
@@ -49,8 +51,8 @@ class Dialogs {
                 child: Column(
                   children: [
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: isArabe ? CrossAxisAlignment.start :  CrossAxisAlignment.end,
+                      mainAxisAlignment: isArabe ? MainAxisAlignment.start :  MainAxisAlignment.end,
                       children: [
                         InkWell(
                           onTap: () {
@@ -111,6 +113,7 @@ class Dialogs {
   }
 
   static buildDialogDeleteAccount(bool isDark){
+    var isArabe = PrefUtils.getLangue() == 'ar';
     Get.dialog(
       Dialog(
         insetPadding: const EdgeInsets.all(16),
@@ -126,8 +129,8 @@ class Dialogs {
                 child: Column(
                   children: [
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: isArabe ? CrossAxisAlignment.start :  CrossAxisAlignment.end,
+                      mainAxisAlignment: isArabe ? MainAxisAlignment.start :  MainAxisAlignment.end,
                       children: [
                         InkWell(
                           onTap: () {
@@ -190,8 +193,9 @@ class Dialogs {
       barrierDismissible: true, // Ferme si l'utilisateur clique à l'extérieur
     );
   }
-/*
+
  static dialogLanguage(BuildContext context){
+   var isArabe = PrefUtils.getLangue() == 'ar';
    var translationController = Get.find<TranslationController>();
    showDialog(
        context: context,
@@ -205,7 +209,7 @@ class Dialogs {
                    padding: EdgeInsets.symmetric(horizontal: 32.hw, vertical: 16.v),
                    margin: EdgeInsets.all(16),
                    decoration: BoxDecoration(
-                       color: appTheme.whiteA700,
+                       color: TColors.white,
                        borderRadius: BorderRadiusStyle.roundedBorder20
                    ),
                    child: Column(
@@ -231,13 +235,13 @@ class Dialogs {
                        SizedBox(height: 10.v),
                        CustomElevatedButton(
                          height: 48.v,
-                         text: "Français",
+                         text: "عربي",
                          margin: EdgeInsets.only(left: 6.hw),
                          buttonStyle: CustomButtonStyles.elevatedBlueLight700Radius10,
                          //buttonTextStyle: CustomTextStyles.titleMediumSemiBold,
                          onPressed: () async {
                            //Get.updateLocale(Locale('fr'));
-                           await translationController.changeLang("fr");
+                           await translationController.changeLang("ar");
                            await onTapBack();
                          },
                        ),
@@ -261,9 +265,10 @@ class Dialogs {
              ),
            )
    );
- } */
+ }
 
   static buildDialogSettings(BuildContext context, ProfileDetailsController  controller){
+    var isArabe = PrefUtils.getLangue() == 'ar';
     var _appTheme = PrefUtils.getTheme();
     Get.dialog(
       Dialog(
@@ -282,16 +287,16 @@ class Dialogs {
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 10),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          Icon(Icons.share_outlined, color: _appTheme =='light' ? TColors.gray700 : TColors.white,),
+                          SizedBox(width: 10.hw),
                           SubTitleWidget(
                               subtitle: 'مشاركة الملف الشخصي',
                               color: _appTheme =='light' ? TColors.black : TColors.white,
                               fontWeightDelta: 2,
                               fontSizeDelta: 1
                           ),
-                          SizedBox(width: 10.hw),
-                          Icon(Icons.share_outlined, color: _appTheme =='light' ? TColors.gray700 : TColors.white,),
                         ],
                       ),
                     ),
@@ -311,8 +316,10 @@ class Dialogs {
                         )
                             :
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
+                            Icon(Iconsax.user_remove, color: _appTheme =='light' ? TColors.gray700 : TColors.white,),
+                            SizedBox(width: 10.hw),
                             SubTitleWidget(
                                 subtitle: 'الإبلاغ',
                                 //subtitle: 'حضر الملف الشخصي',
@@ -320,8 +327,6 @@ class Dialogs {
                                 fontWeightDelta: 2,
                                 fontSizeDelta: 1
                             ),
-                            SizedBox(width: 10.hw),
-                            Icon(Iconsax.user_remove, color: _appTheme =='light' ? TColors.gray700 : TColors.white,),
 
                           ],
                         )
@@ -339,6 +344,7 @@ class Dialogs {
   }
 
   static buildDialogUsersLikes(BuildContext context, int likeCount, List<UserModel> users) {
+    var isArabe = PrefUtils.getLangue() == 'ar';
     var _appTheme = PrefUtils.getTheme();
     Get.dialog(
       Dialog(
@@ -390,19 +396,19 @@ class Dialogs {
                               });
                             },
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
+                              mainAxisAlignment:  MainAxisAlignment.start,
                               children: [
-                                SubTitleWidget(
-                                  subtitle: user.fullName!,
-                                  fontWeightDelta: 1,
-                                  color: TColors.black,
-                                ),
-                                SizedBox(width: 10.v),
                                 CustomImageView(
                                   imagePath: user.imageProfile,
                                   width: 50.adaptSize,
                                   height: 50.adaptSize,
                                   radius: BorderRadius.circular(60.adaptSize),
+                                ),
+                                SizedBox(width: 10.v),
+                                SubTitleWidget(
+                                  subtitle: user.fullName!,
+                                  fontWeightDelta: 1,
+                                  color: TColors.black,
                                 ),
                               ],
                             ),

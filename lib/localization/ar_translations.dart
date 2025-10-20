@@ -1,6 +1,7 @@
 final Map<String, String> ar = {
   "empty_data": "Données vides",
   "lbl_wait": "الرجاء الانتظار لحظة",
+  "choisir_langue": "اختر اللغة",
 
   // Sign Up (Blank) Screen
   "lbl_sign_in": "Se Connecter",
@@ -11,7 +12,8 @@ final Map<String, String> ar = {
   "msg_forgot_the_password": "Mot de passe oublié ?",
   "msg_change_password": "Changer son mot de passe",
 
-  // Profile Settings Screen
+  // Profile
+  "lbl_settings": "الإعدادات",
   "lbl_dark_theme": "Thème sombre",
   "lbl_light_theme": "Thème Lumière",
   "lbl_my_profile": "ملفي الشخصي",

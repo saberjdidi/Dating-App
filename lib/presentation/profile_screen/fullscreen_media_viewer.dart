@@ -111,11 +111,14 @@ class _FullScreenMediaViewerState extends State<FullScreenMediaViewer> {
             Positioned(
               left: 10,
               top: MediaQuery.of(context).size.height / 2 - 30,
-            child: IconButton(
-              icon: Icon(Icons.arrow_back, color: TColors.primaryColorApp, size: 40.adaptSize),
-              onPressed: (){
-                _goToPage(currentIndex - 1);
-              },
+            child:  Directionality(
+              textDirection: TextDirection.ltr,
+              child: IconButton(
+                icon: Icon(Icons.arrow_back, color: TColors.primaryColorApp, size: 40.adaptSize),
+                onPressed: (){
+                  _goToPage(currentIndex - 1);
+                },
+              ),
             ),
             ),
 
@@ -124,11 +127,14 @@ class _FullScreenMediaViewerState extends State<FullScreenMediaViewer> {
             Positioned(
               right: 10,
               top: MediaQuery.of(context).size.height / 2 - 30,
-             child: IconButton(
-               icon: Icon(Icons.arrow_forward, color: TColors.primaryColorApp, size: 40.adaptSize,),
-               onPressed: (){
-                 _goToPage(currentIndex + 1);
-               },
+             child:  Directionality(
+               textDirection: TextDirection.ltr,
+               child: IconButton(
+                 icon: Icon(Icons.arrow_forward, color: TColors.primaryColorApp, size: 40.adaptSize,),
+                 onPressed: (){
+                   _goToPage(currentIndex + 1);
+                 },
+               ),
              ),
             ),
 

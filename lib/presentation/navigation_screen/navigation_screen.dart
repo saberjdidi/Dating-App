@@ -37,7 +37,7 @@ class NavigationScreen extends GetWidget<NavigationController> {
                         transition: Transition.noTransition)
                 ),
                 //Affiche le guide de lapplication
-                //GuideDialog(),
+                GuideDialog(),
               ],
             ),
             bottomNavigationBar: _buildBottomBar()

@@ -1,6 +1,7 @@
 final Map<String, String> en = {
   "empty_data": "Empty Data",
   "lbl_wait": "Please wait a moment",
+  "choisir_langue": "Choose language",
 
   // Sign Up (Blank) Screen
   "lbl_sign_in": "Sign in",
@@ -12,6 +13,7 @@ final Map<String, String> en = {
   "msg_change_password": "Change your password",
 
   // Profile
+  "lbl_settings": "Settings",
   "lbl_dark_theme": "Dark Theme",
   "lbl_light_theme": "Light Theme",
   "lbl_my_profile": "My profile",

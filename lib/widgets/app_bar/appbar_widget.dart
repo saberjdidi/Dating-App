@@ -27,6 +27,89 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
     var screenheight = mediaQueryData.size.height;
     var isSmallPhone = screenWidth < 360;
     var isTablet = screenWidth >= 600;
+    var isArabe = PrefUtils.getLangue() == 'ar';
+    var isLight = PrefUtils.getTheme() == "light";
+
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: isSmallPhone ? TSizes.xs.adaptSize :  TSizes.sm.adaptSize),
+      child: Directionality(
+        textDirection: TextDirection.ltr, // ✅ Force toujours LTR
+        child: AppBar(
+          backgroundColor: isLight ? TColors.white : TColors.dark,
+          automaticallyImplyLeading: false,
+          leading: leading,
+          leadingWidth: leadingWidth,
+          toolbarHeight: toolbarHeight,
+          centerTitle: true,
+          title: title,
+         /* title: Directionality( // ✅ Le titre suit la langue
+            textDirection: isArabe
+                ? TextDirection.rtl
+                : TextDirection.ltr,
+            child: title,
+          ), */
+          actions: showAction
+         ? (actions == null || actions == [])
+              ? [
+            IconButton(
+                onPressed: (){Navigator.of(context).pop();},
+                icon: Icon(Iconsax.arrow_right_1, color: isLight ? TColors.black : TColors.white)
+            )
+           /* isSmallPhone
+                ? CustomImageView(
+                  imagePath: ImageConstant.imgBack,
+                  onTap: (){
+                    Navigator.of(context).pop();
+                  },
+                  width: isTablet ? 60.adaptSize : 55.adaptSize,
+                  height: isTablet ? 60.adaptSize : 55.adaptSize,
+                  radius: BorderRadius.circular(isTablet ? 60.adaptSize : 55.adaptSize),
+                )
+                :
+                IconButton(
+                    onPressed: (){Navigator.of(context).pop();},
+                    icon: Icon(Iconsax.arrow_right_1, color: PrefUtils.getTheme() == "light" ? TColors.black : TColors.white)
+                ) */
+                //CustomImageView(imagePath: ImageConstant.imgBack, onTap: (){Navigator.of(context).pop();})
+          ]
+              : actions
+         : null,
+        ),
+      ),
+    );
+  }
+
+  @override
+  // TODO: implement preferredSize
+  Size get preferredSize => Size.fromHeight(toolbarHeight ?? TDeviceUtils.getAppBarHeight());
+}
+
+///AppBar without multi-language
+/*
+class TAppBar extends StatelessWidget implements PreferredSizeWidget {
+  TAppBar({super.key,
+    this.title,
+    this.actions,
+    this.leading,
+    this.leadingWidth,
+    this.toolbarHeight,
+    this.showAction = true
+  });
+
+  final Widget? title;
+  final List<Widget>? actions;
+  final Widget? leading;
+  double? leadingWidth;
+  double? toolbarHeight;
+  bool showAction;
+
+  @override
+  Widget build(BuildContext context) {
+    mediaQueryData = MediaQuery.of(context);
+    var screenWidth = mediaQueryData.size.width;
+    var screenheight = mediaQueryData.size.height;
+    var isSmallPhone = screenWidth < 360;
+    var isTablet = screenWidth >= 600;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: isSmallPhone ? TSizes.xs.adaptSize :  TSizes.sm.adaptSize),
       child: AppBar(
@@ -40,7 +123,11 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
         actions: showAction
        ? (actions == null || actions == [])
             ? [
-          isSmallPhone
+          IconButton(
+              onPressed: (){Navigator.of(context).pop();},
+              icon: Icon(Iconsax.arrow_right_1, color: PrefUtils.getTheme() == "light" ? TColors.black : TColors.white)
+          )
+         /* isSmallPhone
               ? CustomImageView(
                 imagePath: ImageConstant.imgBack,
                 onTap: (){
@@ -50,16 +137,12 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
                 height: isTablet ? 60.adaptSize : 55.adaptSize,
                 radius: BorderRadius.circular(isTablet ? 60.adaptSize : 55.adaptSize),
               )
-              : PrefUtils.getTheme() == "light" ?
-          IconButton(
-              onPressed: (){Navigator.of(context).pop();},
-              icon: Icon(Iconsax.arrow_right_1, color: TColors.black,)
-          )
+              :
+              IconButton(
+                  onPressed: (){Navigator.of(context).pop();},
+                  icon: Icon(Iconsax.arrow_right_1, color: PrefUtils.getTheme() == "light" ? TColors.black : TColors.white)
+              ) */
               //CustomImageView(imagePath: ImageConstant.imgBack, onTap: (){Navigator.of(context).pop();})
-              : IconButton(
-              onPressed: (){Navigator.of(context).pop();},
-              icon: Icon(Iconsax.arrow_right_1, color: TColors.white,)
-              )
         ]
             : actions
        : null,
@@ -71,53 +154,4 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
   // TODO: implement preferredSize
   Size get preferredSize => Size.fromHeight(toolbarHeight ?? TDeviceUtils.getAppBarHeight());
 }
-/*
-class TAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const TAppBar({super.key,
-    this.title,
-    this.actions,
-    this.leading,
-    this.leadingIcon,
-    this.leadingOnPressed,
-    this.showBackArrow = false,
-    this.rightToLeft = false
-  });
-
-  final Widget? title;
-  final bool showBackArrow;
-  final bool rightToLeft;
-  final IconData? leadingIcon;
-  final List<Widget>? actions;
-  final Widget? leading;
-  final VoidCallback? leadingOnPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: TSizes.md),
-      child: rightToLeft
-      ? AppBar(
-        automaticallyImplyLeading: false,
-        leading: leading,
-        centerTitle: true,
-        title: title,
-        actions: (actions == null || actions == [])
-        ? [IconButton(onPressed: () => Get.back(), icon: const Icon(Iconsax.arrow_right_1))]
-        : actions,
-      )
-      : AppBar(
-      automaticallyImplyLeading: false,
-      leading: showBackArrow
-          ? IconButton(onPressed: () => Get.back(), icon: const Icon(Iconsax.arrow_left))
-          : leadingIcon != null ? IconButton(onPressed: leadingOnPressed, icon: Icon(leadingIcon)) : null,
-      title: title,
-      actions: actions,
-    ),
-    );
-  }
-
-  @override
-  // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(TDeviceUtils.getAppBarHeight());
-}
-*/
+ */

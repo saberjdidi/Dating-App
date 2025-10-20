@@ -99,7 +99,4 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
       ),
     );
   }
-
-  /// Navigates to the previous screen.
-  onTapArrowLeft() { Get.back(); }
 }

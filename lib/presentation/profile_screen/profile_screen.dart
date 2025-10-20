@@ -19,6 +19,8 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var isArabe = PrefUtils.getLangue() == 'ar';
+    var isLight = PrefUtils.getTheme() == "light";
     mediaQueryData = MediaQuery.of(context);
     var screenWidth = mediaQueryData.size.width;
     var screenHeight = mediaQueryData.size.height;
@@ -33,13 +35,13 @@ class ProfileScreen extends StatelessWidget {
         return Scaffold(
           backgroundColor: isDark ? TColors.dark : TColors.white,
           appBar: TAppBar(
-            title: TitleWidget(title: "الإعدادات", fontWeightDelta: 3, color: isDark ? TColors.white : TColors.buttonSecondary,),
+            title: TitleWidget(title: "lbl_settings".tr, fontWeightDelta: 3, color: isDark ? TColors.white : TColors.buttonSecondary,),
             showAction: false,
           ),
           body: SingleChildScrollView(
             child: Directionality(
-              textDirection: TextDirection.ltr,
-              //textDirection: PrefUtils.getLangue() == 'ar' ? TextDirection.ltr : TextDirection.rtl,
+              //textDirection: TextDirection.ltr,
+              textDirection: isArabe ? TextDirection.ltr : TextDirection.rtl,
               child: Column(
                 children: [
                   SizedBox(height: TSizes.spaceBtwItems.v),
@@ -75,7 +77,7 @@ class ProfileScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               //TitleWidget(title: "ملفي الشخصي", fontWeightDelta: 1),
-                              SubTitleWidget(subtitle: "ملفي الشخصي", //"lbl_my_profile".tr,
+                              SubTitleWidget(subtitle: "lbl_my_profile".tr, //"ملفي الشخصي"
                                 fontWeightDelta: 2, fontSizeDelta: 2,
                                 color: isDark ? TColors.whitePrimary : TColors.black,),
                               SizedBox(width: TSizes.spaceBtwItems.adaptSize,),
@@ -411,6 +413,7 @@ class ProfileScreen extends StatelessWidget {
 
                   InkWell(
                     onTap: (){
+                      Dialogs.dialogLanguage(context);
                       //Get.toNamed(Routes.supportScreen);
                     },
                     child: TRoundedContainer(
@@ -449,7 +452,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
 
                   Visibility(
-                    visible: false,
+                    visible: true,
                     child: InkWell(
                       onTap: () async {
                         // 🔹 1. Réinitialiser les préférences pour forcer l’affichage du guide
