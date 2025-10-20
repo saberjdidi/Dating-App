@@ -17,6 +17,7 @@ class ApiConstants {
 
   //Profile
   static const String profileReport = 'reports';
+  static const String hobbies = 'hobbies';
 
   //Media
   static const String media = 'media';
@@ -25,7 +26,7 @@ class ApiConstants {
   static const String support = 'support/messages';
 
   //Media
-  static const String hobbies = 'hobbies';
+  static const String favourites = 'favourites';
 }
 
 class HttpStatusCode {

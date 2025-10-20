@@ -1,10 +1,17 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
+import 'package:dating_app_bilhalal/core/utils/network_manager.dart';
 import 'package:dating_app_bilhalal/core/utils/popups/full_screen_loader.dart';
+import 'package:dating_app_bilhalal/data/models/favorite_model.dart';
 import 'package:dating_app_bilhalal/data/models/user_model.dart';
+import 'package:dating_app_bilhalal/data/repositories/favorite_repository.dart';
 import 'package:flutter/material.dart';
 
 class FavoriteController extends GetxController {
   static FavoriteController get instance => Get.find();
+
+  final favoriteRepository = FavoriteRepository();
+  RxList<FavoriteModel> favoritesMediaList = <FavoriteModel>[].obs;
+  RxBool isDataProcessing = false.obs;
 
   var searchText = "".obs;
   final TextEditingController searchController = TextEditingController();
@@ -13,7 +20,35 @@ class FavoriteController extends GetxController {
 
   @override
   void onInit() {
+    getMediaFavorites();
     loadFavorisUsers();
+  }
+
+  /// Méthode pour récupérer les interets
+  Future<void> getMediaFavorites() async {
+    try {
+      isDataProcessing.value = true;
+
+      final isConnected = await NetworkManager.instance.isConnected();
+      if (!isConnected) {
+        isDataProcessing.value = false;
+        MessageSnackBar.customToast(message: 'Pas de connexion Internet');
+        return;
+      }
+
+      final result = await favoriteRepository.getMediasFavorites();
+
+      if (result.success) {
+        favoritesMediaList.assignAll(result.data ?? []);
+        debugPrint('✅ ${favoritesMediaList.length} media favorites chargés');
+      } else {
+        MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? '');
+      }
+    } catch (e) {
+      MessageSnackBar.errorSnackBar(title: 'خطأ', message: e.toString());
+    } finally {
+      isDataProcessing.value = false;
+    }
   }
 
   Future<List<UserModel>> loadFavorisUsers() async {
