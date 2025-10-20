@@ -58,5 +58,5 @@ Rx<List<SelectionPopupModel>> ListPays = Rx(
     ]
 );
 
-final ColorsSkinList = ['Deep', 'Tan', 'Brown', 'Olive', 'Medium', 'Light2', 'Light', 'Fair'];
+final ColorsSkinList = ['deep', 'tan', 'brown', 'olive', 'medium', 'light2', 'light', 'fair'];
 final ColorsCallVideoList = ['filterColorCallVideo1', 'filterColorCallVideo2', 'filterColorCallVideo3', 'filterColorCallVideo4', 'filterColorCallVideo5'];

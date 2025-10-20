@@ -7,21 +7,21 @@ class THelperFunctions {
   static Color? getColor(String value) {
     /// Define your product specific colors here and it will match the attribute colors and show specific 🟠🟡🟢🔵🟣🟤
 
-    if (value == 'Fair') {
+    if (value == 'fair') {
       return TColors.skinColor1;
-    } else if (value == 'Light') {
+    } else if (value == 'light') {
       return TColors.skinColor2;
-    } else if (value == 'Light2') {
+    } else if (value == 'light2') {
       return TColors.skinColor3;
-    } else if (value == 'Medium') {
+    } else if (value == 'medium') {
       return TColors.skinColor4;
-    } else if (value == 'Olive') {
+    } else if (value == 'olive') {
       return TColors.skinColor5;
-    } else if (value == 'Brown') {
+    } else if (value == 'brown') {
       return TColors.skinColor6;
-    } else if (value == 'Tan') {
+    } else if (value == 'tan') {
       return TColors.skinColor7;
-    } else if (value == 'Deep') {
+    } else if (value == 'deep') {
       return TColors.skinColor8;
     }
     else if (value == 'filterColorCallVideo1') {

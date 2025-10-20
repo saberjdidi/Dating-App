@@ -122,4 +122,11 @@ class UserOwnerProfileController extends GetxController {
       isDataProcessing.value = false;
     }
   }
+
+  /// Show/Hide user infos Start
+  var showUserInfo = true.obs; // ✅ visible par défaut
+  void toggleUserInfo() => showUserInfo.toggle();
+  void hideUserInfo() => showUserInfo.value = false;
+  void showInfo() => showUserInfo.value = true;
+/// Show/Hide user infos End
 }

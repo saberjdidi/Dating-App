@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/data/models/media_model.dart';
 import 'package:dating_app_bilhalal/data/models/user_model.dart';
+import 'package:dating_app_bilhalal/widgets/chat/video_preview_widget.dart';
 import 'package:dating_app_bilhalal/widgets/circle_icon_button.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
 import 'package:dating_app_bilhalal/widgets/custom_divider.dart';
@@ -74,9 +75,8 @@ class _FullScreenMediaViewerState extends State<FullScreenMediaViewer> {
               final isVideo = media.mediaType == 'video';
 
               if (isVideo) {
-                return VideoPreviewGallery(
-                  url: media.mediaUrl,
-                );
+                return VideoPreviewWidget(url: media.mediaUrl);
+                //return VideoPreviewGallery(url: media.mediaUrl);
               } else {
                 return CustomImageView(
                   imagePath: media.mediaUrl,

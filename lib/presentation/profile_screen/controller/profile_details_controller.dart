@@ -12,11 +12,6 @@ class ProfileDetailsController extends GetxController {
   final profileRepository = ProfileRepository();
   RxBool isDataProcessing = false.obs;
 
-  var showUserInfo = true.obs; // ✅ visible par défaut
-  void toggleUserInfo() => showUserInfo.toggle();
-  void hideUserInfo() => showUserInfo.value = false;
-  void showInfo() => showUserInfo.value = true;
-
   //Tabbed Page
   var selectedTab = 0.obs;
   void onTabChanged(int index) {
@@ -69,4 +64,11 @@ class ProfileDetailsController extends GetxController {
       isDataProcessing.value = false;
     }
   }
+
+  /// Show/Hide user infos Start
+  var showUserInfo = true.obs; // ✅ visible par défaut
+  void toggleUserInfo() => showUserInfo.toggle();
+  void hideUserInfo() => showUserInfo.value = false;
+  void showInfo() => showUserInfo.value = true;
+/// Show/Hide user infos End
 }
