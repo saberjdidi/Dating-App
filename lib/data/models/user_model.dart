@@ -5,21 +5,25 @@ import 'stats_model.dart';
 class UserModel {
   String? id;
   String? username;
-  String? email;
   int? age;
+  String? gender;
+  String? country;
+  String? socialState;
+  String? mainProfile;
+  String? jobTitle;
+  String? description;
+  int? score;
+
+  String? email;
   int? height;
   int? weight;
-  String? gender;
-  String? mainProfile;
   String? mainProfileType;
-  //String? createdAt;
-  //String? updatedAt;
   bool? isActive;
   String? googleId;
   ProfileModel? profile;
   StatsModel? stats;
 
-
+ //static
   String? imageProfile;
   String? fullName;
   String? bio;
@@ -30,20 +34,25 @@ class UserModel {
   UserModel({
     this.id,
     this.username,
-    this.email,
     this.age,
+    this.gender,
+    this.country,
+    this.socialState,
+    this.mainProfile,
+    this.jobTitle,
+    this.description,
+    this.score,
+
+    this.email,
     this.height,
     this.weight,
-    this.gender,
-    this.mainProfile,
     this.mainProfileType,
-    //this.createdAt,
-    //this.updatedAt,
     this.isActive,
     this.googleId,
     this.profile,
     this.stats,
 
+    //static
      this.imageProfile,
      this.fullName,
      this.bio,
@@ -52,9 +61,38 @@ class UserModel {
     this.isFavoris,
   });
 
-  static UserModel empty() => UserModel(imageProfile: '', fullName: '', bio: '', age: 10, isFavoris: false, interests: [], images: []);
+  static UserModel empty() => UserModel(id: '',imageProfile: '', username: '', bio: '', age: 18);
 
   UserModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    username = json['username'];
+    age = json['age'];
+    gender = json['gender'];
+    country = json['country'];
+    socialState = json['social_state'];
+    mainProfile = json['main_profile'];
+    jobTitle = json['job_title'];
+    description = json['description'];
+    score = json['score'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['username'] = this.username;
+    data['age'] = this.age;
+    data['gender'] = this.gender;
+    data['country'] = this.country;
+    data['social_state'] = this.socialState;
+    data['main_profile'] = this.mainProfile;
+    data['job_title'] = this.jobTitle;
+    data['description'] = this.description;
+    data['score'] = this.score;
+    return data;
+  }
+
+  ///Profile details Start
+  UserModel.fromJsonProfile(Map<String, dynamic> json) {
     id = json['id'];
     username = json['username'];
     email = json['email'];
@@ -72,7 +110,7 @@ class UserModel {
     stats = json['stats'] != null ? new StatsModel.fromJson(json['stats']) : null;
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJsonProfile() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['username'] = this.username;
@@ -96,4 +134,5 @@ class UserModel {
     }
     return data;
   }
+///Profile details End
 }

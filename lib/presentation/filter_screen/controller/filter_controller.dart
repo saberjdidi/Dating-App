@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:dating_app_bilhalal/core/app_export.dart';
+import 'package:dating_app_bilhalal/core/utils/network_manager.dart';
 import 'package:dating_app_bilhalal/core/utils/popups/full_screen_loader.dart';
 import 'package:dating_app_bilhalal/core/utils/popups/search_dating.dart';
 import 'package:dating_app_bilhalal/data/datasources/dropdown_local_data_source.dart';
@@ -9,25 +10,26 @@ import 'package:dating_app_bilhalal/data/models/user_model.dart';
 import 'package:dating_app_bilhalal/data/models/country_model.dart';
 import 'package:dating_app_bilhalal/data/models/interest_model.dart';
 import 'package:dating_app_bilhalal/data/models/selection_popup_model.dart';
+import 'package:dating_app_bilhalal/data/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 
-class FilterController extends GetxController {
+class FilterController extends GetxController with WidgetsBindingObserver {
   static FilterController get instance => Get.find();
 
-  final RxList<UserModel> users = <UserModel>[].obs;
   var selectedCountries = <String>[].obs;
   //Card Swiper
   final CardSwiperController swiperController = CardSwiperController();
   final RxInt currentIndex = 0.obs;
-  int get cardsCount => users.length; // Getter pour la taille (performant)
+  int get cardsCount => usersList.length; // Getter pour la taille (performant)
+
+  final userRepository = UserRepository();
+  RxList<UserModel> usersList = <UserModel>[].obs;
+  RxBool isDataProcessing = false.obs;
 
   TextEditingController maritalStatusController = TextEditingController();
   TextEditingController lookingForController = TextEditingController();
-  //TextEditingController jobController = TextEditingController();
   TextEditingController paysController = TextEditingController();
-  final Rx<SelectionPopupModel?> selectedMaritalStatus = Rx<SelectionPopupModel?>(null);
-  final Rx<SelectionPopupModel?> selectedLookingFor = Rx<SelectionPopupModel?>(null);
   //final Rx<SelectionPopupModel?> selectedPays = Rx<SelectionPopupModel?>(null);
   final Rx<CountryModel?> selectedPays = Rxn<CountryModel?>(null);
 
@@ -65,60 +67,113 @@ class FilterController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    loadUsers();
+    WidgetsBinding.instance.addObserver(this);
+    getUsers();
+    //loadUsers();
     // Démarre le swipe automatique après un petit délai
     //Future.delayed(const Duration(seconds: 2), startAutoSwipe);
 
     /// ✅ Définir les valeurs par défaut
-    selectedMaritalStatus.value = ListMaritalStatusFilter.value.first;
-    selectedLookingFor.value = ListLookingForFilter.value.first;
     //selectedPays.value = ListPays.value.first;
     selectedPays.value = PaysListFilter.value.first;
-    maritalStatusController.text = ListMaritalStatusFilter.value.first.title; // "أعزب"
-    lookingForController.text = ListLookingForFilter.value.first.title; // "زواج معلن دائم"
+    maritalStatusController.text = ListMaritalStatusFilter.first; // "أعزب"
+    lookingForController.text = ListMarriageTypeFilter.first; // "زواج معلن دائم"
     paysController.text = PaysListFilter.value.first.name; // "السعودیة"
   }
+
   @override
   void onReady() {
     super.onReady();
     SearchDating.openDialogFilterUser(instance);
   }
 
+  @override
+  void onClose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.onClose();
+  }
 
+  /// 🔁 Appelé quand l’écran redevient visible
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      debugPrint("🔄 MainScreen resumed → refresh users");
+      getUsers();
+    }
+  }
+
+  /// Méthode pour récupérer les utilisateurs
+  Future<void> getUsers({String? country}) async {
+    try {
+      isDataProcessing.value = true;
+
+      final isConnected = await NetworkManager.instance.isConnected();
+      if (!isConnected) {
+        isDataProcessing.value = false;
+        MessageSnackBar.customToast(message: 'Pas de connexion Internet');
+        return;
+      }
+
+      final body = {
+        "page": 1,
+        "pageSize": 50,
+        "social_states": "single",
+        "sort": "relevance"
+      };
+      final result = await userRepository.searchUsers(body);
+
+
+      if (result.success) {
+        isDataProcessing.value = false;
+        usersList.assignAll(result.data ?? []);
+        debugPrint('lenght users:  ${usersList.length}');
+      } else {
+        isDataProcessing.value = false;
+        MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? '');
+      }
+    } catch (e) {
+      isDataProcessing.value = false;
+      MessageSnackBar.errorSnackBar(title: 'خطأ', message: e.toString());
+    } finally {
+      isDataProcessing.value = false;
+    }
+  }
+
+  final RxList<UserModel> users = <UserModel>[].obs;
   void loadUsers() {
     users.value = [
       UserModel(
           imageProfile: ImageConstant.imgOnBoarding1,
-          fullName: 'نورا خالد',
+          username: 'نورا خالد',
           age: 25,
-          bio: 'نموذج احترافي',
+          description: 'نموذج احترافي',
           isFavoris: true,
           interests: ["التسوق", "فوتوغرافيا", "اليوغا"],
           images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
       ),
       UserModel(
           imageProfile: ImageConstant.imgOnBoarding2,
-          fullName: 'نورا خالد',
+          username: 'نورا خالد',
           age: 32,
-          bio: 'مبرمج',
+          description: 'مبرمج',
           isFavoris: true,
           interests: ["كاريوكي", "التنس", "اليوغا", "طبخ", "سباحة"],
           images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
       ),
       UserModel(
           imageProfile: ImageConstant.imgOnBoarding3,
-          fullName: 'ايلاف خالد',
+          username: 'ايلاف خالد',
           age: 29,
-          bio: 'شخص إعلامي',
+          description: 'شخص إعلامي',
           isFavoris: false,
           interests: ["ركض", "السفر", "قراءة", "طبخ", "سباحة"],
           images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
       ),
       UserModel(
           imageProfile: ImageConstant.imgOnBoarding4,
-          fullName: 'إسراء الجديدي',
+          username: 'إسراء الجديدي',
           age: 22,
-          bio: 'شخص إعلامي',
+          description: 'شخص إعلامي',
           isFavoris: true,
           interests: ["السفر", "قراءة", "طبخ", "سباحة"],
           images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]

@@ -76,18 +76,6 @@ class Dialogs {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           CustomButtonContainer(
-                              text:"لا",
-                              color1: TColors.redApp,
-                              color2: TColors.redApp,
-                              borderRadius: 30,
-                              colorText: TColors.white,
-                              fontSize: 20.adaptSize,
-                              height: 40.v,
-                              width: 50.adaptSize,
-                              onPressed: onTapBack,
-                              paddingVertical: 2
-                          ),
-                          CustomButtonContainer(
                               text:"نعم",
                               color1: TColors.primaryColorApp,
                               color2: TColors.primaryColorApp,
@@ -97,6 +85,18 @@ class Dialogs {
                               height: 40.v,
                               width: 80.adaptSize,
                               onPressed: Logout.onTapLogout,
+                              paddingVertical: 2
+                          ),
+                          CustomButtonContainer(
+                              text:"لا",
+                              color1: TColors.redApp,
+                              color2: TColors.redApp,
+                              borderRadius: 30,
+                              colorText: TColors.white,
+                              fontSize: 20.adaptSize,
+                              height: 40.v,
+                              width: 50.adaptSize,
+                              onPressed: onTapBack,
                               paddingVertical: 2
                           ),
                         ],
@@ -154,20 +154,6 @@ class Dialogs {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           CustomButtonContainer(
-                              text:"لا",
-                              color1: TColors.redApp,
-                              color2: TColors.redApp,
-                              borderRadius: 30,
-                              colorText: TColors.white,
-                              fontSize: 20.adaptSize,
-                              height: 40.v,
-                              width: 50.adaptSize,
-                              onPressed: () {
-                                Get.back();
-                              },
-                              paddingVertical: 2
-                          ),
-                          CustomButtonContainer(
                               text:"نعم",
                               color1: TColors.primaryColorApp,
                               color2: TColors.primaryColorApp,
@@ -176,6 +162,20 @@ class Dialogs {
                               fontSize: 20.adaptSize,
                               height: 40.v,
                               width: 80.adaptSize,
+                              onPressed: () {
+                                Get.back();
+                              },
+                              paddingVertical: 2
+                          ),
+                          CustomButtonContainer(
+                              text:"لا",
+                              color1: TColors.redApp,
+                              color2: TColors.redApp,
+                              borderRadius: 30,
+                              colorText: TColors.white,
+                              fontSize: 20.adaptSize,
+                              height: 40.v,
+                              width: 50.adaptSize,
                               onPressed: () {
                                 Get.back();
                               },
@@ -321,7 +321,7 @@ class Dialogs {
                             Icon(Iconsax.user_remove, color: _appTheme =='light' ? TColors.gray700 : TColors.white,),
                             SizedBox(width: 10.hw),
                             SubTitleWidget(
-                                subtitle: 'الإبلاغ',
+                                subtitle: 'إبلاغ عن إساءة',
                                 //subtitle: 'حضر الملف الشخصي',
                                 color: _appTheme =='light' ? TColors.black : TColors.white,
                                 fontWeightDelta: 2,

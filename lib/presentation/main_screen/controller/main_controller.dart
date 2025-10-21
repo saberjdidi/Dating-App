@@ -2,13 +2,16 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:dating_app_bilhalal/core/app_export.dart';
+import 'package:dating_app_bilhalal/core/utils/network_manager.dart';
 import 'package:dating_app_bilhalal/core/utils/popups/search_dating.dart';
 import 'package:dating_app_bilhalal/data/models/user_model.dart';
 import 'package:dating_app_bilhalal/data/models/country_model.dart';
+import 'package:dating_app_bilhalal/data/repositories/user_repository.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 
-class MainController extends GetxController {
+class MainController extends GetxController with WidgetsBindingObserver {
   static MainController get instance => Get.find();
 
   final RxList<UserModel> users = <UserModel>[].obs;
@@ -17,64 +20,135 @@ class MainController extends GetxController {
   //Card Swiper
   final CardSwiperController swiperController = CardSwiperController();
   final RxInt currentIndex = 0.obs;
-  int get cardsCount => users.length; // Getter pour la taille (performant)
+  int get cardsCount => usersList.length; // Getter pour la taille (performant)
+
+  final userRepository = UserRepository();
+  RxList<UserModel> usersList = <UserModel>[].obs;
+  RxBool isDataProcessing = false.obs;
 
   @override
   void onInit() {
     super.onInit();
-    loadUsers();
+    WidgetsBinding.instance.addObserver(this);
+    getUsers();
+    //loadUsers();
   }
 
-/*
+  @override
+  void onClose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.onClose();
+  }
+
+  /// 🔁 Appelé quand l’écran redevient visible
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      debugPrint("🔄 MainScreen resumed → refresh users");
+      getUsers();
+    }
+  }
+
+
   @override
   void onReady() {
     super.onReady();
-    Future.delayed(const Duration(milliseconds: 300), (){
-      SearchDating.openDialogFilterByPays(instance);
-    });
-  } */
 
+   /* Future.delayed(const Duration(milliseconds: 300), (){
+      SearchDating.openDialogFilterByPays(instance);
+    }); */
+  }
+
+  /// Méthode pour récupérer les utilisateurs
+  Future<void> getUsers({String? country}) async {
+    try {
+      isDataProcessing.value = true;
+
+      final isConnected = await NetworkManager.instance.isConnected();
+      if (!isConnected) {
+        isDataProcessing.value = false;
+        MessageSnackBar.customToast(message: 'Pas de connexion Internet');
+        return;
+      }
+
+      final body = {
+        "page": 1,
+        "pageSize": 20,
+        "social_states": "single",
+        "sort": "relevance",
+        if (country != null && country.isNotEmpty) "countries": country,
+      };
+      final result = await userRepository.searchUsers(body);
+
+
+      if (result.success) {
+        isDataProcessing.value = false;
+        usersList.assignAll(result.data ?? []);
+        debugPrint('✅ Liste users rechargée: ${usersList.length}');
+      } else {
+        isDataProcessing.value = false;
+        MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? '');
+      }
+    } catch (e) {
+      isDataProcessing.value = false;
+      MessageSnackBar.errorSnackBar(title: 'خطأ', message: e.toString());
+    } finally {
+      isDataProcessing.value = false;
+    }
+  }
+
+  ///Static users
   void loadUsers() {
     users.value = [
       UserModel(
-        imageProfile: ImageConstant.imgOnBoarding1,
-        fullName: 'نورا خالد',
-        age: 25,
-        bio: 'نموذج احترافي',
-        isFavoris: true,
-        interests: ["التسوق", "فوتوغرافيا", "اليوغا"],
-        images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
-      ),
-      UserModel(
-        imageProfile: ImageConstant.imgOnBoarding2,
-        fullName: 'نورا خالد',
-        age: 32,
-        bio: 'مبرمج',
+          imageProfile: ImageConstant.imgOnBoarding1,
+          username: 'نورا خالد',
+          age: 25,
+          description: 'نموذج احترافي',
           isFavoris: true,
-        interests: ["كاريوكي", "التنس", "اليوغا", "طبخ", "سباحة"],
+          interests: ["التسوق", "فوتوغرافيا", "اليوغا"],
           images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
       ),
       UserModel(
-        imageProfile: ImageConstant.imgOnBoarding3,
-        fullName: 'ايلاف خالد',
-        age: 29,
-        bio: 'شخص إعلامي',
-          isFavoris: false,
-        interests: ["ركض", "السفر", "قراءة", "طبخ", "سباحة"],
-        images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
+          imageProfile: ImageConstant.imgOnBoarding2,
+          username: 'نورا خالد',
+          age: 32,
+          description: 'مبرمج',
+          isFavoris: true,
+          interests: ["كاريوكي", "التنس", "اليوغا", "طبخ", "سباحة"],
+          images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
       ),
       UserModel(
-        imageProfile: ImageConstant.imgOnBoarding4,
-        fullName: 'إسراء الجديدي',
-        age: 22,
-        bio: 'شخص إعلامي',
-        isFavoris: true,
-        interests: ["السفر", "قراءة", "طبخ", "سباحة"],
-        images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
+          imageProfile: ImageConstant.imgOnBoarding3,
+          username: 'ايلاف خالد',
+          age: 29,
+          description: 'شخص إعلامي',
+          isFavoris: false,
+          interests: ["ركض", "السفر", "قراءة", "طبخ", "سباحة"],
+          images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
+      ),
+      UserModel(
+          imageProfile: ImageConstant.imgOnBoarding4,
+          username: 'إسراء الجديدي',
+          age: 22,
+          description: 'شخص إعلامي',
+          isFavoris: true,
+          interests: ["السفر", "قراءة", "طبخ", "سباحة"],
+          images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
       ),
     ];
   }
 
+
+  Future<void> filterUsersByCountry() async {
+    MessageSnackBar.successSnackBar(title: 'Country', message:  selectedCountries.first ?? '');
+    if (selectedCountries.isEmpty) {
+      await getUsers(); // pas de filtre
+    } else {
+      // pour l’instant on prend le premier pays sélectionné
+      await getUsers(country: selectedCountries.first);
+    }
+  }
   /* toggleCountry(String countryName) {
     if (selectedCountries.contains(countryName)) {
       selectedCountries.remove(countryName);

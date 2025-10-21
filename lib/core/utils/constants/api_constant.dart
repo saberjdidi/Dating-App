@@ -14,6 +14,7 @@ class ApiConstants {
 
   //User
   static const String user = 'user';
+  static const String searchUser = 'search/users';
 
   //Profile
   static const String profileReport = 'reports';

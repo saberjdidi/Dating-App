@@ -12,6 +12,15 @@ final Map<String, String> ar = {
   "msg_forgot_the_password": "Mot de passe oublié ?",
   "msg_change_password": "Changer son mot de passe",
 
+  //Infos user
+  "lbl_age": "العمر",
+  "lbl_year": "سنة",
+  "lbl_weight": "الوزن",
+  "lbl_kg": "كغ",
+  "lbl_height": "الطول",
+  "lbl_cm": "سم",
+  "lbl_skin_color": "لون البشرة",
+
   // Profile
   "lbl_settings": "الإعدادات",
   "lbl_dark_theme": "Thème sombre",
@@ -38,6 +47,20 @@ final Map<String, String> ar = {
   "luxury": "الرفاهية",
   "other": "آخر",
 
+  //Dropdown
+  "all": "الكل",
+  "single": "أعزب",
+  "married": "متزوج",
+  "divorced": "مطلق",
+  "widowed": "أرمل",
+  "friend": "الصداقة",
+  "date": "مواعدة",
+  "living_partner": "معيشة",
+  "marriage": "زواج",
+  "marital_status": "الحالة الاجتماعية",
+  "type_marriage": "نوع الزواج",
+  "state": "الدولة",
+
 // Network Error String
   "msg_network_err": "Network Error",
   "msg_something_went_wrong": "Something Went Wrong!",
@@ -48,10 +71,8 @@ final Map<String, String> ar = {
   "err_msg_please_enter_valid_text": "Please enter valid text",
   "err_msg_please_enter_valid_phone_number": "Please enter valid phone number",
 
-  //signup & signin
-  "termes_and_conditions": "J\'ai lu et j\'accepte les termes et les conditions d\'utilisation",
-
   "lbl_save": "Sauvegarder",
+  "lbl_filter": "فلتر",
   "lbl_previous": "Précédent",
   "lbl_next": "Suivant",
   "lbl_cancel": "Annuler",

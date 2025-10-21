@@ -161,14 +161,16 @@ class ChatUserProfileScreen extends GetView<ProfileDetailsController> {
                          fit: BoxFit.cover,
                        ),
                        SizedBox(width: 10.adaptSize),
-                       Text(
-                         "نموذج احترافي",
-                         textAlign: TextAlign.right,
-                         maxLines: 2,
-                         overflow: TextOverflow.ellipsis,
-                         style: TextStyle(
-                           color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
-                           fontSize: isTablet ? 16.adaptSize : 15.adaptSize,
+                       Expanded(
+                         child: Text(
+                           "نموذج احترافي",
+                           textAlign: TextAlign.right,
+                           maxLines: 3,
+                           overflow: TextOverflow.ellipsis,
+                           style: TextStyle(
+                             color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
+                             fontSize: isTablet ? 16.adaptSize : 15.adaptSize,
+                           ),
                          ),
                        ),
                      ],

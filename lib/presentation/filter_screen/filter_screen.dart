@@ -2,6 +2,7 @@ import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/presentation/filter_screen/controller/filter_controller.dart';
 import 'package:dating_app_bilhalal/widgets/home/animated_gradient_progress.dart';
 import 'package:dating_app_bilhalal/widgets/home/user_card_widget.dart';
+import 'package:dating_app_bilhalal/widgets/shimmer/card_swiper_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 
@@ -12,22 +13,32 @@ class FilterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var isLight = PrefUtils.getTheme() == "light";
+
 
     return Scaffold(
       //appBar: AppBar(title: const Text("Dating App")),
       body: Stack(
         children: [
           Obx(() {
-            if (controller.users.isEmpty) {
-              return const Center(child: CircularProgressIndicator());
+            if (controller.isDataProcessing.value) {
+              return CardSwiperShimmer();
+            }
+
+            // ✅ Vérifie si user est null avant d'y accéder
+            if (controller.usersList.isEmpty) {
+              return Center(child: Text("لم يتم العثور على أي مستخدم",
+                style: TextStyle(color:  isLight ? TColors.black : TColors.white,
+                    fontSize: 18.adaptSize, fontWeight: FontWeight.w500),));
             }
 
             return CardSwiper(
               controller: controller.swiperController,
-              cardsCount: controller.users.length,
+              cardsCount: controller.usersList.length,
               numberOfCardsDisplayed: 1,
               isLoop: true,
               padding: EdgeInsets.zero,
+              duration: Duration(milliseconds: 1),
               allowedSwipeDirection: const AllowedSwipeDirection.only(
                 up: true,
                 down: true,
@@ -68,7 +79,7 @@ class FilterScreen extends StatelessWidget {
               },
               //maxAngle: 30,
               cardBuilder: (context, index, percentX, percentY) {
-                final user = controller.users[index];
+                final user = controller.usersList[index];
                 return UserCardWidget(
                   user: user,
                   onMessageTap: () async {

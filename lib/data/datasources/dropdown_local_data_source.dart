@@ -10,15 +10,8 @@ Rx<List<SelectionPopupModel>> ListMaritalStatus = Rx(
     ]
 );
 
-Rx<List<SelectionPopupModel>> ListMaritalStatusFilter = Rx(
-    [
-      SelectionPopupModel(id:1,title:"الكل"),
-      SelectionPopupModel(id:2,title:"أعزب"),
-      SelectionPopupModel(id:3,title:"متزوج"),
-      SelectionPopupModel(id:4,title:"مُطلّق"),
-      SelectionPopupModel(id:5,title:"أرمل")
-    ]
-);
+List<String> ListMaritalStatusFilter = ['all'.tr, 'single'.tr, 'married'.tr, 'divorced'.tr, 'widowed'.tr];
+List<String> ListMarriageTypeFilter = [ 'all'.tr, 'friend'.tr, 'date'.tr, 'living_partner'.tr, 'marriage'.tr];
 
 Rx<List<SelectionPopupModel>> ListLookingFor = Rx(
     [
@@ -34,14 +27,6 @@ Rx<List<SelectionPopupModel>> ListLookingFor = Rx(
     ]
 );
 
-Rx<List<SelectionPopupModel>> ListLookingForFilter = Rx(
-    [
-      SelectionPopupModel(id:1,title:"الكل"),
-      SelectionPopupModel(id:2,title:"زواج معلن دائم"),
-      SelectionPopupModel(id:3,title:"زواج سري دائم"),
-      SelectionPopupModel(id:4,title:"آخر"),
-    ]
-);
 
 Rx<List<SelectionPopupModel>> ListPays = Rx(
     [

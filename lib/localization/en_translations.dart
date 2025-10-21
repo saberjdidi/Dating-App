@@ -12,6 +12,15 @@ final Map<String, String> en = {
   "msg_forgot_the_password": "Forgot the password ?",
   "msg_change_password": "Change your password",
 
+  //Infos user
+  "lbl_age": "Age",
+  "lbl_year": "year(s)",
+  "lbl_weight": "Weight",
+  "lbl_kg": "KG",
+  "lbl_height": "Height",
+  "lbl_cm": "cm",
+  "lbl_skin_color": "skin color",
+
   // Profile
   "lbl_settings": "Settings",
   "lbl_dark_theme": "Dark Theme",
@@ -38,6 +47,21 @@ final Map<String, String> en = {
   "luxury": "Luxury",
   "other": "Other",
 
+  //Dropdown
+  "all": "all",
+  "single": "single",
+  "single": "single",
+  "married": "married",
+  "divorced": "divorced",
+  "widowed": "widowed",
+  "friend": "friend",
+  "date": "date",
+  "living_partner": "living_partner",
+  "marriage": "marriage",
+  "marital_status": "Marital status",
+  "type_marriage": "Type of marriage",
+  "state": "state",
+
 // Network Error String
   "msg_network_err": "Network Error",
   "msg_something_went_wrong": "Something Went Wrong!",
@@ -48,10 +72,9 @@ final Map<String, String> en = {
   "err_msg_please_enter_valid_text": "Please enter valid text",
   "err_msg_please_enter_valid_phone_number": "Please enter valid phone number",
 
-  //signup & signin
-  "termes_and_conditions": "I have read and accept the terms and conditions of use",
 
   "lbl_save": "Save",
+  "lbl_filter": "Filter",
   "lbl_previous": "Previous",
   "lbl_next": "Next",
   "lbl_cancel": "Cancel",

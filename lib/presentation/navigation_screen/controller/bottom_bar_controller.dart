@@ -58,6 +58,32 @@ class BottomBarController extends GetxController {
    changeTabIndex(int index) async {
      final oldIndex = selectedIndex.value;
     selectedIndex.value = index;
+
+    /*
+    switch (index) {
+      case 0:
+        // Onglet filtre
+        if (filterController.users.isEmpty) {
+          await filterController.getUsers();
+        }
+        break;
+
+      case 2:
+        // Onglet principal
+        if (mainController.usersList.isEmpty) {
+          await mainController.getUsers();
+        }
+        break;
+
+      case 3:
+        // Favoris
+        if (favoriteController.usersList.isEmpty) {
+          await favoriteController.loadFavorisUsers();
+        }
+        break;
+    }
+     */
+
      // 🔸 Si on clique sur "main"
      if (index == 2) {
        // Cas 1 : première ouverture (navigation initiale)

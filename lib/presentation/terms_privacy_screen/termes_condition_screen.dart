@@ -34,7 +34,7 @@ class _TermesAndConditionsScreenState extends State<TermesAndConditionsScreen> {
           padding: EdgeInsets.fromLTRB(15.hw, 10.v, 15.hw, 5.v),
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomDividerWidget(),
                 SizedBox(height: TSizes.spaceBtwItems),
@@ -55,7 +55,7 @@ class _TermesAndConditionsScreenState extends State<TermesAndConditionsScreen> {
                   radius: 12,
                   padding: EdgeInsets.all(10),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TitleWidget(title: "المصطلح 1",
                         color:  _appTheme =='light' ? TColors.black : TColors.white,

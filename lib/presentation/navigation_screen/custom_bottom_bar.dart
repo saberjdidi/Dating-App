@@ -56,7 +56,7 @@ class CustomBottomBar extends GetView<BottomBarController> { //StatelessWidget
     var screenWidth = mediaQueryData.size.width;
     var isSmallPhone = screenWidth < 360;
     var isTablet = screenWidth >= 600;
-    final mainController = Get.put(MainController());
+    //final mainController = Get.put(MainController());
 
     return Obx(() {
       bool isDark = ThemeController.instance.isDark.value;

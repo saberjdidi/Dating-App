@@ -54,9 +54,9 @@ class Validator {
     }
 
     // Check for special characters
-    if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+   /* if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
       return "يجب أن تحتوي كلمة المرور على حرف خاص واحد على الأقل.";
-    }
+    } */
 
     ///English
     /*

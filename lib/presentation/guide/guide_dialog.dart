@@ -79,7 +79,7 @@ class GuideBubble extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   InkWell(
                     onTap: () => guideController.closeCurrentGuide(),
@@ -111,9 +111,32 @@ class GuideBubble extends StatelessWidget {
               const SizedBox(height: 8),
               // 🔹 Points + bouton "التالي"
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text(''),
+                  CustomButtonContainer(
+                    height: 60.v,
+                    width: Get.width * 0.3,
+                    text: "التالي",
+                    color1: TColors.greenAccept,
+                    color2: TColors.greenAccept,
+                    borderRadius: 10,
+                    colorText: TColors.white,
+                    fontSize: 20.adaptSize,
+                    onPressed: () {
+                      guideController.nextStep(guideTexts);
+                    },
+                    /* onPressed: () {
+                      if (guideController.currentStep.value < guideTexts.length - 1) {
+                        guideController.currentStep.value++;
+                        guideController.currentStep.value;
+                      /*  guideController.carouselController.animateToPage(guideController.currentStep.value + 1,
+                            duration: const Duration(milliseconds: 400),
+                            curve: Curves.easeInOut); */
+                      } else {
+                        guideController.nextStep(guideTexts);
+                      }
+                    }, */
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(
@@ -131,32 +154,9 @@ class GuideBubble extends StatelessWidget {
                       ),
                     ),
                   ),
-                  CustomButtonContainer(
-                    height: 60.v,
-                    width: Get.width * 0.3,
-                    text: "التالي",
-                    color1: TColors.greenAccept,
-                    color2: TColors.greenAccept,
-                    borderRadius: 10,
-                    colorText: TColors.white,
-                    fontSize: 20.adaptSize,
-                    onPressed: () {
-                      guideController.nextStep(guideTexts);
-                    },
-                   /* onPressed: () {
-                      if (guideController.currentStep.value < guideTexts.length - 1) {
-                        guideController.currentStep.value++;
-                        guideController.currentStep.value;
-                      /*  guideController.carouselController.animateToPage(guideController.currentStep.value + 1,
-                            duration: const Duration(milliseconds: 400),
-                            curve: Curves.easeInOut); */
-                      } else {
-                        guideController.nextStep(guideTexts);
-                      }
-                    }, */
-                  ),
                 ],
               ),
+              //Text(''),
 
                SizedBox(height: 10.v),
 

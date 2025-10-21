@@ -191,7 +191,8 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                        children: [
                          Text(''),
-                         SubTitleWidget(subtitle: user.username ?? '', //subtitle: 'نورا خالد',
+                         if((user.username ?? '').isNotEmpty)
+                           SubTitleWidget(subtitle: user.username ?? '', //subtitle: 'نورا خالد',
                              fontSizeDelta: 3, fontWeightDelta: 2,
                              color: _appTheme =='light' ? TColors.black : TColors.white),
 
@@ -235,15 +236,18 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                            fit: BoxFit.cover,
                          ),
                          SizedBox(width: 10.adaptSize),
-                         Text(user.profile!.jobTitle ?? '',//"نموذج احترافي",
-                           textAlign: TextAlign.right,
-                           maxLines: 2,
-                           overflow: TextOverflow.ellipsis,
-                           style: TextStyle(
-                             color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
-                             fontSize: isTablet ? 16.adaptSize : 15.adaptSize,
+                         if((user.profile!.jobTitle ?? '').isNotEmpty)
+                           Flexible(
+                             child: Text(user.profile!.jobTitle ?? '',//"نموذج احترافي",
+                               textAlign: TextAlign.right,
+                               maxLines: 3,
+                               overflow: TextOverflow.ellipsis,
+                               style: TextStyle(
+                                 color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
+                                 fontSize: isTablet ? 16.adaptSize : 15.adaptSize,
+                               ),
+                             ),
                            ),
-                         ),
                        ],
                      ),
                      SizedBox(height: 6.v),
@@ -258,15 +262,16 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                            fit: BoxFit.cover,
                          ),
                          SizedBox(width: 10.adaptSize),
-                         Text(user.profile!.country ?? '' , //"المملكة العربية السعودية",
-                           textAlign: TextAlign.right,
-                           maxLines: 2,
-                           overflow: TextOverflow.ellipsis,
-                           style: TextStyle(
-                             color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
-                             fontSize: isTablet ? 16.adaptSize : 15.adaptSize,
+                         if((user.profile!.country ?? '').isNotEmpty)
+                           Text(user.profile!.country ?? '' , //"المملكة العربية السعودية",
+                             textAlign: TextAlign.right,
+                             maxLines: 2,
+                             overflow: TextOverflow.ellipsis,
+                             style: TextStyle(
+                               color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
+                               fontSize: isTablet ? 16.adaptSize : 15.adaptSize,
+                             ),
                            ),
-                         ),
                        ],
                      ),
                      SizedBox(height: TSizes.spaceBtwItems.v),

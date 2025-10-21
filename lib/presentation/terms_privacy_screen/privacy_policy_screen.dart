@@ -43,7 +43,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
           padding: EdgeInsets.fromLTRB(15.hw, 10.v, 15.hw, 5.v),
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomDividerWidget(),
                 SizedBox(height: TSizes.spaceBtwItems),
@@ -64,7 +64,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                     radius: 12,
                     padding: EdgeInsets.all(10),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TitleWidget(title: "مقدمة",
                           color:  _appTheme =='light' ? TColors.black : TColors.white,

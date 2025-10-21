@@ -109,8 +109,8 @@ class CustomDialog extends StatelessWidget {
       children: [
         SizedBox(height: 10.v),
          Row(
-           crossAxisAlignment: CrossAxisAlignment.end,
-           mainAxisAlignment: MainAxisAlignment.end,
+           crossAxisAlignment: CrossAxisAlignment.start,
+           mainAxisAlignment: MainAxisAlignment.start,
            children: [
              InkWell(
                onTap: onCancel,

@@ -5,15 +5,17 @@ import 'package:dating_app_bilhalal/presentation/main_screen/controller/main_con
 import 'package:dating_app_bilhalal/widgets/home/animated_gradient_progress.dart';
 import 'package:dating_app_bilhalal/widgets/home/pays_widget.dart';
 import 'package:dating_app_bilhalal/widgets/home/user_card_widget.dart';
+import 'package:dating_app_bilhalal/widgets/shimmer/card_swiper_shimmer.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 
-class MainScreen extends GetView<MainController> {
-//class MainScreen extends StatelessWidget {
+class MainScreen extends StatelessWidget {
+  //class MainScreen extends GetView<MainController> {
    MainScreen({super.key});
 
-  //final controller = Get.put(MainController());
+  final controller = Get.put(MainController());
+   var isLight = PrefUtils.getTheme() == "light";
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +24,24 @@ class MainScreen extends GetView<MainController> {
       body: Stack(
         children: [
           Obx(() {
-            if (controller.users.isEmpty) {
-              return const Center(child: CircularProgressIndicator());
+            if (controller.isDataProcessing.value) {
+              return CardSwiperShimmer();
+            }
+
+            // ✅ Vérifie si user est null avant d'y accéder
+            if (controller.usersList.isEmpty) {
+              return Center(child: Text("لم يتم العثور على أي مستخدم",
+                style: TextStyle(color:  isLight ? TColors.black : TColors.white,
+                    fontSize: 18.adaptSize, fontWeight: FontWeight.w500),));
             }
 
             return CardSwiper(
               controller: controller.swiperController,
-              cardsCount: controller.users.length,
+              cardsCount: controller.usersList.length,
               numberOfCardsDisplayed: 1,
               isLoop: true,
               padding: EdgeInsets.zero,
+              duration: Duration(milliseconds: 1),
               allowedSwipeDirection: const AllowedSwipeDirection.only(
                 up: true,
                 down: true,
@@ -77,11 +87,11 @@ class MainScreen extends GetView<MainController> {
               },
               //maxAngle: 30,
               cardBuilder: (context, index, percentX, percentY) {
-                final user = controller.users[index];
+                final user = controller.usersList[index];
                 return UserCardWidget(
                   user: user,
                   onMessageTap: () async {
-                    debugPrint("message ${user.fullName}");
+                    debugPrint("message ${user.username}");
                   },
                   onFavoriteTap: () async {
 

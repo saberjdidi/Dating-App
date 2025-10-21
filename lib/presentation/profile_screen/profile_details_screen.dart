@@ -53,7 +53,9 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                   // background image (fills)
                   Positioned.fill(
                     child: CustomImageView(
-                      imagePath: controller.userModel.imageProfile,
+                      imagePath: (controller.userModel.mainProfile == "" || controller.userModel.mainProfile!.isEmpty || controller.userModel.mainProfile == null)
+                          ? ImageConstant.imgOnBoarding1
+                          : controller.userModel.mainProfile,
                       //height: 200.adaptSize,
                       //width: 200.adaptSize,
                       fit: BoxFit.cover,
@@ -120,38 +122,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                     left: 0,
                     right: 0,
                       child: _buildUserInfo(context)
-                   /* child: Container(
-                      height: screenHeight * 0.6,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(40),
-                          topRight: Radius.circular(40),
-                        ),
-                        gradient: LinearGradient(
-                          colors: appTheme == 'light'
-                              ? [Colors.white, Colors.grey.shade200]
-                              : [Colors.black.withOpacity(0.8), Colors.black],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
-                            offset: const Offset(0, -4),
-                            blurRadius: 10,
-                          ),
-                        ],
-                      ),
-                      padding: const EdgeInsets.all(20),
-                      child: _buildUserInfo(context),
-                    ), */
                   )),
-                  // Conteneur avec infos utilisateur
-                 /* Align(
-                    alignment: Alignment.bottomCenter,
-                    child: _buildUserInfo , //here
-                  ), */
                 ],
               ),
             )
@@ -184,8 +155,9 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                  crossAxisAlignment: CrossAxisAlignment.start,
                  mainAxisSize: MainAxisSize.min,
                  children: [
-                   SubTitleWidget(fontSizeDelta: 2, fontWeightDelta: 2,subtitle: '${controller.userModel.fullName}، ${controller.userModel.age} عاما',
-                       color: _appTheme =='light' ? TColors.black : TColors.white),
+                   if(controller.userModel.username != null && controller.userModel.age != null)
+                     SubTitleWidget(fontSizeDelta: 2, fontWeightDelta: 2,subtitle: '${controller.userModel.username}، ${controller.userModel.age} عاما',
+                         color: _appTheme =='light' ? TColors.black : TColors.white),
                    SizedBox(height: 6.v),
                    // job - allow up to 2 lines then ellipsis
                    Row(
@@ -199,14 +171,17 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                          fit: BoxFit.cover,
                        ),
                        SizedBox(width: 10.adaptSize),
-                       Text(
-                         controller.userModel.bio!,
-                         textAlign: TextAlign.right,
-                         maxLines: 2,
-                         overflow: TextOverflow.ellipsis,
-                         style: TextStyle(
-                           color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
-                           fontSize: isTablet ? 16.adaptSize : 15.adaptSize,
+                       if((controller.userModel.description ?? '').isNotEmpty)
+                       Expanded(
+                         child: Text(
+                           controller.userModel.description ?? '',
+                           textAlign: TextAlign.right,
+                           maxLines: 4,
+                           overflow: TextOverflow.ellipsis,
+                           style: TextStyle(
+                             color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
+                             fontSize: isTablet ? 16.adaptSize : 15.adaptSize,
+                           ),
                          ),
                        ),
                      ],
@@ -310,12 +285,13 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
 
                    SizedBox(height: 20.v),
                    SubTitleWidget(subtitle: "معرض", color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 4, fontSizeDelta: 5,),
+                   SizedBox(height: 5.v),
                    GridLayout(
-                     itemCount: controller.userModel.images!.length, // +1 pour l'upload
+                     itemCount: controller.ListImages.value.length, // +1 pour l'upload
                      mainAxisExtent: isTablet ? 220.adaptSize : 180.adaptSize,
                      crossAxisCount: 3,
                      itemBuilder: (context, index) {
-                       final image = controller.userModel.images![index]; // -1 car le 1er est upload
+                       final image = controller.ListImages.value[index]; // -1 car le 1er est upload
                        return TRoundedContainer(
                          showBorder: true,
                          backgroundColor: TColors.white,
@@ -332,7 +308,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                            radius: BorderRadius.circular(10),
                            onTap: (){
                              Get.to(() => FullScreenImageViewer(
-                               images: controller.userModel.images!,
+                               images: controller.ListImages.value,
                                initialIndex: index,
                              ));
                            },
@@ -347,24 +323,23 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                      children: [
                        CircleIconButton(
-                         size: isSmallPhone ? 65.hw : 60.hw,
-                         minTapSize: isSmallPhone ? 65.hw : 60.hw,
-                         effectiveSize: isSmallPhone ? 65.hw : 60.hw,
+                         size: isSmallPhone ?  50.hw : 40.hw,
+                         minTapSize: isSmallPhone ?  50.hw : 40.hw,
+                         effectiveSize: isSmallPhone ?  50.hw : 40.hw,
                          backgroundColor: _appTheme =='light' ? TColors.greyDating.withOpacity(0.5) : TColors.dark,
                          showBorder: true,
                          borderColor: _appTheme =='light' ? TColors.white : TColors.buttonSecondary,
                          child: CustomImageView(
-                           imagePath: ImageConstant.iconLove,
-                           //height: 35.hw,
-                           //width: 35.hw,
-                           fit: BoxFit.cover,
+                           imagePath: ImageConstant.likeImg,
+                           height: 30.adaptSize,
+                           width: 30.adaptSize,
                            color: TColors.redApp,
                          ),
                        ),
                        CircleIconButton(
-                         size: isSmallPhone ? 85.hw : 70.hw,
-                         minTapSize: isSmallPhone ? 85.hw : 70.hw,
-                         effectiveSize: isSmallPhone ? 85.hw : 70.hw,
+                         size: isSmallPhone ? 70.hw : 50.hw,
+                         minTapSize: isSmallPhone ? 70.hw : 50.hw,
+                         effectiveSize: isSmallPhone ? 70.hw : 50.hw,
                          backgroundColor: _appTheme =='light' ? TColors.greyDating.withOpacity(0.5) : TColors.dark,
                          showBorder: true,
                          borderColor: _appTheme =='light' ? TColors.white : TColors.buttonSecondary,
@@ -373,23 +348,23 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                          child: CustomImageView(
                            imagePath: ImageConstant.iconChat,
                            color: TColors.primaryColorApp,
-                           height: 45.hw,
-                           width: 45.hw,
-                           fit: BoxFit.cover,
+                           height: 30.hw,
+                           width: 30.hw,
+                           //fit: BoxFit.cover,
                          ),
                        ),
                        CircleIconButton(
-                         size: isSmallPhone ? 65.hw : 60.hw,
-                         minTapSize: isSmallPhone ? 65.hw : 60.hw,
-                         effectiveSize: isSmallPhone ? 65.hw : 60.hw,
+                         size: isSmallPhone ? 50.hw : 40.hw,
+                         minTapSize: isSmallPhone ?  50.hw : 40.hw,
+                         effectiveSize: isSmallPhone ?  50.hw : 40.hw,
                          backgroundColor: _appTheme =='light' ? TColors.greyDating.withOpacity(0.5) : TColors.dark,
                          showBorder: true,
                          borderColor: _appTheme =='light' ? TColors.white : TColors.buttonSecondary,
                          child: CustomImageView(
                            imagePath: ImageConstant.iconClose,
-                           //height: 30.hw,
-                           //width: 30.hw,
-                           fit: BoxFit.cover,
+                           height: 30.hw,
+                           width: 30.hw,
+                           //fit: BoxFit.cover,
                          ),
                        ),
                        /* CustomImageView(

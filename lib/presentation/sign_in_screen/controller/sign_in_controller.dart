@@ -107,7 +107,7 @@ class SignInController extends GetxController {
       formLoginKey.value.currentState!.save();
 
    isDataProcessing.value = true;
-   FullScreenLoader.openLoadingDialog('We are processing your information...', ImageConstant.lottieLoading);
+   FullScreenLoader.openLoadingDialog('We are processing your information', ImageConstant.lottieLoading);
 
    //Check internet connection
    final isConnected = await NetworkManager.instance.isConnected();

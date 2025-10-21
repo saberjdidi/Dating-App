@@ -9,6 +9,7 @@ import 'package:dating_app_bilhalal/widgets/account/choice-chip.dart';
 import 'package:dating_app_bilhalal/widgets/account/interest_widget.dart';
 import 'package:dating_app_bilhalal/widgets/custom_drop_down.dart';
 import 'package:dating_app_bilhalal/widgets/custom_drop_down_country.dart';
+import 'package:dating_app_bilhalal/widgets/custom_drop_down_string.dart';
 import 'package:dating_app_bilhalal/widgets/form_divider_widget.dart';
 import 'package:dating_app_bilhalal/widgets/home/pays_widget.dart';
 import 'package:dating_app_bilhalal/widgets/multi_select_dopdown.dart';
@@ -22,7 +23,8 @@ class SearchDating {
     var screenWidth = Get.width;
     var isSmallPhone = screenWidth < 360;
     var isTablet = screenWidth >= 600;
-    var _appTheme = PrefUtils.getTheme();
+    var isArabe = PrefUtils.getLangue() == 'ar';
+    var isLight = PrefUtils.getTheme() == "light";
 
     await Dialogs.customModalBottomSheet(
         Get.context!,
@@ -37,11 +39,11 @@ class SearchDating {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.adaptSize),
                     child: TitleWidget(title: "فلتر".tr,
-                        color: _appTheme =='light' ? TColors.black : TColors.white,
+                        color: isLight ? TColors.black : TColors.white,
                         textAlign: TextAlign.right),
                   ), */
                   SizedBox(height: TSizes.spaceBtwItems.adaptSize),
-                  FormDividerWidget(dividerText: "العمر", thikness: 2),
+                  FormDividerWidget(dividerText: "lbl_age".tr, thikness: 2),
                   SizedBox(height: TSizes.spaceBtwItems.v),
 
                   Column(
@@ -49,10 +51,10 @@ class SearchDating {
                     children: [
                       // ✅ Afficher l’âge sous le slider
                       Text(
-                        "${controller.currentRangeAgeValues.value.start.round()} ${'سنة'} - ${controller.currentRangeAgeValues.value.end.round()} ${'سنة'}",
+                        "${controller.currentRangeAgeValues.value.start.round()} ${'lbl_year'.tr} - ${controller.currentRangeAgeValues.value.end.round()} ${'lbl_year'.tr}",
                         //"${controller.currentAgeValue.value.round()}",
                         style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.w500,
-                            color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
+                            color: isLight ? TColors.black : TColors.lightGrey),
                       ),
                       // Slider avec gradient, label toujours visible, hauteur augmentée
                       ShaderMaskWidget(
@@ -84,35 +86,23 @@ class SearchDating {
                             activeColor: Colors.white, // ✅ Gradient appliqué via ShaderMask
                             inactiveColor: Colors.white.withOpacity(0.3),
                           ),
-                        /*  child: Slider(
-                            value: controller.currentAgeValue.value,
-                            min: 0,
-                            max: 100,
-                            divisions: 100,
-                            label: controller.currentAgeValue.value.round().toString(),
-                            onChanged: (value) {
-                              controller.currentAgeValue.value = value;
-                            },
-                            activeColor: Colors.white, // ✅ Couleur appliquée par gradient
-                            inactiveColor: Colors.white.withOpacity(0.3),
-                          ), */
                         ),
                       ),
                     ],
                   ),
 
                   SizedBox(height: TSizes.spaceBtwItems.v),
-                  FormDividerWidget(dividerText: "الوزن", thikness: 2),
+                  FormDividerWidget(dividerText: "lbl_weight".tr, thikness: 2),
                   SizedBox(height: TSizes.spaceBtwItems.v),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       // ✅ Afficher l’âge sous le slider
                       Text(
-                        "${controller.currentRangeWeightValues.value.start.round()} ${'كغ'} - ${controller.currentRangeWeightValues.value.end.round()} ${'كغ'}",
+                        "${controller.currentRangeWeightValues.value.start.round()} ${'lbl_kg'.tr} - ${controller.currentRangeWeightValues.value.end.round()} ${'lbl_kg'.tr}",
                         //"${controller.currentWeightValue.value.round()} KG",
                         style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.w500,
-                            color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
+                            color: isLight ? TColors.black : TColors.lightGrey),
                       ),
                       // Slider avec gradient, label toujours visible, hauteur augmentée
                       ShaderMaskWidget(
@@ -144,25 +134,13 @@ class SearchDating {
                             activeColor: Colors.white, // ✅ Gradient appliqué via ShaderMask
                             inactiveColor: Colors.white.withOpacity(0.3),
                           ),
-                         /* child: Slider(
-                            value: controller.currentWeightValue.value,
-                            min: 0,
-                            max: 140,
-                            divisions: 140,
-                            label: controller.currentWeightValue.value.round().toString(),
-                            onChanged: (value) {
-                              controller.currentWeightValue.value = value;
-                            },
-                            activeColor: Colors.white, // ✅ Couleur appliquée par gradient
-                            inactiveColor: Colors.white.withOpacity(0.3),
-                          ), */
                         ),
                       ),
                     ],
                   ),
 
                   SizedBox(height: TSizes.spaceBtwItems.v),
-                  FormDividerWidget(dividerText: "الطول", thikness: 2),
+                  FormDividerWidget(dividerText: "lbl_height".tr, thikness: 2),
                   SizedBox(height: TSizes.spaceBtwItems.v),
 
                   Column(
@@ -170,10 +148,10 @@ class SearchDating {
                     children: [
                       // ✅ Afficher l’âge sous le slider
                       Text(
-                        "${controller.currentRangeHeightValues.value.start.round()} ${'سم'} - ${controller.currentRangeHeightValues.value.end.round()} ${'سم'}",
+                        "${controller.currentRangeHeightValues.value.start.round()} ${'lbl_cm'.tr} - ${controller.currentRangeHeightValues.value.end.round()} ${'lbl_cm'.tr}",
                         //"${controller.currentHeightValue.value.round()} CM",
                         style: TextStyle(fontSize: 16.adaptSize, fontWeight: FontWeight.w500,
-                            color: _appTheme =='light' ? TColors.black : TColors.lightGrey),
+                            color: isLight ? TColors.black : TColors.lightGrey),
                       ),
                       // Slider avec gradient, label toujours visible, hauteur augmentée
                       ShaderMaskWidget(
@@ -205,25 +183,13 @@ class SearchDating {
                             activeColor: Colors.white, // ✅ Gradient appliqué via ShaderMask
                             inactiveColor: Colors.white.withOpacity(0.3),
                           ),
-                         /* child: Slider(
-                            value: controller.currentHeightValue.value,
-                            min: 100,
-                            max: 220,
-                            divisions: 220,
-                            label: controller.currentHeightValue.value.round().toString(),
-                            onChanged: (value) {
-                              controller.currentHeightValue.value = value;
-                            },
-                            activeColor: Colors.white, // ✅ Couleur appliquée par gradient
-                            inactiveColor: Colors.white.withOpacity(0.3),
-                          ), */
                         ),
                       ),
                     ],
                   ),
 
                   SizedBox(height: TSizes.spaceBtwItems.v),
-                  FormDividerWidget(dividerText: "لون البشرة", thikness: 2),
+                  FormDividerWidget(dividerText: "lbl_skin_color".tr, thikness: 2),
                   SizedBox(height: TSizes.spaceBtwItems.v),
 
                   Wrap(
@@ -242,90 +208,21 @@ class SearchDating {
 
                   SizedBox(height: TSizes.spaceBtwItems.v),
 
-                  /*  FormDividerWidget(dividerText: "جنسك", thikness: 2),
-                  SizedBox(height: TSizes.spaceBtwItems.v),
-
-
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10.hw),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TRoundedContainer(
-                            showBorder: true,
-                            borderColor: TColors.greyDating,
-                            backgroundColor: _appTheme =='light' ? TColors.white : TColors.dark,
-                            padding: EdgeInsets.symmetric(horizontal: 35.v, vertical: 13.v),
-                            child: Row(
-                              children: [
-                                Radio<int>(
-                                  value: 0,
-                                  groupValue: controller.sexValue.value,
-                                  onChanged: (value) {
-                                    controller.sexValue.value = value!;
-                                    debugPrint("femme : ${controller.sexValue.value}");
-                                  },
-                                  fillColor: MaterialStateProperty.resolveWith<Color>((states) {
-                                    if (states.contains(MaterialState.selected)) {
-                                      return TColors.yellowAppDark; // ✅ Cercle actif jaune
-                                    }
-                                    return Colors.grey; // Cercle inactif gris
-                                  }),
-                                ),
-                                SubTitleWidget(subtitle: 'امراة', color: _appTheme =='light' ? TColors.black : TColors.white, fontSizeDelta: 2, fontWeightDelta: 2),
-                              ],
-                            )
-                        ),
-
-                        TRoundedContainer(
-                            showBorder: true,
-                            borderColor: TColors.greyDating,
-                            backgroundColor: _appTheme =='light' ? TColors.white : TColors.dark,
-                            padding: EdgeInsets.symmetric(horizontal: 35.v, vertical: 13.v),
-                            child: Row(
-                              children: [
-                                Radio<int>(
-                                  value: 1,
-                                  groupValue: controller.sexValue.value,
-                                  onChanged: (value) {
-                                    controller.sexValue.value = value!;
-                                    debugPrint("homme : ${controller.sexValue.value}");
-                                  },
-                                  fillColor: MaterialStateProperty.resolveWith<Color>((states) {
-                                    if (states.contains(MaterialState.selected)) {
-                                      return TColors.yellowAppDark;
-                                    }
-                                    return Colors.grey;
-                                  }),
-                                ),
-                                SubTitleWidget(subtitle: 'رجل', color: _appTheme =='light' ? TColors.black : TColors.white, fontSizeDelta: 2, fontWeightDelta: 2,),
-                              ],
-                            )
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: TSizes.spaceBtwItems.v),
-                  */
-
-                  CustomDropDown(
-                    //textStyle: TextStyle(color: appTheme.black),
-                    hintText: "${'الحالة الاجتماعية'.tr}",
-                    items: ListMaritalStatusFilter.value,
-                    selectedValue: controller.selectedMaritalStatus.value,
+                  CustomDropDownString(
+                    hintText: 'marital_status'.tr,
+                    items: ListMaritalStatusFilter,
+                    selectedValue: controller.maritalStatusController.text,
                     onChanged: (value) async {
-                      controller.selectedMaritalStatus.value = value;
-                      controller.maritalStatusController.text = value.title;
-                      //controller.typePieceIdentityController.text = value.title;
+                      controller.maritalStatusController.text = value;
                       debugPrint('marital status : ${controller.maritalStatusController.text}');
                     },
                     icon: Icon(Iconsax.arrow_down_1),
                     borderRadius: 15.hw,
                     contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
-                    fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
-                    hintStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
-                    textStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
-                    themeColor:_appTheme =='light' ?  appTheme.gray50 : TColors.darkerGrey,
+                    fillColor: isLight ? TColors.white : TColors.dark,
+                    hintStyle: isLight ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
+                    textStyle: isLight ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
+                    themeColor:isLight ?  appTheme.gray50 : TColors.darkerGrey,
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15.hw),
                       borderSide: BorderSide(color: TColors.darkGrey, width: 1),
@@ -334,23 +231,21 @@ class SearchDating {
                   ),
                   SizedBox(height: TSizes.spaceBtwItems.v),
 
-                  CustomDropDown(
-                    hintText: "${'نوع الزواج'.tr}",
-                    items: ListLookingForFilter.value,
-                    selectedValue: controller.selectedLookingFor.value,
+                  CustomDropDownString(
+                    hintText: 'type_marriage'.tr,
+                    items: ListMarriageTypeFilter,
+                    selectedValue: controller.lookingForController.text,
                     onChanged: (value) async {
-                      controller.selectedLookingFor.value = value;
-                      controller.lookingForController.text = value.title;
-                      //controller.typePieceIdentityController.text = value.title;
-                      debugPrint('looking for : ${controller.lookingForController.text}');
+                      controller.lookingForController.text = value;
+                      debugPrint('marriage type : ${controller.lookingForController.text}');
                     },
                     icon: Icon(Iconsax.arrow_down_1),
                     borderRadius: 15.hw,
                     contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
-                    fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
-                    hintStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
-                    textStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
-                    themeColor:_appTheme =='light' ?  appTheme.gray50 : TColors.darkerGrey,
+                    fillColor: isLight ? TColors.white : TColors.dark,
+                    hintStyle: isLight ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
+                    textStyle: isLight ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
+                    themeColor:isLight ?  appTheme.gray50 : TColors.darkerGrey,
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15.hw),
                       borderSide: BorderSide(color: TColors.darkGrey, width: 1),
@@ -367,14 +262,14 @@ class SearchDating {
                     prefixConstraints: BoxConstraints(maxHeight: 60.v),
                     contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
                     validator: (value) => Validator.validateEmptyText('${'Job'.tr}', value),
-                    fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
-                    hintStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSemiBoldBlack : CustomTextStyles.titleMediumSemiBoldWhite,
-                    textStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
+                    fillColor: isLight ? TColors.white : TColors.dark,
+                    hintStyle: isLight ? CustomTextStyles.titleMediumSemiBoldBlack : CustomTextStyles.titleMediumSemiBoldWhite,
+                    textStyle: isLight ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
                   ),
                   SizedBox(height: TSizes.spaceBtwItems.v), */
 
                   CustomDropDownCountry(
-                    hintText: "${'الدولة'.tr} *",
+                    hintText: 'state'.tr,
                     items: PaysListFilter.value,
                     selectedValue: controller.selectedPays.value,
                     onChanged: (val) => controller.selectedPays.value = val,
@@ -382,10 +277,10 @@ class SearchDating {
                     icon: Icon(Iconsax.arrow_down_1),
                     borderRadius: 15.hw,
                     contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
-                    fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
-                    hintStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
-                    textStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
-                    themeColor:_appTheme =='light' ?  appTheme.gray50 : TColors.darkerGrey,
+                    fillColor: isLight ? TColors.white : TColors.dark,
+                    hintStyle: isLight ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
+                    textStyle: isLight ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
+                    themeColor:isLight ?  appTheme.gray50 : TColors.darkerGrey,
                   ),
                   /*
                   CustomDropDown(
@@ -400,10 +295,10 @@ class SearchDating {
                     icon: Icon(Iconsax.arrow_down_1),
                     borderRadius: 15.hw,
                     contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
-                    fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
-                    hintStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
-                    textStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
-                    themeColor:_appTheme =='light' ?  appTheme.gray50 : TColors.darkerGrey,
+                    fillColor: isLight ? TColors.white : TColors.dark,
+                    hintStyle: isLight ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
+                    textStyle: isLight ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
+                    themeColor:isLight ?  appTheme.gray50 : TColors.darkerGrey,
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15.hw),
                       borderSide: BorderSide(color: TColors.darkGrey, width: 1),
@@ -419,10 +314,10 @@ class SearchDating {
                     controller: controller,
                     borderRadius: 15,
                     contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: isSmallPhone ? 8 : 12),
-                    fillColor: _appTheme =='light' ? TColors.white : TColors.dark,
-                    hintStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
-                    textStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
-                    themeColor:_appTheme =='light' ?  appTheme.gray50 : TColors.darkerGrey,
+                    fillColor: isLight ? TColors.white : TColors.dark,
+                    hintStyle: isLight ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
+                    textStyle: isLight ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
+                    themeColor:isLight ?  appTheme.gray50 : TColors.darkerGrey,
                   ),
                   SizedBox(height: TSizes.spaceBtwItems.v), */
 
@@ -473,7 +368,7 @@ class SearchDating {
                   SizedBox(
                     width: isTablet ? mediaQueryData.size.width * 0.2 : mediaQueryData.size.width * 0.4,
                     child: CustomButtonContainer(
-                      text:"فلتر".tr,
+                      text:"lbl_filter".tr,
                       color1: TColors.primaryColorApp,
                       color2: TColors.primaryColorApp,
                       borderRadius: 10,
@@ -637,6 +532,7 @@ class SearchDating {
                       var bottomController = BottomBarController.instance;
                       bottomController.updateCountryTitle();
                       Get.back();
+                      controller.filterUsersByCountry();
                     },
                   ),
                 ),
@@ -653,7 +549,7 @@ class SearchDating {
     var screenWidth = Get.width;
     var isSmallPhone = screenWidth < 360;
     var isTablet = screenWidth >= 600;
-    var _appTheme = PrefUtils.getTheme();
+    var isLight = PrefUtils.getTheme() == "light";
 
     await Dialogs.customModalBottomSheet(
       //await Dialogs.customModalBottomSheetMethod2(
@@ -667,7 +563,7 @@ class SearchDating {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.adaptSize),
                   child: TitleWidget(title: "اختر الدولة".tr,
-                      color: _appTheme =='light' ? TColors.black : TColors.white,
+                      color: isLight ? TColors.black : TColors.white,
                       textAlign: TextAlign.right),
                 ),
                 SizedBox(height: TSizes.spaceBtwSections.adaptSize),

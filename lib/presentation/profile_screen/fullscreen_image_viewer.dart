@@ -196,7 +196,7 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     GestureDetector(
@@ -247,7 +247,7 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
                         children: [
                           GradientSvgIcon(
                             assetPath: ImageConstant.iconLove,
-                            size: 50.adaptSize,
+                            size: 35.adaptSize,
                             gradient: const LinearGradient(
                               colors: [TColors.redApp, TColors.redApp],
                               begin: Alignment.topLeft,
@@ -270,7 +270,7 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
                             ),
                           ),
                            */
-                          SubTitleWidget(subtitle: '23', color: TColors.white, fontWeightDelta: 2,),
+                          SubTitleWidget(subtitle: '23', color: TColors.white, fontWeightDelta: 1,),
                         ],
                       ),
                     ),

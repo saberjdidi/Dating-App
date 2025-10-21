@@ -103,7 +103,7 @@ class SupportScreen extends GetView<SupportController> {
                                 focusNode: controller.messageFocus,
                                 onTap: () => FocusScope.of(context).requestFocus(controller.messageFocus),
                                 onEditingComplete: () => FocusScope.of(context).requestFocus(controller.messageFocus),
-                                maxLines: 2,
+                                maxLines: 4,
                                 textInputType: TextInputType.text,
                                 prefixConstraints: BoxConstraints(maxHeight: 60.v),
                                 contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),

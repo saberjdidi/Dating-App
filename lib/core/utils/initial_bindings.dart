@@ -19,5 +19,11 @@ class InitialBindings extends Bindings {
     Get.put(GuideController());
     //Get.put(MainController());
     //Get.lazyPut(() => MainController(), fenix: true);
+    /*
+     Get.put(MainController(), permanent: true);
+  Get.put(FilterController(), permanent: true);
+  Get.put(FavoriteController(), permanent: true);
+  Get.put(ProfileController(), permanent: true);
+     */
   }
 }

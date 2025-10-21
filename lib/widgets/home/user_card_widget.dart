@@ -40,7 +40,7 @@ class UserCardWidget extends StatelessWidget {
           // background image (fills)
           Positioned.fill(
             child: CustomImageView(
-              imagePath: user.imageProfile,
+              imagePath: (user.mainProfile == "" || user.mainProfile!.isEmpty || user.mainProfile == null) ? ImageConstant.imgOnBoarding1 : user.mainProfile,
               //height: screenHeight,
               //width: screenWidth,
               fit: BoxFit.cover,
@@ -101,132 +101,139 @@ class UserCardWidget extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        // Left side: fixed-size vertical icon column
-                        SizedBox(
-                          width: screenWidth * 0.3,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              GestureDetector(
-                                onTap: onMessageTap,
-                                child: GradientSvgIcon(
-                                  assetPath: ImageConstant.iconChat,
-                                  size:  isTablet ? 48.adaptSize : 42.adaptSize,
-                                  gradient: const LinearGradient(
-                                    colors: [TColors.primaryColorApp, TColors.primaryColorApp],
-                                    //colors: [Color(0xFFFFFC00), Color(0xFFFFFC00)],
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: 10.hw,),
-                              FavoriteIcon(userId: "1"),
-                             /* GestureDetector(
-                                onTap: onFavoriteTap,
-                                child: GradientSvgIcon(
-                                  assetPath: ImageConstant.iconLove,
-                                  size: isTablet ? 55.adaptSize : 38.adaptSize,
-                                  gradient: const LinearGradient(
-                                    colors: [Color(0xFFF40303), Color(0xFF8E0202)],
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                  ),
-                                ),
-                              ), */
-                              /*  CustomImageView(
-                          imagePath: ImageConstant.iconChat,
-                          height: 45.hw,
-                          width: 45.hw,
-                          //fit: BoxFit.cover,
-                          onTap: onMessageTap,
-                        ),
-                        CustomImageView(
-                          imagePath: ImageConstant.iconLove,
-                          height: 45.hw,
-                          width: 45.hw,
-                          //fit: BoxFit.cover,
-                          color: Color(0xECA90606),
-                          onTap: onFavoriteTap,
-                        ), */
-                            ],
-                          ),
-                        ),
-
-                        SizedBox(width: screenWidth * 0.1),
-
-                        // --- Infos utilisateur
-                        // Right side: text info - put into Expanded/Flexible so it can't overflow the row
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              // fullname and age - single line, ellipsis if too long
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    '${user.fullName}، ${user.age}',
-                                    textAlign: TextAlign.right,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: isTablet ? 26.adaptSize : 22.adaptSize,
-                                      fontWeight: FontWeight.bold,
+                child: Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          // Left side: fixed-size vertical icon column
+                          SizedBox(
+                            width: screenWidth * 0.3,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                GestureDetector(
+                                  onTap: onMessageTap,
+                                  child: GradientSvgIcon(
+                                    assetPath: ImageConstant.iconChat,
+                                    size:  isTablet ? 48.adaptSize : 42.adaptSize,
+                                    gradient: const LinearGradient(
+                                      colors: [TColors.primaryColorApp, TColors.primaryColorApp],
+                                      //colors: [Color(0xFFFFFC00), Color(0xFFFFFC00)],
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
                                     ),
                                   ),
-                                  SizedBox(width: 5.adaptSize),
-                                  CircleAvatar(radius: 6, backgroundColor: Colors.green)
-                                ],
-                              ),
-
-                              const SizedBox(height: 6),
-                              // bio - allow up to 2 lines then ellipsis
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    user.bio!,
-                                    textAlign: TextAlign.right,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      color: Colors.white70,
-                                      fontSize: 15.adaptSize,
+                                ),
+                                SizedBox(width: 10.hw,),
+                                FavoriteIcon(userId: "1"),
+                               /* GestureDetector(
+                                  onTap: onFavoriteTap,
+                                  child: GradientSvgIcon(
+                                    assetPath: ImageConstant.iconLove,
+                                    size: isTablet ? 55.adaptSize : 38.adaptSize,
+                                    gradient: const LinearGradient(
+                                      colors: [Color(0xFFF40303), Color(0xFF8E0202)],
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
                                     ),
                                   ),
-                                  SizedBox(width: 10.adaptSize),
-                                  CustomImageView(
-                                    imagePath: ImageConstant.iconJob,
-                                    color: Colors.white70,
-                                    //height: 200.adaptSize,
-                                    //width: 200.adaptSize,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ],
-                              ),
-
-                            ],
+                                ), */
+                                /*  CustomImageView(
+                            imagePath: ImageConstant.iconChat,
+                            height: 45.hw,
+                            width: 45.hw,
+                            //fit: BoxFit.cover,
+                            onTap: onMessageTap,
                           ),
-                        ),
-                      ],
-                    )
-                  ],
+                          CustomImageView(
+                            imagePath: ImageConstant.iconLove,
+                            height: 45.hw,
+                            width: 45.hw,
+                            //fit: BoxFit.cover,
+                            color: Color(0xECA90606),
+                            onTap: onFavoriteTap,
+                          ), */
+                              ],
+                            ),
+                          ),
+
+                          SizedBox(width: screenWidth * 0.1),
+
+                          // --- Infos utilisateur
+                          // Right side: text info - put into Expanded/Flexible so it can't overflow the row
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                // fullname and age - single line, ellipsis if too long
+                                if(user.username != null && user.age != null)
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        '${user.username ?? ''}، ${user.age ?? ''}',
+                                        textAlign: TextAlign.right,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: isTablet ? 26.adaptSize : 22.adaptSize,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(width: 5.adaptSize),
+                                      CircleAvatar(radius: 6, backgroundColor: Colors.green)
+                                    ],
+                                  ),
+
+                                const SizedBox(height: 6),
+                                // bio - allow up to 2 lines then ellipsis
+                                if(user.description != null)
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Flexible(
+                                        child: Text(
+                                          user.description ?? '',
+                                          textAlign: TextAlign.right,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            color: Colors.white70,
+                                            fontSize: 15.adaptSize,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 10.adaptSize),
+                                      CustomImageView(
+                                        imagePath: ImageConstant.iconJob,
+                                        color: Colors.white70,
+                                        //height: 200.adaptSize,
+                                        //width: 200.adaptSize,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ],
+                                  ),
+
+                              ],
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

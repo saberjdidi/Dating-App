@@ -63,7 +63,7 @@ class ProfileRepository {
       if (resp.statusCode == HttpStatusCode.ok || resp.statusCode == HttpStatusCode.created) {
         final map = resp.data as Map<String, dynamic>;
         final dataMap = map['data'] as Map<String, dynamic>?;
-        final authData = dataMap != null ? UserModel.fromJson(dataMap) : null;
+        final authData = dataMap != null ? UserModel.fromJsonProfile(dataMap) : null;
         return ApiResult(success: true, message: map['message'] as String?, data: authData);
       } else {
         // backend retourne 4xx avec message dans body
@@ -87,7 +87,7 @@ class ProfileRepository {
       if (resp.statusCode == HttpStatusCode.ok) {
         final map = resp.data as Map<String, dynamic>;
         final dataMap = map['data'] as Map<String, dynamic>?;
-        final authData = dataMap != null ? UserModel.fromJson(dataMap) : null;
+        final authData = dataMap != null ? UserModel.fromJsonProfile(dataMap) : null;
         return ApiResult(success: true, message: map['message'] as String?, data: authData);
       } else {
         // backend retourne 4xx avec message dans body
@@ -138,7 +138,7 @@ class ProfileRepository {
       if (resp.statusCode == HttpStatusCode.ok) {
         final map = resp.data as Map<String, dynamic>;
         final dataMap = map['data'] as Map<String, dynamic>?;
-        final authData = dataMap != null ? UserModel.fromJson(dataMap) : null;
+        final authData = dataMap != null ? UserModel.fromJsonProfile(dataMap) : null;
         return ApiResult(success: true, message: map['message'] as String?, data: authData);
       } else {
         // backend retourne 4xx avec message dans body
