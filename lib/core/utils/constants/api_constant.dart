@@ -7,9 +7,11 @@ class ApiConstants {
   static const String authLogin = 'auth/login';
   static const String authForgetPassword = 'auth/forgot-password';
   static const String authResetPassword = 'auth/reset-password';
+  static const String changePassword = 'user/password';
 
   //OTP
   static const String verifyOtp = 'auth/verify-otp';
+  static const String verifyResetOtp = 'auth/verify-reset-otp';
   static const String resendOtp = 'auth/resend-otp';
 
   //User
@@ -18,7 +20,7 @@ class ApiConstants {
 
   //Profile
   static const String profileReport = 'reports';
-  static const String hobbies = 'hobbies';
+  //static const String hobbies = 'hobbies';
 
   //Media
   static const String media = 'media';
@@ -26,8 +28,20 @@ class ApiConstants {
   //Media
   static const String support = 'support/messages';
 
-  //Media
+  //Favorite
   static const String favourites = 'favourites';
+
+  //Likes
+  static const String likes = 'likes';
+
+  //Settings
+  static const String permissions = 'settings/call-permissions';
+
+  //Presence
+  static const String presence = 'presence';
+
+  //Subscriptions
+  static const String subscriptionPlans = 'subscriptions/plans';
 }
 
 class HttpStatusCode {

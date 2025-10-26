@@ -87,7 +87,7 @@ class FavoriteRepository {
     try {
       final resp = await _client.delete('${ApiConstants.favourites}/$mediaId');
 
-      if (resp.statusCode == 200 || resp.statusCode == HttpStatusCode.created) {
+      if (resp.statusCode == 200) {
         final map = resp.data as Map<String, dynamic>;
         return ApiResult(success: true, message: map['message'] as String?, data: map['data'] as Map<String, dynamic>?);
       } else {

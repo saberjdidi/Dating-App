@@ -1,11 +1,13 @@
 import 'package:dating_app_bilhalal/core/utils/pref_utils.dart';
 import 'package:dating_app_bilhalal/presentation/support_screen/controller/support_controller.dart';
 import 'package:dating_app_bilhalal/widgets/app_bar/appbar_widget.dart';
+import 'package:dating_app_bilhalal/widgets/chat/video_preview_widget.dart';
 import 'package:dating_app_bilhalal/widgets/custom_text_form_field.dart';
 import 'package:dating_app_bilhalal/widgets/grid_layout.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
 import 'package:dating_app_bilhalal/widgets/swip_back_wrapper.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
+import 'package:dating_app_bilhalal/widgets/video_preview_gallery.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../core/app_export.dart';
@@ -129,6 +131,83 @@ class SupportScreen extends GetView<SupportController> {
                               SizedBox(height: TSizes.spaceBtwInputFields.adaptSize),
 
                               GridLayout(
+                                itemCount: 1, // un seul élément : soit l’icône d’upload, soit l’image sélectionnée
+                                mainAxisExtent: isTablet ? 200.adaptSize : 150.adaptSize,
+                                crossAxisCount: 3,
+                                itemBuilder: (context, index) {
+                                  return Obx(() {
+                                    final file = controller.selectedMedia.value;
+                                    final mediaType = controller.mediaType.value; // "image" ou "video"
+
+                                    // ✅ Si aucun média n’a encore été choisi
+                                    // 🟢 Aucun média sélectionné → bouton upload
+                                    if (file == null) {
+                                      return TRoundedContainer(
+                                        showBorder: false,
+                                        backgroundColor: TColors.white,
+                                        borderColor: TColors.greyDating,
+                                        radius: 12,
+                                        padding: EdgeInsets.all(1),
+                                        child: CustomImageView(
+                                          imagePath: ImageConstant.uploadImage,
+                                          height: 100.adaptSize,
+                                          width: 100.adaptSize,
+                                          fit: BoxFit.fill,
+                                          onTap: () async {
+                                            await controller.pickMedia();
+                                          },
+                                        ),
+                                      );
+                                    }
+
+                                    // ✅ Si un média est sélectionné
+                                    return TRoundedContainer(
+                                      showBorder: true,
+                                      backgroundColor: TColors.white,
+                                      borderColor: TColors.greyDating,
+                                      radius: 12,
+                                      padding: EdgeInsets.all(1),
+                                      child: Stack(
+                                        children: [
+                                           mediaType == "video"
+                                                ? ClipRRect(
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  child: VideoPreviewGallery(
+                                                    file: file,
+                                                    url: null,
+                                                  ),
+                                                )
+                                             : CustomImageView(
+                                                file: file,
+                                                imagePath: null,
+                                                height: Get.height,
+                                                width: Get.width,
+                                                fit: BoxFit.cover,
+                                                radius: BorderRadius.circular(10),
+                                              ),
+                                          Positioned(
+                                            right: 0,
+                                            top: 0,
+                                            child: CustomImageView(
+                                              imagePath: ImageConstant.removeImage,
+                                              width: 30.adaptSize,
+                                              height: 30.adaptSize,
+                                              radius: BorderRadius.circular(30.adaptSize),
+                                              fit: BoxFit.cover,
+                                              onTap: controller.removeMedia,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  });
+
+                                },
+                              ),
+
+                              ///Select many files
+                              /*
+                              GridLayout(
                                 itemCount: controller.selectedMedia.length + 1, // +1 pour l'upload
                                 mainAxisExtent: isTablet ? 200.adaptSize : 150.adaptSize,
                                 crossAxisCount: 3,
@@ -190,6 +269,7 @@ class SupportScreen extends GetView<SupportController> {
                                   }
                                 },
                               )
+                              */
                             ]
                         )),
                       ))

@@ -85,9 +85,9 @@ class ProfileScreen extends StatelessWidget {
                                 imagePath: (PrefUtils.getImageProfile() != null && PrefUtils.getImageProfile()!.isNotEmpty)
                                     ? PrefUtils.getImageProfile()
                                     : ImageConstant.profile8,
-                                width: 50.adaptSize,
-                                height: 50.adaptSize,
-                                radius: BorderRadius.circular(70.adaptSize),
+                                width: 40.hw,
+                                height: 40.hw,
+                                radius: BorderRadius.circular(40.hw),
                               )
                             ],
                           )
@@ -141,6 +141,8 @@ class ProfileScreen extends StatelessWidget {
 
                   InkWell(
                     onTap: (){
+                      Get.toNamed(Routes.changePasswordScreen);
+                      /*
                       Get.toNamed(Routes.changePasswordScreen, arguments: {
                         "OTP" : (PrefUtils.getOTP() != null && PrefUtils.getOTP()!.isNotEmpty)
                             ? PrefUtils.getOTP()
@@ -149,6 +151,7 @@ class ProfileScreen extends StatelessWidget {
                             ? PrefUtils.getEmail()
                             : "admin@gmail.com",
                       });
+                       */
                     },
                     child: TRoundedContainer(
                       showBorder: false,
@@ -189,12 +192,11 @@ class ProfileScreen extends StatelessWidget {
 
                   InkWell(
                     onTap: () async {
-                      //Get.toNamed(Routes.subscribeScreen);
-                      final savedPlan = await PrefUtils.getSubscriptionPlan();
-                      if (savedPlan == null) {
-                        Get.toNamed(Routes.subscribeScreen);
-                      } else {
+                      final hasActiveSubscription = await controller.hasActiveSubscription();
+                      if (hasActiveSubscription) {
                         Get.toNamed(Routes.updateSubscribeScreen);
+                      } else {
+                        Get.toNamed(Routes.subscribeScreen);
                       }
                     },
                     child: TRoundedContainer(
@@ -209,9 +211,13 @@ class ProfileScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           IconButton(
-                            onPressed: (){
-                              Get.toNamed(Routes.subscribeScreen);
-                            },
+                            onPressed: () async{
+                              final hasActiveSubscription = await controller.hasActiveSubscription();
+                              if (hasActiveSubscription) {
+                                Get.toNamed(Routes.updateSubscribeScreen);
+                              } else {
+                                Get.toNamed(Routes.subscribeScreen);
+                              }                            },
                             icon: Icon(Icons.arrow_back_ios),
                             iconSize: 25.adaptSize,
                             color: TColors.buttonSecondary,

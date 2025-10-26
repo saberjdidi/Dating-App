@@ -12,9 +12,11 @@ import 'package:dating_app_bilhalal/widgets/app_bar/appbar_widget.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
 import 'package:dating_app_bilhalal/widgets/custom_drop_down.dart';
 import 'package:dating_app_bilhalal/widgets/custom_drop_down_country.dart';
+import 'package:dating_app_bilhalal/widgets/custom_drop_down_string.dart';
 import 'package:dating_app_bilhalal/widgets/custom_text_form_field.dart';
 import 'package:dating_app_bilhalal/widgets/form_divider_widget.dart';
 import 'package:dating_app_bilhalal/widgets/grid_layout.dart';
+import 'package:dating_app_bilhalal/widgets/hobbies_widget.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
 import 'package:dating_app_bilhalal/widgets/shader_mask_widget.dart';
 import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
@@ -282,15 +284,12 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                             ),
                             SizedBox(height: TSizes.spaceBtwItems.v),
 
-                            CustomDropDown(
-                              //textStyle: TextStyle(color: appTheme.black),
-                              hintText: "${'الحالة الاجتماعية'.tr} *",
-                              items: ListMaritalStatus.value,
-                              selectedValue: controller.selectedMaritalStatus.value,
-                              //onChanged: (val) => controller.selectedMaritalStatus.value = val,
+                            CustomDropDownString(
+                              hintText: 'marital_status'.tr,
+                              items: ListMaritalStatuss,
+                              selectedValue:controller.maritalStatusController.text,
                               onChanged: (value) async {
-                                controller.selectedMaritalStatus.value = value;
-                                controller.maritalStatusController.text = value.title;
+                                controller.maritalStatusController.text = value;
                                 debugPrint('marital status : ${controller.maritalStatusController.text}');
                               },
                               validator: (value) {
@@ -310,16 +309,13 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                             ),
                             SizedBox(height: TSizes.spaceBtwItems.v),
 
-                            CustomDropDown(
-                              //textStyle: TextStyle(color: appTheme.black),
-                              hintText: "${'نوع الزواج'.tr} *",
-                              items: ListLookingFor.value,
-                              selectedValue: controller.selectedLookingFor.value,
-                              //onChanged: (val) => controller.selectedLookingFor.value = val,
+                            CustomDropDownString(
+                              hintText: 'type_marriage'.tr,
+                              items: ListMarriageType,
+                              selectedValue: controller.lookingForController.text,
                               onChanged: (value) async {
-                                controller.selectedLookingFor.value = value;
-                                controller.lookingForController.text = value.title;
-                                debugPrint('looking for : ${controller.lookingForController.text}');
+                                controller.lookingForController.text = value;
+                                debugPrint('marriage type : ${controller.lookingForController.text}');
                               },
                               validator: (value) {
                                 if (value == null) {
@@ -371,10 +367,10 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: TSizes.spaceBtwItems.v),
 
+                           /* SizedBox(height: TSizes.spaceBtwItems.v),
                             CustomDropDownCountry(
-                              hintText: "${'الدولة'.tr} *",
+                              hintText: 'state'.tr,
                               items: PaysList.value,
                               selectedValue: controller.selectedPays.value,
                               //onChanged: (val) => controller.selectedPays.value = val,
@@ -383,13 +379,7 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                                 controller.paysController.text = value.name;
                                 debugPrint('pays : ${controller.paysController.text}');
                               },
-                              enabled: false,
-                              /* validator: (value) {
-                                if (value == null) {
-                                  return "الدولة إجباري";
-                                }
-                                return null;
-                              }, */
+                              enabled: true,
                               focusNode: controller.paysFocus,
                               icon: Icon(Iconsax.arrow_down_1),
                               borderRadius: 15.hw,
@@ -398,7 +388,7 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                               hintStyle: _appTheme =='light' ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
                               textStyle: _appTheme =='light' ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
                               themeColor:_appTheme =='light' ?  appTheme.gray50 : TColors.darkerGrey,
-                            ),
+                            ), */
 
                             SizedBox(height: TSizes.spaceBtwItems.v),
                             FormDividerWidget(dividerText: "لون البشرة", thikness: 1),
@@ -487,90 +477,9 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                               ),
                             ),
                             SizedBox(height: 10.v),
-                            Wrap(
-                              spacing: 5,
-                              runSpacing: 5,
-                              children: interestsList.map((interest) {
-                                final isSelected = controller.selectedInterests.contains(interest.name);
-                                final randomColor =
-                                controller.selectedInterestColors[interest.name]; // ✅ couleur mémorisée
-                                return InterestWidget(
-                                  text: interest.name!,
-                                  iconPath: interest.icon!,
-                                  isSelected: isSelected,
-                                  activeColor: true,
-                                  onTap: () => controller.toggleInterest(interest.name!, context),
-                                  verticalPadding: 13.v,
-                                  showRandomColor: isSelected, // ✅ afficher la couleur seulement si sélectionné
-                                  randomList: randomColor != null ? [randomColor] : THelperFunctions.randomColorList,
-                                );
-                              }).toList(),
-                            ),
+                            HobbiesWidget(),
 
                             SizedBox(height: TSizes.spaceBtwItems.v),
-
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: TSizes.spaceBtwItems.v),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SubTitleWidget(subtitle: "معرض", color: _appTheme =='light' ? TColors.gray700 : TColors.white),
-                                  CustomImageView(
-                                    imagePath: ImageConstant.uploadImageRounded,
-                                    color: _appTheme =='light' ? TColors.gray700 : TColors.white,
-                                    //height: 50.adaptSize,
-                                    //width: 50.adaptSize,
-                                    fit: BoxFit.fill,
-                                    onTap: () async {
-                                      await controller.pickMedia();
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: 10.v),
-                            GridLayout(
-                              itemCount: controller.selectedMedia.length, // +1 pour l'upload
-                              mainAxisExtent: isTablet ? 220.adaptSize : 180.adaptSize,
-                              crossAxisCount: 3,
-                              itemBuilder: (context, index) {
-                                final file = controller.selectedMedia[index]; // -1 car le 1er est upload
-                                return TRoundedContainer(
-                                  showBorder: true,
-                                  backgroundColor: TColors.white,
-                                  borderColor: TColors.greyDating,
-                                  radius: 12,
-                                  padding: EdgeInsets.all(1),
-                                  child: Stack(
-                                    children: [
-                                      // Utiliser CustomImageView au lieu de Image.file
-                                      CustomImageView(
-                                        file: file,
-                                        imagePath: null,
-                                        //imagePath: file.path, // très important: .path car File
-                                        height: Get.height,
-                                        width: Get.width,
-                                        fit: BoxFit.cover,
-                                        radius: BorderRadius.circular(10),
-                                      ),
-                                      Positioned(
-                                        right: 0,
-                                        child: CustomImageView(
-                                          imagePath: ImageConstant.removeImage,
-                                          width: 30.adaptSize,
-                                          height: 30.adaptSize,
-                                          radius: BorderRadius.circular(30.adaptSize),
-                                          fit: BoxFit.cover,
-                                          onTap: (){
-                                            controller.removeMedia(index);
-                                          },
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            ),
                           ],
                         ),
                       )),
@@ -581,18 +490,7 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                     left: TSizes.defaultSpace.hw,
                     right: TSizes.defaultSpace.hw),
                 //child: _buildButtonSection()
-                child: Obx(() => controller.isDataProcessing.value
-                    ? const SizedBox(
-                  height: 20,
-                  width: 20,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        strokeWidth: 3,
-                        color: TColors.primaryColorApp,
-                      ),
-                    ),
-                  )
-                    : CustomButtonContainer(
+                child: Obx(() => CustomButtonContainer(
                   text:"حفظ".tr,
                   color1: TColors.primaryColorApp,
                   color2: TColors.primaryColorApp,
@@ -601,9 +499,21 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                   fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
                   height: isSmallPhone ? 80.v : 70.v,
                   width: screenWidth * 0.7,
-                  onPressed: () async {
+                  onPressed:controller.isDataProcessing.value
+                      ? null // désactive le clic pendant chargement
+                      :  () async {
                     controller.saveBtn();
                   },
+                  child: controller.isDataProcessing.value
+                      ? const SizedBox(
+                    height: 28,
+                    width: 28,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 3,
+                      color: Colors.white,
+                    ),
+                  )
+                      : null,
                 ),
                 )
 

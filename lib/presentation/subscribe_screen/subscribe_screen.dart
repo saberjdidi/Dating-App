@@ -41,7 +41,7 @@ class SubscribeScreen extends GetView<SubscribeController> {
                //String? text = "Plan choisi : ${controller.selectedPlan.value!.title}\n${controller.selectedPlan.value!.details}";
                //final controller = SubscribeController.instance;
                return Column(
-                 crossAxisAlignment: CrossAxisAlignment.end,
+                 crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
                    SizedBox(height: TSizes.spaceBtwItems.v),
                    Directionality(
@@ -86,13 +86,13 @@ class SubscribeScreen extends GetView<SubscribeController> {
                                Column(
                                  crossAxisAlignment: CrossAxisAlignment.end,
                                  children: [
-                                   Text(plan.title!,
+                                   Text(plan.name??'',
                                        style: CustomTextStyles.headlineSmallBlack
                                    ),
-                                   SubTitleWidget(subtitle: plan.description!),
+                                   SubTitleWidget(subtitle: '${plan.currency ?? ''} ${plan.price?.toString() ?? ''}/${plan.billingCycle ?? ''}'),
                                    Directionality(
                                      textDirection: TextDirection.rtl,
-                                       child: Text(plan.details!, style: TextStyle(fontSize: 15.adaptSize, color: Colors.grey))
+                                       child: Text(plan.description??'', style: TextStyle(fontSize: 15.adaptSize, color: Colors.grey))
                                    ),
                                  ],
                                ),
@@ -104,7 +104,7 @@ class SubscribeScreen extends GetView<SubscribeController> {
                    ),
                    SizedBox(height: 20.v),
 
-                   if (controller.selectedPlan.value != null)
+                   if (controller.hasActiveSubscription)
                      Container(
                        width: Get.width,
                        alignment: Alignment.center,
@@ -114,7 +114,7 @@ class SubscribeScreen extends GetView<SubscribeController> {
                          borderRadius: BorderRadius.circular(12),
                        ),
                        child: Text(
-                         "الخطة المختارة : ${controller.selectedPlan.value!.title}\n${controller.selectedPlan.value!.description}",
+                         "الخطة المختارة : ${controller.selectedPlan.value!.name}\n${controller.selectedPlan.value!.currency ?? ''} ${controller.selectedPlan.value!.price?.toString() ?? ''}/${controller.selectedPlan.value!.billingCycle ?? ''}\n${controller.selectedPlan.value!.description ?? ''}",
                          style: TextStyle(fontSize: 16),
                        ),
                      ),
@@ -304,7 +304,6 @@ class SubscribeScreen extends GetView<SubscribeController> {
                       width: Get.width,
                       height: isSmallPhone ? 80.v : 70.v,
                       onPressed: () async {
-                       await controller.validatePlan();
                       },
                     ),
                   ),

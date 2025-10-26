@@ -6,7 +6,6 @@ import 'package:dating_app_bilhalal/widgets/custom_text_form_field.dart';
 import 'package:dating_app_bilhalal/widgets/swip_back_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'password_success_screen.dart';
 
 class ChangePasswordScreen extends GetView<ChangePasswordController> {
@@ -120,7 +119,7 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
                   onPressed: controller.isDataProcessing.value
                       ? null // désactive le clic pendant chargement
                       : () async {
-                          controller.resetPasswordFn(context);
+                          controller.changePasswordFn(context);
                         },
                   child: controller.isDataProcessing.value
                       ? const SizedBox(

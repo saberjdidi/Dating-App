@@ -306,11 +306,11 @@ class SearchDating {
                     ),
                   ),
                    */
-
+                /*
                   SizedBox(height: TSizes.spaceBtwItems.v),
-                 /* MultiSelectDropdown(
+                  MultiSelectDropdown(
                     hint: "حدد الهوايات",
-                    items: interestsList,
+                    items: interestsList.value,
                     controller: controller,
                     borderRadius: 15,
                     contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: isSmallPhone ? 8 : 12),
@@ -319,29 +319,22 @@ class SearchDating {
                     textStyle: isLight ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
                     themeColor:isLight ?  appTheme.gray50 : TColors.darkerGrey,
                   ),
-                  SizedBox(height: TSizes.spaceBtwItems.v), */
+                  SizedBox(height: TSizes.spaceBtwItems.v),
 
                   ///Method with Wrap
-                  /*  Wrap(
+                   Wrap(
                     spacing: 5,
                     runSpacing: 5,
                     children: controller.selectedInterests.map((interest) {
                       return InterestWidget(
-                        text: interest.name,
-                        iconPath: interest.icon,
+                        text: interest.name!,
+                        iconPath: interest.icon!,
                         isSelected: true,
                         activeColor: true,
                         onTap: () => controller.toggleInterest(interest, Get.context!),
                         verticalPadding: 10.v,
                         showRandomColor: true, // ✅ active les couleurs aléatoires
-                        randomList: [
-                          const Color(0xFFFFF9C4), // jaune clair
-                          const Color(0xFFE1BEE7), // violet clair
-                          const Color(0xFFB3E5FC), // bleu clair
-                          const Color(0xFFC8E6C9), // vert clair
-                          const Color(0xFFFFE0B2), // orange clair
-                          const Color(0xFFFFCDD2), // rose clair
-                        ],
+                        randomList: THelperFunctions.randomColorList,
                       );
                     }).toList(),
                   ), */

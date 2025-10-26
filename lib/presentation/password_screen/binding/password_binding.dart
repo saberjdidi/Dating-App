@@ -1,5 +1,6 @@
 import 'package:dating_app_bilhalal/presentation/password_screen/controller/change_password_controller.dart';
 import 'package:dating_app_bilhalal/presentation/password_screen/controller/forget_password_controller.dart';
+import 'package:dating_app_bilhalal/presentation/password_screen/controller/reset_password_controller.dart';
 import 'package:get/get.dart';
 
 /// A binding class for the SignInScreen.
@@ -11,5 +12,6 @@ class PasswordBinding extends Bindings {
   void dependencies() {
     Get.lazyPut(() => ForgetPasswordController());
     Get.lazyPut(() => ChangePasswordController());
+    Get.lazyPut(() => ResetPasswordController());
   }
 }

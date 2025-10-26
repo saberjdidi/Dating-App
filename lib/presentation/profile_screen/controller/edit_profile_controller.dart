@@ -6,6 +6,7 @@ import 'package:dating_app_bilhalal/core/utils/network_manager.dart';
 import 'package:dating_app_bilhalal/core/utils/permissions_helper.dart';
 import 'package:dating_app_bilhalal/data/datasources/dropdown_local_data_source.dart';
 import 'package:dating_app_bilhalal/data/models/country_model.dart';
+import 'package:dating_app_bilhalal/data/models/interest_model.dart';
 import 'package:dating_app_bilhalal/data/models/selection_popup_model.dart';
 import 'package:dating_app_bilhalal/data/models/user_model.dart';
 import 'package:dating_app_bilhalal/data/repositories/profile_repository.dart';
@@ -13,6 +14,7 @@ import 'package:dating_app_bilhalal/widgets/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import 'hobbie_controller.dart';
 import 'user_owner_profile_controller.dart';
 
 class EditProfileController extends GetxController {
@@ -30,10 +32,9 @@ class EditProfileController extends GetxController {
   TextEditingController lookingForController = TextEditingController();
   TextEditingController jobController = TextEditingController();
   TextEditingController paysController = TextEditingController();
+  RxString countryId = "".obs;
   // Dropdowns
   final selectedPays = Rxn<CountryModel>();
-  final selectedMaritalStatus = Rxn<SelectionPopupModel>();
-  final selectedLookingFor = Rxn<SelectionPopupModel>();
 
   //FocusNodes
   FocusNode fullNameFocus = FocusNode();
@@ -53,48 +54,6 @@ class EditProfileController extends GetxController {
     selectedColor.value = color;
     debugPrint('Couleur sélectionnée : $color');
   }
-
-  ///Interest Start
-  // Map pour mémoriser la couleur random de chaque intérêt sélectionné
-  final selectedInterestColors = <String, Color>{}.obs;
-
-  void toggleInterestWithColor(String interest, BuildContext context) {
-    if (selectedInterests.contains(interest)) {
-      selectedInterests.remove(interest);
-      selectedInterestColors.remove(interest); // 🔹 supprimer la couleur associée
-    } else {
-      if (selectedInterests.length >= 5) {
-        showMaxInterestDialog(context);
-        return;
-      }
-      selectedInterests.add(interest);
-      // 🔹 assigner une couleur aléatoire si non déjà attribuée
-      selectedInterestColors[interest] =
-      THelperFunctions.randomColorList[Random().nextInt(THelperFunctions.randomColorList.length)];
-    }
-
-    debugPrint('selectedInterests : $selectedInterests');
-  }
-
-
-  var selectedInterests = <String>[].obs;
-
-  toggleInterest(String interest, BuildContext context) {
-    if (selectedInterests.contains(interest)) {
-      selectedInterests.remove(interest);
-    } else {
-      if (selectedInterests.length >= 5) {
-        // Afficher le dialog si dépasse 5
-        showMaxInterestDialog(context);
-        return;
-      }
-      selectedInterests.add(interest);
-    }
-
-    debugPrint('interest : $selectedInterests');
-  }
-
-  ///Interest End
 
   ///Max Length TextFormField Start
   /// --- Observables pour le compteur
@@ -151,35 +110,31 @@ class EditProfileController extends GetxController {
       currentWeightValue.value = userInfo.weight != null ? userInfo.weight!.toDouble() : 0;
       selectedColor.value = userInfo.profile!.skinToneHex! ?? '';
 
-      final profile = userInfo.profile;
-      debugPrint("user Info : ${userInfo.profile?.socialState}");
-     // if (profile != null) {}
-        // --- Social State ---
-        final socialArabic = THelperFunctions.getSocialStateArabic(userInfo.profile?.socialState ?? '');
-        maritalStatusController.text = socialArabic;
-        debugPrint("socialArabic : ${socialArabic}");
+      maritalStatusController.text = userInfo.profile?.socialState ?? '';
+      lookingForController.text = userInfo.profile?.marriageType ?? '';
+      var country = (userInfo.profile?.country != null || userInfo.profile!.country!.isNotEmpty) ? userInfo.profile?.country : '';
+      paysController.text = country!;
+      countryId.value = (userInfo.profile!.idCountry! != null || userInfo.profile!.idCountry!.isNotEmpty) ? userInfo.profile!.idCountry! : '';
 
-        final socialItem = ListMaritalStatus.value.firstWhereOrNull((item) => item.title == userInfo.profile?.socialState);
-        //final socialItem = ListMaritalStatus.value.firstWhereOrNull((item) => item.title == socialArabic);
-        selectedMaritalStatus.value = socialItem;
+      debugPrint("user Info : ${userInfo.profile?.socialState}");
+      debugPrint("user country : ${paysController.text}");
+      debugPrint("user id country : ${countryId.value}");
+        // --- Social State ---
+       // final socialArabic = THelperFunctions.getSocialStateArabic(userInfo.profile?.socialState ?? '');
+       // maritalStatusController.text = socialArabic;
 
         // --- Marriage Type ---
-        final marriageArabic = THelperFunctions.getMarriageTypeArabic(userInfo.profile?.marriageType ?? '');
-        lookingForController.text = marriageArabic;
+       // final marriageArabic = THelperFunctions.getMarriageTypeArabic(userInfo.profile?.marriageType ?? '');
+       // lookingForController.text = marriageArabic;
 
-
-        final marriageItem = ListLookingFor.value.firstWhereOrNull((item) => item.title == userInfo.profile?.marriageType);
-        //final marriageItem = ListLookingFor.value.firstWhereOrNull((item) => item.title == marriageArabic);
-        selectedLookingFor.value = marriageItem;
-        debugPrint("marriageItem : ${marriageItem!.title}");
         // --- Country ---
-        final countryArabic = THelperFunctions.getCountryArabic(userInfo.profile?.country ?? '');
+       /* final countryArabic = THelperFunctions.getCountryArabic(userInfo.profile?.country ?? '');
         paysController.text = countryArabic;
 
         final countryItem = PaysList.value.firstWhereOrNull(
                 (item) => item.name == countryArabic);
         selectedPays.value = countryItem;
-        debugPrint("countryItem : ${countryItem!.name}");
+        debugPrint("countryItem : ${countryItem!.name}"); */
 
 
       // ✅ Charger les salaires min/max
@@ -218,24 +173,6 @@ class EditProfileController extends GetxController {
     paysFocus.dispose();
   }
 
-  /// Méthode pour afficher le dialog
-  void showMaxInterestDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (builder) => CustomDialog(
-        icon: Icons.close,
-        onCancel: () => Navigator.pop(context),
-        onTap: () {},
-        showSuccessButton: false,
-        //successText: "يقبل".tr,
-        title: "يمكنك إضافة 5 اهتمامات فقط".tr,
-        description: "أضف فقط 5 اهتمامات تتناسب بشكل أفضل مع شخصيتك.".tr,
-        descriptionTextStyle: CustomTextStyles.titleSmallGray400,
-        image: ImageConstant.imgWarning,
-      ),
-    );
-  }
 
   //Images
   final ImagePicker _picker = ImagePicker();
@@ -287,6 +224,13 @@ class EditProfileController extends GetxController {
 
 
   Future<void> saveBtn() async {
+    debugPrint('currentRangeValues start : ${currentRangeValues.value.start.round().toString()}');
+    debugPrint('currentRangeValues end : ${currentRangeValues.value.end.round().toString()}');
+    debugPrint('maritalStatusController : ${ THelperFunctions.getSocialStateEnum(maritalStatusController.text)}');
+    debugPrint('lookingForController : ${THelperFunctions.getMarriageTypeEnum(lookingForController.text)}');
+    debugPrint('currentHeightValue : ${int.parse(currentHeightValue.value.round().toString())}');
+    debugPrint('currentWeightValue : ${int.parse(currentWeightValue.value.round().toString())}');
+    debugPrint('country : ${paysController.text}');
     try {
       final isValid = formEditProfileKey.currentState!.validate();
       if (!isValid) {
@@ -317,9 +261,16 @@ class EditProfileController extends GetxController {
           jobTitle: jobController.text.trim(),
           salaryRangeMin: currentRangeValues.value.start.round().toString(),
           salaryRangeMax: currentRangeValues.value.end.round().toString(),
-          country: userInfo.profile!.country!,//THelperFunctions.getCountryEnum(paysController.text), //paysController.text.trim(),
+          country: countryId.value, //paysController.text, //THelperFunctions.getCountryEnum(paysController.text), //userInfo.profile!.country!
           skinColor: selectedColor.value, // ✅ couleur sélectionnée //"Tan"//selectedColor.value
         );
+
+      // 🔹 Actualiser le profil après modification
+      final userProfileCtrl = Get.find<UserOwnerProfileController>();
+       ///Update Hobbies
+      await HobbieController.instance.addHobbies();
+      userProfileCtrl.getMyHobbies();
+      // await addHobbies();
 
      /* final result2 = await profileRepository.updateProfile({
         "username": fullNameController.text.trim(),
@@ -334,27 +285,10 @@ class EditProfileController extends GetxController {
         "country": paysController.text.trim(),
         "skin_tone_hex": selectedColor
       }); */
-      /*
-          {
-              "username": "Saber Jdidi",
-              "height": 180,
-              "weight": 75,
-              "description": "Software engineer",
-              "social_state": "single",
-              "marriage_type": "marriage",
-              "job_title": "Backend Developer",
-              "salary_range_min": "3000",
-              "salary_range_max": "6000",
-              "country": "Egypt",
-              "skin_tone_hex": "olive"
-            }
-           */
 
       //FullScreenLoader.stopLoading();
 
       if (result.success) {
-        // 🔹 Actualiser le profil après modification
-        final userProfileCtrl = Get.find<UserOwnerProfileController>();
         await userProfileCtrl.getMyProfile();
 
         Get.back();

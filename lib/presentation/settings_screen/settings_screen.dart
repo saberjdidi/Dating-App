@@ -40,81 +40,88 @@ class SettingsScreen extends GetWidget<SettingsController> {
         body: Padding(
           padding: EdgeInsets.all(18.hw),
           child: SingleChildScrollView(
-            child: Obx(() => Directionality(
-              textDirection: TextDirection.rtl,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SubTitleWidget(
-                          subtitle: 'مكالمات الفيديو',
-                          color: _appTheme =='light' ? TColors.gray700 : TColors.white,
-                          fontWeightDelta: 2,
-                          fontSizeDelta: 1),
-                      Switch(
-                        value: controller.isCallVideo.value,
-                        onChanged: controller.toggleCallVideo,
-                       /* onChanged: (value){
+            child: Obx(() {
+              if (controller.isDataProcessing.value) {
+                return const Center(child: CircularProgressIndicator(color: TColors.primaryColorApp,));
+              }
+
+              return Directionality(
+                textDirection: TextDirection.rtl,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SubTitleWidget(
+                            subtitle: 'مكالمات الفيديو',
+                            color: _appTheme =='light' ? TColors.gray700 : TColors.white,
+                            fontWeightDelta: 2,
+                            fontSizeDelta: 1),
+                        Switch(
+                          value: controller.isCallVideo.value,
+                          onChanged: controller.toggleCallVideo,
+                          /* onChanged: (value){
                           controller.isCallVideo.value = value;
                           debugPrint("call video : ${controller.isCallVideo.value}");
                         }, */
-                        activeColor: TColors.primaryColorApp,
-                      )
-                    ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5.v),
-                    child: CustomDividerWidget(),
-                  ),
+                          activeColor: TColors.primaryColorApp,
+                        )
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 5.v),
+                      child: CustomDividerWidget(),
+                    ),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SubTitleWidget(
-                          subtitle: 'المكالمات الصوتية',
-                          color: _appTheme =='light' ? TColors.gray700 : TColors.white,
-                          fontWeightDelta: 2,
-                          fontSizeDelta: 1),
-                      Switch(
-                        value: controller.isCallVoice.value,
-                        onChanged: controller.toggleCallVoice,
-                       /* onChanged: (value){
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SubTitleWidget(
+                            subtitle: 'المكالمات الصوتية',
+                            color: _appTheme =='light' ? TColors.gray700 : TColors.white,
+                            fontWeightDelta: 2,
+                            fontSizeDelta: 1),
+                        Switch(
+                          value: controller.isCallAudio.value,
+                          onChanged: controller.toggleCallAudio,
+                          /* onChanged: (value){
                           controller.isCallVoice.value = value;
                           debugPrint("call voice : ${controller.isCallVoice.value}");
                         }, */
-                        activeColor: TColors.primaryColorApp,
-                      )
-                    ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5.v),
-                    child: CustomDividerWidget(),
-                  ),
+                          activeColor: TColors.primaryColorApp,
+                        )
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 5.v),
+                      child: CustomDividerWidget(),
+                    ),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SubTitleWidget(
-                          subtitle: 'حالة الاتصال بالإنترنت',
-                          color: _appTheme =='light' ? TColors.gray700 : TColors.white,
-                          fontWeightDelta: 2,
-                          fontSizeDelta: 1
-                      ),
-                      Switch(
-                        value: controller.isInternetConnection.value,
-                        onChanged: (value){
-                          controller.isInternetConnection.value = value;
-                          debugPrint("internet connection : ${controller.isInternetConnection.value}");
-                        },
-                        activeColor: TColors.primaryColorApp,
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            )),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SubTitleWidget(
+                            subtitle: 'حالة الاتصال بالإنترنت',
+                            color: _appTheme =='light' ? TColors.gray700 : TColors.white,
+                            fontWeightDelta: 2,
+                            fontSizeDelta: 1
+                        ),
+                        Switch(
+                          value: controller.isInternetOnline.value,
+                          onChanged: controller.toggleInternetOnline,
+                          /* onChanged: (value){
+                          controller.isInternetOnline.value = value;
+                          debugPrint("internet online : ${controller.isInternetOnline.value}");
+                        }, */
+                          activeColor: TColors.primaryColorApp,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            }),
           ),
         )
       ),

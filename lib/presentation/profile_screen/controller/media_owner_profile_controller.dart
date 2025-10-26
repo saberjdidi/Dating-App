@@ -53,7 +53,7 @@ class MediaOwnerProfileController extends GetxController {
         return;
       }
 
-      final result = await mediaRepository.getAllMedia();
+      final result = await mediaRepository.getMyAllMedia();
 
       if (result.success) {
         // On garde les fichiers locaux déjà ajoutés

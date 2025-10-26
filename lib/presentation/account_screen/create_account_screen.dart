@@ -787,7 +787,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             Wrap(
               spacing: 5,
               runSpacing: 5,
-              children: interestsList.map((interest) {
+              children: interestsList.value.map((interest) {
                 final isSelected = controller.selectedInterests.contains(interest.name);
                 final randomColor =
                 controller.selectedInterestColors[interest.name]; // ✅ couleur mémorisée

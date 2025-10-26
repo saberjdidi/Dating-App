@@ -2,6 +2,7 @@ import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/data/models/interest_model.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/controller/profile_details_controller.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/fullscreen_image_viewer.dart';
+import 'package:dating_app_bilhalal/presentation/profile_screen/fullscreen_media_viewer.dart';
 import 'package:dating_app_bilhalal/widgets/account/interest_widget.dart';
 import 'package:dating_app_bilhalal/widgets/chat/user_stats_widget.dart';
 import 'package:dating_app_bilhalal/widgets/circle_icon_button.dart';
@@ -11,6 +12,7 @@ import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
 import 'package:dating_app_bilhalal/widgets/subtitle_widget.dart';
 import 'package:dating_app_bilhalal/widgets/swip_back_wrapper.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
+import 'package:dating_app_bilhalal/widgets/video_preview_gallery.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:readmore/readmore.dart';
@@ -155,6 +157,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                  crossAxisAlignment: CrossAxisAlignment.start,
                  mainAxisSize: MainAxisSize.min,
                  children: [
+                   //Text(controller.userModel.id ?? '', style: TextStyle(color: _appTheme =='light' ? TColors.black : TColors.white),),
                    if(controller.userModel.username != null && controller.userModel.age != null)
                      SubTitleWidget(fontSizeDelta: 2, fontWeightDelta: 2,subtitle: '${controller.userModel.username}، ${controller.userModel.age} عاما',
                          color: _appTheme =='light' ? TColors.black : TColors.white),
@@ -171,10 +174,10 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                          fit: BoxFit.cover,
                        ),
                        SizedBox(width: 10.adaptSize),
-                       if((controller.userModel.description ?? '').isNotEmpty)
+                       if((controller.userModel.jobTitle ?? '').isNotEmpty)
                        Expanded(
                          child: Text(
-                           controller.userModel.description ?? '',
+                           controller.userModel.jobTitle ?? '',
                            textAlign: TextAlign.right,
                            maxLines: 4,
                            overflow: TextOverflow.ellipsis,
@@ -199,32 +202,32 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                          fit: BoxFit.cover,
                        ),
                        SizedBox(width: 10.adaptSize),
-                       Text(
-                         "المملكة العربية السعودية",
-                         textAlign: TextAlign.right,
-                         maxLines: 2,
-                         overflow: TextOverflow.ellipsis,
-                         style: TextStyle(
-                           color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
-                           fontSize: isTablet ? 16.adaptSize : 15.adaptSize,
+                       if((controller.userModel.profile!.country ?? '').isNotEmpty)
+                         Text(controller.userModel.profile!.country ?? '',
+                           textAlign: TextAlign.right,
+                           maxLines: 2,
+                           overflow: TextOverflow.ellipsis,
+                           style: TextStyle(
+                             color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
+                             fontSize: isTablet ? 16.adaptSize : 15.adaptSize,
+                           ),
                          ),
-                       ),
                      ],
                    ),
 
                    SizedBox(height: TSizes.spaceBtwItems.v),
                    UserStatsWidget(
-                     height: "172 cm",
-                     weight: "60 kg",
+                     height: (controller.userModel.height != null || controller.userModel.height! > 0) ? '${controller.userModel.height} ${'lbl_cm'.tr} '  : '',
+                     weight: (controller.userModel.weight != null || controller.userModel.weight! > 0) ? ' ${controller.userModel.weight} ${'lbl_kg'.tr} '  : '',
                      salary: "110K - 600K",
-                     skinColor: "olive",
+                     skinColor: controller.userModel.profile!.skinToneHex != null || controller.userModel.profile!.skinToneHex!.isNotEmpty ? controller.userModel.profile!.skinToneHex! : "#e0cda9",
                      iconSize: 30,
                    ),
 
                    SizedBox(height: 10.v),
                    SubTitleWidget(subtitle: "بایو:", color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 2, fontSizeDelta: 3,),
-                   ReadMoreText(
-                     "اسمي جيسيكا باركر، وأستمتع بلقاء أشخاص جدد وإيجاد طرق لمساعدتهم على خوض تجربة إيجابية. اسمي جيسيكا باركر، وأستمتع بلقاء أشخاص جدد وإيجاد طرق لمساعدتهم على خوض تجربة إيجابية.",
+                   if((controller.userModel.description ?? '').isNotEmpty)
+                   ReadMoreText(controller.userModel.description ?? '',
                      trimMode: TrimMode.Line,
                      trimLines: 3,
                      trimLength: 240,
@@ -265,28 +268,63 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                        );
                      }).toList(),
                    ),
-                   /*  GridView.count(
-                                  crossAxisCount: isTablet ? 3 : 2, // ✅ Deux colonnes fixes
-                                  mainAxisSpacing: 2,
-                                  crossAxisSpacing: 3,
-                                  shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(), // Empêche le scroll dans un Column
-                                  childAspectRatio: 2, // ✅ contrôle la largeur/hauteur
-                                  children: (controller.userModel.interests ?? []).map((interestName) {
-                                    return InterestWidget(
-                                      text: interestName,
-                                      iconPath: InterestModel.getIconByName(interestName),
-                                      isSelected: true,
-                                      activeColor: false,
-                                      onTap: () {},
-                                    );
-                                  }).toList()
-                              ), */
 
                    SizedBox(height: 20.v),
                    SubTitleWidget(subtitle: "معرض", color: _appTheme =='light' ? TColors.black : TColors.white, fontWeightDelta: 4, fontSizeDelta: 5,),
                    SizedBox(height: 5.v),
-                   GridLayout(
+
+                   ///Dynamic Gallery
+                   Obx(() {
+                         if (controller.isDataProcessing.value) {
+                          return const Center(child: CircularProgressIndicator(color: TColors.primaryColorApp,));
+                         }
+
+                         if (controller.mediaList.isEmpty) {
+                           return const Center(child: Text('لا توجد بيانات بعد'));
+                         }
+
+                         return GridLayout(
+                           itemCount: controller.mediaList.length, // +1 pour l'upload
+                           mainAxisExtent: isTablet ? 220.adaptSize : 180.adaptSize,
+                           crossAxisCount: 3,
+                           itemBuilder: (context, index) {
+                             final media = controller.mediaList[index];
+                             final isVideo = media.mediaType == 'video';
+                             return TRoundedContainer(
+                               showBorder: true,
+                               backgroundColor: TColors.white,
+                               borderColor: TColors.greyDating,
+                               radius: 12,
+                               padding: EdgeInsets.all(1),
+                               child: GestureDetector(
+                                 onTap:  (){
+                                   Get.to(() => FullScreenMediaViewer(
+                                     medias: controller.mediaList,
+                                     initialIndex: index,
+                                   ));
+                                 },
+                                 child: isVideo
+                                 ? ClipRRect(
+                                   borderRadius: BorderRadius.circular(10),
+                                   child: VideoPreviewGallery(
+                                     url: media.mediaUrl,
+                                   ),
+                                 )
+                                 :CustomImageView(
+                                   imagePath: media.mediaUrl,
+                                   height: Get.height,
+                                   width: Get.width,
+                                   fit: BoxFit.cover,
+                                   radius: BorderRadius.circular(10),
+                                 ),
+                               ),
+                             );
+                           },
+                         );
+                   }),
+
+                   ///Static Gallery
+                  /* GridLayout(
                      itemCount: controller.ListImages.value.length, // +1 pour l'upload
                      mainAxisExtent: isTablet ? 220.adaptSize : 180.adaptSize,
                      crossAxisCount: 3,
@@ -298,7 +336,8 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                          borderColor: TColors.greyDating,
                          radius: 12,
                          padding: EdgeInsets.all(1),
-                         child: CustomImageView(
+                         child:
+                         CustomImageView(
                            //file: file,
                            imagePath: image,
                            //imagePath: file.path, // très important: .path car File
@@ -315,7 +354,7 @@ class ProfileDetailsScreen extends GetView<ProfileDetailsController> {
                          ),
                        );
                      },
-                   ),
+                   ), */
 
                    SizedBox(height: TSizes.spaceBtwSections.v),
                    Row(

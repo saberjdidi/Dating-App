@@ -38,16 +38,12 @@ class UpdateSubscribeScreen extends GetView<SubscribeController> {
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.adaptSize),
             child: Obx(() {
-              final selectedPlan = controller.selectedPlan.value;
+              final currentPlan = controller.selectedPlan.value;
               final plans = controller.plans.value;
-
-              // Séparer le plan choisi et les autres
-              final currentPlan = plans.firstWhereOrNull((p) => p.title == selectedPlan?.title);
-              final otherPlans = plans.where((p) => p.title != selectedPlan?.title).toList();
 
               return SingleChildScrollView(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: TSizes.spaceBtwItems.v),
 
@@ -73,11 +69,11 @@ class UpdateSubscribeScreen extends GetView<SubscribeController> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  Text(currentPlan.title!, style: CustomTextStyles.headlineSmallBlack),
-                                  SubTitleWidget(subtitle: currentPlan.description!),
+                                  Text(currentPlan.name??'', style: CustomTextStyles.headlineSmallBlack),
+                                  SubTitleWidget(subtitle: '${currentPlan.currency ?? ''} ${currentPlan.price?.toString() ?? ''}/${currentPlan.billingCycle ?? ''}'),
                                   Directionality(
                                     textDirection: TextDirection.rtl,
-                                    child: Text(currentPlan.details ?? "",
+                                    child: Text(currentPlan.description ?? "",
                                         style: TextStyle(fontSize: 15.adaptSize, color: Colors.grey)),
                                   ),
                                 ],
@@ -91,7 +87,7 @@ class UpdateSubscribeScreen extends GetView<SubscribeController> {
                     SizedBox(height: TSizes.spaceBtwSections.v),
 
                     // Section autres plans
-                    if (otherPlans.isNotEmpty) ...[
+                    if (plans.isNotEmpty) ...[
                       TitleWidget(title: "خطط أخرى",
                           color:  _appTheme =='light' ? TColors.black : TColors.white,
                           textAlign: TextAlign.end),
@@ -99,13 +95,12 @@ class UpdateSubscribeScreen extends GetView<SubscribeController> {
                       ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
-                        itemCount: otherPlans.length,
+                        itemCount: plans.length,
                         itemBuilder: (context, index) {
-                          final plan = otherPlans[index];
+                          final plan = plans[index];
                           return GestureDetector(
                             onTap: () {
-                              controller.confirmChangePlan(context, controller.plans.value.indexWhere((p) => p.title == plan.title));
-                              //controller.confirmChangePlan(controller.plans.value.indexWhere((p) => p.title == plan.title));
+                              controller.confirmChangePlan(context, plans.indexOf(plan));
                             },
                             child: TRoundedContainer(
                               showBorder: true,
@@ -121,11 +116,11 @@ class UpdateSubscribeScreen extends GetView<SubscribeController> {
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
-                                      Text(plan.title!, style: CustomTextStyles.headlineSmallBlack),
-                                      SubTitleWidget(subtitle: plan.description!),
+                                      Text(plan.name??'', style: CustomTextStyles.headlineSmallBlack),
+                                      SubTitleWidget(subtitle: plan.description??''),
                                       Directionality(
                                         textDirection: TextDirection.rtl,
-                                        child: Text(plan.details ?? "",
+                                        child: Text(plan.description ?? "",
                                             style: TextStyle(fontSize: 15.adaptSize, color: Colors.grey)),
                                       ),
                                     ],

@@ -1,5 +1,6 @@
 import 'package:dating_app_bilhalal/core/utils/message_snackbar.dart';
 import 'package:dating_app_bilhalal/core/utils/network_manager.dart';
+import 'package:dating_app_bilhalal/core/utils/pref_utils.dart';
 import 'package:dating_app_bilhalal/data/repositories/auth_repository.dart';
 import 'package:dating_app_bilhalal/presentation/password_screen/password_success_screen.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +9,8 @@ import 'package:get/get.dart';
 class ChangePasswordController extends GetxController {
   static ChangePasswordController get instance => Get.find();
 
-  String OTP = Get.arguments['OTP'] ?? '';
-  String email = Get.arguments['Email'] ?? '';
+  //String OTP = Get.arguments['OTP'] ?? '';
+  //String email = Get.arguments['Email'] ?? '';
 
   final GlobalKey<FormState> formChangePasswordKey = GlobalKey<FormState>();
   RxBool isDataProcessing = false.obs;
@@ -33,14 +34,14 @@ class ChangePasswordController extends GetxController {
     confirmNewPasswordController.dispose();
   }
 
-  resetPasswordFn(BuildContext context) async {
+  changePasswordFn(BuildContext context) async {
     try {
    final isValid = formChangePasswordKey.currentState!.validate();
       if (!isValid) {
         return;
       }
    if (newPasswordController.text.trim() != confirmNewPasswordController.text.trim()) {
-     MessageSnackBar.errorToast(title: "Warning".tr, message: "Mot de passe ne correspondent pas");
+     MessageSnackBar.errorToast(title: "Warning".tr, message: "Password does not match");
      return;
    }
    formChangePasswordKey.currentState!.save();
@@ -55,7 +56,8 @@ class ChangePasswordController extends GetxController {
      return;
    }
 
-   final result = await authRepo.resetPassword(email: email, otp: OTP, newPassword: newPasswordController.text.trim());
+   final result = await authRepo.changePassword(currentPassword: PrefUtils.getPassword() ?? '', newPassword: newPasswordController.text.trim());
+   //final result = await authRepo.resetPassword(email: email, otp: OTP, newPassword: newPasswordController.text.trim());
    if (result.success) {
      MessageSnackBar.successSnackBar(title: 'تم التحقق بنجاح', message: result.message ?? '');
      isDataProcessing.value = false;
@@ -65,7 +67,7 @@ class ChangePasswordController extends GetxController {
      );
    } else {
      isDataProcessing.value = false;
-     MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? 'Erreur Change Password');
+     MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? 'Error Change Password');
    }
     }
     catch (exception) {

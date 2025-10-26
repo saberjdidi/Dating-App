@@ -300,25 +300,26 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                      ),
 
                      SizedBox(height: TSizes.spaceBtwSections.v),
-                     Wrap(
-                       spacing: 5,
-                       runSpacing: 5,
-                       children: controller.hobbiesList.map((interest) {
-                         return InterestWidget(
-                           text: THelperFunctions.getInterestArabic(interest.name!),
-                           //text: interest.name!,
-                           iconPath: InterestModel.getIconByName(THelperFunctions.getInterestArabic(interest.name!)),
-                           //iconPath: InterestModel.getIconByName(interest.name!),
-                           //iconPath: interest.icon!,
-                           isSelected: true,
-                           activeColor: true,
-                           verticalPadding: 13.v,
-                           showRandomColor: true, // ✅ afficher la couleur seulement si sélectionné
-                           randomList: THelperFunctions.randomColorList,
-                           onTap: () {  },
-                         );
-                       }).toList(),
-                     ),
+                     //if(controller.hobbiesList.isEmpty)
+                       Wrap(
+                         spacing: 5,
+                         runSpacing: 5,
+                         children: controller.hobbiesList.map((interest) {
+                           return InterestWidget(
+                             text: THelperFunctions.getInterestArabic(interest.name!),
+                             //text: interest.name!,
+                             iconPath: InterestModel.getIconByName(THelperFunctions.getInterestArabic(interest.name!)),
+                             //iconPath: InterestModel.getIconByName(interest.name!),
+                             //iconPath: interest.icon!,
+                             isSelected: true,
+                             activeColor: true,
+                             verticalPadding: 13.v,
+                             showRandomColor: true, // ✅ afficher la couleur seulement si sélectionné
+                             randomList: THelperFunctions.randomColorList,
+                             onTap: () {  },
+                           );
+                         }).toList(),
+                       ),
 
                      SizedBox(height: TSizes.spaceBtwSections.v),
                      Row(

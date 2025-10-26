@@ -36,9 +36,11 @@ class PassswordSuccessScreen extends StatelessWidget {
                 Center(
                   child: Directionality(
                     textDirection: TextDirection.rtl,
-                    child: SubTitleWidget(subtitle: "تم تحديث كلمة مرورك بنجاح. يمكنك الآن تسجيل الدخول بكلمة المرور الجديدة.",
+                    child: SubTitle2Widget(subtitle: "تم تحديث كلمة مرورك بنجاح. يمكنك الآن تسجيل الدخول بكلمة المرور الجديدة.",
                       color:  _appTheme =='light' ? TColors.gray700 : TColors.white,
-                      textAlign: TextAlign.center,),
+                      textAlign: TextAlign.center,
+                        maxLine: 2
+                    ),
                   ),
                 ),
                 SizedBox(height: TSizes.spaceBtwSections.fSize * 2),

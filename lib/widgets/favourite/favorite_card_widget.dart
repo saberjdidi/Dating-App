@@ -1,13 +1,11 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
-import 'package:dating_app_bilhalal/data/models/user_model.dart';
-import 'package:dating_app_bilhalal/widgets/circular_container.dart';
+import 'package:dating_app_bilhalal/data/models/like_user_model.dart';
 import 'package:dating_app_bilhalal/widgets/gradient/gradient_svg_icon.dart';
-import 'package:dating_app_bilhalal/widgets/home/favorite_icon.dart';
-import 'package:flutter/material.dart';
+import 'package:dating_app_bilhalal/widgets/favourite/favorite_icon.dart';
 import 'package:flutter/material.dart';
 
 class FavoriteCardWidget extends StatelessWidget {
-  final UserModel user;
+  final LikeUserModel? user;
   final VoidCallback onMessageTap;
   final VoidCallback onFavoriteTap;
 
@@ -41,7 +39,10 @@ class FavoriteCardWidget extends StatelessWidget {
             // background image (fills)
             Positioned.fill(
               child: CustomImageView(
-                imagePath: user.imageProfile,
+                imagePath: (user!.target!.mainProfile!.isNotEmpty ?? false)
+                    ? user!.target!.mainProfile
+                    : ImageConstant.imgOnBoarding1,
+                //imagePath: user!.mainProfile,
                 //height: 200.adaptSize,
                 //width: screenWidth,
                 fit: BoxFit.cover,
@@ -86,7 +87,7 @@ class FavoriteCardWidget extends StatelessWidget {
                       children: [
                         // fullname and age - single line, ellipsis if too long
                         Text(
-                          '${user.fullName}، ${user.age}',
+                          '${user!.target!.username}، ${user!.target!.age}',
                           textAlign: TextAlign.right,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -110,7 +111,7 @@ class FavoriteCardWidget extends StatelessWidget {
                               fit: BoxFit.cover,
                             ),
                             SizedBox(width: 5.adaptSize),
-                            Text(
+                           /* Text(
                               user.bio!,
                               textAlign: TextAlign.right,
                               maxLines: 2,
@@ -119,7 +120,7 @@ class FavoriteCardWidget extends StatelessWidget {
                                 color: Colors.white70,
                                 fontSize: 14.adaptSize,
                               ),
-                            ),
+                            ), */
                           ],
                         ),
                       ],
@@ -133,7 +134,8 @@ class FavoriteCardWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          FavoriteIcon(userId: "1"),
+                          FavoriteIcon(userId: user!.like!.likedUser ?? ''),
+                          //FavoriteIcon(userId: "1"),
                          /* GestureDetector(
                             onTap: onFavoriteTap,
                             child: GradientSvgIcon(

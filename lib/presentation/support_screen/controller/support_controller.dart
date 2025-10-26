@@ -67,7 +67,39 @@ class SupportController extends GetxController {
 
   ///Media Start
   final ImagePicker _picker = ImagePicker();
-  final RxList<File> selectedMedia = <File>[].obs;
+  final Rx<File?> selectedMedia = Rx<File?>(null);
+  final RxString mediaType = ''.obs; // "image" ou "video"
+
+  Future<void> pickMedia() async {
+    final hasPermission = await PermissionsHelper.requestMediaPermissions();
+    if (!hasPermission) {
+      Get.snackbar("Permission Denied", "You need to grant permissions to continue.");
+      return;
+    }
+
+    // Choix du média (image ou vidéo)
+    final XFile? pickedFile = await _picker.pickMedia();
+
+    if (pickedFile != null) {
+      selectedMedia.value = File(pickedFile.path);
+      final extension = pickedFile.path.split('.').last.toLowerCase();
+
+      if (['mp4', 'mov', 'avi'].contains(extension)) {
+        mediaType.value = "video";
+      } else {
+        mediaType.value = "image";
+      }
+    }
+  }
+
+  void removeMedia() {
+    selectedMedia.value = null;
+    mediaType.value = '';
+  }
+
+  ///Select many files
+  /*
+   final RxList<File> selectedMedia = <File>[].obs;
 
   Future<void> pickMedia() async {
     final hasPermission = await PermissionsHelper.requestMediaPermissions();
@@ -82,10 +114,10 @@ class SupportController extends GetxController {
       selectedMedia.addAll(files.map((f) => File(f.path)));
     }
   }
-
-  void removeMedia(int index) {
+   void removeMedia(int index) {
     selectedMedia.removeAt(index);
   }
+   */
   /// Media End
 
   savedFn() async {
@@ -107,8 +139,25 @@ class SupportController extends GetxController {
      return;
    }
 
+   //Add One media
+   final result = await mediaRepository
+       .addSupport(file: selectedMedia.value, subject: subjectController.text.trim(), message: messageController.text.trim());
+   if (result.success) {
+     subjectController.clear();
+     messageController.clear();
+     selectedMedia.value = null;
+     mediaType.value = '';
+     MessageSnackBar.successSnackBar(title: 'تم', message: result.message ?? 'تم إرسال رسالة الدعم بنجاح');
+     //isDataProcessing.value = false;
+     final attachment = result.data?['attachment_url'];
+     debugPrint("attachment : $attachment");
+   } else {
+     MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? '');
+     isDataProcessing.value = false;
+   }
+
    //Add many Media
-   for (int i = 0; i < selectedMedia.length; i++) {
+  /* for (int i = 0; i < selectedMedia.length; i++) {
      final file = selectedMedia[i];
      final result = await mediaRepository
          .addSupport(file: file, subject: subjectController.text.trim(), message: messageController.text.trim());
@@ -128,19 +177,6 @@ class SupportController extends GetxController {
        messageController.clear();
        selectedMedia.clear();
      }
-   }
-
-   //Add One media
-  /* final result = await mediaRepository
-       .addSupport(file: selectedMedia.first, subject: subjectController.text.trim(), message: messageController.text.trim());
-   if (result.success) {
-     MessageSnackBar.successSnackBar(title: 'تم', message: result.message ?? 'تم إرسال رسالة الدعم بنجاح');
-     //isDataProcessing.value = false;
-     final attachment = result.data?['attachment_url'];
-     debugPrint("attachment : $attachment");
-   } else {
-     MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? '');
-     isDataProcessing.value = false;
    } */
 
     }

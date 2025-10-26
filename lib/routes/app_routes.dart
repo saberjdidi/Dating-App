@@ -25,6 +25,7 @@ import 'package:dating_app_bilhalal/presentation/otp_screen/otp_screen.dart';
 import 'package:dating_app_bilhalal/presentation/password_screen/binding/password_binding.dart';
 import 'package:dating_app_bilhalal/presentation/password_screen/change_password_screen.dart';
 import 'package:dating_app_bilhalal/presentation/password_screen/forget_password_screen.dart';
+import 'package:dating_app_bilhalal/presentation/password_screen/reset_password_screen.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/binding/profile_binding.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/edit_profile_screen.dart';
 import 'package:dating_app_bilhalal/presentation/profile_screen/media_owner_profile_screen.dart';
@@ -222,6 +223,13 @@ class AppRoutes {
     GetPage(
       name: Routes.changePasswordScreen,
       page: () => ChangePasswordScreen(),
+      bindings: [
+        PasswordBinding(),
+      ],
+    ),
+    GetPage(
+      name: Routes.resetPasswordScreen,
+      page: () => ResetPasswordScreen(),
       bindings: [
         PasswordBinding(),
       ],

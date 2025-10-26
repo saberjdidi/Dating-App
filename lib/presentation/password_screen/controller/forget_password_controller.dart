@@ -48,11 +48,15 @@ class ForgetPasswordController extends GetxController {
 
       final result = await authRepo.forgetPassword(email: emailController.text.trim());
       if (result.success) {
+        var email = result.data?['email'];
+        var token = result.data?['token'];
+        await PrefUtils.setToken(token);
+        debugPrint('email : $email - token : $token');
         MessageSnackBar.successSnackBar(title: 'تم التحقق بنجاح', message: result.message ?? '');
         isDataProcessing.value = false;
         Get.toNamed(Routes.otpScreen, arguments: {
           "SourceOTP" : "FromForgetPassword",
-          "Email" : emailController.text.trim(),
+          "Email" : email,
         });
       } else {
         isDataProcessing.value = false;

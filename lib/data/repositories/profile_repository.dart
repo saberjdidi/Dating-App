@@ -63,8 +63,8 @@ class ProfileRepository {
       if (resp.statusCode == HttpStatusCode.ok || resp.statusCode == HttpStatusCode.created) {
         final map = resp.data as Map<String, dynamic>;
         final dataMap = map['data'] as Map<String, dynamic>?;
-        final authData = dataMap != null ? UserModel.fromJsonProfile(dataMap) : null;
-        return ApiResult(success: true, message: map['message'] as String?, data: authData);
+        //final authData = dataMap != null ? UserModel.fromJsonProfile(dataMap) : null;
+        return ApiResult(success: true, message: map['message'] as String?, data: dataMap);
       } else {
         // backend retourne 4xx avec message dans body
         final map = resp.data;
@@ -87,7 +87,7 @@ class ProfileRepository {
       if (resp.statusCode == HttpStatusCode.ok) {
         final map = resp.data as Map<String, dynamic>;
         final dataMap = map['data'] as Map<String, dynamic>?;
-        final authData = dataMap != null ? UserModel.fromJsonProfile(dataMap) : null;
+        final authData = dataMap != null ? UserModel.fromJson(dataMap) : null;
         return ApiResult(success: true, message: map['message'] as String?, data: authData);
       } else {
         // backend retourne 4xx avec message dans body
@@ -131,14 +131,14 @@ class ProfileRepository {
         "skin_tone_hex": skinColor
       };
 
-      debugPrint("body edi profile  : $body");
+      debugPrint("body edit profile  : $body");
 
       final resp = await _client.put('${ApiConstants.user}/profile', data: body);
 
       if (resp.statusCode == HttpStatusCode.ok) {
         final map = resp.data as Map<String, dynamic>;
         final dataMap = map['data'] as Map<String, dynamic>?;
-        final authData = dataMap != null ? UserModel.fromJsonProfile(dataMap) : null;
+        final authData = dataMap != null ? UserModel.fromJson(dataMap) : null;
         return ApiResult(success: true, message: map['message'] as String?, data: authData);
       } else {
         // backend retourne 4xx avec message dans body
@@ -175,16 +175,35 @@ class ProfileRepository {
     }
   }
 
-  Future<ApiResult<List<InterestModel>>> getMyHobbies({int page = 1, int pageSize = 30}) async {
+  Future<ApiResult<List<InterestModel>>> getMyHobbies() async {
     try {
-      final resp = await _client.get(
-        ApiConstants.hobbies,
-        queryParameters: {'page': page, 'pageSize': pageSize},
-      );
+      final resp = await _client.get('${ApiConstants.user}/hobbies');
 
       if (resp.statusCode == HttpStatusCode.ok) {
         final map = resp.data as Map<String, dynamic>;
-        final data = map['data']?['items'] as List<dynamic>? ?? [];
+        final data = map['data']['hobbies'] as List<dynamic>? ?? [];
+        final hobbies = data.map((e) => InterestModel.fromJson(e)).toList();
+
+        return ApiResult(success: true, data: hobbies, message: map['message']);
+      } else {
+        return ApiResult(success: false, message: resp.statusMessage);
+      }
+    } on DioException catch (e) {
+      final msg = HandleDioError.handleDioError(e);
+      return ApiResult(success: false, message: msg);
+    } catch (e) {
+      return ApiResult(success: false, message: e.toString());
+    }
+  }
+
+  Future<ApiResult<List<InterestModel>>> addHobbiesList(List<String?> hobbies) async {
+    try {
+      final body = {'hobbies': hobbies};
+      final resp = await _client.post('${ApiConstants.user}/hobbies', data: body);
+
+      if (resp.statusCode == HttpStatusCode.ok || resp.statusCode == HttpStatusCode.created) {
+        final map = resp.data as Map<String, dynamic>;
+        final data = map['data']['hobbies'] as List<dynamic>? ?? [];
         final hobbies = data.map((e) => InterestModel.fromJson(e)).toList();
 
         return ApiResult(success: true, data: hobbies, message: map['message']);

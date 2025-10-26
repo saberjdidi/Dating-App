@@ -128,6 +128,7 @@ class SignInController extends GetxController {
      await PrefUtils.setEmail(result.data!.user!.email!);
      await PrefUtils.setUsername(result.data!.user!.username!);
      await PrefUtils.setId(result.data!.user!.id!);
+     await PrefUtils.setPassword(passwordController.text.trim());
 
      //debugPrint('data login : ${result.data!.user!.email} - ${result.data!.user!.id} - ${result.data!.user!.username} - ${result.data?.token}');
 

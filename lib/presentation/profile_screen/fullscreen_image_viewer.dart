@@ -204,40 +204,31 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
                         Dialogs.buildDialogUsersLikes(context, 20,
                             [
                               UserModel(
-                                  imageProfile: ImageConstant.imgOnBoarding1,
-                                  fullName: 'نورا خالد',
+                                  mainProfile: ImageConstant.imgOnBoarding1,
+                                  username: 'نورا خالد',
                                   age: 25,
-                                  bio: 'نموذج احترافي',
-                                  isFavoris: true,
-                                  interests: ["التسوق", "فوتوغرافيا", "اليوغا"],
-                                  images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
+                                  description: 'نموذج احترافي',
+                                  //isFavoris: true,
+                                  //interests: ["التسوق", "فوتوغرافيا", "اليوغا"],
+                                  //images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
                               ),
                               UserModel(
-                                  imageProfile: ImageConstant.imgOnBoarding2,
-                                  fullName: 'نورا خالد',
+                                  mainProfile: ImageConstant.imgOnBoarding2,
+                                  username: 'نورا خالد',
                                   age: 32,
-                                  bio: 'مبرمج',
-                                  isFavoris: true,
-                                  interests: ["كاريوكي", "التنس", "اليوغا", "طبخ", "سباحة"],
-                                  images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
+                                  description: 'مبرمج',
+                                  //isFavoris: true,
+                                  //interests: ["كاريوكي", "التنس", "اليوغا", "طبخ", "سباحة"],
+                                  //images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
                               ),
                               UserModel(
-                                  imageProfile: ImageConstant.imgOnBoarding3,
-                                  fullName: 'ايلاف خالد',
+                                  mainProfile: ImageConstant.imgOnBoarding3,
+                                  username: 'ايلاف خالد',
                                   age: 29,
-                                  bio: 'شخص إعلامي',
-                                  isFavoris: false,
-                                  interests: ["ركض", "السفر", "قراءة", "طبخ", "سباحة"],
-                                  images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
-                              ),
-                              UserModel(
-                                  imageProfile: ImageConstant.imgOnBoarding4,
-                                  fullName: 'إسراء الجديدي',
-                                  age: 22,
-                                  bio: 'شخص إعلامي',
-                                  isFavoris: true,
-                                  interests: ["السفر", "قراءة", "طبخ", "سباحة"],
-                                  images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
+                                  description: 'شخص إعلامي',
+                                  //isFavoris: false,
+                                  //interests: ["ركض", "السفر", "قراءة", "طبخ", "سباحة"],
+                                  //images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
                               ),
                             ]);
                       },

@@ -97,48 +97,6 @@ class MainController extends GetxController with WidgetsBindingObserver {
     }
   }
 
-  ///Static users
-  void loadUsers() {
-    users.value = [
-      UserModel(
-          imageProfile: ImageConstant.imgOnBoarding1,
-          username: 'نورا خالد',
-          age: 25,
-          description: 'نموذج احترافي',
-          isFavoris: true,
-          interests: ["التسوق", "فوتوغرافيا", "اليوغا"],
-          images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
-      ),
-      UserModel(
-          imageProfile: ImageConstant.imgOnBoarding2,
-          username: 'نورا خالد',
-          age: 32,
-          description: 'مبرمج',
-          isFavoris: true,
-          interests: ["كاريوكي", "التنس", "اليوغا", "طبخ", "سباحة"],
-          images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
-      ),
-      UserModel(
-          imageProfile: ImageConstant.imgOnBoarding3,
-          username: 'ايلاف خالد',
-          age: 29,
-          description: 'شخص إعلامي',
-          isFavoris: false,
-          interests: ["ركض", "السفر", "قراءة", "طبخ", "سباحة"],
-          images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
-      ),
-      UserModel(
-          imageProfile: ImageConstant.imgOnBoarding4,
-          username: 'إسراء الجديدي',
-          age: 22,
-          description: 'شخص إعلامي',
-          isFavoris: true,
-          interests: ["السفر", "قراءة", "طبخ", "سباحة"],
-          images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
-      ),
-    ];
-  }
-
 
   Future<void> filterUsersByCountry() async {
     MessageSnackBar.successSnackBar(title: 'Country', message:  selectedCountries.first ?? '');

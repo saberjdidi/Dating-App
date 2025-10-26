@@ -3,10 +3,12 @@ import 'package:dating_app_bilhalal/presentation/favorite_screen/controller/favo
 import 'package:dating_app_bilhalal/presentation/profile_screen/fullscreen_image_viewer.dart';
 import 'package:dating_app_bilhalal/widgets/app_bar/appbar_widget.dart';
 import 'package:dating_app_bilhalal/widgets/custom_search_view.dart';
+import 'package:dating_app_bilhalal/widgets/favourite/user_like_me_list_view.dart';
 import 'package:dating_app_bilhalal/widgets/grid_layout.dart';
-import 'package:dating_app_bilhalal/widgets/home/favorite_list_view.dart';
+import 'package:dating_app_bilhalal/widgets/favourite/like_user_list_view.dart';
 import 'package:dating_app_bilhalal/widgets/home/tabbed_page_widget.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
+import 'package:dating_app_bilhalal/widgets/shimmer/card_swiper_shimmer.dart';
 import 'package:dating_app_bilhalal/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -15,7 +17,7 @@ class FavoriteScreen extends StatelessWidget {
   FavoriteScreen({super.key});
   final controller = Get.put(FavoriteController());
   final FocusNode _focusNode = FocusNode();
-  var _appTheme = PrefUtils.getTheme();
+  var isLight = PrefUtils.getTheme() == "light";
 
 
   @override
@@ -32,7 +34,7 @@ class FavoriteScreen extends StatelessWidget {
       child: Scaffold(
         appBar: TAppBar(
           title: TitleWidget(title: "المفضلات", fontWeightDelta: 3,
-              color: _appTheme =='light' ? TColors.buttonSecondary : TColors.white),
+              color:isLight ? TColors.buttonSecondary : TColors.white),
           showAction: false,
         ),
         body: Directionality(
@@ -67,7 +69,7 @@ class FavoriteScreen extends StatelessWidget {
                   ],
                   onTabChanged: controller.onTabChanged,
                   activeColor: TColors.primaryColorApp, //TColors.yellowAppDark,
-                  inactiveColor: _appTheme =='light' ? TColors.black : TColors.white,
+                  inactiveColor: isLight ? TColors.black : TColors.white,
                 ),
               ),
               SizedBox(height: 5.v),
@@ -75,28 +77,16 @@ class FavoriteScreen extends StatelessWidget {
               // Favorite Users
               if(controller.selectedTab.value == 0)
                 Expanded(
-                  child: FavoriteListView(
-                    items: controller.filteredFavorisUsers,
-                    onItemTap: (chat) {
-                      // Navigation vers le chat détaillé
-                      Get.toNamed(Routes.messageScreen, arguments: {
-                        "ChatDiscussion" : chat
-                      });
-                    },
-                  )
+                  child: LikeUserListView( 
+                    controller: controller,
+                  ),
                 ),
 
               if(controller.selectedTab.value == 1)
                 Expanded(
-                    child: FavoriteListView(
-                      items: controller.filteredFavorisUsers,
-                      onItemTap: (chat) {
-                        // Navigation vers le chat détaillé
-                        Get.toNamed(Routes.messageScreen, arguments: {
-                          "ChatDiscussion" : chat
-                        });
-                      },
-                    )
+                  child: UserLikeMeListView(
+                    controller: controller,
+                  ),
                 ),
 
               //Favorite Images & Videos

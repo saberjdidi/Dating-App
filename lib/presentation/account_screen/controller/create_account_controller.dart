@@ -66,15 +66,6 @@ class CreateAccountController extends GetxController {
   // Map pour mémoriser la couleur random de chaque intérêt sélectionné
   final selectedInterestColors = <String, Color>{}.obs;
 
-  /*final List<Color> randomColorList = const [
-    Color(0xFFF3E179), // jaune clair
-    Color(0xFFE1BEE7), // violet clair
-    Color(0xFF7AC5EC), // bleu clair
-    Color(0xFF7AE77F), // vert clair
-    Color(0xF9F3D19A), // orange clair
-    Color(0xFFF5BFC7), // rose clair
-  ]; */
-
   void toggleInterestWithColor(String interest, BuildContext context) {
     if (selectedInterests.contains(interest)) {
       selectedInterests.remove(interest);
@@ -298,7 +289,7 @@ class CreateAccountController extends GetxController {
         jobTitle: jobController.text.trim(),
         salaryRangeMin: currentRangeValues.value.start.round().toString(),
         salaryRangeMax: currentRangeValues.value.end.round().toString(),
-        country: THelperFunctions.getCountryEnum(paysController.text), //paysController.text.trim(),
+        country: paysController.text.trim(), //THelperFunctions.getCountryEnum(paysController.text),
         skinColor: selectedColor.value, // ✅ couleur sélectionnée //"Tan"//selectedColor.value
         hobbies: hobbiesInEnglish, // ✅ envoyé en anglais
       );

@@ -38,12 +38,45 @@ class CustomImageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return alignment != null
+
+    Widget imageWidget = _buildImageView();
+
+    // 🔁 Clip image if radius is set
+    if (radius != null) {
+      imageWidget = ClipRRect(
+        borderRadius: radius!,
+        child: imageWidget,
+      );
+    }
+
+    // 🔲 Add border if provided
+    if (border != null) {
+      imageWidget = Container(
+        decoration: BoxDecoration(
+          border: border,
+          borderRadius: radius,
+        ),
+        child: imageWidget,
+      );
+    }
+
+    // 🖱️ Add clickable padding
+    return Padding(
+      padding: margin ?? EdgeInsets.zero,
+      child: InkWell(
+        onTap: onTap,
+        child: alignment != null
+            ? Align(alignment: alignment!, child: imageWidget)
+            : imageWidget,
+      ),
+    );
+
+   /* return alignment != null
         ? Align(
             alignment: alignment!,
             child: _buildWidget(),
           )
-        : _buildWidget();
+        : _buildWidget(); */
   }
 
   Widget _buildWidget() {
@@ -111,7 +144,7 @@ class CustomImageView extends StatelessWidget {
           return CachedNetworkImage(
             height: height,
             width: width,
-            fit: fit,
+            fit: fit ?? BoxFit.cover,
             imageUrl: imagePath!,
             color: color,
             placeholder: (context, url) => Container(
@@ -151,7 +184,15 @@ class CustomImageView extends StatelessWidget {
         color: color,
       );
     }
-    return SizedBox();
+
+    // Fallback
+    return Image.asset(
+      placeHolder,
+      height: height,
+      width: width,
+      fit: fit ?? BoxFit.cover,
+    );
+    //return SizedBox();
   }
 }
 

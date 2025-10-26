@@ -2,29 +2,276 @@ import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/network_manager.dart';
 import 'package:dating_app_bilhalal/core/utils/popups/full_screen_loader.dart';
 import 'package:dating_app_bilhalal/data/models/favorite_model.dart';
+import 'package:dating_app_bilhalal/data/models/like_user_model.dart';
 import 'package:dating_app_bilhalal/data/models/user_model.dart';
 import 'package:dating_app_bilhalal/data/repositories/favorite_repository.dart';
+import 'package:dating_app_bilhalal/data/repositories/like_repository.dart';
 import 'package:flutter/material.dart';
 
 class FavoriteController extends GetxController {
   static FavoriteController get instance => Get.find();
 
   final favoriteRepository = FavoriteRepository();
+  final likeRepository = LikeRepository();
+
   RxList<FavoriteModel> favoritesMediaList = <FavoriteModel>[].obs;
+  RxList<LikeUserModel> likesUsersList = <LikeUserModel>[].obs;
+  RxList<LikeUserModel> usersLikeMeList = <LikeUserModel>[].obs;
   RxBool isDataProcessing = false.obs;
+  var isDataProcessingFavouritesLikeMe = false.obs;
+  var isDataProcessingFavouritesLikeUser = false.obs;
+  void onTabChanged(int index) {
+    selectedTab.value = index;
+  }
 
   var searchText = "".obs;
   final TextEditingController searchController = TextEditingController();
   var selectedTab = 0.obs;
   var favorisUsers = <UserModel>[].obs;
 
+  /*
   @override
   void onInit() {
+    getLikesUsers();
+    getUsersLikeMe();
     getMediaFavorites();
-    loadFavorisUsers();
+  }
+  */
+
+  @override
+  void onReady() {
+    super.onReady();
+    getLikesUsers();
+    getUsersLikeMe();
+    getMediaFavorites();
   }
 
-  /// Méthode pour récupérer les interets
+  void refreshData() {
+    getLikesUsers();
+    getUsersLikeMe();
+    getMediaFavorites();
+  }
+
+  @override
+  void onResume() {
+    refreshData();
+  }
+
+  ///Likes Users Start
+  final favorites = <String, bool>{}.obs;
+  /// ✅ Chargement du statut initial du user (favori ou pas)
+  Future<void> loadFavoriteStatus(String userId) async {
+    if (favorites.containsKey(userId)) return; // déjà chargé une fois
+
+    try {
+      isDataProcessing.value = true;
+
+      final isConnected = await NetworkManager.instance.isConnected();
+      if (!isConnected) {
+        isDataProcessing.value = false;
+        MessageSnackBar.customToast(message: 'No Internet connexion');
+        favorites[userId] = false;
+      }
+      final result = await likeRepository.getStatusLikeUser(userId);
+      if (result.success) {
+        bool isLiked = result.data?['liked'] ?? false;
+        favorites[userId] = isLiked;
+      } else {
+        favorites[userId] = false;
+      }
+    } catch (e) {
+      favorites[userId] = false;
+      debugPrint("Error loadFavoriteStatus : $e");
+    }
+  }
+
+  bool isFavourite(String userId) => favorites[userId] ?? false;
+
+  /// ✅ Basculer le statut favori d’un user
+  Future<void> toggleFavorite(String userId) async {
+    bool current = favorites[userId] ?? false;
+    //favorites[userId] = !current; // changement visuel immédiat
+
+    try {
+      if (!current) {
+        // Ajouter aux favoris
+        final result = await addUserToFavorite(userId);
+       if (result) {
+         favorites[userId] = true;
+         favorites.refresh();
+       }
+        //final result = await likeRepository.addUserToFavorite(userId);
+        //if (!result.success) throw result.message ?? "Erreur ajout favori";
+      } else {
+        // Retirer des favoris
+        final result = await deleteUserFromFavorite(userId);
+        if (result) {
+          favorites[userId] = false;
+          favorites.refresh();
+        }
+        //final result = await likeRepository.deleteUserFromFavorite(userId);
+        //if (!result.success) throw result.message ?? "Erreur suppression favori";
+      }
+    } catch (e) {
+      // rollback visuel si erreur
+      //favorites[userId] = current;
+      MessageSnackBar.errorSnackBar(title: "Erreur", message: e.toString());
+    } finally {
+      //favorites.refresh();
+    }
+  }
+
+  Future<bool> addUserToFavorite(String userId) async {
+    try {
+      isDataProcessing.value = true;
+
+      final isConnected = await NetworkManager.instance.isConnected();
+      if (!isConnected) {
+        isDataProcessing.value = false;
+        MessageSnackBar.customToast(message: 'No Internet connexion');
+        return false;
+      }
+
+      final result = await likeRepository.addUserToFavorite(userId);
+
+      if (result.success) {
+        MessageSnackBar.successSnackBar(title: 'تم', message: result.message ?? '');
+        var currentUserId = result.data?['user_id'];
+        var likedUserId = result.data?['liked_user'];
+        var likedAt = result.data?['liked_at'];
+        debugPrint('currentUserId : $currentUserId - likedUserId : $likedUserId - likedAt : $likedAt');
+        return true;
+      } else {
+        MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? '');
+        return false;
+      }
+    } catch (e) {
+      MessageSnackBar.errorSnackBar(title: 'خطأ', message: e.toString());
+      return false;
+    }
+  }
+
+  Future<bool> deleteUserFromFavorite(String userId) async {
+    try {
+      isDataProcessing.value = true;
+
+      final isConnected = await NetworkManager.instance.isConnected();
+      if (!isConnected) {
+        isDataProcessing.value = false;
+        MessageSnackBar.customToast(message: 'No Internet connexion');
+        return false;
+      }
+
+      final result = await likeRepository.deleteUserFromFavorite(userId);
+
+      if (result.success) {
+        MessageSnackBar.successSnackBar(title: 'تم', message: result.message ?? '');
+        var currentUserId = result.data?['user_id'];
+        var likedUserId = result.data?['liked_user'];
+        var likedAt = result.data?['liked_at'];
+        debugPrint('currentUserId : $currentUserId - likedUserId : $likedUserId - likedAt : $likedAt');
+        return true;
+      } else {
+        MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? '');
+        return false;
+      }
+    } catch (e) {
+      MessageSnackBar.errorSnackBar(title: 'خطأ', message: e.toString());
+      return false;
+    }
+  }
+
+  Future<void> getLikesUsers() async {
+    try {
+      isDataProcessingFavouritesLikeUser.value = true;
+
+      final isConnected = await NetworkManager.instance.isConnected();
+      if (!isConnected) {
+        isDataProcessingFavouritesLikeUser.value = false;
+        MessageSnackBar.customToast(message: 'No Internet connexion');
+        return;
+      }
+
+      final result = await likeRepository.getLikesUsers();
+
+      if (result.success) {
+        isDataProcessingFavouritesLikeUser.value = false;
+        likesUsersList.assignAll(result.data ?? []);
+        debugPrint('✅ ${likesUsersList.length} likes users chargés');
+      } else {
+        isDataProcessingFavouritesLikeUser.value = false;
+        MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? '');
+      }
+    } catch (e) {
+      isDataProcessingFavouritesLikeUser.value = false;
+      MessageSnackBar.errorSnackBar(title: 'خطأ', message: e.toString());
+    } finally {
+      isDataProcessingFavouritesLikeUser.value = false;
+    }
+  }
+
+  Future<void> getUsersLikeMe() async {
+    try {
+      isDataProcessingFavouritesLikeMe.value = true;
+
+      final isConnected = await NetworkManager.instance.isConnected();
+      if (!isConnected) {
+        isDataProcessingFavouritesLikeMe.value = false;
+        MessageSnackBar.customToast(message: 'No Internet connexion');
+        return;
+      }
+
+      final result = await likeRepository.getUsersLikeMe();
+
+      if (result.success) {
+        isDataProcessingFavouritesLikeMe.value = false;
+        usersLikeMeList.assignAll(result.data ?? []);
+        debugPrint('✅ ${usersLikeMeList.length} users likes me chargés');
+      } else {
+        isDataProcessingFavouritesLikeMe.value = false;
+        MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? '');
+      }
+    } catch (e) {
+      isDataProcessingFavouritesLikeMe.value = false;
+      MessageSnackBar.errorSnackBar(title: 'خطأ', message: e.toString());
+    } finally {
+      isDataProcessingFavouritesLikeMe.value = false;
+    }
+  }
+
+  /*
+   Future<bool> getStatusLikeUser(String userId) async {
+    try {
+      isDataProcessing.value = true;
+
+      final isConnected = await NetworkManager.instance.isConnected();
+      if (!isConnected) {
+        isDataProcessing.value = false;
+        MessageSnackBar.customToast(message: 'No Internet connexion');
+        return false;
+      }
+
+      final result = await likeRepository.getStatusLikeUser(userId);
+
+      if (result.success) {
+        var liked = result.data?['liked'];
+       bool isLikeUser = liked != null ? liked : false;
+        debugPrint('liked user : $liked');
+        return isLikeUser;
+      } else {
+        MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? '');
+        return false;
+      }
+    } catch (e) {
+      MessageSnackBar.errorSnackBar(title: 'خطأ', message: e.toString());
+      return false;
+    } finally {
+      isDataProcessing.value = false;
+    }
+  }
+   */
+  ///Like User End
+
   Future<void> getMediaFavorites() async {
     try {
       isDataProcessing.value = true;
@@ -32,7 +279,7 @@ class FavoriteController extends GetxController {
       final isConnected = await NetworkManager.instance.isConnected();
       if (!isConnected) {
         isDataProcessing.value = false;
-        MessageSnackBar.customToast(message: 'Pas de connexion Internet');
+        MessageSnackBar.customToast(message: 'No Internet connexion');
         return;
       }
 
@@ -51,45 +298,10 @@ class FavoriteController extends GetxController {
     }
   }
 
-  Future<List<UserModel>> loadFavorisUsers() async {
-    var listUsers = [
-      UserModel(
-          imageProfile: ImageConstant.imgOnBoarding1,
-          fullName: 'نورا خالد',
-          age: 25,
-          bio: 'نموذج احترافي',
-          isFavoris: true,
-          interests: ["التسوق", "فوتوغرافيا", "اليوغا"],
-          images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
-      ),
-      UserModel(
-          imageProfile: ImageConstant.imgOnBoarding2,
-          fullName: 'نورا خالد',
-          age: 32,
-          bio: 'مبرمج',
-          isFavoris: true,
-          interests: ["كاريوكي", "التنس", "اليوغا", "طبخ", "سباحة"],
-          images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
-      ),
-      UserModel(
-          imageProfile: ImageConstant.imgOnBoarding3,
-          fullName: 'ايلاف خالد',
-          age: 29,
-          bio: 'شخص إعلامي',
-          isFavoris: true,
-          interests: ["ركض", "السفر", "قراءة", "طبخ", "سباحة"],
-          images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
-      ),
-    ];
-
-
-    return favorisUsers.value = listUsers.where((element) => element.isFavoris == true).toList();
-  }
-
-  List<UserModel> get filteredFavorisUsers {
-    var list = favorisUsers.where((chat) {
+  List<LikeUserModel> get filteredFavorisUsers {
+    var list = likesUsersList.where((item) {
       if (searchText.isNotEmpty &&
-          !chat.fullName!.toLowerCase().contains(searchText.value.toLowerCase())
+          !item.target!.username!.toLowerCase().contains(searchText.value.toLowerCase())
          ) {
           return false;
          }
@@ -102,10 +314,6 @@ class FavoriteController extends GetxController {
     searchText.value = value;
   }
 
-  void onTabChanged(int index) {
-    selectedTab.value = index;
-  }
-
   Rx<List<String>> ListImages = Rx(
       [
         ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7
@@ -113,21 +321,21 @@ class FavoriteController extends GetxController {
   );
 
   ///Favorite icon start
-  final favorites = <String, bool>{}.obs;
+  final favoritess = <String, bool>{}.obs;
 
-  bool isFavourite(String userId){
-    return favorites[userId] ?? false;
+  bool isFavorite(String userId){
+    return favoritess[userId] ?? false;
   }
 
   void toggleFavoriteProperty(String userId) {
-    if(!favorites.containsKey(userId)){
-      favorites[userId] = true;
+    if(!favoritess.containsKey(userId)){
+      favoritess[userId] = true;
       saveFavorisProperty(userId);
     }
     else {
-      favorites.remove(userId);
+      favoritess.remove(userId);
       saveFavorisProperty(userId);
-      favorites.refresh();
+      favoritess.refresh();
     }
   }
 

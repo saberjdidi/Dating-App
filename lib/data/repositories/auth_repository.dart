@@ -84,6 +84,30 @@ class AuthRepository {
     }
   }
 
+  /// ✅ Verify Reset OTP
+  Future<ApiResult<void>> verifyResetOtp({
+    required String email,
+    required String otp
+  }) async {
+    try {
+      final body = {'email': email,'otp': otp};
+      final resp = await _client.post(ApiConstants.verifyResetOtp, data: body);
+
+      if (resp.statusCode == HttpStatusCode.ok || resp.statusCode == HttpStatusCode.created) {
+        final map = resp.data as Map<String, dynamic>;
+        return ApiResult(success: map['success'] ?? false, message: map['message']?.toString());
+      } else {
+        final map = resp.data;
+        final msg = (map is Map && map['message'] != null) ? map['message'] : 'Erreur OTP';
+        return ApiResult(success: false, message: msg.toString());
+      }
+    } on DioException catch (e) {
+      return ApiResult(success: false, message: HandleDioError.handleDioError(e));
+    } catch (e) {
+      return ApiResult(success: false, message: e.toString());
+    }
+  }
+
   /// ✅ Resend OTP
   Future<ApiResult<void>> resendOtp({required String email}) async {
     try {
@@ -106,10 +130,39 @@ class AuthRepository {
   }
 
   /// ✅ Forget Password
-  Future<ApiResult<void>> forgetPassword({required String email}) async {
+  Future<ApiResult<Map<String, dynamic>>> forgetPassword({required String email}) async {
     try {
       final body = {'email': email};
       final resp = await _client.post(ApiConstants.authForgetPassword, data: body);
+
+      if (resp.statusCode == HttpStatusCode.ok || resp.statusCode == HttpStatusCode.created) {
+        final map = resp.data as Map<String, dynamic>;
+        return ApiResult(success: true, message: map['message'] as String?, data: map['data'] as Map<String, dynamic>?);
+      } else {
+        final map = resp.data;
+        final msg = (map is Map && map['message'] != null) ? map['message'] : 'Erreur Password';
+        return ApiResult(success: false, message: msg.toString());
+      }
+    } on DioException catch (e) {
+      return ApiResult(success: false, message: HandleDioError.handleDioError(e));
+    } catch (e) {
+      return ApiResult(success: false, message: e.toString());
+    }
+  }
+
+  /// ✅ Reset Password
+  Future<ApiResult<void>> resetPassword({required String newPassword, required String confirmPassword}) async {
+    try {
+      final body = {
+        "newPassword": newPassword,
+        "confirmPassword": confirmPassword
+      };
+     /* final body = {
+        "email": email,
+        "otp": otp,
+        "newPassword": newPassword
+      }; */
+      final resp = await _client.post(ApiConstants.authResetPassword, data: body);
 
       if (resp.statusCode == HttpStatusCode.ok || resp.statusCode == HttpStatusCode.created) {
         final map = resp.data as Map<String, dynamic>;
@@ -126,22 +179,22 @@ class AuthRepository {
     }
   }
 
-  /// ✅ Reset Password
-  Future<ApiResult<void>> resetPassword({required String email, required String otp, required String newPassword}) async {
+  /// ✅ Change Password
+  Future<ApiResult<void>> changePassword({required String currentPassword, required String newPassword}) async {
     try {
       final body = {
-        "email": email,
-        "otp": otp,
+        "currentPassword": currentPassword,
         "newPassword": newPassword
       };
-      final resp = await _client.post(ApiConstants.authResetPassword, data: body);
+      final resp = await _client.put(ApiConstants.changePassword, data: body);
 
       if (resp.statusCode == HttpStatusCode.ok || resp.statusCode == HttpStatusCode.created) {
         final map = resp.data as Map<String, dynamic>;
-        return ApiResult(success: map['success'] ?? false, message: map['message']?.toString());
+        final dataMap = map['data'] as Map<String, dynamic>?;
+        return ApiResult(success: map['success'] ?? false, message: map['message']?.toString(), data: dataMap);
       } else {
         final map = resp.data;
-        final msg = (map is Map && map['message'] != null) ? map['message'] : 'Erreur Password';
+        final msg = (map is Map && map['message'] != null) ? map['message'] : 'Error Change Password';
         return ApiResult(success: false, message: msg.toString());
       }
     } on DioException catch (e) {

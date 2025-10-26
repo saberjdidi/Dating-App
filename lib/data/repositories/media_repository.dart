@@ -110,7 +110,7 @@ class MediaRepository {
     }
   }
 
-  Future<ApiResult<List<MediaModel>>> getAllMedia({int page = 1, int pageSize = 20}) async {
+  Future<ApiResult<List<MediaModel>>> getMyAllMedia({int page = 1, int pageSize = 20}) async {
     try {
       final resp = await _client.get(
         ApiConstants.media,
@@ -120,6 +120,30 @@ class MediaRepository {
       if (resp.statusCode == HttpStatusCode.ok) {
         final map = resp.data as Map<String, dynamic>;
         final data = map['data']?['items'] as List<dynamic>? ?? [];
+        final medias = data.map((e) => MediaModel.fromJson(e)).toList();
+
+        return ApiResult(success: true, data: medias, message: map['message']);
+      } else {
+        return ApiResult(success: false, message: resp.statusMessage);
+      }
+    } on DioException catch (e) {
+      final msg = HandleDioError.handleDioError(e);
+      return ApiResult(success: false, message: msg);
+    } catch (e) {
+      return ApiResult(success: false, message: e.toString());
+    }
+  }
+
+  Future<ApiResult<List<MediaModel>>> getAllMediaByUserId({int page = 1, int pageSize = 20, required String userId}) async {
+    try {
+      final resp = await _client.get(
+        '${ApiConstants.media}/user/$userId',
+        queryParameters: {'page': page, 'pageSize': pageSize},
+      );
+
+      if (resp.statusCode == HttpStatusCode.ok) {
+        final map = resp.data as Map<String, dynamic>;
+        final data = map['data']['items'] as List<dynamic>? ?? [];
         final medias = data.map((e) => MediaModel.fromJson(e)).toList();
 
         return ApiResult(success: true, data: medias, message: map['message']);

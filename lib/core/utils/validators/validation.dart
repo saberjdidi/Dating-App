@@ -83,6 +83,18 @@ class Validator {
     return null;
   }
 
+  static String? validateSignInPassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'كلمة المرور إجباري';
+      //return 'Password ${"lbl_is_required".tr}';
+    }
+    // Check for minimum password length
+    if (value.length < 8) {
+      return "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل.";
+    }
+    return null;
+  }
+
   static String? validatePhoneNumber(String? value) {
     if (value == null || value.isEmpty) {
       return '${'lbl_phone_number'.tr} ${"lbl_is_required"}.';

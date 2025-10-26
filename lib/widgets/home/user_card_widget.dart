@@ -2,7 +2,7 @@ import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/data/models/user_model.dart';
 import 'package:dating_app_bilhalal/widgets/circular_container.dart';
 import 'package:dating_app_bilhalal/widgets/gradient/gradient_svg_icon.dart';
-import 'package:dating_app_bilhalal/widgets/home/favorite_icon.dart';
+import 'package:dating_app_bilhalal/widgets/favourite/favorite_icon.dart';
 import 'package:dating_app_bilhalal/widgets/rounded_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
@@ -38,20 +38,28 @@ class UserCardWidget extends StatelessWidget {
       child: Stack(
         children: [
           // background image (fills)
-          Positioned.fill(
-            child: CustomImageView(
-              imagePath: (user.mainProfile == "" || user.mainProfile!.isEmpty || user.mainProfile == null) ? ImageConstant.imgOnBoarding1 : user.mainProfile,
-              //height: screenHeight,
-              //width: screenWidth,
-              fit: BoxFit.cover,
-              onTap: (){
-                //Navigator.of(context).push(MaterialPageRoute(builder: (context) => AnnonceDetailsScreen(model: model)));
-                Get.toNamed(Routes.profileDetailsScreen, arguments: {
-                  "UserModel" : user
-                });
-              },
+          if(user.mainProfile != null)
+            Positioned.fill(
+              child: CustomImageView(
+                imagePath: (user.mainProfile == "" || user.mainProfile!.isEmpty || user.mainProfile == null) ? ImageConstant.imgOnBoarding1 : user.mainProfile,
+                //height: screenHeight,
+                //width: screenWidth,
+                fit: BoxFit.cover,
+                onTap: (){
+                  //Navigator.of(context).push(MaterialPageRoute(builder: (context) => AnnonceDetailsScreen(model: model)));
+                  Get.toNamed(Routes.profileDetailsScreen, arguments: {
+                    "UserModel" : user
+                  });
+                },
+              ),
             ),
-          ),
+          if(user.mainProfile == null)
+            Positioned.fill(
+              child: CustomImageView(
+                imagePath: ImageConstant.imgOnBoarding1,
+                fit: BoxFit.cover,
+              ),
+            ),
         /*  Positioned.fill(
             child: Image.network(
               user.imageProfile,
@@ -134,7 +142,8 @@ class UserCardWidget extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(width: 10.hw,),
-                                FavoriteIcon(userId: "1"),
+                                FavoriteIcon(userId: user.id ?? ''),
+                                //FavoriteIcon(userId: "1"),
                                /* GestureDetector(
                                   onTap: onFavoriteTap,
                                   child: GradientSvgIcon(
@@ -181,32 +190,36 @@ class UserCardWidget extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
-                                      Text(
-                                        '${user.username ?? ''}، ${user.age ?? ''}',
-                                        textAlign: TextAlign.right,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: isTablet ? 26.adaptSize : 22.adaptSize,
-                                          fontWeight: FontWeight.bold,
+                                      Flexible(
+                                        child: Text(
+                                          '${user.username ?? ''}، ${user.age ?? ''}',
+                                          textAlign: TextAlign.right,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: isTablet ? 26.adaptSize : 22.adaptSize,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
+                                      if(user.isRecentlyActive) ...[
                                       SizedBox(width: 5.adaptSize),
-                                      CircleAvatar(radius: 6, backgroundColor: Colors.green)
+                                      CircleAvatar(radius: 6, backgroundColor: Colors.green),
+                                      ]
                                     ],
                                   ),
 
                                 const SizedBox(height: 6),
                                 // bio - allow up to 2 lines then ellipsis
-                                if(user.description != null)
+                                if(user.jobTitle != null)
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
                                       Flexible(
                                         child: Text(
-                                          user.description ?? '',
+                                          user.jobTitle ?? '',
                                           textAlign: TextAlign.right,
                                           maxLines: 2,
                                           overflow: TextOverflow.ellipsis,

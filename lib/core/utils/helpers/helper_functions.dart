@@ -227,7 +227,7 @@ class THelperFunctions {
       case 'الكل':
         return 'All';
       case 'تونس':
-        return 'Tunisia';
+        return 'Tunis';
       case 'البحرین':
         return 'Bahrain';
       case 'الامارات':

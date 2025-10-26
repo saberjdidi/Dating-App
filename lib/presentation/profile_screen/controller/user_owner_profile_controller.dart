@@ -81,7 +81,7 @@ class UserOwnerProfileController extends GetxController {
         return;
       }
 
-      final result = await mediaRepository.getAllMedia();
+      final result = await mediaRepository.getMyAllMedia();
 
       if (result.success) {
         mediaList.assignAll(result.data ?? []);
@@ -112,7 +112,7 @@ class UserOwnerProfileController extends GetxController {
 
       if (result.success) {
         hobbiesList.assignAll(result.data ?? []);
-        debugPrint('✅ ${mediaList.length} hobbies chargés');
+        debugPrint('✅ ${hobbiesList.length} hobbies chargés');
       } else {
         MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? '');
       }

@@ -17,7 +17,7 @@ class MainControllerAnimatedProgress extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    loadUsers();
+    //loadUsers();
     // Démarre le swipe automatique après un petit délai
     Future.delayed(const Duration(seconds: 2), startAutoSwipe);
   }
@@ -30,7 +30,7 @@ class MainControllerAnimatedProgress extends GetxController {
       SearchDating.openDialogFilterByPays(instance);
     });
   } */
-
+/*
   void loadUsers() {
     users.value = [
       UserModel(
@@ -70,15 +70,9 @@ class MainControllerAnimatedProgress extends GetxController {
         images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
       ),
     ];
-  }
-
-  /* toggleCountry(String countryName) {
-    if (selectedCountries.contains(countryName)) {
-      selectedCountries.remove(countryName);
-    } else {
-      selectedCountries.add(countryName);
-    }
   } */
+
+
   /// Sélectionne / désélectionne un pays
   void toggleCountry(String countryName) {
     // Si on clique sur "الکل"

@@ -1,7 +1,6 @@
 import 'package:dating_app_bilhalal/core/app_export.dart';
-import 'package:dating_app_bilhalal/core/utils/pref_utils.dart';
-import 'package:dating_app_bilhalal/data/models/subscribe_model.dart';
-import 'package:dating_app_bilhalal/presentation/password_screen/password_success_screen.dart';
+import 'package:dating_app_bilhalal/data/models/subscription_plan_model.dart';
+import 'package:dating_app_bilhalal/data/repositories/subscription_repository.dart';
 import 'package:dating_app_bilhalal/widgets/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,93 +8,68 @@ import 'package:get/get.dart';
 class SubscribeController extends GetxController {
   static SubscribeController get instance => Get.find();
 
+  final SubscriptionRepository _subscriptionRepository =
+      SubscriptionRepository();
+
   final GlobalKey<FormState> formSubscribeKey = GlobalKey<FormState>();
+
   //RxInt subscribeValue = 0.obs;
   RxInt selectedIndex = (-1).obs;
-  Rx<SubscribeModel?> selectedPlan = Rx<SubscribeModel?>(null);
+  Rx<SubscriptionPlanModel?> selectedPlan = Rx<SubscriptionPlanModel?>(null);
 
+  // API-related observables
+  var isLoading = false.obs;
 
-  Rx<List<SubscribeModel>> plans = Rx(
-      [
-        SubscribeModel(
-            title: "اشتراک ذهبي",
-            description: "\$14.99/month",
-            details: ""),
-        SubscribeModel(
-            title: "اشتراک",
-            description: "\$14.99/month",
-            details: "${"500 رسالة"} \n ${"إعجابات غير محدودة"} \n ${"انتقاد غير محدود"} \n "),
-        SubscribeModel(
-            title: "اشتراک",
-            description: "\$9.99/month",
-            details: ""),
-        SubscribeModel(
-            title: "اشتراک الماس",
-            description: "\$9.99/month",
-            details: ""),
-      ]
-  );
- /* final List<SubscribeModel> plans = [
-    SubscribeModel(
-        title: "اشتراک ذهبي",
-        description: "\$14.99/month",
-        details: ""),
-    SubscribeModel(
-        title: "اشتراک",
-        description: "\$14.99/month",
-        details: "${"500 رسالة"} \n ${"إعجابات غير محدودة"} \n ${"انتقاد غير محدود"} \n "),
-    SubscribeModel(
-        title: "اشتراک",
-        description: "\$9.99/month",
-        details: ""),
-    SubscribeModel(
-        title: "اشتراک الماس",
-        description: "\$9.99/month",
-        details: ""),
-  ]; */
+  Rx<List<SubscriptionPlanModel>> plans = Rx<List<SubscriptionPlanModel>>([]);
 
   @override
   void onInit() {
     super.onInit();
-    loadSubscriptionPlan();
+    loadSubscriptionPlans();
   }
 
-  Future<void> loadSubscriptionPlan() async {
-    final savedPlan = await PrefUtils.getSubscriptionPlan();
-    if (savedPlan != null) {
-      final plan = SubscribeModel.fromMap(savedPlan);
-      selectedPlan.value = plan;
-      selectedIndex.value = plans.value.indexWhere((p) => p.title == plan.title);
+  /// Fetch subscription plans from API
+  Future<void> loadSubscriptionPlans() async {
+    try {
+      isLoading.value = true;
+
+      final result = await _subscriptionRepository.getSubscriptionPlans();
+
+      if (result.success && result.data != null) {
+        // Convert API models to UI models
+        selectedPlan.value = result.data?.activePlan;
+        plans.value = result.data?.inactivePlans ?? [];
+      } else {
+        MessageSnackBar.errorSnackBar(title: "خطأ", message: result.message??'');
+
+      }
+    } catch (e) {
+      MessageSnackBar.errorSnackBar(title: "خطأ", message: e.toString());
+    } finally {
+      isLoading.value = false;
     }
   }
+
+  /// Check if user has an active subscription
+  bool get hasActiveSubscription => selectedPlan.value != null;
 
   void selectPlan(int index) {
     selectedIndex.value = index;
     selectedPlan.value = plans.value[index];
   }
 
-  Future<void> validatePlan() async {
-    if (selectedPlan.value != null) {
-      //await PrefUtils.setSubscriptionPlan(plans[selectedIndex.value].toMap());
-      await PrefUtils.setSubscriptionPlan(selectedPlan.value!.toMap());
-      Get.snackbar("Succès", "Plan ${selectedPlan.value!.title} enregistré !");
-    }
-  }
 
-
-  confirmChangePlan(BuildContext context, int index){
+  confirmChangePlan(BuildContext context, int index) {
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (builder) =>
-            CustomDialog(
+        builder: (builder) => CustomDialog(
               icon: Icons.close,
-              onCancel: (){
+              onCancel: () {
                 Get.back();
               },
               onTap: () async {
                 selectPlan(index);
-                await validatePlan();
                 Get.back();
               },
               cancelText: "يلغي".tr,
@@ -104,8 +78,7 @@ class SubscribeController extends GetxController {
               description: "سيتم تفعيل الخطة الجديدة على الفور.".tr,
               descriptionTextStyle: CustomTextStyles.titleSmallGray400,
               image: ImageConstant.imgWarning,
-            )
-    );
+            ));
   }
 /* Future<void> confirmChangePlan(int index) async {
     if (plans.value[index].title != selectedPlan.value?.title) {
@@ -123,4 +96,3 @@ class SubscribeController extends GetxController {
     }
   } */
 }
-

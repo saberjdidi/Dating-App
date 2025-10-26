@@ -10,7 +10,9 @@ Rx<List<SelectionPopupModel>> ListMaritalStatus = Rx(
     ]
 );
 
+List<String> ListMaritalStatuss = ['single'.tr, 'married'.tr, 'divorced'.tr, 'widowed'.tr];
 List<String> ListMaritalStatusFilter = ['all'.tr, 'single'.tr, 'married'.tr, 'divorced'.tr, 'widowed'.tr];
+List<String> ListMarriageType = [ 'friend'.tr, 'date'.tr, 'living_partner'.tr, 'marriage'.tr];
 List<String> ListMarriageTypeFilter = [ 'all'.tr, 'friend'.tr, 'date'.tr, 'living_partner'.tr, 'marriage'.tr];
 
 Rx<List<SelectionPopupModel>> ListLookingFor = Rx(
@@ -27,7 +29,6 @@ Rx<List<SelectionPopupModel>> ListLookingFor = Rx(
     ]
 );
 
-
 Rx<List<SelectionPopupModel>> ListPays = Rx(
     [
       SelectionPopupModel(id:1,title:"الكل"),
@@ -43,5 +44,6 @@ Rx<List<SelectionPopupModel>> ListPays = Rx(
     ]
 );
 
-final ColorsSkinList = ['deep', 'tan', 'brown', 'olive', 'medium', 'light2', 'light', 'fair'];
+final ColorsSkinList = ['#5C4033', '#D2B48C', '#8D5524', '#C68642', '#E0AC69', '#FFC28B', '#FFD1A4', '#FFE0BD'];
+//final ColorsSkinList = ['deep', 'tan', 'brown', 'olive', 'medium', 'light2', 'light', 'fair'];
 final ColorsCallVideoList = ['filterColorCallVideo1', 'filterColorCallVideo2', 'filterColorCallVideo3', 'filterColorCallVideo4', 'filterColorCallVideo5'];

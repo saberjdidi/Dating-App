@@ -43,28 +43,6 @@ class SignInScreen extends StatelessWidget {
                     //padding: EdgeInsets.symmetric(horizontal: 24.hw, vertical: 11.v),
                     child: Column(
                         children: [
-                          Visibility(
-                            visible: false,
-                            child: CustomImageView(
-                                imagePath: _appTheme =='dark'
-                                    ? ImageConstant.imgArrowLeftWhite : ImageConstant.imgArrowLeftBlack,
-                                height: 28.adaptSize,
-                                width: 28.adaptSize,
-                                alignment: Alignment.centerLeft,
-                                onTap: () {onTapImgArrowLeft();}
-                            ),
-                          ),
-                          SizedBox(height: 10.v),
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: IconButton(
-                                onPressed: (){
-                                  SystemNavigator.pop();
-                                  //Navigator.of(context).pop();
-                                },
-                                icon: Icon(Iconsax.arrow_right_1, color: _appTheme =='light' ? TColors.black : TColors.white)
-                            ),
-                          ),
                           SizedBox(height: TSizes.spaceBtwSections),
                           Align(
                             alignment: Alignment.center,
@@ -119,7 +97,7 @@ class SignInScreen extends StatelessWidget {
                                     textInputAction: TextInputAction.done,
                                     textInputType: TextInputType.visiblePassword,  prefixConstraints: BoxConstraints(maxHeight: 60.v),
                                     suffixConstraints: BoxConstraints(maxHeight: 60.v),
-                                    validator: (value) => Validator.validatePassword(value),
+                                    validator: (value) => Validator.validateSignInPassword(value),
                                     obscureText: controller.isShowPassword.value,
                                     contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
                                     fillColor: _appTheme =='light' ? TColors.white : TColors.dark,

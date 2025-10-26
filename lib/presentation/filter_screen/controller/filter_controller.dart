@@ -16,6 +16,7 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 
 class FilterController extends GetxController with WidgetsBindingObserver {
   static FilterController get instance => Get.find();
+  var isArabe = PrefUtils.getLangue() == 'ar';
 
   var selectedCountries = <String>[].obs;
   //Card Swiper
@@ -29,7 +30,7 @@ class FilterController extends GetxController with WidgetsBindingObserver {
 
   TextEditingController maritalStatusController = TextEditingController();
   TextEditingController lookingForController = TextEditingController();
-  TextEditingController paysController = TextEditingController();
+  //TextEditingController paysController = TextEditingController();
   //final Rx<SelectionPopupModel?> selectedPays = Rx<SelectionPopupModel?>(null);
   final Rx<CountryModel?> selectedPays = Rxn<CountryModel?>(null);
 
@@ -68,17 +69,16 @@ class FilterController extends GetxController with WidgetsBindingObserver {
   void onInit() {
     super.onInit();
     WidgetsBinding.instance.addObserver(this);
-    getUsers();
+    getUsers(socialState: "single");
     //loadUsers();
     // Démarre le swipe automatique après un petit délai
     //Future.delayed(const Duration(seconds: 2), startAutoSwipe);
 
     /// ✅ Définir les valeurs par défaut
-    //selectedPays.value = ListPays.value.first;
     selectedPays.value = PaysListFilter.value.first;
     maritalStatusController.text = ListMaritalStatusFilter.first; // "أعزب"
     lookingForController.text = ListMarriageTypeFilter.first; // "زواج معلن دائم"
-    paysController.text = PaysListFilter.value.first.name; // "السعودیة"
+    //paysController.text = PaysListFilter.value.first.name; // "السعودیة"
   }
 
   @override
@@ -93,17 +93,24 @@ class FilterController extends GetxController with WidgetsBindingObserver {
     super.onClose();
   }
 
+
+  @override
+  void refresh() {
+
+  }
+
   /// 🔁 Appelé quand l’écran redevient visible
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       debugPrint("🔄 MainScreen resumed → refresh users");
-      getUsers();
+      getUsers(socialState: "single");
     }
   }
 
   /// Méthode pour récupérer les utilisateurs
-  Future<void> getUsers({String? country}) async {
+  Future<void> getUsers({int? minAge, int? maxAge, int? minHeight, int? maxHeight, int? minWeight, int? maxWeight,
+    String? socialState, String? marriageType, String? country}) async {
     try {
       isDataProcessing.value = true;
 
@@ -117,7 +124,19 @@ class FilterController extends GetxController with WidgetsBindingObserver {
       final body = {
         "page": 1,
         "pageSize": 50,
-        "social_states": "single",
+        "country": country,
+        "marriage_type": marriageType,
+        "social_state": socialState,
+        "minAge": minAge,
+        "maxAge": maxAge,
+        "minHeight": minHeight,
+        "maxHeight": maxHeight,
+        "minWeight": minWeight,
+        "maxWeight": maxWeight,
+        "salary_min": "",
+        "salary_max": "",
+        "job": "",
+        "skin_tune": "",
         "sort": "relevance"
       };
       final result = await userRepository.searchUsers(body);
@@ -139,49 +158,6 @@ class FilterController extends GetxController with WidgetsBindingObserver {
     }
   }
 
-  final RxList<UserModel> users = <UserModel>[].obs;
-  void loadUsers() {
-    users.value = [
-      UserModel(
-          imageProfile: ImageConstant.imgOnBoarding1,
-          username: 'نورا خالد',
-          age: 25,
-          description: 'نموذج احترافي',
-          isFavoris: true,
-          interests: ["التسوق", "فوتوغرافيا", "اليوغا"],
-          images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
-      ),
-      UserModel(
-          imageProfile: ImageConstant.imgOnBoarding2,
-          username: 'نورا خالد',
-          age: 32,
-          description: 'مبرمج',
-          isFavoris: true,
-          interests: ["كاريوكي", "التنس", "اليوغا", "طبخ", "سباحة"],
-          images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
-      ),
-      UserModel(
-          imageProfile: ImageConstant.imgOnBoarding3,
-          username: 'ايلاف خالد',
-          age: 29,
-          description: 'شخص إعلامي',
-          isFavoris: false,
-          interests: ["ركض", "السفر", "قراءة", "طبخ", "سباحة"],
-          images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
-      ),
-      UserModel(
-          imageProfile: ImageConstant.imgOnBoarding4,
-          username: 'إسراء الجديدي',
-          age: 22,
-          description: 'شخص إعلامي',
-          isFavoris: true,
-          interests: ["السفر", "قراءة", "طبخ", "سباحة"],
-          images: [ImageConstant.profile1, ImageConstant.profile2, ImageConstant.profile3, ImageConstant.profile4, ImageConstant.profile5, ImageConstant.profile6, ImageConstant.profile7]
-      ),
-    ];
-    currentIndex.value = 0; // using when swipe automatic whit previous user
-  }
-
    toggleCountry(String countryName) {
     if (selectedCountries.contains(countryName)) {
       selectedCountries.remove(countryName);
@@ -195,6 +171,15 @@ class FilterController extends GetxController with WidgetsBindingObserver {
 //Start Loading
     FullScreenLoader.openLoadingSearchDialog("نتائج البحث", "مطابقة الأشخاص مع متطلباتك",ImageConstant.imgLove, ImageConstant.imgLoves);
     //FullScreenLoader.openLoadingDialog('مطابقة الأشخاص مع متطلباتك..', ImageConstant.lottieTrophy);
+
+   await getUsers(
+       minAge: currentRangeAgeValues.value.start.round(), maxAge: currentRangeAgeValues.value.end.round(),
+       minHeight: currentRangeHeightValues.value.start.round(), maxHeight: currentRangeHeightValues.value.end.round(),
+       minWeight: currentRangeWeightValues.value.start.round(), maxWeight: currentRangeWeightValues.value.end.round(),
+       socialState: isArabe ? THelperFunctions.getSocialStateEnum(maritalStatusController.text) : maritalStatusController.text,
+       marriageType: isArabe ? THelperFunctions.getMarriageTypeEnum(lookingForController.text) : lookingForController.text,
+       country: isArabe ? THelperFunctions.getCountryEnum(selectedPays.value!.name) : selectedPays.value!.name
+   );
 
     Future.delayed(const Duration(milliseconds: 3000), (){
       //Remove Loader

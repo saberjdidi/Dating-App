@@ -71,39 +71,65 @@ class OTPController extends GetxController with GetSingleTickerProviderStateMixi
 
     FullScreenLoader.openLoadingDialog('جاري التحقق من الرمز...', ImageConstant.lottieLoading);
     isLoading.value = true; // 🔄 active le loader
-    final result = await authRepo.verifyOtp(email: email, otp: otpCode.value);
-    isLoading.value = false; // 🛑 stop le loader
-    FullScreenLoader.stopLoading();
+
+    if(sourceOTP == "FromForgetPassword"){
+      final result = await authRepo.verifyResetOtp(email: email, otp: otpCode.value);
+      isLoading.value = false; // 🛑 stop le loader
+      FullScreenLoader.stopLoading();
 
 
-    MessageSnackBar.informationToast(title: 'Information : $email', message: "${result.message}");
+      //MessageSnackBar.informationToast(title: 'Information : $email', message: "${result.message}");
 
-    if (result.success) {
-      isOtpError.value = false;
-      errorMessage.value = '';
-      await PrefUtils.setOTP(otpCode.value);
+      if (result.success) {
+        isOtpError.value = false;
+        errorMessage.value = '';
+        await PrefUtils.setOTP(otpCode.value);
 
-      MessageSnackBar.successSnackBar(title: 'تم التحقق بنجاح', message: result.message ?? '');
+        MessageSnackBar.successSnackBar(title: 'تم التحقق بنجاح', message: result.message ?? '');
 
-      if(sourceOTP == "FromForgetPassword"){
-        Get.toNamed(Routes.changePasswordScreen, arguments: {
+        Get.toNamed(Routes.resetPasswordScreen, arguments: {
           "OTP" : otpCode.value,
           "Email" : email,
         });
-      } else {
+      }
+      else
+      {
+        isOtpError.value = true;
+        //errorMessage.value = 'رمز التحقق غير صالح أو منتهي الصلاحية';
+        errorMessage.value = result.message ?? 'رمز التحقق غير صالح أو منتهي الصلاحية';
+        MessageSnackBar.errorSnackBar(title: 'خطأ', message: errorMessage.value);
+      }
+
+    } else {
+      //OTP Create Account
+      final result = await authRepo.verifyOtp(email: email, otp: otpCode.value);
+      isLoading.value = false; // 🛑 stop le loader
+      FullScreenLoader.stopLoading();
+
+
+      //MessageSnackBar.informationToast(title: 'Information : $email', message: "${result.message}");
+
+      if (result.success) {
+        isOtpError.value = false;
+        errorMessage.value = '';
+        await PrefUtils.setOTP(otpCode.value);
+
+        MessageSnackBar.successSnackBar(title: 'تم التحقق بنجاح', message: result.message ?? '');
+
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => OTPSuccessScreen()),
         );
       }
+      else
+      {
+        isOtpError.value = true;
+        //errorMessage.value = 'رمز التحقق غير صالح أو منتهي الصلاحية';
+        errorMessage.value = result.message ?? 'رمز التحقق غير صالح أو منتهي الصلاحية';
+        MessageSnackBar.errorSnackBar(title: 'خطأ', message: errorMessage.value);
+      }
     }
-    else
-    {
-      isOtpError.value = true;
-      //errorMessage.value = 'رمز التحقق غير صالح أو منتهي الصلاحية';
-      errorMessage.value = result.message ?? 'رمز التحقق غير صالح أو منتهي الصلاحية';
-      MessageSnackBar.errorSnackBar(title: 'خطأ', message: errorMessage.value);
-    }
+
   }
 
   /// ✅ Renvoie un nouveau OTP

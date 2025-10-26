@@ -2,6 +2,7 @@ import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/validators/validation.dart';
 import 'package:dating_app_bilhalal/data/models/message_model.dart';
 import 'package:dating_app_bilhalal/data/models/user_model.dart';
+import 'package:dating_app_bilhalal/presentation/chat_screen/controller/conversation_settings_controller.dart';
 import 'package:dating_app_bilhalal/presentation/chat_screen/controller/message_controller.dart';
 import 'package:dating_app_bilhalal/presentation/settings_screen/controller/settings_controller.dart';
 import 'package:dating_app_bilhalal/presentation/settings_screen/settings_screen.dart';
@@ -21,11 +22,12 @@ import 'package:flutter/material.dart';
 class MessageScreen extends GetView<MessageController> {
   MessageScreen({super.key});
 
-  final settingsController = Get.put(SettingsController());
+  final conversationSettingsController = Get.put(ConversationSettingsController());
   var _appTheme = PrefUtils.getTheme();
 
   @override
   Widget build(BuildContext context) {
+      conversationSettingsController.setUserId(controller.userChatModel.recipientUid);
     mediaQueryData = MediaQuery.of(context);
     var screenWidth = mediaQueryData.size.width;
     var screenheight = mediaQueryData.size.height;
@@ -76,12 +78,11 @@ class MessageScreen extends GetView<MessageController> {
                     width: 45.hw,
                     fit: BoxFit.cover,
                     onTap: (){
-                      if (!settingsController.isCallVideo.value) {
-                        Get.snackbar("Appel interdit", "L'utilisateur n'autorise pas les appels vidéo");
+                      if (!conversationSettingsController.canCallVideo.value) {
+                        Get.snackbar("مكالمة فيديو غير مسموحة", "لا يمكنك إجراء مكالمة فيديو مع هذا المستخدم");
                         return;
                       }
                       Get.toNamed(Routes.callVideoScreen);
-                      //Navigator.pop(context);
                     },
                   ),
                   SizedBox(width: 2.hw,),
@@ -92,12 +93,11 @@ class MessageScreen extends GetView<MessageController> {
                     width: 45.hw,
                     fit: BoxFit.cover,
                     onTap: (){
-                      if (!settingsController.isCallVoice.value) {
-                        Get.snackbar("Appel interdit", "L'utilisateur n'autorise pas les appels vocaux");
+                      if (!conversationSettingsController.canCallAudio.value) {
+                        Get.snackbar("مكالمة صوتية غير مسموحة", "لا يمكنك إجراء مكالمة صوتية مع هذا المستخدم");
                         return;
-                      } else {
-                        Get.toNamed(Routes.callScreen);
                       }
+                      Get.toNamed(Routes.callScreen);
                     },
                   ),
                  /*
@@ -634,7 +634,6 @@ class MessageScreen extends GetView<MessageController> {
   */
 
 buildDialogSettings(BuildContext context){
-  final settingsController = Get.put(SettingsController());
   Get.dialog(
     Dialog(
       insetPadding: const EdgeInsets.all(16),
@@ -652,6 +651,7 @@ buildDialogSettings(BuildContext context){
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Override permissions - what this user can do to me
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -661,8 +661,8 @@ buildDialogSettings(BuildContext context){
                           fontWeightDelta: 2,
                           fontSizeDelta: 1),
                       Switch(
-                        value: settingsController.isCallVideo.value,
-                        onChanged: settingsController.toggleCallVideo,
+                        value: conversationSettingsController.allowThemCallVideo.value,
+                        onChanged: conversationSettingsController.toggleVideoCallForThisUser,
                         activeColor: TColors.primaryColorApp,
                       )
                     ],
@@ -681,8 +681,8 @@ buildDialogSettings(BuildContext context){
                           fontWeightDelta: 2,
                           fontSizeDelta: 1),
                       Switch(
-                        value: settingsController.isCallVoice.value,
-                        onChanged: settingsController.toggleCallVoice,
+                        value: conversationSettingsController.allowThemCallAudio.value,
+                        onChanged: conversationSettingsController.toggleAudioCallForThisUser,
                         activeColor: TColors.primaryColorApp,
                       )
                     ],
@@ -702,11 +702,8 @@ buildDialogSettings(BuildContext context){
                           fontSizeDelta: 1
                       ),
                       Switch(
-                        value: settingsController.isInternetConnection.value,
-                        onChanged: (value){
-                          settingsController.isInternetConnection.value = value;
-                          debugPrint("internet connection : ${settingsController.isInternetConnection.value}");
-                        },
+                        value: conversationSettingsController.hideMyOnlineStatus.value,
+                        onChanged: conversationSettingsController.toggleOnlineStatusForThisUser,
                         activeColor: TColors.primaryColorApp,
                       )
                     ],

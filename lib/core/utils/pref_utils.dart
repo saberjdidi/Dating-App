@@ -37,7 +37,7 @@ class PrefUtils {
   static const _KeyHasSeenGuide = 'has_seen_app_guide';
   static const _KeyFirstname = 'firstName';
   static const _KeyLastname = 'lastName';
-  static const _KeyPhoneNumber = 'phoneNumber';
+  static const _KeyPassword = 'password';
   static const _KeyAddress = 'address';
   static const _KeyBirthDate = 'birthDate';
   static const _KeyOnBoarding = 'onBoarding';
@@ -45,6 +45,7 @@ class PrefUtils {
 
   static const _keyCallVoice = 'call_voice';
   static const _keyCallVideo = 'call_video';
+  static const _keyHideOnline = 'hideOnline';
 
   static const _keySubscriptionPlan = 'subscriptionPlan';
 
@@ -248,14 +249,14 @@ class PrefUtils {
     await sharedPreferences!.remove(_KeyAddress);
   }
 
-  ///Phone Number
-  static Future setPhoneNumber(String phone) async =>
-      await sharedPreferences!.setString(_KeyPhoneNumber, phone);
+  ///Password
+  static Future setPassword(String password) async =>
+      await sharedPreferences!.setString(_KeyPassword, password);
 
-  static String? getPhoneNumber() => sharedPreferences!.getString(_KeyPhoneNumber);
+  static String? getPassword() => sharedPreferences!.getString(_KeyPassword);
 
-  static Future<void> clearPhoneNumber() async {
-    await sharedPreferences!.remove(_KeyPhoneNumber);
+  static Future<void> clearPassword() async {
+    await sharedPreferences!.remove(_KeyPassword);
   }
 
   ///Birth Date
@@ -292,6 +293,11 @@ class PrefUtils {
     //await prefs.setBool(_keyCallVideo, value);
   }
 
+  static Future<void> setHideOnline(bool value) async {
+    await sharedPreferences!.setBool(_keyHideOnline, value);
+
+  }
+
   static Future<bool> getCallVoice() async {
     return sharedPreferences!.getBool(_keyCallVoice) ?? false;
   }
@@ -300,21 +306,8 @@ class PrefUtils {
     return sharedPreferences!.getBool(_keyCallVideo) ?? false;
   }
 
-  static Future<void> setSubscriptionPlan(Map<String, dynamic> plan) async {
-    await sharedPreferences?.setString(_keySubscriptionPlan, jsonEncode(plan));
-  }
-
-
-  static Map<String, dynamic>? getSubscriptionPlan() {
-   final data = sharedPreferences?.getString(_keySubscriptionPlan);
-   if(data != null){
-     return jsonDecode(data);
-   }
-   return null;
-  }
-
-  static Future<void> clearSubscriptionPlan() async {
-    await sharedPreferences?.remove(_keySubscriptionPlan);
+  static Future<bool> getHideOnline() async {
+    return sharedPreferences!.getBool(_keyHideOnline) ?? false;
   }
 
 }
