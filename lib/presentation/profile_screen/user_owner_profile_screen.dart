@@ -20,7 +20,8 @@ import 'package:flutter/material.dart';
 class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
    UserOwnerProfileScreen({super.key});
 
-   var _appTheme = PrefUtils.getTheme();
+   var isArabe = PrefUtils.getLangue() == 'ar';
+   var isLight = PrefUtils.getTheme() == "light";
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +136,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
      var isSmallPhone = screenWidth < 360;
      var isTablet = screenWidth >= 600;
      return TRoundedContainer(
-         backgroundColor: _appTheme =='light' ? TColors.white : TColors.dark,
+         backgroundColor: isLight ? TColors.white : TColors.dark,
          width: double.infinity,
          height: screenHeight * 0.6,
          radius: 50.adaptSize,
@@ -177,7 +178,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                  // ✅ Vérifie si user est null avant d'y accéder
                  if (controller.user.value == null) {
                    return Center(child: Text("جارٍ تحميل الملف الشخصي...",
-                     style: TextStyle(color:  _appTheme =='light' ? TColors.black : TColors.white,
+                     style: TextStyle(color:  isLight ? TColors.black : TColors.white,
                          fontSize: 18.adaptSize, fontWeight: FontWeight.w500),));
                  }
 
@@ -194,7 +195,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                          if((user.username ?? '').isNotEmpty)
                            SubTitleWidget(subtitle: user.username ?? '', //subtitle: 'نورا خالد',
                              fontSizeDelta: 3, fontWeightDelta: 2,
-                             color: _appTheme =='light' ? TColors.black : TColors.white),
+                             color: isLight ? TColors.black : TColors.white),
 
                          CircleIconButton(
                              size: 60.hw,
@@ -202,7 +203,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                              minTapSize: 60.hw,
                              backgroundColor: TColors.greyDating.withOpacity(0.5),
                              child: IconButton(
-                               icon: Icon(Iconsax.share, color: _appTheme =='light' ? TColors.textSecondary : TColors.white, size: 40.hw,),
+                               icon: Icon(Iconsax.share, color: isLight ? TColors.textSecondary : TColors.white, size: 40.hw,),
                                onPressed: (){
                                  Navigator.pop(context);
                                },
@@ -230,7 +231,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                        children: [
                          CustomImageView(
                            imagePath: ImageConstant.iconJob,
-                           color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
+                           color: isLight ? TColors.darkerGrey : TColors.white,
                            //height: 200.adaptSize,
                            //width: 200.adaptSize,
                            fit: BoxFit.cover,
@@ -243,7 +244,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                                maxLines: 3,
                                overflow: TextOverflow.ellipsis,
                                style: TextStyle(
-                                 color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
+                                 color: isLight ? TColors.darkerGrey : TColors.white,
                                  fontSize: isTablet ? 16.adaptSize : 15.adaptSize,
                                ),
                              ),
@@ -256,7 +257,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                        children: [
                          CustomImageView(
                            imagePath: ImageConstant.iconLocation,
-                           color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
+                           color: isLight ? TColors.darkerGrey : TColors.white,
                            //height: 200.adaptSize,
                            //width: 200.adaptSize,
                            fit: BoxFit.cover,
@@ -268,7 +269,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                              maxLines: 2,
                              overflow: TextOverflow.ellipsis,
                              style: TextStyle(
-                               color: _appTheme =='light' ? TColors.darkerGrey : TColors.white,
+                               color: isLight ? TColors.darkerGrey : TColors.white,
                                fontSize: isTablet ? 16.adaptSize : 15.adaptSize,
                              ),
                            ),
@@ -299,33 +300,38 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                        iconSize: 30,
                      ),
 
-                     SizedBox(height: TSizes.spaceBtwSections.v),
-                     //if(controller.hobbiesList.isEmpty)
-                       Wrap(
-                         spacing: 5,
-                         runSpacing: 5,
-                         children: controller.hobbiesList.map((interest) {
-                           return InterestWidget(
-                             text: THelperFunctions.getInterestArabic(interest.name!),
-                             //text: interest.name!,
-                             iconPath: InterestModel.getIconByName(THelperFunctions.getInterestArabic(interest.name!)),
-                             //iconPath: InterestModel.getIconByName(interest.name!),
-                             //iconPath: interest.icon!,
-                             isSelected: true,
-                             activeColor: true,
-                             verticalPadding: 13.v,
-                             showRandomColor: true, // ✅ afficher la couleur seulement si sélectionné
-                             randomList: THelperFunctions.randomColorList,
-                             onTap: () {  },
-                           );
-                         }).toList(),
-                       ),
+                 if (controller.hobbiesList != null &&
+                 controller.hobbiesList.isNotEmpty) ...[
+                   SizedBox(height: TSizes.spaceBtwSections.v),
+                   //if(controller.hobbiesList.isEmpty)
+                   Wrap(
+                     spacing: 5,
+                     runSpacing: 5,
+                     children: controller.hobbiesList.map((interest) {
+                       return InterestWidget(
+                         text: isArabe ? THelperFunctions.getInterestArabic(interest.name!) : interest.name!,
+                         //text: interest.name!,
+                         iconPath: isArabe
+                             ? InterestModel.getIconByName(THelperFunctions.getInterestArabic(interest.name!))
+                             : InterestModel.getIconByName(interest.name!),
+                         //iconPath: InterestModel.getIconByName(interest.name!),
+                         //iconPath: interest.icon!,
+                         isSelected: true,
+                         activeColor: true,
+                         verticalPadding: 13.v,
+                         showRandomColor: true, // ✅ afficher la couleur seulement si sélectionné
+                         randomList: THelperFunctions.randomColorList,
+                         onTap: () {  },
+                       );
+                     }).toList(),
+                   ),
+                 ],
 
                      SizedBox(height: TSizes.spaceBtwSections.v),
                      Row(
                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                        children: [
-                         SubTitleWidget(fontSizeDelta: 2, fontWeightDelta: 2,subtitle: "الصور / الفيديوات", color: _appTheme =='light' ? TColors.black : TColors.white),
+                         SubTitleWidget(fontSizeDelta: 2, fontWeightDelta: 2,subtitle: "الصور / الفيديوات", color:  isLight ? TColors.black : TColors.white),
                          CustomButtonContainer(
                              text:"تعديل",
                              color1: TColors.primaryColorApp,
@@ -351,7 +357,7 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                        ],
                        onTabChanged: controller.onTabChanged,
                        activeColor: TColors.primaryColorApp, //TColors.yellowAppDark,
-                       inactiveColor: _appTheme =='light' ? TColors.black : TColors.white,
+                       inactiveColor: isLight ? TColors.black : TColors.white,
                      ),
                      SizedBox(height: 5.v),
                      if (filteredMedia.isEmpty)

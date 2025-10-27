@@ -52,7 +52,7 @@ class ProfileDetailsController extends GetxController {
         return;
       }
 
-      final result = await mediaRepository.getAllMediaByUserId(userId: '2975');
+      final result = await mediaRepository.getAllMediaByUserId(userId: '16'); //'2975'
       //final result = await mediaRepository.getAllMediaByUserId(userId: userModel.id ??'');
 
       if (result.success) {

@@ -674,7 +674,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
               //onChanged: (val) => controller.selectedPays.value = val,
               onChanged: (value) async {
                 controller.selectedPays.value = value;
-                controller.paysController.text = value.name;
+                controller.paysController.text = value.name!;
                 debugPrint('pays : ${controller.paysController.text}');
               },
               focusNode: controller.paysFocus,

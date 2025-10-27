@@ -56,7 +56,7 @@ class PaysWidget extends StatelessWidget {
                         style: TextStyle(
                           color: _appTheme =='light' ? TColors.black : TColors.white,
                           fontWeight: FontWeight.w600,
-                          fontSize: 20.adaptSize,
+                          fontSize: 18.adaptSize,
                         ),
                       ),
                     ),

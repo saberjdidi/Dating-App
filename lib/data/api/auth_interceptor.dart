@@ -22,10 +22,10 @@ class AuthInterceptor extends Interceptor {
       Logout.onTapLogout();
       //PrefUtils.clearToken();
       //Get.offAllNamed(Routes.signInScreen);
-      MessageSnackBar.errorSnackBar(
+     /* MessageSnackBar.errorSnackBar(
         title: 'Session expirée',
         message: 'Veuillez vous reconnecter.',
-      );
+      ); */
     }
 
     return handler.next(err);

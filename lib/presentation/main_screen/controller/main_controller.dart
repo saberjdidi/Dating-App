@@ -26,11 +26,14 @@ class MainController extends GetxController with WidgetsBindingObserver {
   RxList<UserModel> usersList = <UserModel>[].obs;
   RxBool isDataProcessing = false.obs;
 
+  final RxList<CountryModel> countriesList = <CountryModel>[].obs;
+
   @override
   void onInit() {
     super.onInit();
     WidgetsBinding.instance.addObserver(this);
     getUsers();
+    getCountries();
     //loadUsers();
   }
 
@@ -60,7 +63,7 @@ class MainController extends GetxController with WidgetsBindingObserver {
   }
 
   /// Méthode pour récupérer les utilisateurs
-  Future<void> getUsers({String? country}) async {
+  Future<void> getUsers({List<String>? countries}) async {
     try {
       isDataProcessing.value = true;
 
@@ -76,7 +79,7 @@ class MainController extends GetxController with WidgetsBindingObserver {
         "pageSize": 20,
         "social_states": "single",
         "sort": "relevance",
-        if (country != null && country.isNotEmpty) "countries": country,
+        if (countries != null && countries.isNotEmpty) "countries": countries,
       };
       final result = await userRepository.searchUsers(body);
 
@@ -97,14 +100,52 @@ class MainController extends GetxController with WidgetsBindingObserver {
     }
   }
 
+  Future<void> getCountries() async {
+    try {
+      isDataProcessing.value = true;
+      final result = await userRepository.getCountries();
+
+      if (result.success && result.data != null) {
+        // ⚙️ On crée une nouvelle liste
+        final apiCountries = result.data!;
+
+        // ✅ On ajoute manuellement "الکل" au début
+        final allCountry = CountryModel(name: "الکل", flag: ImageConstant.logo);
+
+        countriesList
+          ..clear()
+          ..add(allCountry)
+          ..addAll(apiCountries);
+
+      } else {
+        MessageSnackBar.errorSnackBar(title: "خطأ", message: result.message ?? "فشل في جلب الدول");
+      }
+    } catch (e) {
+      MessageSnackBar.errorSnackBar(title: "خطأ", message: e.toString());
+      isDataProcessing.value = false;
+    } finally {
+      isDataProcessing.value = false;
+    }
+  }
+
+
 
   Future<void> filterUsersByCountry() async {
-    MessageSnackBar.successSnackBar(title: 'Country', message:  selectedCountries.first ?? '');
+    //MessageSnackBar.successSnackBar(title: 'Country', message:  selectedCountries.first ?? '');
     if (selectedCountries.isEmpty) {
       await getUsers(); // pas de filtre
     } else {
-      // pour l’instant on prend le premier pays sélectionné
-      await getUsers(country: selectedCountries.first);
+      final isArabe = PrefUtils.getLangue() == 'ar';
+
+      // 🔁 Conversion si langue arabe
+      final countriesToSend = isArabe
+          ? selectedCountries.map((c) => THelperFunctions.getCountryEnum(c)).toList()
+          : selectedCountries;
+
+      await getUsers(countries: countriesToSend);
+
+      /// select without convert language
+      //await getUsers(countries: selectedCountries);
     }
   }
   /* toggleCountry(String countryName) {
@@ -123,7 +164,7 @@ class MainController extends GetxController with WidgetsBindingObserver {
         selectedCountries.clear();
       } else {
         // Si on sélectionne "الکل" → tout sélectionner
-        selectedCountries.assignAll(countriesList.map((c) => c.name).toList());
+        selectedCountries.assignAll(countriesList.map((c) => c.name!).toList());
       }
     } else {
       // Si on clique sur un autre pays

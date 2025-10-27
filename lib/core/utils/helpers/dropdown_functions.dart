@@ -100,7 +100,7 @@ class DropdownFunctions {
 
   static List<CountryModel> countriesDropdownItems() {
     return _countryMap.entries
-        .map((e) => CountryModel(name: e.value, imagePath: '')) // ajoute image si tu as
+        .map((e) => CountryModel(name: e.value, flag: '')) // ajoute image si tu as
         .toList();
   }
 }

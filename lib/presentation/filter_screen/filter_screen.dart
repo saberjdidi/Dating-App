@@ -58,6 +58,17 @@ class FilterScreen extends StatelessWidget {
                   final targetIndex = (previousIndex! + 1) % controller.cardsCount;
                   controller.currentIndex.value = targetIndex;
                   controller.swiperController.moveTo(targetIndex);
+
+                  ///Ajouter cette partie pour pagination
+                  // 🟢 Si on arrive à la fin → charger plus
+                  if (targetIndex == controller.usersList.length - 1 && controller.hasMore.value) {
+                    controller.getUsers(
+                      socialState: controller.maritalStatusController.text,
+                      marriageType: controller.lookingForController.text,
+                      country: controller.selectedPays.value?.name,
+                    );
+                  }
+
                   return false;
                 }
 

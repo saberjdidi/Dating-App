@@ -23,6 +23,7 @@ class UserModel {
   //String? googleId;
   ProfileModel? profile;
   StatsModel? stats;
+  List<String>? hobbies;
 
  //static
   String? imageProfile;
@@ -44,7 +45,7 @@ class UserModel {
     this.jobTitle,
     this.description,
     this.score,
-
+    this.hobbies,
     this.email,
     this.height,
     this.weight,
@@ -83,6 +84,15 @@ class UserModel {
     //googleId = json['google_id'];
     profile = json['profile'] != null ? new ProfileModel.fromJson(json['profile']) : null;
     stats = json['stats'] != null ? new StatsModel.fromJson(json['stats']) : null;
+    if(json['hobbies'] != null){
+      hobbies = List<String>.from(json['hobbies']);
+    } else {
+      hobbies = [];
+    }
+    lastSeenAt = json['lastSeenAt'] != null
+        ? DateTime.tryParse(json['lastSeenAt'])
+        : null;
+
   }
 
  /* UserModel.fromJson(Map<String, dynamic> json) {
@@ -99,7 +109,9 @@ class UserModel {
     height = json['height'];
     weight = json['weight'];
     skinToneHex = json['skin_tone_hex'] != null ? json['skin_tone_hex'] : "#e0cda9";
-    lastSeenAt = DateTime.tryParse(json['lastSeenAt']);
+    lastSeenAt = json['lastSeenAt'] != null
+        ? DateTime.tryParse(json['lastSeenAt'])
+        : null;
   } */
 
   Map<String, dynamic> toJson() {

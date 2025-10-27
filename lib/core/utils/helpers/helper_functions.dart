@@ -227,11 +227,11 @@ class THelperFunctions {
       case 'الكل':
         return 'All';
       case 'تونس':
-        return 'Tunis';
+        return 'Tunisia';
       case 'البحرین':
         return 'Bahrain';
       case 'الامارات':
-        return 'UAE';
+        return 'United Arab Emirates';
       case 'قطر':
         return 'Qatar';
       case 'الکویت':
@@ -246,6 +246,14 @@ class THelperFunctions {
         return 'Morocco';
       case 'لبنان':
         return 'Lebanon';
+      case 'مصر':
+        return 'Egypt';
+      case 'الجزائر':
+        return 'Algeria';
+      case 'الاردن':
+        return 'Iraq';
+      case 'فلسطين':
+        return 'Palestine';
       default:
         return 'Other';
     }

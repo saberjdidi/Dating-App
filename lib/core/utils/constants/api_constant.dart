@@ -42,6 +42,9 @@ class ApiConstants {
 
   //Subscriptions
   static const String subscriptionPlans = 'subscriptions/plans';
+
+  //Countries
+  static const String countries = 'countries/localized';
 }
 
 class HttpStatusCode {

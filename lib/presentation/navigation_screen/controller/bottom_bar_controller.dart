@@ -11,7 +11,9 @@ import 'package:get/get.dart';
 class BottomBarController extends GetxController {
 
   static BottomBarController get instance => Get.find();
-  final mainController = Get.put(MainController());
+
+  // Access MainController that's registered in InitialBindings
+  MainController get mainController => Get.find<MainController>();
 
   List<BottomMenuModel> bottomMenuList = [
     BottomMenuModel(

@@ -267,7 +267,22 @@ class SearchDating {
                     textStyle: isLight ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
                   ),
                   SizedBox(height: TSizes.spaceBtwItems.v), */
-
+                  CustomDropDownCountry(
+                    hintText: 'state'.tr,
+                    items: controller.countriesList,
+                    selectedValue: controller.selectedPays.value,
+                    onChanged: (val) => controller.selectedPays.value = val,
+                    //focusNode: controller.paysFocus,
+                    icon: Icon(Iconsax.arrow_down_1),
+                    borderRadius: 15.hw,
+                    contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
+                    fillColor: isLight ? TColors.white : TColors.dark,
+                    hintStyle: isLight ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
+                    textStyle: isLight ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
+                    themeColor:isLight ?  appTheme.gray50 : TColors.darkerGrey,
+                  ),
+                //static list countries
+                  /*
                   CustomDropDownCountry(
                     hintText: 'state'.tr,
                     items: PaysListFilter.value,
@@ -281,29 +296,6 @@ class SearchDating {
                     hintStyle: isLight ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
                     textStyle: isLight ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
                     themeColor:isLight ?  appTheme.gray50 : TColors.darkerGrey,
-                  ),
-                  /*
-                  CustomDropDown(
-                    hintText: "${'دولة'.tr}",
-                    items: ListPays.value,
-                    selectedValue: controller.selectedPays.value,
-                    onChanged: (value) async {
-                      controller.selectedPays.value = value;
-                      controller.paysController.text = value.title;
-                      debugPrint('pays : ${controller.paysController.text}');
-                    },
-                    icon: Icon(Iconsax.arrow_down_1),
-                    borderRadius: 15.hw,
-                    contentPadding: EdgeInsets.only(top: 18.v, right: 30.hw, left: 30.hw, bottom: 18.v),
-                    fillColor: isLight ? TColors.white : TColors.dark,
-                    hintStyle: isLight ? CustomTextStyles.bodyMediumTextFormField : CustomTextStyles.bodyMediumTextFormFieldWhite,
-                    textStyle: isLight ? CustomTextStyles.titleMediumSourceSansPro : CustomTextStyles.bodyMediumTextFormFieldWhite,
-                    themeColor:isLight ?  appTheme.gray50 : TColors.darkerGrey,
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15.hw),
-                      borderSide: BorderSide(color: TColors.darkGrey, width: 1),
-                      //borderSide: BorderSide.none,
-                    ),
                   ),
                    */
                 /*
@@ -391,7 +383,6 @@ class SearchDating {
     var _appTheme = PrefUtils.getTheme();
 
     await Dialogs.customModalBottomSheet(
-        //await Dialogs.customModalBottomSheetMethod2(
         Get.context!,
         0.6,
         Padding(
@@ -402,7 +393,8 @@ class SearchDating {
 
                 /// 1️⃣ Pays "الکل" sur toute la largeur
             Obx(() {
-              final countryAlkol = countriesList.firstWhere((c) => c.name == "الکل");
+              final countryAlkol = controller.countriesList.firstWhere((c) => c.name == "الکل");
+              //final countryAlkol = countriesList.firstWhere((c) => c.name == "الکل");
               final isSelected = controller.selectedCountries.contains(countryAlkol.name);
 
               return Align(
@@ -410,7 +402,7 @@ class SearchDating {
                 child: SizedBox(
                   width: Get.width * 0.47, // ✅ limite à 40% de la largeur de l’écran
                   child: GestureDetector(
-                    onTap: () => controller.toggleCountry(countryAlkol.name),
+                    onTap: () => controller.toggleCountry(countryAlkol.name!),
                     child: TRoundedContainer(
                       backgroundColor: _appTheme == 'light' ? TColors.white : TColors.dark,
                       //margin: EdgeInsets.only(right: 20.hw),
@@ -424,12 +416,12 @@ class SearchDating {
                           children: [
                             Flexible(
                               child: Text(
-                                countryAlkol.name,
+                                countryAlkol.name!,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   color: _appTheme == 'light' ? TColors.black : TColors.white,
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 20.adaptSize,
+                                  fontSize: 18.adaptSize,
                                 ),
                               ),
                             ),
@@ -481,6 +473,162 @@ class SearchDating {
                 Directionality(
                   textDirection: TextDirection.rtl,
                   child: Obx(() {
+                    final otherCountries = controller.countriesList
+                        .where((c) => c.name != "الکل")
+                        .toList();
+                    //final otherCountries = countriesList.where((c) => c.name != "الکل").toList();
+
+                    return GridView.count(
+                      crossAxisCount: isTablet ? 3 : 2, // ✅ Trois par ligne
+                      shrinkWrap: true,
+                      mainAxisSpacing: 7,
+                      crossAxisSpacing: 7,
+                      physics: NeverScrollableScrollPhysics(),
+                      childAspectRatio: isTablet ? 3.2 : 3.1,
+                      //childAspectRatio: 2.2,
+                      children: otherCountries.map((country) {
+                        final isSelected = controller.selectedCountries.contains(country.name);
+                        return PaysWidget(
+                          text: country.name!,
+                          imagePath: country.flag,
+                          isSelected: isSelected,
+                          onTap: () => controller.toggleCountry(country.name!),
+                        );
+                      }).toList(),
+                    );
+                  }),
+                ),
+
+                SizedBox(height: TSizes.spaceBtwItems.v),
+
+                /// 3️⃣ Bouton Enregistrer
+                SizedBox(
+                  width: isTablet
+                      ? mediaQueryData.size.width * 0.2
+                      : mediaQueryData.size.width * 0.4,
+                  child: CustomButtonContainer(
+                    text: "حفظ".tr,
+                    color1: TColors.primaryColorApp,
+                    color2: TColors.primaryColorApp,
+                    borderRadius: 10,
+                    colorText: TColors.white,
+                    fontSize: isTablet ? 30.adaptSize : 22.adaptSize,
+                    height: isSmallPhone ? 80.v : isTablet ? 70.v : 65.v,
+                    width: screenWidth * 0.8,
+                    onPressed: () async {
+                      var bottomController = BottomBarController.instance;
+                      bottomController.updateCountryTitle();
+                      Get.back();
+                      controller.filterUsersByCountry();
+                    },
+                  ),
+                ),
+
+                const SizedBox(height: TSizes.spaceBtwItems),
+              ],
+            )
+
+        )
+    );
+  }
+
+  static Future<void> openDialogFilterByPaysStatic(MainController controller) async {
+    var screenWidth = Get.width;
+    var isSmallPhone = screenWidth < 360;
+    var isTablet = screenWidth >= 600;
+    var _appTheme = PrefUtils.getTheme();
+
+    await Dialogs.customModalBottomSheet(
+      //await Dialogs.customModalBottomSheetMethod2(
+        Get.context!,
+        0.6,
+        Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.fSize, vertical: TSizes.spaceBtwItems.fSize),
+            child: ListBody(
+              children: <Widget>[
+                SizedBox(height: TSizes.spaceBtwSections.adaptSize),
+
+                /// 1️⃣ Pays "الکل" sur toute la largeur
+                Obx(() {
+                  final countryAlkol = countriesList.firstWhere((c) => c.name == "الکل");
+                  final isSelected = controller.selectedCountries.contains(countryAlkol.name);
+
+                  return Align(
+                    alignment: Alignment.centerRight, // ✅ positionne le bloc à droite comme les autres
+                    child: SizedBox(
+                      width: Get.width * 0.47, // ✅ limite à 40% de la largeur de l’écran
+                      child: GestureDetector(
+                        onTap: () => controller.toggleCountry(countryAlkol.name!),
+                        child: TRoundedContainer(
+                          backgroundColor: _appTheme == 'light' ? TColors.white : TColors.dark,
+                          //margin: EdgeInsets.only(right: 20.hw),
+                          //padding: EdgeInsets.only(right: 30, left: 20, top: 12, bottom: 12),
+                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                          child: Directionality(
+                            textDirection: TextDirection.rtl, // ✅ texte arabe à droite
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween, // ✅ texte à droite, checkbox à gauche
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Flexible(
+                                  child: Text(
+                                    countryAlkol.name!,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      color: _appTheme == 'light' ? TColors.black : TColors.white,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 18.adaptSize,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  height: 30.adaptSize,
+                                  width: 30.adaptSize,
+                                  decoration: BoxDecoration(
+                                    color: isSelected ? Colors.grey : Colors.transparent,
+                                    border: Border.all(
+                                      color: _appTheme == 'light'
+                                          ? Colors.blueGrey
+                                          : TColors.white,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                  child: isSelected
+                                      ? Icon(Icons.check, size: 18, color: TColors.primaryColorApp)
+                                      : null,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+
+                /* Obx(() {
+                  final countryAlkol = countriesList.firstWhere((c) => c.name == "الکل");
+                  final isSelected = controller.selectedCountries.contains(countryAlkol.name);
+
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: PaysWidget(
+                      text: countryAlkol.name,
+                      imagePath: countryAlkol.imagePath,
+                      isSelected: isSelected,
+                      onTap: () => controller.toggleCountry(countryAlkol.name),
+                      fullWidth: true,   // ✅ prend toute la ligne
+                    ),
+                  );
+                }), */
+
+                SizedBox(height: 15),
+
+                /// 2️⃣ Les autres pays (3 par ligne)
+                Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: Obx(() {
                     final otherCountries =
                     countriesList.where((c) => c.name != "الکل").toList();
 
@@ -495,10 +643,10 @@ class SearchDating {
                       children: otherCountries.map((country) {
                         final isSelected = controller.selectedCountries.contains(country.name);
                         return PaysWidget(
-                          text: country.name,
-                          imagePath: country.imagePath,
+                          text: country.name!,
+                          imagePath: country.flag,
                           isSelected: isSelected,
-                          onTap: () => controller.toggleCountry(country.name),
+                          onTap: () => controller.toggleCountry(country.name!),
                         );
                       }).toList(),
                     );
@@ -570,10 +718,10 @@ class SearchDating {
                   children: countriesList.map((country) {
                     final isSelected = controller.selectedCountries.contains(country.name);
                     return PaysWidget(
-                      text: country.name,
-                      imagePath: country.imagePath,
+                      text: country.name!,
+                      imagePath: country.flag,
                       isSelected: isSelected,
-                      onTap: () => controller.toggleCountry(country.name),
+                      onTap: () => controller.toggleCountry(country.name!),
                     );
                   }).toList(),
                 )),

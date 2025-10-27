@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:math';
-
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/network_manager.dart';
 import 'package:dating_app_bilhalal/core/utils/popups/full_screen_loader.dart';
@@ -9,7 +8,6 @@ import 'package:dating_app_bilhalal/data/datasources/dropdown_local_data_source.
 import 'package:dating_app_bilhalal/data/models/user_model.dart';
 import 'package:dating_app_bilhalal/data/models/country_model.dart';
 import 'package:dating_app_bilhalal/data/models/interest_model.dart';
-import 'package:dating_app_bilhalal/data/models/selection_popup_model.dart';
 import 'package:dating_app_bilhalal/data/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
@@ -28,6 +26,12 @@ class FilterController extends GetxController with WidgetsBindingObserver {
   RxList<UserModel> usersList = <UserModel>[].obs;
   RxBool isDataProcessing = false.obs;
 
+  ///Pagination
+  RxInt currentPage = 1.obs;
+  final int pageSize = 30;
+  RxBool hasMore = true.obs;
+
+  ///Search
   TextEditingController maritalStatusController = TextEditingController();
   TextEditingController lookingForController = TextEditingController();
   //TextEditingController paysController = TextEditingController();
@@ -69,13 +73,20 @@ class FilterController extends GetxController with WidgetsBindingObserver {
   void onInit() {
     super.onInit();
     WidgetsBinding.instance.addObserver(this);
-    getUsers(socialState: "single");
+    getUsers(socialState: "single", reset: true);
+    // Charger les pays, puis définir le pays par défaut
+    getCountries().then((_) {
+      if (countriesList.isNotEmpty) {
+        selectedPays.value = countriesList.first;
+      }
+    });
+
     //loadUsers();
     // Démarre le swipe automatique après un petit délai
     //Future.delayed(const Duration(seconds: 2), startAutoSwipe);
 
     /// ✅ Définir les valeurs par défaut
-    selectedPays.value = PaysListFilter.value.first;
+    //selectedPays.value = countriesList.value.first; //static
     maritalStatusController.text = ListMaritalStatusFilter.first; // "أعزب"
     lookingForController.text = ListMarriageTypeFilter.first; // "زواج معلن دائم"
     //paysController.text = PaysListFilter.value.first.name; // "السعودیة"
@@ -104,14 +115,22 @@ class FilterController extends GetxController with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       debugPrint("🔄 MainScreen resumed → refresh users");
-      getUsers(socialState: "single");
+      getUsers(socialState: "single", reset: true);
     }
   }
 
   /// Méthode pour récupérer les utilisateurs
   Future<void> getUsers({int? minAge, int? maxAge, int? minHeight, int? maxHeight, int? minWeight, int? maxWeight,
-    String? socialState, String? marriageType, String? country}) async {
+    String? socialState, String? marriageType, String? country, bool reset = false}) async {
     try {
+      if(reset){
+        currentPage.value = 1;
+        hasMore.value = true;
+        usersList.clear();
+      }
+
+      if(!hasMore.value) return;
+
       isDataProcessing.value = true;
 
       final isConnected = await NetworkManager.instance.isConnected();
@@ -122,8 +141,8 @@ class FilterController extends GetxController with WidgetsBindingObserver {
       }
 
       final body = {
-        "page": 1,
-        "pageSize": 50,
+        "page": currentPage.value,
+        "pageSize": pageSize,
         "country": country,
         "marriage_type": marriageType,
         "social_state": socialState,
@@ -143,8 +162,15 @@ class FilterController extends GetxController with WidgetsBindingObserver {
 
 
       if (result.success) {
+        //usersList.assignAll(result.data ?? []);
         isDataProcessing.value = false;
-        usersList.assignAll(result.data ?? []);
+        final newUsers = result.data ?? [];
+        if(newUsers.isEmpty){
+          hasMore.value = false;
+        } else {
+          usersList.addAll(newUsers);
+          currentPage.value++; //incrémente la page
+        }
         debugPrint('lenght users:  ${usersList.length}');
       } else {
         isDataProcessing.value = false;
@@ -158,7 +184,36 @@ class FilterController extends GetxController with WidgetsBindingObserver {
     }
   }
 
-   toggleCountry(String countryName) {
+  final RxList<CountryModel> countriesList = <CountryModel>[].obs;
+  Future<void> getCountries() async {
+    try {
+      isDataProcessing.value = true;
+
+      final result = await userRepository.getCountries();
+
+      if (result.success && result.data != null) {
+        final apiCountries = result.data!;
+        final allCountry = CountryModel(name: isArabe ? "الکل" : "All");
+
+        countriesList
+          ..clear()
+          ..add(allCountry)
+          ..addAll(apiCountries);
+      } else {
+        MessageSnackBar.errorSnackBar(
+          title: "خطأ",
+          message: result.message ?? "فشل في جلب الدول",
+        );
+      }
+    } catch (e) {
+      MessageSnackBar.errorSnackBar(title: "خطأ", message: e.toString());
+    } finally {
+      isDataProcessing.value = false;
+    }
+  }
+
+
+  toggleCountry(String countryName) {
     if (selectedCountries.contains(countryName)) {
       selectedCountries.remove(countryName);
     } else {
@@ -172,13 +227,28 @@ class FilterController extends GetxController with WidgetsBindingObserver {
     FullScreenLoader.openLoadingSearchDialog("نتائج البحث", "مطابقة الأشخاص مع متطلباتك",ImageConstant.imgLove, ImageConstant.imgLoves);
     //FullScreenLoader.openLoadingDialog('مطابقة الأشخاص مع متطلباتك..', ImageConstant.lottieTrophy);
 
+    ///Using to send country name in english
+    final selectedCountry = selectedPays.value;
+    String? countryToSend;
+    if (selectedCountry != null) {
+      if (isArabe) {
+        // Si arabe, on utilise englishName s’il existe, sinon name
+        countryToSend = THelperFunctions.getCountryEnum(selectedCountry.name!) ?? selectedCountry.name;
+      } else {
+        // Si anglais, on garde le nom tel quel
+        countryToSend = selectedCountry.name;
+      }
+    }
+
    await getUsers(
        minAge: currentRangeAgeValues.value.start.round(), maxAge: currentRangeAgeValues.value.end.round(),
        minHeight: currentRangeHeightValues.value.start.round(), maxHeight: currentRangeHeightValues.value.end.round(),
        minWeight: currentRangeWeightValues.value.start.round(), maxWeight: currentRangeWeightValues.value.end.round(),
        socialState: isArabe ? THelperFunctions.getSocialStateEnum(maritalStatusController.text) : maritalStatusController.text,
        marriageType: isArabe ? THelperFunctions.getMarriageTypeEnum(lookingForController.text) : lookingForController.text,
-       country: isArabe ? THelperFunctions.getCountryEnum(selectedPays.value!.name) : selectedPays.value!.name
+       country: countryToSend,
+       //country: isArabe ? THelperFunctions.getCountryEnum(selectedPays.value!.name!) : selectedPays.value!.name,
+     reset: true  //recommence la pagination à zero
    );
 
     Future.delayed(const Duration(milliseconds: 3000), (){

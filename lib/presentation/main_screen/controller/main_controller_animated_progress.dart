@@ -82,7 +82,7 @@ class MainControllerAnimatedProgress extends GetxController {
         selectedCountries.clear();
       } else {
         // Si on sélectionne "الکل" → tout sélectionner
-        selectedCountries.assignAll(countriesList.map((c) => c.name).toList());
+        selectedCountries.assignAll(countriesList.map((c) => c.name!).toList());
       }
     } else {
       // Si on clique sur un autre pays

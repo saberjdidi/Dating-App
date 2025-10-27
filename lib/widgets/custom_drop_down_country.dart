@@ -99,13 +99,30 @@ class CustomDropDownCountry extends StatelessWidget {
         child: Theme(
           data: Theme.of(context).copyWith(canvasColor: themeColor ?? appTheme.gray700), //background dropdown list
           child: DropdownButtonFormField<CountryModel>(
-            value:  selectedValue,
+            value: items!.isNotEmpty ? selectedValue : null,
+            //value:  selectedValue,
             focusNode: focusNode ?? FocusNode(),
             icon: icon,
             isExpanded: true,
             autofocus: autofocus!,
             style: textStyle ?? CustomTextStyles.titleMediumSourceSansPro,
-            items: items?.map((CountryModel item) {
+            items: items?.map((item) => DropdownMenuItem(
+              value: item,
+              child: Row(
+                children: [
+                  if (item.flag != null)
+                    CustomImageView(imagePath: item.flag,
+                      height: 20.adaptSize,
+                      width: 20.adaptSize,
+                      fit: BoxFit.fill,),
+                  const SizedBox(width: 5),
+                  Text(item.name ?? '',
+                    overflow: TextOverflow.ellipsis,
+                    style: hintStyle ?? CustomTextStyles.titleMediumSourceSansPro,),
+                ],
+              ),
+            )).toList(),
+           /* items: items?.map((CountryModel item) {
               return DropdownMenuItem<CountryModel>(
                 //value: selectedValue,
                 value: item,
@@ -122,14 +139,14 @@ class CustomDropDownCountry extends StatelessWidget {
                       children: [
                         if(item.name != "الکل")
                           CustomImageView(
-                            imagePath: item.imagePath,
+                            imagePath: item.flag,
                             height: 20.adaptSize,
                             width: 20.adaptSize,
                             fit: BoxFit.fill,
                           ),
                         SizedBox(width: 5.adaptSize),
                         Text(
-                          item.name,
+                          item.name!,
                           overflow: TextOverflow.ellipsis,
                           style: hintStyle ?? CustomTextStyles.titleMediumSourceSansPro,
                           //maxLines: 2,
@@ -139,12 +156,11 @@ class CustomDropDownCountry extends StatelessWidget {
                   ),
                 ),
               );
-            }).toList(),
+            }).toList(), */
             decoration: decoration,
             validator: validator,
-            onChanged: (value) {
-              onChanged!(value!);
-            },
+            onChanged: (value) => onChanged?.call(value!),
+            //onChanged: (value) {onChanged!(value!);},
           ),
         ),
       );

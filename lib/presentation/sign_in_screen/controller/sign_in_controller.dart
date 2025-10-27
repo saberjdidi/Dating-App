@@ -7,6 +7,7 @@ import 'package:dating_app_bilhalal/core/utils/popups/full_screen_loader.dart';
 import 'package:dating_app_bilhalal/data/repositories/auth_repository.dart';
 import 'package:dating_app_bilhalal/data/repositories/authentication_repository.dart';
 import 'package:dating_app_bilhalal/data/repositories/profile_repository.dart';
+import 'package:dating_app_bilhalal/presentation/main_screen/controller/main_controller.dart';
 import 'package:dating_app_bilhalal/presentation/navigation_screen/controller/bottom_bar_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -40,8 +41,8 @@ class SignInController extends GetxController {
   @override
   void dispose() {
     super.dispose();
-    emailController.dispose();
-    passwordController.dispose();
+    //emailController.dispose();
+    //passwordController.dispose();
 
     emailFocus.dispose();
     passwordFocus.dispose();
@@ -135,6 +136,7 @@ class SignInController extends GetxController {
      //set Tab index of the main screen and open dialog search
      await BottomBarController.instance.changeTabIndex(2);
      Get.offAllNamed(Routes.navigationScreen);
+     //await MainController.instance.getUsers();
      MessageSnackBar.successSnackBar(title: 'Successfully', message: result.message ?? 'Authentification initiée');
      debugPrint('data login : ${PrefUtils.getToken()} - ${PrefUtils.getEmail()} - ${PrefUtils.getId()} - ${PrefUtils.getUsername()}');
 
@@ -149,7 +151,7 @@ class SignInController extends GetxController {
      }
    } else {
      isDataProcessing.value = false;
-     MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? 'Erreur serveur');
+     MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? 'Error server');
    }
     }
     catch (exception) {
