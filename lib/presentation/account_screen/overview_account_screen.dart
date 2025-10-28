@@ -182,7 +182,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                                     overlayShape: const RoundSliderOverlayShape(overlayRadius: 20),
                                     valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
                                     valueIndicatorTextStyle: const TextStyle(
-                                      color: Colors.white,
+                                      color: TColors.primaryColorApp,
                                       fontSize: 14,
                                     ),
                                     showValueIndicator: ShowValueIndicator.always, // ✅ Toujours afficher label
@@ -224,7 +224,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                                     overlayShape: const RoundSliderOverlayShape(overlayRadius: 20),
                                     valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
                                     valueIndicatorTextStyle: const TextStyle(
-                                      color: Colors.white,
+                                      color: TColors.primaryColorApp,
                                       fontSize: 14,
                                     ),
                                     showValueIndicator: ShowValueIndicator.always, // ✅ Toujours afficher label
@@ -267,7 +267,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                                     overlayShape: const RoundSliderOverlayShape(overlayRadius: 20),
                                     valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
                                     valueIndicatorTextStyle: const TextStyle(
-                                      color: Colors.white,
+                                      color: TColors.primaryColorApp,
                                       fontSize: 14,
                                     ),
                                     showValueIndicator: ShowValueIndicator.always, // ✅ Toujours afficher label
@@ -449,15 +449,17 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                           SizedBox(height: TSizes.spaceBtwItems.v),
 
                           CustomDropDownCountry(
-                            hintText: "${'الدولة'.tr} *",
-                            items: PaysList.value,
+                            hintText: "${'state'.tr} *",
+                            items: controller.countriesList,
                             selectedValue: controller.selectedPays.value,
-                            //onChanged: (val) => controller.selectedPays.value = val,
+                            onChanged: (val) => controller.selectedPays.value = val,
+                          /*  items: PaysList.value,
+                            selectedValue: controller.selectedPays.value,
                              onChanged: (value) async {
                                controller.selectedPays.value = value;
                               controller.paysController.text = value.name!;
                               debugPrint('pays : ${controller.paysController.text}');
-                            },
+                            }, */
                             validator: (value) {
                               if (value == null) {
                                 return "الدولة إجباري";
@@ -535,7 +537,7 @@ class OverviewAccountScreen extends GetWidget<CreateAccountController> {
                                     rangeThumbShape: const RoundRangeSliderThumbShape(), // ✅ Pour 2 thumbs
                                     valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
                                     valueIndicatorTextStyle: const TextStyle(
-                                      color: Colors.white,
+                                      color: TColors.primaryColorApp,
                                       fontSize: 14,
                                     ),
                                     showValueIndicator: ShowValueIndicator.always,

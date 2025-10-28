@@ -5,14 +5,22 @@ import 'package:dating_app_bilhalal/data/models/media_model.dart';
 import 'package:dating_app_bilhalal/data/models/user_model.dart';
 import 'package:dating_app_bilhalal/data/repositories/media_repository.dart';
 import 'package:dating_app_bilhalal/data/repositories/profile_repository.dart';
+import 'package:dating_app_bilhalal/data/repositories/user_repository.dart';
 import 'package:flutter/foundation.dart';
 
 class ProfileDetailsController extends GetxController {
   static ProfileDetailsController get instance => Get.find();
 
   UserModel userModel  = Get.arguments['UserModel'] ?? UserModel.empty();
+  String userId = Get.arguments['UserId'] ?? '';
+  String mainProfile = Get.arguments['MainProfile'] ?? '';
+
+  RxString message = ''.obs;
+  final Rx<UserModel?> user = Rx<UserModel?>(null);
   final profileRepository = ProfileRepository();
+  final userRepository = UserRepository();
   RxBool isDataProcessing = false.obs;
+  RxBool isMediaProcessing = false.obs;
   ///Media
   final mediaRepository = MediaRepository();
   RxList<MediaModel> mediaList = <MediaModel>[].obs;
@@ -28,21 +36,56 @@ class ProfileDetailsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    debugPrint('Id of user onInit : : ${userModel.id ?? ''}');
+    debugPrint('userId : : $userId');
     //MessageSnackBar.customToast(message: 'Id of user onInit : ${userModel.id ?? ''}');
+    getUserById(userModel.id ?? '');
     getAllMediaByUserId(userModel.id ?? '');
   }
-  
+
   ///Methods
+  Future<void> getUserById(String userId) async {
+    try {
+      isDataProcessing.value = true;
+
+      //Check internet connection
+      final isConnected = await NetworkManager.instance.isConnected();
+      if(!isConnected) {
+        isDataProcessing.value = false;
+        MessageSnackBar.customToast(message: 'No Internet Connection');
+        return;
+      }
+
+      final result = await userRepository.getUserById(userId);
+
+      if (result.success) {
+        user.value = result.data;
+        //debugPrint('data login : ${user.value!.email} - ${user.value!.username} - ${user.value!.height} - ${user.value!.weight}');
+        ///MessageSnackBar.successSnackBar(title: 'تم', message: result.message ?? '');
+        isDataProcessing.value = false;
+        message.value = result.message ?? 'تم جلب البيانات';
+      } else {
+        MessageSnackBar.errorSnackBar(title: 'خطأ', message: result.message ?? 'An error occured');
+        isDataProcessing.value = false;
+        message.value = result.message ?? 'بينات المستخدم غير موجودة';
+      }
+    }
+    catch (exception) {
+      isDataProcessing.value = false;
+      debugPrint('Exception : ${exception.toString()}');
+      MessageSnackBar.errorSnackBar(title: 'Oh Snap!', message: exception.toString());
+    } finally {
+      isDataProcessing.value = false;
+    }
+  }
   /// Méthode pour récupérer les médias
   Future<void> getAllMediaByUserId(String userId) async {
     try {
       //MessageSnackBar.customToast(message: 'Id of user is $userId');
-      isDataProcessing.value = true;
+      isMediaProcessing.value = true;
 
       final isConnected = await NetworkManager.instance.isConnected();
       if (!isConnected) {
-        isDataProcessing.value = false;
+        isMediaProcessing.value = false;
         MessageSnackBar.customToast(message: 'Pas de connexion Internet');
         return;
       }
@@ -52,7 +95,7 @@ class ProfileDetailsController extends GetxController {
         return;
       }
 
-      final result = await mediaRepository.getAllMediaByUserId(userId: '16'); //'2975'
+      final result = await mediaRepository.getAllMediaByUserId(userId: '2975'); //'16'
       //final result = await mediaRepository.getAllMediaByUserId(userId: userModel.id ??'');
 
       if (result.success) {
@@ -63,8 +106,9 @@ class ProfileDetailsController extends GetxController {
       }
     } catch (e) {
       MessageSnackBar.errorSnackBar(title: 'خطأ', message: e.toString());
+      isMediaProcessing.value = false;
     } finally {
-      isDataProcessing.value = false;
+      isMediaProcessing.value = false;
     }
   }
 

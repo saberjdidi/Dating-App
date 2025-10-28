@@ -13,7 +13,7 @@ import 'package:dating_app_bilhalal/data/repositories/profile_repository.dart';
 import 'package:dating_app_bilhalal/widgets/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:dating_app_bilhalal/data/repositories/user_repository.dart';
 import 'hobbie_controller.dart';
 import 'user_owner_profile_controller.dart';
 
@@ -24,6 +24,7 @@ class EditProfileController extends GetxController {
 
   UserModel userInfo  = Get.arguments['UserInfo'] ?? UserModel.empty();
   final profileRepository = ProfileRepository();
+  final userRepository = UserRepository();
   RxBool isDataProcessing = false.obs;
 
   TextEditingController fullNameController = TextEditingController();
@@ -86,7 +87,7 @@ class EditProfileController extends GetxController {
   void onJobChanged(String value) {
     jobRemaining.value = 20 - value.length;
     if (value.length > 20) {
-      jobError.value = "الاسم الكامل لا يمكن أن يتجاوز 50 حرف.";
+      jobError.value = "الاسم الكامل لا يمكن أن يتجاوز 20 حرف.";
     } else {
       jobError.value = "";
     }
@@ -98,6 +99,7 @@ class EditProfileController extends GetxController {
     super.onInit();
     // Charger données de l’utilisateur
     getInformationUser();
+    //getCountries();
   }
 
   getInformationUser(){
@@ -221,7 +223,32 @@ class EditProfileController extends GetxController {
   } */
   ///Upload user profile end
 
+  ///Countries
+  final RxList<CountryModel> countriesList = <CountryModel>[].obs;
+  Future<void> getCountries() async {
+    try {
+      isDataProcessing.value = true;
 
+      final result = await userRepository.getCountries();
+
+      if (result.success && result.data != null) {
+        final apiCountries = result.data!;
+
+        countriesList
+          ..clear()
+          ..addAll(apiCountries);
+      } else {
+        MessageSnackBar.errorSnackBar(
+          title: "خطأ",
+          message: result.message ?? "فشل في جلب الدول",
+        );
+      }
+    } catch (e) {
+      MessageSnackBar.errorSnackBar(title: "خطأ", message: e.toString());
+    } finally {
+      isDataProcessing.value = false;
+    }
+  }
 
   Future<void> saveBtn() async {
     debugPrint('currentRangeValues start : ${currentRangeValues.value.start.round().toString()}');

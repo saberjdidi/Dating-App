@@ -64,6 +64,9 @@ final Map<String, String> ar = {
 // Network Error String
   "msg_network_err": "Network Error",
   "msg_something_went_wrong": "Something Went Wrong!",
+  "lbl_warning": "تنبيه",
+  "lbl_error": "خطأ",
+  "lbl_successfuly": "تم",
 
   // Validation Error String
   "err_msg_please_enter_valid_email": "Adresse e-mail est obligatoire",

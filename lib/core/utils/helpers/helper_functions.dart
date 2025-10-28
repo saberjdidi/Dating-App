@@ -165,7 +165,7 @@ class THelperFunctions {
       case 'أرمل':
         return 'widowed';
       default:
-        return 'other';
+        return '';
     }
   }
 
@@ -200,7 +200,7 @@ class THelperFunctions {
       case 'زواج سري دائم':
         return 'marriage';
       default:
-        return 'other';
+        return '';
     }
   }
 

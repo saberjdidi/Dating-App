@@ -65,6 +65,9 @@ final Map<String, String> en = {
 // Network Error String
   "msg_network_err": "Network Error",
   "msg_something_went_wrong": "Something Went Wrong!",
+  "lbl_warning": "Warning",
+  "lbl_error": "Error",
+  "lbl_successfuly": "Successfully",
 
   // Validation Error String
   "err_msg_please_enter_valid_email": "Email is required",

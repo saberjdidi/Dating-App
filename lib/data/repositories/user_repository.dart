@@ -40,6 +40,29 @@ class UserRepository {
     }
   }
 
+  ///Get User by id
+  Future<ApiResult<UserModel>> getUserById(String userId) async {
+    try {
+      final resp = await _client.get('${ApiConstants.user}/$userId');
+
+      if (resp.statusCode == HttpStatusCode.ok) {
+        final map = resp.data as Map<String, dynamic>;
+        final dataMap = map['data'] as Map<String, dynamic>?;
+        final userData = dataMap != null ? UserModel.fromJson(dataMap) : null;
+        return ApiResult(success: true, message: map['message'] as String?, data: userData);
+      } else {
+        final map = resp.data;
+        final msg = (map is Map && map['message'] != null) ? map['message'] : resp.statusMessage;
+        return ApiResult(success: false, message: msg?.toString());
+      }
+    } on DioException catch (e) {
+      String msg = HandleDioError.handleDioError(e);
+      return ApiResult(success: false, message: msg);
+    } catch (e) {
+      return ApiResult(success: false, message: e.toString());
+    }
+  }
+
   ///Get Countries localized
   Future<ApiResult<List<CountryModel>>> getCountries({int page = 1, int pageSize = 50}) async {
     try {

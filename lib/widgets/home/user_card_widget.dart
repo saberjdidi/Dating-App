@@ -48,7 +48,9 @@ class UserCardWidget extends StatelessWidget {
                 onTap: (){
                   //Navigator.of(context).push(MaterialPageRoute(builder: (context) => AnnonceDetailsScreen(model: model)));
                   Get.toNamed(Routes.profileDetailsScreen, arguments: {
-                    "UserModel" : user
+                    "UserModel" : user,
+                    "UserId": user.id,
+                    "MainProfile": user.mainProfile
                   });
                 },
               ),

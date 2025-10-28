@@ -170,11 +170,6 @@ class UserOwnerProfileScreen extends GetView<UserOwnerProfileController> {
                  } else {
                    filteredMedia = controller.mediaList; // tous
                  }
-
-                 if (filteredMedia.isEmpty) {
-                   return const Center(child: Text('لا توجد بيانات بعد'));
-                 }
-
                  // ✅ Vérifie si user est null avant d'y accéder
                  if (controller.user.value == null) {
                    return Center(child: Text("جارٍ تحميل الملف الشخصي...",

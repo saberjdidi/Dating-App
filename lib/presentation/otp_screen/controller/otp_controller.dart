@@ -1,6 +1,6 @@
 import 'package:dating_app_bilhalal/core/utils/image_constant.dart';
+import 'package:dating_app_bilhalal/core/utils/message_snackbar.dart';
 import 'package:dating_app_bilhalal/core/utils/popups/full_screen_loader.dart';
-import 'package:dating_app_bilhalal/core/utils/popups/message_snackbar.dart';
 import 'package:dating_app_bilhalal/core/utils/pref_utils.dart';
 import 'package:dating_app_bilhalal/data/repositories/auth_repository.dart';
 import 'package:dating_app_bilhalal/presentation/otp_screen/otp_success_screen.dart';
@@ -84,8 +84,8 @@ class OTPController extends GetxController with GetSingleTickerProviderStateMixi
         isOtpError.value = false;
         errorMessage.value = '';
         await PrefUtils.setOTP(otpCode.value);
-
-        MessageSnackBar.successSnackBar(title: 'تم التحقق بنجاح', message: result.message ?? '');
+        MessageSnackBar.successSnackBar(title: 'Successfully', message: result.message ?? 'تم التحقق بنجاح');
+        //MessageSnackBar.successSnackBar(title: 'تم التحقق بنجاح', message: result.message ?? '');
 
         Get.toNamed(Routes.resetPasswordScreen, arguments: {
           "OTP" : otpCode.value,

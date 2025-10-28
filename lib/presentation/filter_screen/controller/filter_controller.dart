@@ -143,7 +143,7 @@ class FilterController extends GetxController with WidgetsBindingObserver {
       final body = {
         "page": currentPage.value,
         "pageSize": pageSize,
-        "country": country,
+        "country": (country?.isEmpty ?? true) ? '' : country,
         "marriage_type": marriageType,
         "social_state": socialState,
         "minAge": minAge,
@@ -227,10 +227,11 @@ class FilterController extends GetxController with WidgetsBindingObserver {
     FullScreenLoader.openLoadingSearchDialog("نتائج البحث", "مطابقة الأشخاص مع متطلباتك",ImageConstant.imgLove, ImageConstant.imgLoves);
     //FullScreenLoader.openLoadingDialog('مطابقة الأشخاص مع متطلباتك..', ImageConstant.lottieTrophy);
 
+    final selectedIdCountry = (selectedPays.value?.id != null && selectedPays.value!.id!.isNotEmpty) ? selectedPays.value!.id : "";
+
     ///Using to send country name in english
-    final selectedCountry = selectedPays.value;
-    String? countryToSend;
-    if (selectedCountry != null) {
+    /*  String? countryToSend;
+     if (selectedCountry != null) {
       if (isArabe) {
         // Si arabe, on utilise englishName s’il existe, sinon name
         countryToSend = THelperFunctions.getCountryEnum(selectedCountry.name!) ?? selectedCountry.name;
@@ -238,7 +239,7 @@ class FilterController extends GetxController with WidgetsBindingObserver {
         // Si anglais, on garde le nom tel quel
         countryToSend = selectedCountry.name;
       }
-    }
+    } */
 
    await getUsers(
        minAge: currentRangeAgeValues.value.start.round(), maxAge: currentRangeAgeValues.value.end.round(),
@@ -246,7 +247,7 @@ class FilterController extends GetxController with WidgetsBindingObserver {
        minWeight: currentRangeWeightValues.value.start.round(), maxWeight: currentRangeWeightValues.value.end.round(),
        socialState: isArabe ? THelperFunctions.getSocialStateEnum(maritalStatusController.text) : maritalStatusController.text,
        marriageType: isArabe ? THelperFunctions.getMarriageTypeEnum(lookingForController.text) : lookingForController.text,
-       country: countryToSend,
+       country: selectedIdCountry, //countryToSend,
        //country: isArabe ? THelperFunctions.getCountryEnum(selectedPays.value!.name!) : selectedPays.value!.name,
      reset: true  //recommence la pagination à zero
    );

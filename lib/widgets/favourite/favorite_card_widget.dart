@@ -49,7 +49,9 @@ class FavoriteCardWidget extends StatelessWidget {
                 onTap: (){
                   //Navigator.of(context).push(MaterialPageRoute(builder: (context) => AnnonceDetailsScreen(model: model)));
                   Get.toNamed(Routes.profileDetailsScreen, arguments: {
-                    "UserModel" : user
+                    "UserModel" : user,
+                    "UserId": user!.like!.likedUser ?? '',
+                    "MainProfile": user!.target!.mainProfile ?? ''
                   });
                 },
               ),

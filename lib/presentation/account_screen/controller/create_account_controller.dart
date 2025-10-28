@@ -7,18 +7,22 @@ import 'package:dating_app_bilhalal/data/models/country_model.dart';
 import 'package:dating_app_bilhalal/data/models/selection_popup_model.dart';
 import 'package:dating_app_bilhalal/data/repositories/media_repository.dart';
 import 'package:dating_app_bilhalal/data/repositories/profile_repository.dart';
+import 'package:dating_app_bilhalal/data/repositories/user_repository.dart';
 import 'package:dating_app_bilhalal/widgets/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CreateAccountController extends GetxController {
+  static CreateAccountController get instance => Get.find();
   RxInt currentIndexStepper = 0.obs;
   var isRTL = true.obs;
+  var isArabe = PrefUtils.getLangue() == 'ar';
 
   final GlobalKey<FormState> formCreateAccountKey = GlobalKey<FormState>();
   final GlobalKey<FormState> formOverviewAccountKey = GlobalKey<FormState>();
   final ProfileRepository profileRepository = ProfileRepository();
   final MediaRepository mediaRepository = MediaRepository();
+  final userRepository = UserRepository();
   RxBool isDataProcessing = false.obs;
 
   ///ImStepper
@@ -145,6 +149,7 @@ class CreateAccountController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    getCountries();
   }
 
   @override
@@ -231,6 +236,33 @@ class CreateAccountController extends GetxController {
   } */
   ///Upload user profile end
 
+  ///Countries
+  final RxList<CountryModel> countriesList = <CountryModel>[].obs;
+  Future<void> getCountries() async {
+    try {
+      isDataProcessing.value = true;
+
+      final result = await userRepository.getCountries();
+
+      if (result.success && result.data != null) {
+        final apiCountries = result.data!;
+
+        countriesList
+          ..clear()
+          ..addAll(apiCountries);
+      } else {
+        MessageSnackBar.errorSnackBar(
+          title: "خطأ",
+          message: result.message ?? "فشل في جلب الدول",
+        );
+      }
+    } catch (e) {
+      MessageSnackBar.errorSnackBar(title: "خطأ", message: e.toString());
+    } finally {
+      isDataProcessing.value = false;
+    }
+  }
+
 
   Future<void> createAccount() async {
     try {
@@ -289,7 +321,7 @@ class CreateAccountController extends GetxController {
         jobTitle: jobController.text.trim(),
         salaryRangeMin: currentRangeValues.value.start.round().toString(),
         salaryRangeMax: currentRangeValues.value.end.round().toString(),
-        country: paysController.text.trim(), //THelperFunctions.getCountryEnum(paysController.text),
+        country: selectedPays.value != null ? selectedPays.value!.id! : '',//paysController.text.trim(), //THelperFunctions.getCountryEnum(paysController.text),
         skinColor: selectedColor.value, // ✅ couleur sélectionnée //"Tan"//selectedColor.value
         hobbies: hobbiesInEnglish, // ✅ envoyé en anglais
       );

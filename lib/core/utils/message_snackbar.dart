@@ -3,6 +3,7 @@ import 'package:iconsax/iconsax.dart';
 import '../app_export.dart';
 
 class MessageSnackBar {
+
   static void customSnackBar(
       String message,
       String? nameErrorOrWarning,
@@ -61,7 +62,7 @@ class MessageSnackBar {
 
   static  successSnackBar({required title, message = '', duration = 3}) {
     Get.snackbar(
-        title,
+        'lbl_successfuly'.tr, //title,
         message,
         isDismissible: true,
         shouldIconPulse: true,
@@ -76,7 +77,7 @@ class MessageSnackBar {
 
   static  warningSnackBar({required title, message = ''}) {
     Get.snackbar(
-        title,
+        'lbl_warning'.tr,//title,
         message,
         isDismissible: true,
         shouldIconPulse: true,
@@ -91,7 +92,7 @@ class MessageSnackBar {
 
   static  errorSnackBar({required title, message = ''}) {
     Get.snackbar(
-        title,
+        'lbl_error'.tr, //title,
         message,
         isDismissible: true,
         shouldIconPulse: true,
@@ -132,34 +133,6 @@ class MessageSnackBar {
     );
   }
 
-  static  informationToastBlue({required title, message = '', duration = 3, SnackPosition? position}) {
-    Get.snackbar(
-        title,
-        titleText:Text(title, style: TextStyle(color: TColors.white, fontWeight: FontWeight.bold),),
-        message,
-        messageText: Text(message, style: TextStyle(color: TColors.lightGrey, fontSize: 14.adaptSize),),
-        isDismissible: true,
-        shouldIconPulse: true,
-        colorText: TColors.white,
-        backgroundColor: TColors.blueLight700,
-        snackPosition: position ?? SnackPosition.BOTTOM,
-        duration: Duration(seconds: duration),
-        margin: EdgeInsets.all(10.hw),
-        padding: EdgeInsets.all(5.hw),
-        borderRadius: 40.adaptSize,
-        icon: Padding(
-          padding: EdgeInsets.only(left: 5.v, right: 5.v),
-          child: CircleAvatar(
-            backgroundColor: TColors.colorActiveIconBottomBar,
-            child: Icon(Icons.info_outline, color: TColors.white),
-          ),
-        ),
-        mainButton: TextButton(onPressed: (){
-          Get.back();
-        }, child: Icon(Icons.close, color: TColors.white))
-    );
-  }
-
   static  successToast({required title, message = '', duration = 3, SnackPosition? position}) {
     Get.snackbar(
         title,
@@ -185,34 +158,6 @@ class MessageSnackBar {
         mainButton: TextButton(onPressed: (){
           Get.back();
         }, child: Icon(Icons.close, color: TColors.gray700))
-    );
-  }
-
-  static  successToastEnchere({required title, message = '', duration = 3, SnackPosition? position}) {
-    Get.snackbar(
-        title,
-        titleText:Text(title, style: TextStyle(color: TColors.white, fontWeight: FontWeight.bold),),
-        message,
-        messageText: Text(message, style: TextStyle(color: TColors.white, fontSize: 14.adaptSize),),
-        isDismissible: true,
-        shouldIconPulse: true,
-        colorText: TColors.white,
-        backgroundColor: TColors.green,
-        snackPosition: position ?? SnackPosition.BOTTOM,
-        duration: Duration(seconds: duration),
-        margin: EdgeInsets.all(10.hw),
-        padding: EdgeInsets.all(5.hw),
-        borderRadius: 40.adaptSize,
-        icon: Padding(
-          padding: EdgeInsets.only(left: 5.v, right: 5.v),
-          child: CircleAvatar(
-            backgroundColor: Color(0xFF0E9F6E),
-            child: Icon(Icons.info_outline, color: TColors.white),
-          ),
-        ),
-        mainButton: TextButton(onPressed: (){
-          Get.back();
-        }, child: Icon(Icons.close, color: TColors.white))
     );
   }
 

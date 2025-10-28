@@ -277,8 +277,8 @@ class Dialogs {
         backgroundColor: _appTheme =='light' ? Colors.white : TColors.darkerGrey,
 
         child: SizedBox(
-          height: 150, // fixe la hauteur de ton popup
-          width: double.infinity,
+          height: 120, // fixe la hauteur de ton popup
+          width: double.infinity, 
           child: Padding(
             padding: EdgeInsets.all(18.hw),
             child: SingleChildScrollView(
@@ -394,7 +394,9 @@ class Dialogs {
                           GestureDetector(
                             onTap: (){
                               Get.toNamed(Routes.profileDetailsScreen, arguments: {
-                                "UserModel" : user
+                                "UserModel" : user,
+                                "UserId": user.id,
+                                "MainProfile": user.mainProfile
                               });
                             },
                             child: Row(

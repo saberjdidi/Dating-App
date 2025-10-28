@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:math';
-
 import 'package:dating_app_bilhalal/core/app_export.dart';
 import 'package:dating_app_bilhalal/core/utils/network_manager.dart';
 import 'package:dating_app_bilhalal/core/utils/popups/search_dating.dart';
@@ -16,6 +15,7 @@ class MainController extends GetxController with WidgetsBindingObserver {
 
   final RxList<UserModel> users = <UserModel>[].obs;
   var selectedCountries = <String>[].obs;
+  var idsCountries = <String>[].obs;
 
   //Card Swiper
   final CardSwiperController swiperController = CardSwiperController();
@@ -137,15 +137,14 @@ class MainController extends GetxController with WidgetsBindingObserver {
     } else {
       final isArabe = PrefUtils.getLangue() == 'ar';
 
-      // 🔁 Conversion si langue arabe
-      final countriesToSend = isArabe
+      await getUsers(countries: idsCountries);
+
+      // 🔁 Conversion si langue arabe when country name
+    /*  final countriesToSend = isArabe
           ? selectedCountries.map((c) => THelperFunctions.getCountryEnum(c)).toList()
           : selectedCountries;
+      await getUsers(countries: countriesToSend); */
 
-      await getUsers(countries: countriesToSend);
-
-      /// select without convert language
-      //await getUsers(countries: selectedCountries);
     }
   }
   /* toggleCountry(String countryName) {
@@ -157,6 +156,54 @@ class MainController extends GetxController with WidgetsBindingObserver {
   } */
   /// Sélectionne / désélectionne un pays
   void toggleCountry(String countryName) {
+    // Trouver le modèle du pays correspondant
+    final country = countriesList.firstWhereOrNull((c) => c.name == countryName);
+
+    if (countryName == "الکل") {
+      if (selectedCountries.contains("الکل")) {
+        // Désélectionner tout
+        selectedCountries.clear();
+        idsCountries.clear();
+      } else {
+        // Sélectionner tous les pays sauf "الکل"
+        selectedCountries.assignAll(countriesList.map((c) => c.name!).toList());
+        idsCountries.assignAll(
+          countriesList
+              .where((c) => c.name != "الکل")
+              .map((c) => c.id!)
+              .toList(),
+        );
+      }
+    } else {
+      if (selectedCountries.contains(countryName)) {
+        // Désélectionner ce pays
+        selectedCountries.remove(countryName);
+        idsCountries.remove(country?.id);
+
+        // Si "الکل" était sélectionné → le retirer
+        selectedCountries.remove("الکل");
+      } else {
+        // Ajouter ce pays
+        selectedCountries.add(countryName);
+        if (country != null && country.id != null) {
+          idsCountries.add(country.id!);
+        }
+
+        // Vérifier si tous les pays sont sélectionnés
+        final allExceptAllCountry = countriesList.where((c) => c.name != "الکل").toList();
+        if (selectedCountries.length == allExceptAllCountry.length &&
+            !selectedCountries.contains("الکل")) {
+          selectedCountries.add("الکل");
+        }
+      }
+    }
+
+    // Debug facultatif
+    debugPrint('selectedCountries: $selectedCountries');
+    debugPrint('idsCountries: $idsCountries');
+  }
+
+ /* void toggleCountry(String countryName) {
     // Si on clique sur "الکل"
     if (countryName == "الکل") {
       if (selectedCountries.contains("الکل")) {
@@ -183,7 +230,7 @@ class MainController extends GetxController with WidgetsBindingObserver {
         }
       }
     }
-  }
+  } */
 
   //titre qui sera affiché dans la bottom navigation bar
   var selectedCountryTitle = "الکل".obs;

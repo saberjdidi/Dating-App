@@ -87,8 +87,8 @@ class ProfileRepository {
       if (resp.statusCode == HttpStatusCode.ok) {
         final map = resp.data as Map<String, dynamic>;
         final dataMap = map['data'] as Map<String, dynamic>?;
-        final authData = dataMap != null ? UserModel.fromJson(dataMap) : null;
-        return ApiResult(success: true, message: map['message'] as String?, data: authData);
+        final userData = dataMap != null ? UserModel.fromJson(dataMap) : null;
+        return ApiResult(success: true, message: map['message'] as String?, data: userData);
       } else {
         // backend retourne 4xx avec message dans body
         final map = resp.data;

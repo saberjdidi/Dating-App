@@ -452,7 +452,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                       overlayShape: const RoundSliderOverlayShape(overlayRadius: 20),
                       valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
                       valueIndicatorTextStyle: const TextStyle(
-                        color: Colors.white,
+                        color: TColors.primaryColorApp,
                         fontSize: 14,
                       ),
                       showValueIndicator: ShowValueIndicator.always, // ✅ Toujours afficher label
@@ -494,7 +494,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                       overlayShape: const RoundSliderOverlayShape(overlayRadius: 20),
                       valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
                       valueIndicatorTextStyle: const TextStyle(
-                        color: Colors.white,
+                        color: TColors.primaryColorApp,
                         fontSize: 14,
                       ),
                       showValueIndicator: ShowValueIndicator.always, // ✅ Toujours afficher label
@@ -536,7 +536,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                       overlayShape: const RoundSliderOverlayShape(overlayRadius: 20),
                       valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
                       valueIndicatorTextStyle: const TextStyle(
-                        color: Colors.white,
+                        color: TColors.primaryColorApp,
                         fontSize: 14,
                       ),
                       showValueIndicator: ShowValueIndicator.always, // ✅ Toujours afficher label
@@ -668,15 +668,16 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
             SizedBox(height: TSizes.spaceBtwItems.v),
 
             CustomDropDownCountry(
-              hintText: "${'الدولة'.tr} *",
-              items: PaysList.value,
+              hintText: "${'state'.tr} *",
+              items: controller.countriesList,
               selectedValue: controller.selectedPays.value,
-              //onChanged: (val) => controller.selectedPays.value = val,
+              onChanged: (val) => controller.selectedPays.value = val,
+              /* selectedValue: controller.selectedPays.value,
               onChanged: (value) async {
                 controller.selectedPays.value = value;
                 controller.paysController.text = value.name!;
                 debugPrint('pays : ${controller.paysController.text}');
-              },
+              }, */
               focusNode: controller.paysFocus,
               icon: Icon(Iconsax.arrow_down_1),
               borderRadius: 15.hw,
@@ -730,7 +731,7 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                       rangeThumbShape: const RoundRangeSliderThumbShape(), // ✅ Pour 2 thumbs
                       valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
                       valueIndicatorTextStyle: const TextStyle(
-                        color: Colors.white,
+                        color: TColors.primaryColorApp,
                         fontSize: 14,
                       ),
                       showValueIndicator: ShowValueIndicator.always,
@@ -857,62 +858,150 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
     var isSmallPhone = screenWidth < 360;
     var isTablet = screenWidth >= 600;
 
-    return Obx(() => Column(
-        //crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          SizedBox(height: TSizes.spaceBtwItems.v),
-          Align(
-              alignment: Alignment.topRight,
-              child: TitleWidget(title: "أضف صورة الملف الشخصي/الفيديو".tr,
-                  color:  _appTheme =='light' ? TColors.black : TColors.primaryColorApp,
-                textAlign: TextAlign.end,
-              )
-          ),
-          Align(
-              alignment: Alignment.topRight,
-              child: SubTitleWidget(subtitle: "قم برفع صورتك الشخصية، وسيتم عرضها كصورة لملفك الشخصي.".tr,
-                  color:  _appTheme =='light' ? TColors.gray700 : TColors.white,
-                textAlign: TextAlign.end,)
-          ),
-
-          SizedBox(height: TSizes.spaceBtwSections.v),
-
-          if(controller.selectedMedia.length == null || controller.selectedMedia.isEmpty)
-            TRoundedContainer(
-              showBorder: false,
-              backgroundColor: TColors.white,
-              borderColor: TColors.greyDating,
-              radius: 12,
-              padding: EdgeInsets.all(1),
-              child: CustomImageView(
-                imagePath: ImageConstant.uploadImage,
-                height: 300.adaptSize,
-                width: 220.adaptSize,
-                fit: BoxFit.fill,
-                onTap: () async {
-                  await controller.pickMedia();
-                },
-              ),
+    return Obx(() => Directionality(
+      textDirection: TextDirection.ltr,
+      child: Column(
+          //crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            SizedBox(height: TSizes.spaceBtwItems.v),
+            Align(
+                alignment: Alignment.topRight,
+                child: TitleWidget(title: "أضف صورة الملف الشخصي/الفيديو".tr,
+                    color:  _appTheme =='light' ? TColors.black : TColors.primaryColorApp,
+                  textAlign: TextAlign.end,
+                )
             ),
-          // Grid avec Upload Button + Images sélectionnées
-          if(controller.selectedMedia.length != [] && controller.selectedMedia.isNotEmpty)
-            Directionality(
-              textDirection: TextDirection.rtl,
-              child: GridLayout(
-                itemCount: controller.selectedMedia.length + 1, // +1 pour l'upload
-                mainAxisExtent: isTablet ? 200.adaptSize : 150.adaptSize,
-                crossAxisCount: 3,
-                itemBuilder: (context, index) {
-                  if (index == 0) {
-                    // L'icône upload
-                    return TRoundedContainer(
-                      showBorder: false,
-                      backgroundColor: TColors.white,
-                      borderColor: TColors.greyDating,
-                      radius: 12,
-                      padding: EdgeInsets.all(1),
-                      child: CustomImageView(
-                        imagePath: ImageConstant.uploadImage,
+            SizedBox(height: 10.v,),
+            Align(
+                alignment: Alignment.topRight,
+                child: SubTitle2Widget(subtitle: "قم برفع صورتك الشخصية، وسيتم عرضها كصورة لملفك الشخصي.".tr,
+                    color:  _appTheme =='light' ? TColors.gray700 : TColors.white,
+                  textAlign: TextAlign.end, maxLine: 3,)
+            ),
+
+            SizedBox(height: TSizes.spaceBtwSections.v),
+
+            if(controller.selectedMedia.length == null || controller.selectedMedia.isEmpty)
+              TRoundedContainer(
+                showBorder: false,
+                backgroundColor: TColors.white,
+                borderColor: TColors.greyDating,
+                radius: 12,
+                padding: EdgeInsets.all(1),
+                child: CustomImageView(
+                  imagePath: ImageConstant.uploadImage,
+                  height: 320.adaptSize,
+                  width: 240.adaptSize,
+                  fit: BoxFit.fill,
+                  onTap: () async {
+                    await controller.pickMedia();
+                  },
+                ),
+              ),
+            // Grid avec Upload Button + Images sélectionnées
+            if(controller.selectedMedia.length != [] && controller.selectedMedia.isNotEmpty)
+              Directionality(
+                textDirection: TextDirection.rtl,
+                child: GridLayout(
+                  itemCount: controller.selectedMedia.length + 1, // +1 pour l'upload
+                  mainAxisExtent: isTablet ? 200.adaptSize : 150.adaptSize,
+                  crossAxisCount: 3,
+                  itemBuilder: (context, index) {
+                    if (index == 0) {
+                      // L'icône upload
+                      return TRoundedContainer(
+                        showBorder: false,
+                        backgroundColor: TColors.white,
+                        borderColor: TColors.greyDating,
+                        radius: 12,
+                        padding: EdgeInsets.all(1),
+                        child: CustomImageView(
+                          imagePath: ImageConstant.uploadImage,
+                          height: 100.adaptSize,
+                          width: 100.adaptSize,
+                          fit: BoxFit.fill,
+                          onTap: () async {
+                            await controller.pickMedia();
+                          },
+                        ),
+                      );
+                    } else {
+                      final file = controller.selectedMedia[index - 1]; // -1 car le 1er est upload
+                      return TRoundedContainer(
+                        showBorder: true,
+                        backgroundColor: TColors.white,
+                        borderColor: TColors.greyDating,
+                        radius: 12,
+                        padding: EdgeInsets.all(1),
+                        child: Stack(
+                          children: [
+                            // Utiliser CustomImageView au lieu de Image.file
+                            CustomImageView(
+                              file: file,
+                              imagePath: null,
+                              //imagePath: file.path, // très important: .path car File
+                              height: Get.height,
+                              width: Get.width,
+                              fit: BoxFit.cover,
+                              radius: BorderRadius.circular(10),
+                            ),
+                            Positioned(
+                              right: 0,
+                              child: CustomImageView(
+                                imagePath: ImageConstant.removeImage,
+                                width: 30.adaptSize,
+                                height: 30.adaptSize,
+                                radius: BorderRadius.circular(30.adaptSize),
+                                fit: BoxFit.cover,
+                                onTap: (){
+                                  controller.removeMedia(index - 1);
+                                },
+                              ),
+                             /* child: CircularContainer(
+                                width: 35.adaptSize,
+                                height: 35.adaptSize,
+                                radius: 35.adaptSize,
+                                backgroundColor: TColors.lightGrey,
+                                child: IconButton(
+                                  icon: Icon(Icons.close, color: Colors.red, size: 15.adaptSize,),
+                                  onPressed: () => controller.removeMedia(index - 1),
+                                ),
+                              ), */
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ),
+          /*
+            CustomImageView(
+              imagePath: ImageConstant.uploadImage,
+              height: 100.adaptSize,
+              width: 100.adaptSize,
+              fit: BoxFit.fill,
+              onTap: () async {
+               await controller.pickMedia();
+              },
+            ),
+            GridLayout(
+              itemCount: controller.selectedMedia.length,
+              itemBuilder: (context, index) {
+                final file = controller.selectedMedia[index];
+                return TRoundedContainer(
+                  //height: isTablet ? 20.hw : 52.hw,
+                  //width: isTablet ? 20.hw : 52.hw,
+                  //margin: EdgeInsets.only(top: 5),
+                  showBorder: true,
+                  backgroundColor: TColors.white,
+                  borderColor: TColors.gray700,
+                  radius: 12,
+                  padding: EdgeInsets.all(10),
+                  child: Stack(
+                    children: [
+                      CustomImageView(
+                        imagePath: file.path,
                         height: 100.adaptSize,
                         width: 100.adaptSize,
                         fit: BoxFit.fill,
@@ -920,112 +1009,28 @@ class CreateAccountScreen extends GetWidget<CreateAccountController> {
                           await controller.pickMedia();
                         },
                       ),
-                    );
-                  } else {
-                    final file = controller.selectedMedia[index - 1]; // -1 car le 1er est upload
-                    return TRoundedContainer(
-                      showBorder: true,
-                      backgroundColor: TColors.white,
-                      borderColor: TColors.greyDating,
-                      radius: 12,
-                      padding: EdgeInsets.all(1),
-                      child: Stack(
-                        children: [
-                          // Utiliser CustomImageView au lieu de Image.file
-                          CustomImageView(
-                            file: file,
-                            imagePath: null,
-                            //imagePath: file.path, // très important: .path car File
-                            height: Get.height,
-                            width: Get.width,
-                            fit: BoxFit.cover,
-                            radius: BorderRadius.circular(10),
+                      Image.file(file, fit: BoxFit.cover),
+                      Positioned(
+                        right: 0,
+                        child:CircularContainer(
+                          width: 50.adaptSize,
+                          height: 50.adaptSize,
+                          radius: 50.adaptSize,
+                          backgroundColor: TColors.greyDating,
+                          child: IconButton(
+                            icon: const Icon(Icons.close, color: Colors.red),
+                            onPressed: () => controller.removeMedia(index),
                           ),
-                          Positioned(
-                            right: 0,
-                            child: CustomImageView(
-                              imagePath: ImageConstant.removeImage,
-                              width: 30.adaptSize,
-                              height: 30.adaptSize,
-                              radius: BorderRadius.circular(30.adaptSize),
-                              fit: BoxFit.cover,
-                              onTap: (){
-                                controller.removeMedia(index - 1);
-                              },
-                            ),
-                           /* child: CircularContainer(
-                              width: 35.adaptSize,
-                              height: 35.adaptSize,
-                              radius: 35.adaptSize,
-                              backgroundColor: TColors.lightGrey,
-                              child: IconButton(
-                                icon: Icon(Icons.close, color: Colors.red, size: 15.adaptSize,),
-                                onPressed: () => controller.removeMedia(index - 1),
-                              ),
-                            ), */
-                          ),
-                        ],
-                      ),
-                    );
-                  }
-                },
-              ),
-            ),
-        /*
-          CustomImageView(
-            imagePath: ImageConstant.uploadImage,
-            height: 100.adaptSize,
-            width: 100.adaptSize,
-            fit: BoxFit.fill,
-            onTap: () async {
-             await controller.pickMedia();
-            },
-          ),
-          GridLayout(
-            itemCount: controller.selectedMedia.length,
-            itemBuilder: (context, index) {
-              final file = controller.selectedMedia[index];
-              return TRoundedContainer(
-                //height: isTablet ? 20.hw : 52.hw,
-                //width: isTablet ? 20.hw : 52.hw,
-                //margin: EdgeInsets.only(top: 5),
-                showBorder: true,
-                backgroundColor: TColors.white,
-                borderColor: TColors.gray700,
-                radius: 12,
-                padding: EdgeInsets.all(10),
-                child: Stack(
-                  children: [
-                    CustomImageView(
-                      imagePath: file.path,
-                      height: 100.adaptSize,
-                      width: 100.adaptSize,
-                      fit: BoxFit.fill,
-                      onTap: () async {
-                        await controller.pickMedia();
-                      },
-                    ),
-                    Image.file(file, fit: BoxFit.cover),
-                    Positioned(
-                      right: 0,
-                      child:CircularContainer(
-                        width: 50.adaptSize,
-                        height: 50.adaptSize,
-                        radius: 50.adaptSize,
-                        backgroundColor: TColors.greyDating,
-                        child: IconButton(
-                          icon: const Icon(Icons.close, color: Colors.red),
-                          onPressed: () => controller.removeMedia(index),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          )
-          */
-        ]
+                    ],
+                  ),
+                );
+              },
+            )
+            */
+          ]
+      ),
     ));
   }
 
